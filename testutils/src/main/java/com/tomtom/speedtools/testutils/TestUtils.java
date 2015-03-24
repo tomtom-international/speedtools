@@ -28,17 +28,17 @@ import java.util.concurrent.atomic.AtomicInteger;
 /**
  * This class is a simple utility class for unit tests.  <strong>Important note on the format of the unit tests for
  * the domain model:</strong>
- * <p/>
+ *
  * The code for the unit tests may look a bit odd at first glance, but a clear structure
  * has been used to produce them:
- * <p/>
+ *
  * For every class, an 'empty as possible' object 'x' is made (as private final).
  * Object 'x' is constructed from a number of parameters (say N), which are always called x1..xN. The objects x1..xN are
  * constructed before 'x'. This object contains null values and empty collections wherever possible.
- * <p/>
+ *
  * Next to 'x', a non-empty object 'y' is created in the @Before clause of the JUnit test case. The object 'y' is
  * constructed from parameters y1..yN, which are constructed before 'y'.
- * <p/>
+ *
  * For every getXXX and withXXX function, the following pattern is used (for example, for getId, which would be the 1st
  * parameter of a constructor of the object under test):
  * <pre>

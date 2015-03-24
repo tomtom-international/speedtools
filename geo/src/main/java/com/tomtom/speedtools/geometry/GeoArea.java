@@ -23,7 +23,7 @@ import java.util.Collection;
 
 /**
  * A geo area is an expression which has the following format:
- * <p/>
+ *
  * <pre>
  *     GeoArea      := Primitive
  *                  |  Inverse
@@ -41,21 +41,21 @@ import java.util.Collection;
  *
  *     Intersection := intersect(GeoArea, GeoArea)
  * </pre>
- * <p/>
+ *
  * Primitives are specified using GeoPoint objects, which can contain latitude/longitude values. As latitudes/longitudes
  * do not project easily to a Carthesian coordinates, the operations for union, intersect, contains, etc. are subject to
  * the following known restrictions:
- * <p/>
+ *
  * They are only accurate for relatively small areas, such as 200x200km.
- * <p/>
+ *
  * They are may do NOT work properly around the 180th degree longitude (http://en.wikipedia.org/wiki/180th_meridian).
- * <p/>
+ *
  * Definitions of operators:
- * <p/>
+ *
  * Union({1, 2, 3}, {3, 4, 5}) == {1, 2, 3, 4, 5}
- * <p/>
+ *
  * Difference({ 1, 2, 3}, {3, 4, 5}) == {1, 2}
- * <p/>
+ *
  * Intersection({ 1, 2, 3}, {3, 4, 5}) == {3}
  */
 @Immutable
@@ -121,10 +121,10 @@ public abstract class GeoArea extends GeoObject {
     /**
      * Returns whether 'this' geo area overlaps with another geo area. Area B overlaps with A if there are points within
      * B that are als contained in A.
-     * <p/>
+     *
      * Note that this may be an approximation! For example, 2 circles close together may return overlap=true where they
      * actually do not really overlap.
-     * <p/>
+     *
      * Overlap is symmetric: a.overlap(b) == b.overlaps(a).
      */
     public abstract boolean overlaps(@Nonnull final GeoArea area);
@@ -132,7 +132,7 @@ public abstract class GeoArea extends GeoObject {
     /**
      * Returns whether another geo area is fully contained within 'this' geo area. Area B is contained within A if all
      * points that are contained in B are also contained in A.
-     * <p/>
+     *
      * The following holds: a.contains(b) AND b.contains(a) iff a.equals(b)
      */
     public abstract boolean contains(@Nonnull final GeoArea area);
@@ -156,10 +156,10 @@ public abstract class GeoArea extends GeoObject {
     /**
      * Return a flat list of GeoRectangles that approximate the shape of the GeoArea, much like pixelation of a shape.
      * The resolution of the pixelation is fixed. The individual rectangles may or may not overlap.
-     * <p/>
+     *
      * The individual "pixels" (GeoRectangles) are never "wrapped", meaning their south-west longitude is always &lt;=
      * north-east longitude.
-     * <p/>
+     *
      * Wrapped shapes in the area will be divided into separate GeoRectangles by this function. This makes it easier
      * for, for example, database to execute queries on them.
      *
@@ -192,7 +192,7 @@ public abstract class GeoArea extends GeoObject {
     /**
      * Return an optimized version of 'this' geo area. For example, if an expression consists of 2 unioned rectangles A
      * and B, and B is fully contained within A, then the flattened version of 'this' would be A.
-     * <p/>
+     *
      * Note that the implementation of flatten is not REQUIRED to produce an optimized expression. It IS required to
      * produce an expression with exactly the same geo characteristics though.
      *

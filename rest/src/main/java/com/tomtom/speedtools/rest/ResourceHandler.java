@@ -40,7 +40,7 @@ public abstract class ResourceHandler {
 
     /**
      * The process call calls the actual processor.
-     * <p/>
+     *
      * Note that actual implementations of resource handlers should specify the &gt;?&lt; type parameter of the
      * Future to
      * match the specific response type.

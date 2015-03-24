@@ -22,9 +22,9 @@ import javax.annotation.Nullable;
 
 /**
  * Binary expression: Union.
- * <p/>
+ *
  * Note: This class is package private.
- * <p/>
+ *
  * Constructor: {@link #Union}
  */
 @Immutable
@@ -33,11 +33,11 @@ final class Union extends BinaryExpr {
     /**
      * Create the union geo area between the left and right operand. This is sum of the left geo area and the right geo
      * area.
-     * <p/>
+     *
      * For example (in numbers):
-     * <p/>
+     *
      * Union({1, 2, 3}, {3, 4, 5}) == {1, 2, 3, 4, 5}
-     * <p/>
+     *
      * If left == Nil, the result is always right. If right == Nil, the result is always left.
      *
      * @param opLeft  Left operand.

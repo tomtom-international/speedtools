@@ -51,7 +51,7 @@ import static java.util.Arrays.copyOfRange;
 /**
  * Connector that is able to push messages for IOS devices Apple Push Notification Service. This should be a singleton
  * in the context of a single thread because it maintains state.
- * <p/>
+ *
  * See also
  * http://developer.apple.com/library/mac/documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/Chapters/ApplePushService.html
  */

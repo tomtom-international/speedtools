@@ -35,7 +35,7 @@ import static com.tomtom.speedtools.utils.StringUtils.trim;
 
 /**
  * This class defines individual geocoding results in a TomTom LBS Geocoding response.
- * <p/>
+ *
  * See {@link GeoCodeEngine}.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)

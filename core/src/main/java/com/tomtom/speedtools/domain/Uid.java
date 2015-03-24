@@ -29,10 +29,10 @@ import com.tomtom.speedtools.utils.MathUtils;
  * Generic Unique ID class, immutable. Basically just an abstraction of UUIDs. Used to unique identify... well,
  * anything, really. No 2 Uid objects shall be equal unless they are the same instance of the Uid class or their
  * underlying UUIDs are equal.
- * <p/>
+ *
  * Note that type parameter T is not actually used by this class. It just serves to model type-safe references in model
  * code.
- * <p/>
+ *
  * Note also that this class represents UUID as a String internally, to avoid loads of UUID to String conversions all
  * the time.
  */

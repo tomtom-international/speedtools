@@ -28,7 +28,7 @@ import com.tomtom.speedtools.geometry.GeoPoint;
 
 /**
  * This interface wraps the TomTom LBS Geocoding functionality, found at http://lbs.tomtom.com.
- * <p/>
+ *
  * The interface is set up to return Futures, because calculating a routing is a pretty lengthy operation, so an
  * asynchronous interface makes sense.
  */

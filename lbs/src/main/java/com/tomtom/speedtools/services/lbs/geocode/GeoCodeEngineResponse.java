@@ -39,7 +39,7 @@ import static com.tomtom.speedtools.utils.StringUtils.trim;
 
 /**
  * This class defines a top-level TomTom LBS Geocoding response.
- * <p/>
+ *
  * See {@link GeoCodeEngine}.
  */
 @XmlRootElement(name = "geoResponse")

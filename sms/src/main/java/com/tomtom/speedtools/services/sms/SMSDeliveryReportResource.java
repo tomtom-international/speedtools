@@ -41,7 +41,7 @@ public interface SMSDeliveryReportResource {
 
     /**
      * This operation sends a delivery report to the registered listener.
-     * <p/>
+     *
      * Return HTTP status code 200.
      *
      * @param provider The provider that this report pertains to.

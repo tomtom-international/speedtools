@@ -27,7 +27,7 @@ import com.tomtom.speedtools.utils.MathUtils;
 
 /**
  * Represents a rectangle.
- * <p/>
+ *
  * Constructor: {@link #GeoRectangle}
  */
 @Immutable

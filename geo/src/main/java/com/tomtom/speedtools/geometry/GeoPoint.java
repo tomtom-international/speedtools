@@ -24,7 +24,7 @@ import com.tomtom.speedtools.utils.MathUtils;
 
 /**
  * Geometric point. A geometric point is specified in latitude, longitude.
- * <p/>
+ *
  * Constructor: {@link #GeoPoint}
  */
 @Immutable

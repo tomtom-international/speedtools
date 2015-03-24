@@ -44,16 +44,16 @@ import static org.mockito.Mockito.mock;
  * indicated) is null an {@code AssertionError} or an {@code IllegalArgumentException} is thrown.  <p>All parameters
  * are assumed to be checked for nullity. If that isn't so, the indexes of the nullable parameters has to be given in a
  * array of integers.</p>
- * <p/>
+ *
  * The strategy used is the following:
- * <p/>
+ *
  * When the number of passed parameters match the number of constructor arguments (types) rely on the order. Else <UL>
  * <LI> A basic parameter array of not null instances is constructed.</LI> <LI> A sanity check invocation is done with
  * the basic parameter array to ensure those instances don't cause exceptions.</LI> <LI> Then for each not nullable
  * parameter an invocation is done with the basic parameter array with one of the instances replaced by null. If
  * expected exceptions are not thrown, the fail is reported via a ValidationFailException. </LI> </UL> When the
  * constructor has more than one parameter that takes a collection this later strategy is error prone.
- * <p/>
+ *
  * If no matching constructor is found, this is treated as a {@link ValidationFailException}.
  */
 @SuppressWarnings("SSBasedInspection")
@@ -498,7 +498,7 @@ public final class ConstructorChecker {
          * Calls the invokable represented by this object. Individual parameters are automatically unwrapped to match
          * primitive formal parameters, and both primitive and reference parameters are subject to method invocation
          * conversions as necessary.
-         * <p/>
+         *
          * <p>If the number of formal parameters required by the underlying constructor is 0, the supplied {@code args}
          * array may be of length 0 or null.
          *

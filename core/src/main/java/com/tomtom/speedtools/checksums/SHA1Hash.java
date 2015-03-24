@@ -75,7 +75,7 @@ public final class SHA1Hash {
 
     /**
      * Hashes the given {@code value} without salt.
-     * <p/>
+     *
      * <em>Note</em> that in case the hashing process fails, an object will be returned that contains an empty string
      * for its hash.
      *
@@ -92,10 +92,10 @@ public final class SHA1Hash {
     /**
      * Hashes the given {@code value} using a salt generated during the hash operation. Each invocation of this method,
      * even for the same {@code value}, will use a different salt.
-     * <p/>
+     *
      * <em>Note</em> that is the salt generation fails, hashing will proceed using no salt, and the returned object will
      * contain an empty string for its salt value.
-     * <p/>
+     *
      * <em>Note</em> that in case the hashing process fails, an object will be returned that contains an empty string
      * for its hash.
      *
@@ -122,7 +122,7 @@ public final class SHA1Hash {
 
     /**
      * Hashes the given {@code value} using the provided {@code salt}.
-     * <p/>
+     *
      * <em>Note</em> that in case the hashing process fails, an object will be returned that contains an empty string
      * for its hash.
      *

@@ -47,7 +47,7 @@ import static com.tomtom.speedtools.mongodb.MongoDBUtils.mongoPath;
 /**
  * Utility to facilitate creating mongo query objects using mapper fields. Fields in nested objects can be addressed.
  * Query values are type-safe.
- * <p/>
+ *
  * Example:
  * <pre>
  * collection.findAll(new MongoQuery().

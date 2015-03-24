@@ -24,7 +24,7 @@ import com.tomtom.speedtools.json.JsonRenderable;
 
 /**
  * This class defines a top-level Route Engine response.
- * <p/>
+ *
  * See {@link RouteEngine}.
  */
 public final class RouteEngineResponse implements JsonRenderable {

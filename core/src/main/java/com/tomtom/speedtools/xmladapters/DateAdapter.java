@@ -43,9 +43,9 @@ public final class DateAdapter {
 
     /**
      * The class DateAdapter.XMLAdapter can be used as an XmlAdapter for JAX-B annotations. It marshals/unmarshals a date to/from a normalized UTC string format. This format should be used in all communications.
-     * <p/>
+     *
      * Example of using the Xml adapter for a JAX-B annotated resource:
-     * <p/>
+     *
      * <pre>
      * XmlRootElement XmlAccessorType(XmlAccessType.PUBLIC_MEMBER)
      * public class MyClass {

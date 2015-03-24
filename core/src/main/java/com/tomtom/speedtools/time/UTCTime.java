@@ -74,7 +74,7 @@ public final class UTCTime {
 
     /**
      * Parses a {@code DateTime} from the specified string.
-     * <p/>
+     *
      * This uses {@link org.joda.time.format.ISODateTimeFormat#dateTimeParser()}.
      *
      * @param str the string to parse, not null.

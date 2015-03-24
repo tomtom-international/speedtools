@@ -23,9 +23,9 @@ public interface JsonRenderable {
 
     /**
      * Provide a Json representation of a domain object. Typical implementations look like this:
-     * <p/>
+     *
      * public String toJson() { return Json.toJson(this); }
-     * <p/>
+     *
      * public String toString() { return Json.toStringJson(this); }
      *
      * @return Json representation of the object.

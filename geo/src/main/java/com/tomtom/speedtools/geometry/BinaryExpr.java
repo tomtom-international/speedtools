@@ -24,9 +24,9 @@ import java.util.Collection;
 
 /**
  * Binary expression.
- * <p/>
+ *
  * Note: This class is package private.
- * <p/>
+ *
  * Constructor: {@link #BinaryExpr}
  */
 @Immutable

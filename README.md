@@ -12,6 +12,9 @@ Feel free to use them in your project.
 For more information, have a look at the `speedtools/src/site/apt` directory,
 which is the entry point for the site documentation.
 
+The version of the library starts at 3.0.0, because earlier releases exist, but
+were proprietary to TomTom only.
+
 There is an additional project `speedtools-examples` with real-life examples
  of how to use the SpeedTools library. Check it out.
 

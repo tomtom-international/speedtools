@@ -22,7 +22,7 @@ import com.tomtom.speedtools.buffer.CircularBuffer;
  * This class is used to rate limit writes to, say, MongoDB reads/writes. It's handy if the calling code can do bulk
  * write operations through the limiter, which rate-limits how fast they happen. Note you can disable the rate limiter
  * by setting the frequency to 0.
- * <p/>
+ *
  * The math is as follows (mod some conversions between seconds and nano-seconds):
  * <pre>
  *  After n samples, we can computer Ri as the "immediate rate" like:
@@ -46,10 +46,10 @@ public class RateLimiter {
      * Create a rate limiter that will limit calls to 'maxFreqHz' in bursts which occur approximately every
      * 'burstFreqHz'. For example, if maxFreqHz = 100 and burstFreqHz = 2, the limiter will allow no more than 100 calls
      * per second, but will burst them into 2 batches of 50 calls each, per second.
-     * <p/>
+     *
      * For a more evenly distributed burst pattern, increase burstFreqHz. It's best to keep burstFreqHz reasonably low,
      * say below 100.
-     * <p/>
+     *
      * Note that the implementation of the limiter does not guarantee that the frequency is reached (or that calls may
      * have been scheduled slightly faster than the frequency, even). On average, it does a pretty good job though.
      */

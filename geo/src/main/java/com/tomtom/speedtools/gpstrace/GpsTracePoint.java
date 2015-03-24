@@ -28,7 +28,7 @@ import com.tomtom.speedtools.objects.Objects;
 
 /**
  * TracePoint represents a position at a specific time and is used for tracking.
- * <p/>
+ *
  * Constructor: {@link #GpsTracePoint}
  */
 public final class GpsTracePoint implements JsonRenderable {

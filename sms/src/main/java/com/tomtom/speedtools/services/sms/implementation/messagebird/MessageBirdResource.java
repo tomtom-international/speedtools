@@ -34,7 +34,7 @@ import javax.xml.bind.annotation.XmlEnumValue;
 /**
  * Resteasy resource to call the MessageBird REST api. Currently only supports sending simple text messages. timestamp
  * and inbox have been omitted from this api (they are optional).
- * <p/>
+ *
  * The baseUrl can be obtained using the property SMSProvider.MessageBird.baseUrl.
  */
 @Path("/api/sms")

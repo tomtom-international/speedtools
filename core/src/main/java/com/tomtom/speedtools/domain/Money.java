@@ -27,11 +27,11 @@ import com.tomtom.speedtools.objects.Objects;
 
 /**
  * Money, or monetary amount. (Immutable)
- * <p/>
+ *
  * Money consist of a currency and a positive (or 0) value called 'amount'. The decimal point which would normally be
  * placed in a monetary value amount is shifted completely to the right. For example, EURO 2.35 would be specified as
  * Currency:EURO Amount:235 and YEN 10234 as Currency:YEN Amount: 10234.
- * <p/>
+ *
  * Constructor: {@link #Money(java.util.Currency, Integer)}
  */
 @Immutable

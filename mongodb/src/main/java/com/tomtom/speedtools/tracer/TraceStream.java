@@ -25,12 +25,12 @@ import org.joda.time.DateTime;
  * Source for event traces. A processor represents a stream of events. It has a current position, and it can be asked to
  * process subsequent events up until a point in time using processUntil, or until all events currently in the stream
  * are processed: {@link #playbackToEnd}.
- * <p/>
+ *
  * The current position can be set to a specific moment in time (setPosition), or to the end of the stream
  * (setPositionAtEnd). No events will be processed when changing the current position.
- * <p/>
+ *
  * Events are processed by calling the appropriate handlers. These handlers are to be added using addHandler(Object).
- * <p/>
+ *
  * Note: A processor is NOT thread-safe.
  */
 public interface TraceStream {

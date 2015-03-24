@@ -28,7 +28,7 @@ import com.tomtom.speedtools.utils.MathUtils;
 
 /**
  * Mercator point. Specified in X and Y with normalized values of 0..1 (top-left to bottom-right).
- * <p/>
+ *
  * Constructor: {@link #MercatorPoint}
  */
 @Immutable

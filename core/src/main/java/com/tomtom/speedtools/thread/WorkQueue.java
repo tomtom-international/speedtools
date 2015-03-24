@@ -36,24 +36,24 @@ import com.tomtom.speedtools.time.UTCTime;
 /**
  * This class creates a pool of worker threads that will execute workload tasks. The amount of actual threads is
  * limited, as well as the workload queue.
- * <p/>
+ *
  * To use this class, you should create a WorkQueue with a maximum number of work packages for the work queue. Some of
  * the worker threads are started (and stand-by) immediately after creating the WorkQueue.
- * <p/>
+ *
  * After that, you can add workload (which is really an instance of a Runnable) to the work queue by using
  * startOrWait(workLoad). This call will add the workload if the queue is not filled up yet, or wait until there is room
  * to add the workload.
- * <p/>
+ *
  * You can use waitUntilFinished() to wait until the entire workload queue is processed (and all worker threads are done
  * processing). Or you can check whether processing is done with isEmptyAndFinished().
- * <p/>
+ *
  * If worker threads throw exceptions, these are caught and stored in a list which can be retrieved by
  * getRuntimeExceptions(). The worker thread that processed workload throwing such an exception is simply returned to
  * the thread pool ready to process the next piece of workload.
- * <p/>
+ *
  * To shutdown all the worker threads, use scheduleShutdown(). This will schedule a shutdown of all worker threads after
  * they have finished processing their workload. After this call, the only valid calls left is getRuntimeExceptions().
- * <p/>
+ *
  * Important: This class itself is NOT thread safe: only 1 thread should feed one particular instance of WorkQueue at a
  * time.
  */
@@ -75,7 +75,7 @@ public class WorkQueue {
     /**
      * Create a work queue with a maximum number of worker threads and a maximum workload queue size. Adding workload
      * past the workload queue size will block until the queue is small enough to add more workload.
-     * <p/>
+     *
      * The caller should call shutdown() to shut down the threads after they have carried out their workloads.
      *
      * @param maxQueueSize Maximum work load queue size.

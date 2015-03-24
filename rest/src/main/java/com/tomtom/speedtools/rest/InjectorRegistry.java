@@ -28,7 +28,7 @@ import javax.inject.Inject;
  * Class that tracks the current Guice injector, for accessing guice from container managed classes (e.g. servlets).
  * There cannot be more than one injector active at any time. Instantiating this class will fail if an injector was
  * already set. The current injector can be reset by using clear().
- * <p/>
+ *
  * The injector is injected into the constructor by Guice.
  */
 public final class InjectorRegistry {

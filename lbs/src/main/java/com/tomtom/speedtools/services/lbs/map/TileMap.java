@@ -74,7 +74,7 @@ public abstract class TileMap<T> {
     /**
      * Set pre-caching on or off, if possible. Pre-caching means fetching tiles that might be useful later. This may
      * speed up or slow down the application, depending on network performance.
-     * <p/>
+     *
      * Pre-caching can only be set if caching is enabled. Setting the value to true does not always mean pre-caching
      * will be enabled. The cache itself must support it.
      *
@@ -107,7 +107,7 @@ public abstract class TileMap<T> {
 
     /**
      * Callback function for viewport tile processing.
-     * <p/>
+     *
      * The template parameter T is the image class, e.g. Image or PImage.
      */
     public interface ViewportTileProcessor<T> {

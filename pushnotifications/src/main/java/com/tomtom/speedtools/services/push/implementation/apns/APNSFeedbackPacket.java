@@ -30,8 +30,8 @@ import static com.tomtom.speedtools.utils.ByteUtils.fromBytesToInt;
 
 /**
  * Class represent a APNS feedback packet containing a device id for which there were failed-delivery attempts.
- * <p/>
- * <p/>
+ *
+ *
  * See also http://developer.apple.com/library/mac/#documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/CommunicatingWIthAPS/CommunicatingWIthAPS.html#//apple_ref/doc/uid/TP40008194-CH101-SW3
  */
 public class APNSFeedbackPacket {

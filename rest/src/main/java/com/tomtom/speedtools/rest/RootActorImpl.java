@@ -32,7 +32,7 @@ import com.tomtom.speedtools.akka.TypedActorFactory;
 /**
  * Actor that serves as the root of all singleton actors in the system. All actors created by {@link #create(Class,
  * Class, Object...)} are created with a one-for-one restart supervisor strategy.
- * <p/>
+ *
  * This actor has a dispatcher with 1 thread allocated to it (see @link{ReactorImpl}). This guarantees that calls to
  * create() will never cause a deadlock. To ensure that no deadlocks occurs, methods of this actor must never block on
  * calls to other actors in the system.

@@ -38,7 +38,7 @@ import com.tomtom.speedtools.json.Json;
 
 /**
  * Provides SMS functionality through Nexmo (www.nexmo.com).
- * <p/>
+ *
  * The API documentation can be found here: http://www.nexmo.com/documentation
  */
 public class Nexmo implements SMSProviderConnector {

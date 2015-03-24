@@ -18,7 +18,7 @@ package com.tomtom.speedtools.services.sms.implementation;
 
 /**
  * These constants define preferred order of SMSProviders, lowest is most preferred.
- * <p/>
+ *
  * Note: If you change existing entries (rather than add higher numbers) you need to write a migrate script as well).
  */
 public interface ProviderRanking {

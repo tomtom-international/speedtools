@@ -124,7 +124,7 @@ public final class StringUtils {
     /**
      * Converts a string to lower case in a locale insensitive manner, and can accept {@code null} input strings.
      * Returns {@code null} when input is {@code null}.
-     * <p/>
+     *
      * The string conversion uses {@link String#toLowerCase() String.toLowerCase(Locale.ENGLISH)}. See {@link
      * String#toLowerCase()} on when to use the default system locale during conversion to lower case, and in which
      * cases this will produce the wrong results.
@@ -144,7 +144,7 @@ public final class StringUtils {
     /**
      * Converts a string to a list of Unicode code points. This method should be used when wanting to iterate over a
      * string character-by-character.
-     * <p/>
+     *
      * This method is necessary because Java stores characters as UTF-16 values in a String, and {@link
      * String#charAt(int)} returns a 16-bit value. This works fine for characters in the Basic Multilingual Plane (BMP),
      * but Unicode allows for supplementary characters that take up more than 16 bits to represent them. For Strings,
@@ -153,10 +153,10 @@ public final class StringUtils {
      * actually return a char value that does not represent the actual character when a supplementary character is
      * stored, and only combining {@code charAt(n)} together with {@code charAt(n plus 1)} would result in the correct
      * character.
-     * <p/>
+     *
      * The implementation of this method is based on <a href="http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=5003547">JDK-5003547</a>
      * and <a href="http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=5063163">JDK-5063163</a>.
-     * <p/>
+     *
      * See {@link Character} and <a href="http://www.oracle.com/technetwork/articles/javase/supplementary-142654.html">Supplementary
      * Characters in the Java Platform</a> for further information on Java and Unicode.
      *
@@ -190,7 +190,7 @@ public final class StringUtils {
      *      list.add(2);
      *      list.add(3);
      * </pre>
-     * <p/>
+     *
      * Calling mkString as shown below:
      * <pre>
      *      final String result = mkString("|", list);

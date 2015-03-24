@@ -38,7 +38,7 @@ import com.tomtom.speedtools.time.UTCTime;
 
 /**
  * This class implement a fetcher for events from a MongoDB database.
- * <p/>
+ *
  * This class is package private.
  */
 @SuppressWarnings("ThisEscapedInObjectConstruction")

@@ -81,7 +81,7 @@ public class GeneralExceptionMapper implements ExceptionMapper<Throwable> {
 
     /**
      * Add a custom exception mapping. For example, when using MongoDB you might wish to add:
-     * <p/>
+     *
      * addCustomException(MongoDBConnectionException.class, false, null); addCustomException(EntityNotFoundException.class,
      * true, Status.BAD_API_CALL);
      *

@@ -30,7 +30,7 @@ import static com.tomtom.speedtools.mongodb.MongoDBUtils.mongoPath;
 /**
  * Utility to facilitate creating mongo update objects using mapper fields. Fields in nested objects can be addressed.
  * Query values are type-safe.
- * <p/>
+ *
  * Example:
  * <pre>
  * collection.update(
@@ -294,7 +294,7 @@ public class MongoDBUpdate {
     /**
      * Removes all occurrences of value from a field, if field is an array. If the field is present but is not an array,
      * an error condition is raised.
-     * <p/>
+     *
      * Mongo shell equivalent:
      * <pre>
      * { $pull : { field : {field2: value} } }

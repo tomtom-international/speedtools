@@ -20,7 +20,7 @@ import javax.annotation.concurrent.Immutable;
 
 /**
  * Primitive expression.
- * <p/>
+ *
  * Note: This class is package private.
  */
 @Immutable

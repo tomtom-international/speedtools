@@ -31,7 +31,7 @@ import javax.ws.rs.core.MediaType;
 /**
  * Resteasy resource to call the Nexmo REST api.  Currently only supports sending simple text messages.  Parameters for
  * vcards, vcals, etc, have been omitted (they are optional).
- * <p/>
+ *
  * The baseUrl can be obtained using the property SMSProvider.Nexmo.baseUrl.
  */
 @Path("/sms/json")

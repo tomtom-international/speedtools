@@ -34,7 +34,7 @@ import com.tomtom.speedtools.time.UTCTime;
  * values are maintained. Instead, the time period is divided in a number of entries, which constrains memory usage. The
  * trade-off for this reduced memory usage is that statistics are not reported for EXACTLY given time period, but
  * possibly for a slightly longer period.
- * <p/>
+ *
  * This class is thread-safe.
  */
 @SuppressWarnings("SynchronizedMethod")

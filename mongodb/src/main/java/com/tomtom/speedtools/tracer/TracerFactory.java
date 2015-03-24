@@ -37,9 +37,9 @@ import com.tomtom.speedtools.time.UTCTime;
 /**
  * This factory creates Traceable tracers. Tracers are specific for a class/method and are used to throw events to
  * GenericTraceHandler listeners.
- * <p/>
+ *
  * Example of usage:
- * <p/>
+ *
  * <pre>
  *   class MyClass {
  *

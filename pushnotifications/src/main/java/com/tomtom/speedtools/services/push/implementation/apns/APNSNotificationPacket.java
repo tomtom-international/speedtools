@@ -34,29 +34,29 @@ import static com.tomtom.speedtools.utils.ByteUtils.intToByteArray;
 
 /**
  * Apple Push Notification Service Notification Packet.
- * <p/>
+ *
  * In case the enhanced notification format is used the following return code could be expected:
- * <p/>
+ *
  * 0    No errors encountered (never actually returned)
- * <p/>
+ *
  * 1    Processing error
- * <p/>
+ *
  * 2    Missing device token
- * <p/>
+ *
  * 3    Missing topic
- * <p/>
+ *
  * 4    Missing payload
- * <p/>
+ *
  * 5    Invalid token size
- * <p/>
+ *
  * 6    Invalid topic size
- * <p/>
+ *
  * 7    Invalid payload size
- * <p/>
+ *
  * 8    Invalid token
- * <p/>
+ *
  * 255  None (unknown)
- * <p/>
+ *
  * See also http://developer.apple.com/library/mac/#documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/CommunicatingWIthAPS/CommunicatingWIthAPS.html#//apple_ref/doc/uid/TP40008194-CH101-SW4
  */
 public class APNSNotificationPacket {

@@ -26,7 +26,7 @@ import java.util.Collection;
 /**
  * Represents circle primitive as a GeoPoint and a radius. The radius is specified in degrees and is only valid for
  * smaller areas.
- * <p/>
+ *
  * Constructor: {@link #GeoCircle}
  */
 @Immutable

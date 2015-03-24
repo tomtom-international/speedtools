@@ -23,7 +23,7 @@ import javax.annotation.Nonnull;
 /**
  * Implementation of the Token Bucket algorithm for traffic shaping. See Computer Networks 4ed by
  * Andy Tanenbaum, p. 306-307.
- * <p/>
+ *
  * This implementation is an Akka actor and uses the scheduler to increment the
  * number of tokens at a set interval. The party that wishes to have its traffic shaped then calls acquire() to
  * obtain the next available token, passing in a callback to invoke when a token becomes available. The callback

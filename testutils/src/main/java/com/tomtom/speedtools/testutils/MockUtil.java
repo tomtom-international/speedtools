@@ -59,7 +59,7 @@ public final class MockUtil {
 
     /**
      * Argument matcher that uses reflection to invoke the getId() method.
-     * <p/>
+     *
      * Important: this method is used ONLY in Mockito verify() methods and is defined to return null. The method is
      * however not annotated Nullable to avoid all sorts of nullability warnings which are not relevant for those
      * verify() methods.

@@ -27,7 +27,7 @@ import com.tomtom.speedtools.objects.Objects;
 
 /**
  * This class deals with GeoHash functionality. Base source taken from LBS team (thanks Eric Bowman, Wouter Heijke).
- * <p/>
+ *
  * See http://en.wikipedia.org/wiki/Geohash and http://geospatialweb.googlecode.com.
  */
 public final class GeoHash {

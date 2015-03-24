@@ -25,15 +25,15 @@ import java.lang.reflect.Method;
 /**
  * The static methods provided by this class are to be used to access private or private static methods of classes under
  * test.
- * <p/>
+ *
  * Note that you should think twice before testing private methods! Prefer to test private methods via non-private
  * methods of their class. Also, think about whether those private methods wouldn't be better suited to be part of a new
  * class as non-privates, which can then be unit tested as usual.
- * <p/>
+ *
  * However, if the private methods to test are logically part of their current class and factoring them out into a
  * separate class would spread logic over two classes and hence reduce cohesiveness, then you may consider testing them
  * with the help of the functionality provided here.
- * <p/>
+ *
  * Care must be applied if your test catches overly broad exceptions, e.g. by using {@code @Test(expected =
  * Throwable.class)}. If the class under test is refactored, and the method name or signature is not adapted in the
  * test, then this may go undetected, because the helper methods in this class will throw a {@link PrivateAccessFailure
@@ -51,12 +51,12 @@ public final class PrivateAccessHelper {
 
     /**
      * Invokes a private static method on the given {@code clazz} and returns its return value.
-     * <p/>
+     *
      * Any exception the invoked method throws is re-thrown. Note that exceptions are not wrapped in a {@link
      * InvocationTargetException} as they would be when calling {@link Method#invoke(Object, Object...)} directly,
      * instead they are unwrapped first (using {@link Throwable#getCause()} and then rethrown. This way, exceptions can
      * be asserted as usual in a unit test.
-     * <p/>
+     *
      * Note that if the target method does not exist, an exception of type {@link PrivateAccessFailure
      * PrivateAccessFailure} will be thrown. This exception extends the most generic type of exceptions, {@link
      * Throwable}, which is chosen so that refactoring errors have the biggest chance of being detected as a failing
@@ -93,12 +93,12 @@ public final class PrivateAccessHelper {
      * private method on is the runtime type of {@code instance}. If you want to invoke the private method of a
      * different class (i.e. a super-type of {@code instance}), use {@link #invokePrivateMethod(Class, Object, String,
      * Class[], Object...)} instead and specify the type explicitly.
-     * <p/>
+     *
      * Any exception the invoked method throws is re-thrown. Note that exceptions are not wrapped in a {@link
      * InvocationTargetException} as they would be when calling {@link Method#invoke(Object, Object...)} directly,
      * instead they are unwrapped first (using {@link Throwable#getCause()} and then rethrown. This way, exceptions can
      * be asserted as usual in a unit test.
-     * <p/>
+     *
      * Note that if the target method does not exist, an exception of type {@link PrivateAccessFailure
      * PrivateAccessFailure} will be thrown. This exception extends the most generic type of exceptions, {@link
      * Throwable}, which is chosen so that refactoring errors have the biggest chance of being detected as a failing
@@ -138,12 +138,12 @@ public final class PrivateAccessHelper {
      * Invokes a private method on the given {@code instance} using type {@code clazz} for method lookup, and returns
      * its return value. Use this method if you want to invoke a method on a different type than the runtime type of
      * {@code instance}. Otherwise, use {@link #invokePrivateMethod(Object, String, Class[], Object...)} instead.
-     * <p/>
+     *
      * Any exception the invoked method throws is re-thrown. Note that exceptions are not wrapped in a {@link
      * InvocationTargetException} as they would be when calling {@link Method#invoke(Object, Object...)} directly,
      * instead they are unwrapped first (using {@link Throwable#getCause()} and then rethrown. This way, exceptions can
      * be asserted as usual in a unit test.
-     * <p/>
+     *
      * Note that if the target method does not exist, an exception of type {@link PrivateAccessFailure
      * PrivateAccessFailure} will be thrown. This exception extends the most generic type of exceptions, {@link
      * Throwable}, which is chosen so that refactoring errors have the biggest chance of being detected as a failing

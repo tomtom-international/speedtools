@@ -25,7 +25,7 @@ import com.tomtom.speedtools.utils.MathUtils;
 /**
  * Geometric line between two points, from west to east (or, for vertical vectors east=west). If west &gt; east, the
  * vector is wrapped along the long side of Earth.
- * <p/>
+ *
  * Constructor: {@link #GeoLine}
  */
 @Immutable

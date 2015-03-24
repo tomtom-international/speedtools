@@ -25,7 +25,7 @@ import scala.concurrent.ExecutionContext;
  * The reactor defines the Akka system in which the 'engine' of the system is running. The reactor provides utilities to
  * access actors through actor factories, as well as to the Akka {@link ExecutionContext}, which can be used, for
  * example, to schedule Futures in.
- * <p/>
+ *
  * The reactor interface is not normally used directly. Rather, use injection to
  * access the various actors / factories / execution context and system. Especially inside actors, injection should be
  * used, specifically, the TypedActorContext can be injected.

@@ -18,7 +18,7 @@ package com.tomtom.speedtools.ratelimiter;
 
 /**
  * Please refer to {@link RateLimiter} for documentation.
- * <p/>
+ *
  * Fairly heavy-handed thread safe version of the above. There's not a lot of point to trying to avoid locking here,
  * since the whole point of this thing is to block writes, so we might as well keep it simple.
  */

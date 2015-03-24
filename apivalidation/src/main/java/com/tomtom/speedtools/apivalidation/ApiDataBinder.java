@@ -28,14 +28,14 @@ import com.tomtom.speedtools.json.JsonBased;
 
 /**
  * This class provides an abstract base class for JAX-B data binder classes.
- * <p/>
+ *
  * The idea is that the JAX-B classes provide a validate() function, which is called for the 1st getters that is being
  * used by the class.
- * <p/>
+ *
  * The setters should not be called after any getters has been called.
- * <p/>
+ *
  * The user of this class should make sure the JAX-B classes look something like this:
- * <p/>
+ *
  * <pre>
  *    public class MyDataBinder extends ApiDataBinder {
  *

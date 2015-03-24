@@ -24,9 +24,9 @@ import java.util.Collection;
 
 /**
  * Unary expression.
- * <p/>
+ *
  * Note: This class is package private.
- * <p/>
+ *
  * Constructor: {@link #UnaryExpr}
  */
 @Immutable

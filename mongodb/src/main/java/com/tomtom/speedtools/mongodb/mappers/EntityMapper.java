@@ -100,7 +100,7 @@ public abstract class EntityMapper<T> extends Mapper<T> {
 
     /**
      * Converts a database object to an entity.
-     * <p/>
+     *
      * Note that the corresponding mapperRegistry should be initialized first.
      *
      * @param dbValue Database object to convert to an entity.
@@ -1127,7 +1127,7 @@ public abstract class EntityMapper<T> extends Mapper<T> {
     /**
      * Override this method to construct an object that needs object values for construction. Useful for immutable
      * objects, like {@link com.tomtom.speedtools.geometry.GeoPoint}.
-     * <p/>
+     *
      * When not overridden, one must override {@link #getEntityType()}.
      *
      * @param dbObject          Database object that can be used to instantiate object.

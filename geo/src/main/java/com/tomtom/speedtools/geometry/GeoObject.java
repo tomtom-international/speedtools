@@ -26,7 +26,7 @@ import com.tomtom.speedtools.objects.Objects;
 
 /**
  * Abstract root class for all things geo.
- * <p/>
+ *
  * Constructor: {@link #GeoObject}
  */
 @Immutable

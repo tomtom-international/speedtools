@@ -34,7 +34,7 @@ import com.tomtom.speedtools.objects.Objects;
 
 /**
  * Trace represents a trace of GPS point.
- * <p/>
+ *
  * Constructor: {@link #GpsTrace}
  */
 public final class GpsTrace implements JsonRenderable {

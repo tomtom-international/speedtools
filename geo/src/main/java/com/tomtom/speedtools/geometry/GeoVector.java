@@ -25,7 +25,7 @@ import com.tomtom.speedtools.objects.Objects;
 
 /**
  * Geometric vector which contains an Northing and Easting component.
- * <p/>
+ *
  * Constructor: {@link #GeoVector}
  */
 @Immutable

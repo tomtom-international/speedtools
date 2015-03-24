@@ -69,27 +69,27 @@ import static com.tomtom.speedtools.mongodb.MongoDBUtils.mongoPath;
  * which you can derive your own "CheckDB" class. That class will have access to all of these methods by inheritance.
  * Not quite what inheritance is meant for, but it works out quite OK this way, as it keeps the domain model specific
  * database checking code relatively clean and not cluttered with the framework sub-classes that are found here.
- * <p/>
+ *
  * To create a database checker, create a class CheckDB which inherits from CheckDBBase.
- * <p/>
+ *
  * The class CheckDB contains a method checkAllCollections() to check the consistency of all collections in the FWS
  * database.
- * <p/>
+ *
  * The way it works is like this: for every collection, a simple query statement is issued to query every record from
  * that collection. Every record is then run through a standard database entity mapper, to obtain a type-safe variant of
  * the record.
- * <p/>
+ *
  * Any failures from that conversion are accumulated and stored. Once the type-safe variant is available, every field of
  * the record is checked individually for correct range and referential integrity. Again, any errors found during these
  * checks, are accumulated and returned at the end of the check.
- * <p/>
+ *
  * The implementation has been optimized to check database records of a SINGLE collection in parallel using threads. It
  * uses a {@link WorkQueue} of RecordChecker work load items.
- * <p/>
+ *
  * Note that the implementation is only thread-safe for checking multiple records within a SINGLE collection at once.
  * There is shared data about the collection itself and the 'current record pointer', so these shared values should
  * never be modified inside the threads.
- * <p/>
+ *
  * Final remark: Checking database consistency without producing ton of lines of code is hard. We've tried several ways
  * to crack this problem and came up with this one. However, the way the resulting code looks might not seem to be very
  * (or remotely) readable at first sight. Try and invest time and effort in mastering the techniques used here. Once you
@@ -414,7 +414,7 @@ abstract public class CheckDBBase {
         /**
          * The set allFields will grow to contain all fields, based on mappers, which are removed one by one by the
          * 'field' method. When record checking is done, the set is checked for non-checked fields.
-         * <p/>
+         *
          * This field is directly referenced in threads, so must be thread safe.
          */
         @Nonnull
@@ -569,7 +569,7 @@ abstract public class CheckDBBase {
          * Creates a new {@link UniquenessChecker} for this collection. The returned {@code UniquenessChecker} must only
          * be used for data contained within this collection, otherwise uniqueness violations will be reported on the
          * wrong collection.
-         * <p/>
+         *
          * Values to check for uniqueness can then be added to it using {@link UniquenessChecker#add(com.tomtom.speedtools.domain.Uid,
          * Object) add(Uid, Object)} or {@link UniquenessChecker#add(com.tomtom.speedtools.domain.Uid,
          * java.util.Collection) add(Uid, Collection)}. The actual check will be performed once all other checks in this
