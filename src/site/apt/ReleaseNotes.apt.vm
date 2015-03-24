@@ -1,0 +1,426 @@
+Release Notes (Version ${project.version})
+
+    Copyright (C) 2015. TomTom International BV (http://tomtom.com).
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+* 3.0.0
+
+    First public release of TomTom SpeedTools under the Apache License 2.0.
+
+    []
+
+* 2.3.1
+
+    Updated dependency on TTMAIN connector in <<<speedtools-ttmain>>>.
+
+    []
+
+* 2.3.0
+
+    Refactored TTBIN module out of standard SpeedTools library into <<<speedtools-ttbin>>> module.
+    Same Maven dependency required, but a different versioning scheme (starts with 1.8.0 for version 8 of the
+    TTBIN specification.)
+
+    []
+
+* 2.2.17
+
+    Implemented TTBIN V8-alpha format. (Version 8 specification not complete yet.)
+
+    []
+
+* 2.2.16
+
+    Remove TTMain dependency. Extracted to its own SpeedTools project.
+
+    []
+
+* 2.2.15
+
+    * Fixed TTBIN PacketWorkoutSummaryV7: totMeters is float, not int.
+
+    []
+
+* 2.2.14
+
+    * Updated dependencies.
+
+    * Removed references to examples directory.
+
+    []
+
+* 2.2.13
+
+    * Removed unnecessary dependencies on log4j from pom.xml.
+
+    []
+
+* 2.2.12
+
+    * Fixed additional static code anaylsis checks from IntelliJ IDEA 13.1.
+
+    * Updated copyright notices.
+
+    []
+
+* 2.2.11
+
+    * Updates POM library and plugin dependencies to newest versions.
+
+    * Cleaned up pom.xml a bit.
+
+    []
+
+* 2.2.10
+
+    * Fixed Objects.hashCode() for doubles.
+
+    []
+
+* 2.2.9
+
+    * Fixed getMin/Max of MetricsCollector.
+
+    * Rename addValue to addValueNow (and addValueNow to addValue).
+
+    []
+
+* 2.2.8
+
+    * Fixed MetricsCollector to allow for negative data points as well. Returns Float.NaN if metrics have no meaning.
+
+    []
+
+* 2.2.7
+
+    * Removed dependency on MongoDB for module 'rest'.
+
+    []
+
+* 2.2.6
+
+    * Corrected port check in MongoDB trace property.
+
+    * Upgraded Resteasy to 3.0.8.Final (from 2.3.5.Final).
+
+    []
+
+* 2.2.5
+
+    * Correct incorrect assertion on TTBin file size.
+
+    * Removed generating HTML /p tags.
+
+    []
+
+* 2.2.3-2.2.4
+
+    * Packet size table auto-added if none present for V7 TTBin files.
+
+    * Added <<<GeoLine.getShortest(from, to)>>> to get shortest GeoLine for two points.
+
+    []
+
+* 2.2.1-2.2.2
+
+    * Added automatic TTBin packet size calculation and table generation for all packet types.
+
+    * Added proper equals/hashCode implementations to be able to comapre two TTBin parse trees.
+
+    * Added EqualsVerifier unit tests for all TTBin classes.
+
+    []
+
+* 2.2.0
+
+    * Added TTBin encoder/decoder to separate module, for those who'd like to play with it.
+
+    []
+
+* 2.1.7
+
+    * Replaced Guice annotations with javax.inject annotations whereever possible (Inject, Singleton,
+      see https://github.com/google/guice/wiki/JSR330).
+
+    * Fixed incorrect name of speedtools.default.properties file (was still safertools).
+
+    []
+
+* 2.1.6
+
+    * Downgraded Java language level and byte code to 6 instead of 8, which makes the library compatible
+      with Java 6, 7 and 8 projects.
+
+    []
+
+* 2.1.5
+
+    * Changed IntelliJ Nullable and NotNull annotations to JSR305 variants from com.google.code.findbugs.
+
+    * Changed JCIP Immutable annotation to JSR305 variant from com.google.code.findbugs.
+
+    []
+
+* 2.1.4
+
+    * Changed name from SaferTools to SpeedTools. Change source repository name and Maven site as well.
+
+    []
+
+* 2.1.1-2.1.3
+
+    * Upgraded to Jackson 2.
+
+    * Added additional date time serializers with msec resolution.
+
+    []
+
+* 2.1.0
+
+    * Added TTMain connector to SpeedTools (imported from Texas and adapted to new TTMain dependency).
+
+    * Fixed blocking JavaDoc for JDK 1.8.
+
+    []
+
+* 2.0.0
+
+    * Split up SpeedTools in multiple modules to reduce dependency trees.
+
+    []
+
+* 1.7.7
+
+    * Made RestEasyJacksonContextResolver non-final to avoid issues with Weld.
+
+    []
+
+* 1.7.6
+
+    * Added Mappers + other changes - see git log
+
+    []
+
+* 1.7.5
+
+    * Fixed binary mapper.
+
+    []
+
+* 1.7.4
+
+    * Corrected error message in mappers.
+
+    []
+
+* 1.7.3
+
+    * Added binary mapper for MongoDB.
+
+    []
+
+* 1.7.2
+
+    * Forced return media type of output for REST services to be JSON in case of exceptions
+    caught by the GeneralExceptionMapper.
+
+* 1.7.1
+
+    * Bumped to 1.7.1 after moving to Git and improving release tooling.
+
+    []
+
+* 1.6.8-1.6.13
+
+    * First Git released version.
+
+    []
+
+* 1.6.6, 1.6.7
+
+    * Added ApiInvalidFormatError/Exception for API validation.
+
+    []
+
+* 1.6.5
+
+    * Applied IDEA fixes to "final" variables in try-catch's.
+
+    []
+
+* 1.6.4
+
+    * Changed Java language version to 7 (now using JDK 1.7).
+
+    * Updated package dependencies in POM to latest versions.
+
+    []
+
+* 1.6.3
+
+    * Re-release.
+
+    []
+
+* 1.6.2
+
+    * Improved source code organization of the examples:
+
+        * <<<exampleCreatingScalableService>>> - example of writing simple OS thread-based and
+        Future-based (high scalability0 )services using the SpeedTools framework.
+
+        * <<<exampleUsingDatabase>>> - example of using the database mapper and object persistency framework
+        of SpeedTools.
+
+        * <<<exampleUsingLbsServices>>> - example of the use of several TomTom LBS services using the SpeedTools
+        framework.
+
+        []
+
+    []
+
+* 1.6.1
+
+    * Added examples for event tracing and LBS geocoding and routing services (under <<</web/3/traceme>>>,
+    <<</web/3/geocoding/[query]>>> and <<</web/3/route/[from]/[to]>>>).
+
+    * Moved the library files into a directory called "speedtools" and moved the examples files one level up.
+
+    []
+
+* 1.6.0
+
+    * Added <<<speedtools-connectors>>> which may be used to directly access the following services
+    in your Java applications:
+
+        * <<LBS services:>>
+
+            * LBS geocoding services;
+
+            * LBS mapping services;
+
+            * LBS routing services;
+
+            []
+
+        * <<Push notifications:>>
+
+            * iOS APNS push notifications;
+
+            * Android GCM push notifications;
+
+            []
+
+        * <<SMS notifications:>>
+
+            * MessageBird SMS services;
+
+            * Nexmo SMS services.
+
+            []
+
+        []
+
+    []
+
+* 1.5.1
+
+    * Added MongoDB tracer example.
+
+    []
+
+* 1.5
+
+    * Improved documentation further.
+
+    []
+
+* 1.4.8
+
+    * Correct some documentation issues.
+
+    []
+
+* 1.4.5-1.4.7
+
+    * Improved <<Gatling>> load test example in module <<<examples>>>.
+
+    []
+
+* 1.4.1-1.4.4
+
+    * Upgraded to Akka 2.2.3 and using <<java-developer-pom>>.
+
+    []
+
+* 1.4
+
+    * Improved REST API usage of SpeedTools and included clear examples of how to write REST APIs using SpeedTools.
+
+    []
+
+* 1.3.1
+
+    * This release adds a new module "speedtools-rest" which provides a number of tools to create
+      RestEasy REST APIs in a highly scalable way, using Akka threads and actors under the hood.
+      Have a look at the <<<speedtools-examples>>> module to see how you can build your own REST API.
+
+    []
+
+* 1.3.0
+
+    * Refactored project into 3 JARs: speedtools-core, speedtools-akka and speedtools-mongodb.
+
+    []
+
+* 1.2.2
+
+    * ST-1: Made Crypto class thread safe.
+
+    * ST-2: Fixed Locale issue with JDK 1.7.
+
+    []
+
+* 1.2.1
+
+    * Improved documentation only. No code changes.
+
+    []
+
+* 1.2.0
+
+    * Renamed main package to <<speedtools-utils>>.
+
+    []
+
+* 1.1.1
+
+    * Unused release version, use 1.2 instead.
+
+    []
+
+* 1.1.0
+
+    * First refactored version of the well reviewed and well tested TomTom Taxi utils library, made entirely
+      generic. All links to TomTom Taxi have been removed. These utils should now be easily be usable in any
+      other TomTom project.
+
+    []
+
+* 1.0.28(-SNAPSHOT) and earlier
+
+    * These version originally came from the TomTom Taxi project, called Texas. Please refer to their original
+      project documentation for more release information.
+
+    []
