@@ -400,15 +400,15 @@ Earlier Releases (Pre 3.0.0, Apache License 2.0)
 
 * 1.1.0
 
-    * First refactored version of the well reviewed and well tested TomTom Taxi utils library, made entirely
-      generic. All links to TomTom Taxi have been removed. These utils should now be easily be usable in any
+    * First refactored version of the well reviewed and well tested utils library, made entirely
+      generic. These utils should now be easily be usable in any
       other TomTom project.
 
     []
 
 * 1.0.28(-SNAPSHOT) and earlier
 
-    * These version originally came from the TomTom Taxi project, called Texas. Please refer to their original
+    * These version originally came from the TomTom commercial project. Please refer to their original
       project documentation for more release information.
 
     []

@@ -7,8 +7,8 @@ Introduction
     <<SpeedTools>> is a collection of generic Java utilities which are specifically coded to be high-performance
     and very reliable. Most of the code has been 100% code reviewed and has great test coverage.
 
-    The code was originally developed by Rijn Buve, Daan van Dijk and Ruud Diterwich for the TomTom Taxi project
-    and ran for with zero-downtime for months in a data center, serving hundreds of thousands of requests.
+    The code was originally developed by Rijn Buve, Daan van Dijk and Ruud Diterwich for a commercial TomTom 
+    service and ran for with zero-downtime for months in a data center, serving hundreds of thousands of requests.
 
     Feel free to use them in your project.
 
@@ -76,6 +76,8 @@ SpeedTools Packages
 
     <<SpeedTools>> consists of several modules:
 
+    * <<apivalidation>> which support for API parameter validation (if you don't wish to use the JSR one)
+
     * <<core>> which consists of a lot of handy classes and utilities for your main Java application,
 
     * <<geo>> which contains a set of geometry (and geographical) classes,
@@ -85,22 +87,18 @@ SpeedTools Packages
     * <<json>> with JSON reading/writing support, as well as an excellent standard implementation for
     toString(),
 
+    * <<lbs>> which provides easy interfaces for (TomTom) LBS services, like mapping,
+    geocoding and routing,
+
     * <<metric>> with support for keeping runtime metrics (i.c.w. JMX),
-
-    * <<guice>> with extended support for Google Guice and property file handling,
-
-    * <<apivalidation>> which support for API parameter validation (if you don't wish to use the JSR one)
 
     * <<mongodb>> which contains MongoDB specific classes that will handle easy schema migration in
     MongoDB databases and a superfast "event tracer" system, based on MongoDB, and
 
-    * <<rest>> which consists utilities to create RestEasy REST APIs,
-
-    * <<lbs>> which provides easy interfaces for (TomTom) LBS services, like mapping,
-    geocoding and routing,
-
     * <<pushnotifications]>> which provides generic interfaces for iOS APNS and Android GCM push
     notification services,
+
+    * <<rest>> which consists utilities to create RestEasy REST APIs,
 
     * <<sms>> which provides interfaces for SMS services, with implementations for MessageBird and Nexmo,
 

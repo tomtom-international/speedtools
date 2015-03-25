@@ -4,7 +4,7 @@ Copyright (C) 2012-2015, TomTom International BV. All rights reserved.
 ----
 
 SpeedTools is a collection of generic utilities, originally developed by Rijn Buve,
-Ruud Diterwich, Daan van Dijk and Andreas Wuest for the TomTom Taxi project.
+Ruud Diterwich, Daan van Dijk and Andreas Wuest for a large commercial project.
 
 The library was created to develop highly scalable web services, using Typesafe Akka,
 Google Guice and MongoDB, but many of the tools are usable in other contexts
