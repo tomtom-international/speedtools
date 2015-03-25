@@ -28,10 +28,11 @@
     <version>3.0.0-SNAPSHOT</version>
 
     <name>SpeedTools</name>
+
     <description>
         SpeedTools is a collection of generic utilities, originally developed by Rijn Buve, Daan van Dijk and
         Ruud Diterwich, for the TomTom Taxi project. These utilities have been extensively code reviewed and have
-        great test coverage.
+        good test coverage.
 
         If you wish to contribute to this project, please contact Rijn Buve.
     </description>
@@ -45,22 +46,21 @@
         <developer>
             <id>ribu</id>
             <name>Rijn Buve</name>
-            <email>rijn.buve@tomtom.com</email>
-            <organization>TomTom</organization>
+            <email>rijn@buve.nl</email>
+            <organization>TomTom International</organization>
         </developer>
 
         <developer>
             <id>vandijk</id>
             <name>Daan van Dijk</name>
             <email>daan.vandijk@tomtom.com</email>
-            <organization>TomTom</organization>
+            <organization>TomTom International</organization>
         </developer>
 
         <developer>
             <id>rudi</id>
             <name>Ruud Diterwich</name>
             <email>ruud.diterwich@tomtom.com</email>
-            <organization>TomTom</organization>
         </developer>
     </developers>
 
@@ -74,28 +74,26 @@
     </licenses>
 
     <url>http://tomtom.com</url>
+
     <scm>
         <url>http://github.com/tomtom-international/speedtools</url>
     </scm>
 
-    <!-- Dependencies on other packages. -->
     <properties>
+
+        <!-- Java and build properties. -->
+        <jdk.version>1.7</jdk.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <jdk.version>1.7</jdk.version>
 
-        <gson.version>2.3.1</gson.version>
-        <jsr305.version>3.0.0</jsr305.version>
-        <junit.version>4.12</junit.version>
-        <log4j.version>1.2.17</log4j.version>
-        <slf4j.version>1.7.10</slf4j.version>
-        <nexus-staging-maven-plugin.version>1.6.5</nexus-staging-maven-plugin.version>
-        <maven-source-plugin.version>2.4</maven-source-plugin.version>
+        <!-- Plugin versions. -->
+        <maven-compiler-plugin.version>3.2</maven-compiler-plugin.version>
+        <maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>
         <maven-javadoc-plugin.version>2.10.1</maven-javadoc-plugin.version>
         <maven-jetty-plugin.version>8.1.9.v20130131</maven-jetty-plugin.version>
-        <maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>
-        <maven-compiler-plugin.version>3.2</maven-compiler-plugin.version>
         <maven-remote-resources-plugin.version>1.5</maven-remote-resources-plugin.version>
+        <maven-source-plugin.version>2.4</maven-source-plugin.version>
+        <nexus-staging-maven-plugin.version>1.6.5</nexus-staging-maven-plugin.version>
 
         <!-- Library versions. -->
         <activemq-core.version>5.7.0</activemq-core.version>
@@ -107,9 +105,8 @@
         <commons-lang.version>2.6</commons-lang.version>
         <commons-logging.version>1.1.1</commons-logging.version>
         <equalsverifier.version>1.6</equalsverifier.version>
-        <gallium-client.version>0.1</gallium-client.version>
         <gcm-server.version>1.0.2</gcm-server.version>
-        <gson.version>2.3</gson.version>
+        <gson.version>2.3.1</gson.version>
         <guava.version>18.0</guava.version>
         <guice.version>3.0</guice.version>
         <httpcore.version>4.4</httpcore.version>
@@ -122,7 +119,7 @@
         <joda-time.version>2.7</joda-time.version>
         <jolokia.version>1.2.3</jolokia.version>
         <jsr305.version>3.0.0</jsr305.version>
-        <junit.version>4.11</junit.version>
+        <junit.version>4.12</junit.version>
         <libphonenumber.geocoder.version>2.19</libphonenumber.geocoder.version>
         <libphonenumber.version>7.0.2</libphonenumber.version>
         <log4j.version>1.2.17</log4j.version>
@@ -239,8 +236,6 @@
 
     <dependencyManagement>
         <dependencies>
-            <!-- Project dependencies. -->
-
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>akka</artifactId>
@@ -308,21 +303,18 @@
                 <scope>test</scope>
             </dependency>
 
-            <!-- Logging. -->
             <dependency>
                 <groupId>log4j</groupId>
                 <artifactId>log4j</artifactId>
                 <version>${log4j.version}</version>
             </dependency>
 
-            <!-- ActiveMQ. -->
             <dependency>
                 <groupId>org.apache.activemq</groupId>
                 <artifactId>activemq-core</artifactId>
                 <version>${activemq-core.version}</version>
             </dependency>
 
-            <!-- @Nullable and @Nonnull annotations. -->
             <dependency>
                 <groupId>com.google.code.findbugs</groupId>
                 <artifactId>jsr305</artifactId>
@@ -332,14 +324,12 @@
                 <optional>true</optional>
             </dependency>
 
-            <!-- JavaX injection annotations. -->
             <dependency>
                 <groupId>javax.inject</groupId>
                 <artifactId>javax.inject</artifactId>
                 <version>${javax.inject.version}</version>
             </dependency>
 
-            <!-- Servlet API (provided by container). -->
             <dependency>
                 <groupId>javax.servlet</groupId>
                 <artifactId>javax.servlet-api</artifactId>
@@ -347,7 +337,6 @@
                 <scope>provided</scope>
             </dependency>
 
-            <!-- Guice injection. -->
             <dependency>
                 <groupId>com.google.inject</groupId>
                 <artifactId>guice</artifactId>
@@ -360,7 +349,6 @@
                 <version>${guice.version}</version>
             </dependency>
 
-            <!-- Guava. -->
             <dependency>
                 <groupId>com.google.guava</groupId>
                 <artifactId>guava</artifactId>
@@ -380,14 +368,12 @@
                 <version>${paranamer.version}</version>
             </dependency>
 
-            <!-- Fake text generator. -->
             <dependency>
                 <groupId>de.sven-jacobs</groupId>
                 <artifactId>loremipsum</artifactId>
                 <version>${loremipsum.version}</version>
             </dependency>
 
-            <!-- JUnit testing.  -->
             <dependency>
                 <groupId>junit</groupId>
                 <artifactId>junit</artifactId>
@@ -395,7 +381,6 @@
                 <scope>test</scope>
             </dependency>
 
-            <!-- Jetty test server. -->
             <dependency>
                 <groupId>org.eclipse.jetty</groupId>
                 <artifactId>jetty-server</artifactId>
@@ -410,7 +395,6 @@
                 <scope>test</scope>
             </dependency>
 
-            <!-- Logging. -->
             <dependency>
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-api</artifactId>
@@ -423,14 +407,12 @@
                 <version>${slf4j.version}</version>
             </dependency>
 
-            <!-- MongoDB. -->
             <dependency>
                 <groupId>org.mongodb</groupId>
                 <artifactId>mongo-java-driver</artifactId>
                 <version>${mongo-java-driver.version}</version>
             </dependency>
 
-            <!-- Jackson 2.x mapper. -->
             <dependency>
                 <groupId>com.fasterxml.jackson.core</groupId>
                 <artifactId>jackson-core</artifactId>
@@ -449,7 +431,6 @@
                 <version>${jackson.version}</version>
             </dependency>
 
-            <!-- Google Code Phone Utilities. -->
             <dependency>
                 <groupId>com.googlecode.libphonenumber</groupId>
                 <artifactId>libphonenumber</artifactId>
@@ -462,7 +443,6 @@
                 <version>${libphonenumber.geocoder.version}</version>
             </dependency>
 
-            <!-- JSON. -->
             <dependency>
                 <groupId>org.jboss.resteasy</groupId>
                 <artifactId>resteasy-jackson-provider</artifactId>
@@ -481,7 +461,6 @@
                 </exclusions>
             </dependency>
 
-            <!-- JAX-RS. -->
             <dependency>
                 <groupId>org.jboss.resteasy</groupId>
                 <artifactId>resteasy-jaxrs</artifactId>
@@ -518,22 +497,17 @@
                 <version>${resteasy.version}</version>
             </dependency>
 
-            <!-- Multi part support. -->
             <dependency>
                 <groupId>org.jboss.resteasy</groupId>
                 <artifactId>resteasy-multipart-provider</artifactId>
                 <version>${resteasy.version}</version>
                 <exclusions>
-
-                    <!-- Exclude Servlet API 2.5. It conflicts with Servlet API 3.0 that we use. -->
                     <exclusion>
                         <groupId>javax.servlet</groupId>
                         <artifactId>servlet-api</artifactId>
                     </exclusion>
                 </exclusions>
             </dependency>
-
-            <!-- Akka -->
 
             <dependency>
                 <groupId>com.typesafe</groupId>
@@ -565,28 +539,18 @@
                 <version>${akka.version}</version>
             </dependency>
 
-            <!-- JMX / Jolokia -->
             <dependency>
                 <groupId>org.jolokia</groupId>
                 <artifactId>jolokia-core</artifactId>
                 <version>${jolokia.version}</version>
             </dependency>
 
-            <!-- Monitoring hook for TomTom Gallium. -->
-            <dependency>
-                <groupId>com.tomtom.gallium</groupId>
-                <artifactId>gallium-client</artifactId>
-                <version>${gallium-client.version}</version>
-            </dependency>
-
-            <!-- JMS for GPRSQueue -->
             <dependency>
                 <groupId>javax.jms</groupId>
                 <artifactId>jms</artifactId>
                 <version>${jms.version}</version>
             </dependency>
 
-            <!-- Apache Commons -->
             <dependency>
                 <groupId>commons-codec</groupId>
                 <artifactId>commons-codec</artifactId>
@@ -629,14 +593,12 @@
                 <version>${javax.mail.version}</version>
             </dependency>
 
-            <!-- HTTP client. -->
             <dependency>
                 <groupId>org.apache.httpcomponents</groupId>
                 <artifactId>httpcore</artifactId>
                 <version>${httpcore.version}</version>
             </dependency>
 
-            <!-- EqualsVerifier for equals() and hashCode(). -->
             <dependency>
                 <groupId>nl.jqno.equalsverifier</groupId>
                 <artifactId>equalsverifier</artifactId>
@@ -644,14 +606,12 @@
                 <scope>test</scope>
             </dependency>
 
-            <!-- Objenesis object instantiation (for EqualsVerifier). -->
             <dependency>
                 <groupId>org.objenesis</groupId>
                 <artifactId>objenesis</artifactId>
                 <version>${org.objenesis.version}</version>
             </dependency>
 
-            <!-- Mockito. -->
             <dependency>
                 <groupId>org.mockito</groupId>
                 <artifactId>mockito-core</artifactId>
@@ -659,7 +619,6 @@
                 <scope>test</scope>
             </dependency>
 
-            <!-- Google Cloud Messaging for push notifications to Android devices. -->
             <dependency>
                 <groupId>com.google.android.gcm</groupId>
                 <artifactId>gcm-server</artifactId>

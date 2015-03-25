@@ -6,23 +6,33 @@ Copyright (C) 2012-2015, TomTom International BV. All rights reserved.
 SpeedTools is a collection of generic utilities, originally developed by Rijn Buve,
 Ruud Diterwich, Daan van Dijk and Andreas Wuest for the TomTom Taxi project.
 
+The library was created to develop highly scalable web services, using Typesafe Akka,
+Google Guice and MongoDB, but many of the tools are usable in other contexts
+as well.
+
 These utilities have been 100% code reviewed and have good test coverage.
 Feel free to use them in your project.
 
-For more information, have a look at the `speedtools/src/site/apt` directory,
-which is the entry point for the site documentation.
+For documentation on what this library offers, have a look at the `speedtools/src/site/apt` 
+directory, which is the entry point for the site documentation. It contains a list of all
+modules and APIs.
 
-The version of the library starts at 3.0.0, because earlier releases exist, but
-were proprietary to TomTom only.
+The versioning scheme of the library starts at 3.0.0, because earlier releases exist
+were disclosed within TomTom only. From version 3.0.0 TomTom decided to contribute
+this library under the Apache License 2.0 to the open source community.
 
 There is an additional project `speedtools-examples` with real-life examples
- of how to use the SpeedTools library. Check it out.
+of how to use the SpeedTools library. Check it out at 
+`https://github.com/tomtom-international/speedtools-examples`.
 
 Happy coding!
 
 **Rijn Buve**
 
 *TomTom International BV*
+
+PS. For questions, issues and other remarks, you can contact me via email, or
+send a tweet to **@rijnb**.
 
 # License
 
