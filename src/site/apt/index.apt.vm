@@ -2,6 +2,25 @@
     SpeedTools Java Library
     -----------
 
+Introduction
+
+    <<SpeedTools>> is a collection of generic Java utilities which are specifically coded to be high-performance
+    and very reliable. Most of the code has been 100% code reviewed and has great test coverage.
+
+    The code was originally developed by Rijn Buve, Daan van Dijk and Ruud Diterwich for the TomTom Taxi project
+    and ran for with zero-downtime for months in a data center, serving hundreds of thousands of requests.
+
+    Feel free to use them in your project.
+
+    If you find bugs or wish to see improvements, please register them at:
+    {{{https://github.com/tomtom-international/speedtools/issues}}}
+
+    Happy coding!
+
+    <Rijn Buve, TomTom International BV>
+
+License
+
     Copyright (C) 2015. TomTom International BV (http://tomtom.com).
 
     Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,26 +34,6 @@
     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
     See the License for the specific language governing permissions and
     limitations under the License.
-
-Introduction
-
-    <<SpeedTools>> is a collection of generic Java utilities which are specifically coded to be high-performance
-    and very reliable. Most of the code has been 100% code reviewed and has great test coverage.
-
-    The code was originally developed by Rijn Buve, Daan van Dijk and Ruud Diterwich for the TomTom Taxi project
-    and ran for with zero-downtime for months in a data center, serving hundreds of thousands of requests.
-
-    Feel free to use them in your project.
-
-    You are welcome to contribute to this project. If you wish to do so, please contact me personally. If you
-    find bugs or wish to see improvements, please register them at:
-    {{{http://jira.tomtomgroup.com/browse/ST}}}
-
-    Happy coding!
-
-    <Rijn Buve, Group Software Architect, TomTom International BV>
-
-    PS. You can record and track issues at <<<http://jira.tomtomgroup.com/browse/ST>>>
 
 Getting Started
 
@@ -50,8 +49,12 @@ mvn clean install
 
 REST API Example
 
-    We've included a REST API example in another project, called <<<speedtools-exampels>>>.
+    We've included a REST API example in another project, called <<<speedtools-examples>>>.
     Please refer to that project to try out the SpeedTools library.
+
+    Here's a diagram of the scalability characteristics of the SpeedTools web services framework:
+
+    [Figure gatling-loadtest.png]
 
 LBS, iOS/Android Push Notifications and SMS Services
 
@@ -75,7 +78,7 @@ SpeedTools Packages
 
     * <<core>> which consists of a lot of handy classes and utilities for your main Java application,
 
-    * <<geo>> which contains a set of geometry ()and geographical) classes,
+    * <<geo>> which contains a set of geometry (and geographical) classes,
 
     * <<guice>> with extended support for Google Guice and property file handling,
 
@@ -356,7 +359,7 @@ Using SpeedTools with Maven Projects
     <version>${project.version}</version>
 </dependency>
 
-// And to use the test utilities (required, for example to initialize log4j in tests):
+// Add this one to include a log4j.xml during unit tests (scope is only test):
 <dependency>
     <groupId>com.tomtom.speedtools</groupId>
     <artifactId>testutils</artifactId>
@@ -383,7 +386,7 @@ Building a New Release of SpeedTools
 ----
 cd <SPEEDTOOLS-HOME>
 mvn clean
-mvn release:prepare -Dresume=false
+mvn release:prepare
 ----
 
     * And if all went right, perform the release and build the Maven site as well:
