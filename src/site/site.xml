@@ -27,7 +27,6 @@
         <menu name="SpeedTools Project">
             <item name="Home" href="/index.html"/>
             <item name="Release Notes" href="/ReleaseNotes.html"/>
-            <item name="Deployment" href="/Deployment.html"/>
             <item name="Property Files" href="/Properties.html"/>
         </menu>
 
