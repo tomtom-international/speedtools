@@ -18,6 +18,7 @@ package com.tomtom.speedtools.services.sms;
 
 import com.tomtom.speedtools.json.Json;
 import com.tomtom.speedtools.rest.RestEasyJacksonContextResolver;
+import com.tomtom.speedtools.services.sms.SMSProviderConnector.Status;
 import com.tomtom.speedtools.services.sms.implementation.messagebird.MessageBird;
 import com.tomtom.speedtools.services.sms.implementation.messagebird.MessageBirdProperties;
 import com.tomtom.speedtools.services.sms.implementation.messagebird.MessageBirdResource;
@@ -80,7 +81,7 @@ public class SMSConnectorLiveTest {
          * The telephone number has been crossed out on purpose. Fill it with your test phone number
          * if needed.
          */
-        final SMSProviderConnector.Status status =
+        final Status status =
                 connector.sendTextMessage("<telephoneNumber>", "Please ignore. This is a test message using Nexmo. " +
                         "Sent at " + Json.toJson(UTCTime.now()), 33333L);
 
@@ -124,7 +125,7 @@ public class SMSConnectorLiveTest {
          * The telephone number has been crossed out on purpose. Fill it with your test phone number
          * if needed.
          */
-        final SMSProviderConnector.Status status =
+        final Status status =
                 connector.sendTextMessage("<telephoneNumber>", "Please ignore. This is a test message using MessageBird. " +
                         "Sent at " + Json.toJson(UTCTime.now()), 33333L);
 

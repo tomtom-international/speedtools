@@ -16,6 +16,8 @@
 
 package com.tomtom.speedtools.services.sms;
 
+import com.tomtom.speedtools.services.sms.SMSDeliveryReportListener.DeliveryStatus;
+
 import javax.annotation.Nonnull;
 
 /**
@@ -47,5 +49,5 @@ public interface SMSDeliveryReportProcessor {
      * @return The delivery status.
      */
     @Nonnull
-    SMSDeliveryReportListener.DeliveryStatus getDeliveryStatus() throws SMSDeliveryReportParameterException;
+    DeliveryStatus getDeliveryStatus() throws SMSDeliveryReportParameterException;
 }

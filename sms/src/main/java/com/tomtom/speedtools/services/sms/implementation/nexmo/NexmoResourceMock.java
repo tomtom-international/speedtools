@@ -16,6 +16,8 @@
 
 package com.tomtom.speedtools.services.sms.implementation.nexmo;
 
+import com.tomtom.speedtools.services.sms.SMSDeliveryReportListener.DeliveryStatus;
+import com.tomtom.speedtools.services.sms.implementation.nexmo.NexmoMessage.Status;
 import org.jboss.resteasy.client.ClientResponse;
 import org.jboss.resteasy.spi.Link;
 import org.jboss.resteasy.spi.LinkHeader;
@@ -26,6 +28,7 @@ import org.slf4j.LoggerFactory;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.ws.rs.core.EntityTag;
+import javax.ws.rs.core.Link.Builder;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.NewCookie;
@@ -71,7 +74,7 @@ public class NexmoResourceMock implements NexmoResource {
         assert from != null;
         assert to != null;
 
-        final NexmoMessage.Status status = NexmoMessage.Status.SUCCESS;
+        final Status status = Status.SUCCESS;
 
         LOG.debug("sendMessage: status={}, userName={}, password={}, from={}, to={}, text={}, " +
                         "statusReportRequired={}, clientReference={}",
@@ -91,7 +94,7 @@ public class NexmoResourceMock implements NexmoResource {
         // process the delivery report asynchronously).
         final SMSDeliveryReportListener listener = smsDeliveryReportListenerRegistry.getListener();
         if ((listener != null) && (clientReference != null)) {
-            listener.messageDeliveryReport(clientReference, SMSDeliveryReportListener.DeliveryStatus.DELIVERED);
+            listener.messageDeliveryReport(clientReference, DeliveryStatus.DELIVERED);
         }
 
         return new ClientResponse<NexmoMessageResponse>() {
@@ -208,7 +211,7 @@ public class NexmoResourceMock implements NexmoResource {
             }
 
             @Override
-            public javax.ws.rs.core.Link.Builder getLinkBuilder(final String s) {
+            public Builder getLinkBuilder(final String s) {
                 throw new UnsupportedOperationException();
             }
 

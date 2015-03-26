@@ -16,6 +16,7 @@
 
 package com.tomtom.speedtools.services.sms.implementation.nexmo;
 
+import com.tomtom.speedtools.services.sms.SMSDeliveryReportListener.DeliveryStatus;
 import org.jboss.resteasy.client.ClientResponse;
 
 import javax.annotation.Nonnull;
@@ -223,7 +224,7 @@ public class Nexmo implements SMSProviderConnector {
 
         // Process parameters.
         final int referenceNumber = getReferenceNumber(parameterMap);
-        final SMSDeliveryReportListener.DeliveryStatus deliveryStatus = getDeliveryStatus(parameterMap);
+        final DeliveryStatus deliveryStatus = getDeliveryStatus(parameterMap);
 
         // Return a processor based on these parameters.
         return new SMSDeliveryReportProcessor() {
@@ -242,7 +243,7 @@ public class Nexmo implements SMSProviderConnector {
 
             @Override
             @Nonnull
-            public SMSDeliveryReportListener.DeliveryStatus getDeliveryStatus() {
+            public DeliveryStatus getDeliveryStatus() {
                 assert deliveryStatus != null;
 
                 return deliveryStatus;
@@ -251,7 +252,7 @@ public class Nexmo implements SMSProviderConnector {
     }
 
     @Nullable
-    private static SMSDeliveryReportListener.DeliveryStatus getDeliveryStatus(
+    private static DeliveryStatus getDeliveryStatus(
             @Nonnull final Map<String, String[]> parameterMap) throws SMSDeliveryReportParameterException {
         assert parameterMap != null;
 
@@ -259,11 +260,11 @@ public class Nexmo implements SMSProviderConnector {
         final String[] clientRef = parameterMap.get(STATUS_REPORT_PARAMETER);
         if ((clientRef != null) && (clientRef.length == 1)) {
             if (clientRef[0].equalsIgnoreCase(DELIVERED_STATUS)) {
-                return SMSDeliveryReportListener.DeliveryStatus.DELIVERED;
+                return DeliveryStatus.DELIVERED;
             } else if (clientRef[0].equalsIgnoreCase(BUFFERED_STATUS)) {
-                return SMSDeliveryReportListener.DeliveryStatus.BUFFERED;
+                return DeliveryStatus.BUFFERED;
             } else if (clientRef[0].equalsIgnoreCase(FAILED_STATUS)) {
-                return SMSDeliveryReportListener.DeliveryStatus.FAILED;
+                return DeliveryStatus.FAILED;
             } else {
                 // Ignore this status.
                 return null;

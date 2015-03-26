@@ -18,6 +18,10 @@ package com.tomtom.speedtools.services.sms.implementation.messagebird;
 
 import com.google.i18n.phonenumbers.NumberParseException;
 import com.google.i18n.phonenumbers.PhoneNumberUtil;
+import com.google.i18n.phonenumbers.PhoneNumberUtil.PhoneNumberFormat;
+import com.tomtom.speedtools.services.sms.SMSDeliveryReportListener.DeliveryStatus;
+import com.tomtom.speedtools.services.sms.implementation.messagebird.MessageBirdMessageResponse.Item;
+import com.tomtom.speedtools.services.sms.implementation.messagebird.MessageBirdResource.ResponseType;
 import org.jboss.resteasy.client.ClientResponse;
 
 import javax.annotation.Nonnull;
@@ -103,14 +107,14 @@ public class MessageBird implements SMSProviderConnector {
 
             // Use E164 format, but remove the '+'.
             final String destination =
-                    util.format(util.parse(recipient, null), PhoneNumberUtil.PhoneNumberFormat.E164).substring(1);
+                    util.format(util.parse(recipient, null), PhoneNumberFormat.E164).substring(1);
 
             // Send the message.
             LOG.debug("sendTextMessage: sender={}, recipient={}, ref={}, message={}",
                     sender, recipient, referenceNumber, message);
             response =
                     messageBirdResource.sendMessage(userName, password, referenceNumber, sender, destination, message,
-                            MessageBirdResource.ResponseType.XML, REPLACE_CHARS);
+                            ResponseType.XML, REPLACE_CHARS);
 
             // Process the result.
             if (response.getResponseStatus() == Response.Status.OK) {
@@ -120,7 +124,7 @@ public class MessageBird implements SMSProviderConnector {
 
                 final MessageBirdMessageResponse messageBirdMessageResponse = response.getEntity();
 
-                final MessageBirdMessageResponse.Item item = messageBirdMessageResponse.getItem();
+                final Item item = messageBirdMessageResponse.getItem();
                 switch (item.getResponseCode()) {
 
                     case REQUEST_SUCCESSFUL:
@@ -225,7 +229,7 @@ public class MessageBird implements SMSProviderConnector {
 
         // Process parameters.
         final int referenceNumber = getReferenceNumber(parameterMap);
-        final SMSDeliveryReportListener.DeliveryStatus deliveryStatus = getDeliveryStatus(parameterMap);
+        final DeliveryStatus deliveryStatus = getDeliveryStatus(parameterMap);
 
         // Return a processor based on these parameters.
         return new SMSDeliveryReportProcessor() {
@@ -244,7 +248,7 @@ public class MessageBird implements SMSProviderConnector {
 
             @Override
             @Nonnull
-            public SMSDeliveryReportListener.DeliveryStatus getDeliveryStatus() {
+            public DeliveryStatus getDeliveryStatus() {
                 assert deliveryStatus != null;
 
                 return deliveryStatus;
@@ -253,7 +257,7 @@ public class MessageBird implements SMSProviderConnector {
     }
 
     @Nullable
-    private static SMSDeliveryReportListener.DeliveryStatus getDeliveryStatus(
+    private static DeliveryStatus getDeliveryStatus(
             @Nonnull final Map<String, String[]> parameterMap)
             throws SMSDeliveryReportParameterException {
         assert parameterMap != null;
@@ -262,11 +266,11 @@ public class MessageBird implements SMSProviderConnector {
         final String[] clientRef = parameterMap.get(STATUS_REPORT_PARAMETER);
         if ((clientRef != null) && (clientRef.length == 1)) {
             if (clientRef[0].equalsIgnoreCase(DELIVERED_STATUS)) {
-                return SMSDeliveryReportListener.DeliveryStatus.DELIVERED;
+                return DeliveryStatus.DELIVERED;
             } else if (clientRef[0].equalsIgnoreCase(BUFFERED_STATUS)) {
-                return SMSDeliveryReportListener.DeliveryStatus.BUFFERED;
+                return DeliveryStatus.BUFFERED;
             } else if (clientRef[0].equalsIgnoreCase(FAILED_STATUS)) {
-                return SMSDeliveryReportListener.DeliveryStatus.FAILED;
+                return DeliveryStatus.FAILED;
             } else {
                 // Ignore this status.
                 return null;

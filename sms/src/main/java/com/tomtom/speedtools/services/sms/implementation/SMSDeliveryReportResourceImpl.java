@@ -16,6 +16,7 @@
 
 package com.tomtom.speedtools.services.sms.implementation;
 
+import com.tomtom.speedtools.services.sms.SMSDeliveryReportListener.DeliveryStatus;
 import org.jboss.resteasy.spi.AsynchronousResponse;
 
 import javax.annotation.Nonnull;
@@ -93,7 +94,7 @@ public class SMSDeliveryReportResourceImpl implements SMSDeliveryReportResource 
 
                             // Obtain necessary parameters using the connector.
                             final long referenceNumber = smsDeliveryReportProcessor.getReferenceNumber();
-                            final SMSDeliveryReportListener.DeliveryStatus status =
+                            final DeliveryStatus status =
                                     smsDeliveryReportProcessor.getDeliveryStatus();
 
                             // Pass on the report.

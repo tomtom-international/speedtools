@@ -16,6 +16,9 @@
 
 package com.tomtom.speedtools.services.sms.implementation.messagebird;
 
+import com.tomtom.speedtools.services.sms.SMSDeliveryReportListener.DeliveryStatus;
+import com.tomtom.speedtools.services.sms.implementation.messagebird.MessageBirdMessageResponse.Item;
+import com.tomtom.speedtools.services.sms.implementation.messagebird.MessageBirdMessageResponse.ResponseCode;
 import org.jboss.resteasy.client.ClientResponse;
 import org.jboss.resteasy.spi.Link;
 import org.jboss.resteasy.spi.LinkHeader;
@@ -26,6 +29,7 @@ import org.slf4j.LoggerFactory;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.ws.rs.core.EntityTag;
+import javax.ws.rs.core.Link.Builder;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.NewCookie;
@@ -74,15 +78,15 @@ public class MessageBirdResourceMock implements MessageBirdResource {
         assert body != null;
         assert responseType != null;
 
-        final MessageBirdMessageResponse.ResponseCode status =
-                MessageBirdMessageResponse.ResponseCode.REQUEST_SUCCESSFUL;
+        final ResponseCode status =
+                ResponseCode.REQUEST_SUCCESSFUL;
 
         LOG.debug("sendMessage: Status={}, username={}, password={}, from={}, to={}, text={}, " +
                         "responseType={}, clientReference={}",
                 status, userName, password, sender, destination, body, responseType, reference);
 
         final MessageBirdMessageResponse messageBirdMessageResponse = new MessageBirdMessageResponse();
-        final MessageBirdMessageResponse.Item item = new MessageBirdMessageResponse.Item();
+        final Item item = new Item();
         messageBirdMessageResponse.setItem(item);
 
         item.setResponseCode(status);
@@ -92,7 +96,7 @@ public class MessageBirdResourceMock implements MessageBirdResource {
         // process the delivery report asynchronously).
         final SMSDeliveryReportListener listener = smsDeliveryReportListenerRegistry.getListener();
         if ((listener != null) && (reference != null)) {
-            listener.messageDeliveryReport(reference, SMSDeliveryReportListener.DeliveryStatus.DELIVERED);
+            listener.messageDeliveryReport(reference, DeliveryStatus.DELIVERED);
         }
 
         return new ClientResponse<MessageBirdMessageResponse>() {
@@ -209,7 +213,7 @@ public class MessageBirdResourceMock implements MessageBirdResource {
             }
 
             @Override
-            public javax.ws.rs.core.Link.Builder getLinkBuilder(final String s) {
+            public Builder getLinkBuilder(final String s) {
                 throw new UnsupportedOperationException();
             }
 
