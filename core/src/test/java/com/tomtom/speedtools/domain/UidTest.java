@@ -33,7 +33,7 @@ public class UidTest {
     public void testCreate() {
         LOG.info("testCreate");
         final int size = 100;
-        final Map<String, Boolean> map = new HashMap<String, Boolean>(size);
+        final Map<String, Boolean> map = new HashMap<>(size);
         for (int i = 0; i < size; ++i) {
             final Uid<?> id = new Uid();
             LOG.info("UUID = {}", id);
@@ -74,7 +74,7 @@ public class UidTest {
     @Test
     public void testToString() {
         LOG.info("testToString");
-        final Uid<Object> x = new Uid<Object>();
+        final Uid<Object> x = new Uid<>();
         try {
             LOG.info("UUID = {}", x.toString());
         } catch (final Exception ignored) {
@@ -85,7 +85,7 @@ public class UidTest {
     @Test
     public void testAs() {
         LOG.info("testAs");
-        final Uid<Long> a = new Uid<Long>();
+        final Uid<Long> a = new Uid<>();
         final Uid<Integer> b = a.as(Integer.class);
         Assert.assertTrue(a.equals(b));
     }
@@ -109,7 +109,7 @@ public class UidTest {
     @Test
     public void testToHexString() {
         LOG.info("testToHexString");
-        final Uid<Object> a = new Uid<Object>();
+        final Uid<Object> a = new Uid<>();
         Assert.assertEquals(a.toString().replaceAll("-", ""), a.toHexString());
     }
 

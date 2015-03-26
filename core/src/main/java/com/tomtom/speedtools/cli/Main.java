@@ -56,11 +56,10 @@ public final class Main {
         final String mainClassMethod = args[1];
         final String[] otherArgs = Arrays.copyOfRange(args, 2, args.length - 1);
 
-        final List<URL> newUrls = new ArrayList<URL>();
+        final List<URL> newUrls = new ArrayList<>();
         URL.setURLStreamHandlerFactory(new NestedJarURLStreamHandlerFactory());
         final String warFile = getWarFile();
-        final JarFile jarFile = new JarFile(warFile);
-        try {
+        try (final JarFile jarFile = new JarFile(warFile)) {
             //noinspection ForLoopWithMissingComponent
             for (final Enumeration<JarEntry> entryEnum = jarFile.entries(); entryEnum.hasMoreElements(); ) {
                 final JarEntry entry = entryEnum.nextElement();
@@ -70,8 +69,6 @@ public final class Main {
 
                 }
             }
-        } finally {
-            jarFile.close();
         }
         final URLClassLoader newClassLoader = new URLClassLoader(newUrls.toArray(new URL[newUrls.size()]));
 

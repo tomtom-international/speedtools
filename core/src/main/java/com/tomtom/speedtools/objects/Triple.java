@@ -53,7 +53,7 @@ public final class Triple<T1, T2, T3> implements Serializable {
     @Nonnull
     public static <T1, T2, T3> Triple<T1, T2, T3> create(@Nonnull final T1 value1,
                                                          @Nonnull final T2 value2, @Nonnull final T3 value3) {
-        return new Triple<T1, T2, T3>(value1, value2, value3);
+        return new Triple<>(value1, value2, value3);
     }
 
     /**

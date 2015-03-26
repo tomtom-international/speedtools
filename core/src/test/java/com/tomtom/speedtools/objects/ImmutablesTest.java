@@ -71,16 +71,16 @@ public class ImmutablesTest {
         final Collection<Integer> v0 = Immutables.listOf();
         Assert.assertTrue("Array " + u0 + " should equal " + v0, u0.equals(v0));
 
-        final ArrayList<Integer> z1 = new ArrayList<Integer>();
-        final ArrayList<Integer> z2 = new ArrayList<Integer>();
+        final ArrayList<Integer> z1 = new ArrayList<>();
+        final ArrayList<Integer> z2 = new ArrayList<>();
         z2.add(1);
 
-        final LinkedHashSet<Integer> zz1 = new LinkedHashSet<Integer>();
-        final LinkedHashSet<Integer> zz2 = new LinkedHashSet<Integer>();
+        final LinkedHashSet<Integer> zz1 = new LinkedHashSet<>();
+        final LinkedHashSet<Integer> zz2 = new LinkedHashSet<>();
         zz2.add(1);
 
         final Collection<Integer> u1 = Immutables.listOf(Immutables.<Integer>emptyList(), 1);
-        final Collection<Integer> v1 = Immutables.listOf(Immutables.<Integer>listOf(1));
+        final Collection<Integer> v1 = Immutables.listOf(Immutables.listOf(1));
         final Collection<Integer> uu1 = Immutables.listOf(z1);
         final Collection<Integer> uuu1 = Immutables.listOf(z2);
         final Collection<Integer> vv1 = Immutables.listOf(zz1);
@@ -112,7 +112,7 @@ public class ImmutablesTest {
         Assert.assertTrue("Array " + a + " should contain 2", a.contains(2));
 
         @SuppressWarnings("unchecked")
-        final Set<Integer> b = new LinkedHashSet<Integer>();
+        final Set<Integer> b = new LinkedHashSet<>();
         final Collection<Integer> b1 = Immutables.copyOf(b);
         Assert.assertTrue("Array " + b1 + " should be empty", b1.isEmpty());
 
@@ -158,16 +158,16 @@ public class ImmutablesTest {
         final Collection<Integer> v0 = Immutables.setOf();
         Assert.assertTrue("Set " + u0 + " should equal " + v0, u0.equals(v0));
 
-        final ArrayList<Integer> z1 = new ArrayList<Integer>();
-        final ArrayList<Integer> z2 = new ArrayList<Integer>();
+        final ArrayList<Integer> z1 = new ArrayList<>();
+        final ArrayList<Integer> z2 = new ArrayList<>();
         z2.add(1);
 
-        final LinkedHashSet<Integer> zz1 = new LinkedHashSet<Integer>();
-        final LinkedHashSet<Integer> zz2 = new LinkedHashSet<Integer>();
+        final LinkedHashSet<Integer> zz1 = new LinkedHashSet<>();
+        final LinkedHashSet<Integer> zz2 = new LinkedHashSet<>();
         zz2.add(1);
 
         final Collection<Integer> u1 = Immutables.setOf(Immutables.<Integer>emptyList(), 1);
-        final Collection<Integer> v1 = Immutables.setOf(Immutables.<Integer>setOf(1));
+        final Collection<Integer> v1 = Immutables.setOf(Immutables.setOf(1));
         final Collection<Integer> uu1 = Immutables.setOf(z1);
         final Collection<Integer> uuu1 = Immutables.setOf(z2);
         final Collection<Integer> vv1 = Immutables.setOf(zz1);

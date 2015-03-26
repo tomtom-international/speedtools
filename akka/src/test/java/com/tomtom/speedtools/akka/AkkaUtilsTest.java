@@ -17,18 +17,17 @@
 package com.tomtom.speedtools.akka;
 
 import akka.actor.ActorSystem;
-import scala.concurrent.Future;
 import akka.dispatch.Futures;
 import akka.dispatch.OnComplete;
-
-import javax.annotation.Nullable;
-
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import scala.concurrent.Future;
+
+import javax.annotation.Nullable;
 
 public class AkkaUtilsTest {
     private static final Logger LOG = LoggerFactory.getLogger(AkkaUtilsTest.class);
@@ -72,9 +71,6 @@ public class AkkaUtilsTest {
 
                     Thread.sleep(500);
                     LOG.info(("testAssertInFuture: in onComplete - no failure, after wait"));
-
-                    // TODO: Test incomplete
-                    // assert false;
                 }
             }
         }, system.dispatcher());
@@ -101,9 +97,7 @@ public class AkkaUtilsTest {
 
         try {
             Assert.assertEquals("", AkkaUtils.actorName("123"));
-        } catch (final AssertionError ignored) {
-            return;
-        } catch (final IllegalArgumentException ignored) {
+        } catch (final AssertionError | IllegalArgumentException ignored) {
             return;
         }
 
@@ -111,18 +105,14 @@ public class AkkaUtilsTest {
 
         try {
             Assert.assertEquals("", AkkaUtils.actorName(null, "123"));
-        } catch (final AssertionError ignored) {
-            return;
-        } catch (final IllegalArgumentException ignored) {
+        } catch (final AssertionError | IllegalArgumentException ignored) {
             return;
         }
         Assert.fail("Expected exception here!");
 
         try {
             Assert.assertEquals("", AkkaUtils.actorName("012345678901234567890123456789012", "123"));
-        } catch (final AssertionError ignored) {
-            return;
-        } catch (final IllegalArgumentException ignored) {
+        } catch (final AssertionError | IllegalArgumentException ignored) {
             return;
         }
         Assert.fail("Expected exception here!");

@@ -33,7 +33,7 @@ public final class Trigger implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Nonnull
-    private static final Map<String, Trigger> usedNames = new ConcurrentHashMap<String, Trigger>();
+    private static final Map<String, Trigger> usedNames = new ConcurrentHashMap<>();
     @Nonnull
     private final String name;
 

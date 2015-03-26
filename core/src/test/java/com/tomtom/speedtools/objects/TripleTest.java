@@ -34,7 +34,7 @@ public class TripleTest {
     private final Double x1 = 1.0;
     private final String x2 = "";
     private final Boolean x3 = false;
-    private final Triple<Double, String, Boolean> x = new Triple<Double, String, Boolean>(x1, x2, x3);
+    private final Triple<Double, String, Boolean> x = new Triple<>(x1, x2, x3);
 
     private Double y1 = null;
     private String y2 = null;
@@ -46,7 +46,7 @@ public class TripleTest {
         y1 = 2.3;
         y2 = "a";
         y3 = true;
-        y = new Triple<Double, String, Boolean>(y1, y2, y3);
+        y = new Triple<>(y1, y2, y3);
     }
 
     @Test

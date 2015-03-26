@@ -16,13 +16,12 @@
 
 package com.tomtom.speedtools.domain;
 
-import javax.annotation.Nullable;
-
-import javax.annotation.Nonnull;
-import javax.annotation.concurrent.Immutable;
-
 import com.tomtom.speedtools.objects.Objects;
 import com.tomtom.speedtools.utils.MathUtils;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import javax.annotation.concurrent.Immutable;
 
 
 /**

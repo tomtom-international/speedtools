@@ -33,7 +33,7 @@ public class TupleTest {
 
     private final Double x1 = 1.0;
     private final String x2 = "";
-    private final Tuple<Double, String> x = new Tuple<Double, String>(x1, x2);
+    private final Tuple<Double, String> x = new Tuple<>(x1, x2);
 
     private Double y1 = 0.0;
     private final String y2 = "1";
@@ -42,7 +42,7 @@ public class TupleTest {
     @Before
     public void setUp() {
         y1 = 3.0;
-        y = new Tuple<Double, String>(y1, y2);
+        y = new Tuple<>(y1, y2);
     }
 
     @Test

@@ -16,6 +16,7 @@
 
 package com.tomtom.speedtools.xmladapters;
 
+import com.tomtom.speedtools.xmladapters.DateAdapter.XMLAdapter;
 import org.joda.time.IllegalFieldValueException;
 import org.junit.Assert;
 import org.junit.Test;
@@ -25,7 +26,7 @@ import org.slf4j.LoggerFactory;
 import java.util.Date;
 
 
-@SuppressWarnings({"ProhibitedExceptionDeclared", "OverlyBroadThrowsClause"})
+@SuppressWarnings({"ProhibitedExceptionDeclared", "OverlyBroadThrowsClause", "CallToDateToString"})
 public class DateAdapterTest {
     private static final Logger LOG = LoggerFactory.getLogger(DateAdapterTest.class);
 
@@ -35,7 +36,7 @@ public class DateAdapterTest {
 
         // Valid.
         final Date date = new Date(1234567890123L);
-        final DateAdapter.XMLAdapter dateAdapter = new DateAdapter.XMLAdapter();
+        final XMLAdapter dateAdapter = new XMLAdapter();
         final String marshal = dateAdapter.marshal(date);
         Assert.assertEquals("2009-02-13T23:31:30Z", marshal);
 
@@ -50,7 +51,7 @@ public class DateAdapterTest {
         // Valid.
         final Date date = new Date(1234567890123L);
         final String dateString = date.toString();
-        final DateAdapter.XMLAdapter dateAdapter = new DateAdapter.XMLAdapter();
+        final XMLAdapter dateAdapter = new XMLAdapter();
 
         // Zulu time. Eg UTC time.
         final Date unmarshal1 = dateAdapter.unmarshal("2009-02-13T23:31:30Z");
@@ -96,7 +97,7 @@ public class DateAdapterTest {
     public void testXmlInvalidUnmarshalValues() {
         LOG.info("Test: testXmlInvalidUnmarshalValues");
 
-        final DateAdapter.XMLAdapter dateAdapter = new DateAdapter.XMLAdapter();
+        final XMLAdapter dateAdapter = new XMLAdapter();
 
         try {
             // Month and day switched.

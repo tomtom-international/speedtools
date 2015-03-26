@@ -17,27 +17,19 @@
 package com.tomtom.speedtools.akka;
 
 import akka.AkkaException;
-import akka.actor.ActorContext;
-import akka.actor.ActorPath;
-import akka.actor.ActorRef;
-import akka.actor.ActorSystem;
-import akka.actor.InvalidActorNameException;
-import akka.actor.Props;
-import akka.actor.TypedActor;
-import akka.actor.TypedProps;
+import akka.actor.*;
 import akka.japi.Creator;
 import akka.routing.RouterConfig;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 /**
  * Since the class implements {@link Creator}, instances can be used to construct {@link TypedProps} objects. As a
  * convenience, the static {@code actorOf} methods can be used to create an actor from this factory directly. These
- * convenience methods can be used when no {@link akka.actor.TypedProps#withDispatcher(String)} or other Props specifics
+ * convenience methods can be used when no {@link TypedProps#withDispatcher(String)} or other Props specifics
  * are necessary.
  */
 public class TypedActorFactory<T, Impl extends T> implements Creator<Impl> {
@@ -72,7 +64,7 @@ public class TypedActorFactory<T, Impl extends T> implements Creator<Impl> {
         assert interfaceClass != null;
 
         final ActorRef actorRef = system.actorFor(path);
-        return TypedActor.get(system).typedActorOf(new TypedProps<T>(interfaceClass), actorRef);
+        return TypedActor.get(system).typedActorOf(new TypedProps<>(interfaceClass), actorRef);
     }
 
     /**
@@ -94,7 +86,7 @@ public class TypedActorFactory<T, Impl extends T> implements Creator<Impl> {
         assert interfaceClass != null;
 
         @Nonnull final ActorRef actorRef = context.actorFor(path);
-        return TypedActor.get(context).typedActorOf(new TypedProps<T>(interfaceClass), actorRef);
+        return TypedActor.get(context).typedActorOf(new TypedProps<>(interfaceClass), actorRef);
     }
 
     /**
@@ -114,7 +106,7 @@ public class TypedActorFactory<T, Impl extends T> implements Creator<Impl> {
 
         final ActorContext context = TypedActor.context();
         final ActorRef actorRef = context.actorFor(context.self().path().child(name));
-        return TypedActor.get(context).typedActorOf(new TypedProps<T>(interfaceClass), actorRef);
+        return TypedActor.get(context).typedActorOf(new TypedProps<>(interfaceClass), actorRef);
     }
 
     /**
@@ -145,7 +137,7 @@ public class TypedActorFactory<T, Impl extends T> implements Creator<Impl> {
         }
 
         // Wrap actor with interfaceClass.
-        final TypedProps<T> props = new TypedProps<T>(interfaceClass);
+        final TypedProps<T> props = new TypedProps<>(interfaceClass);
         return TypedActor.get(context).typedActorOf(props, routerActor);
     }
 
@@ -404,14 +396,14 @@ public class TypedActorFactory<T, Impl extends T> implements Creator<Impl> {
 
         // Actor factory registers context and self as side-effect.
         final TypedActorFactory<T, Impl> actorFactory =
-                new TypedActorFactory<T, Impl>(system, interfaceClass, implementationClass, explicitParameters);
+                new TypedActorFactory<>(system, interfaceClass, implementationClass, explicitParameters);
 
         // Props.
         final TypedProps<Impl> props;
         if (dispatcher != null) {
-            props = new TypedProps<Impl>(interfaceClass, actorFactory).withDispatcher(dispatcher);
+            props = new TypedProps<>(interfaceClass, actorFactory).withDispatcher(dispatcher);
         } else {
-            props = new TypedProps<Impl>(interfaceClass, actorFactory);
+            props = new TypedProps<>(interfaceClass, actorFactory);
         }
 
         // Construct the actor.
@@ -474,7 +466,7 @@ public class TypedActorFactory<T, Impl extends T> implements Creator<Impl> {
     public Impl create() {
 
         // At this point, the actor context is set, so we can construct a context.
-        final TypedActorContext<T> context = new TypedActorContext<T>(system, TypedActor.context(), interfaceClass);
+        final TypedActorContext<T> context = new TypedActorContext<>(system, TypedActor.context(), interfaceClass);
 
         // Create he actor instance.
         return ActorFactory.newInstance(system, implementationClass, context, explicitParameters);

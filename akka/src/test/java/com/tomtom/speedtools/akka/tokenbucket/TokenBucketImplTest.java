@@ -16,6 +16,9 @@
 
 package com.tomtom.speedtools.akka.tokenbucket;
 
+import com.tomtom.speedtools.akka.TypedActorContext;
+import com.tomtom.speedtools.akka.tokenbucket.TokenBucket.TokenAcceptor;
+import com.tomtom.speedtools.testutils.akka.SimpleExecutionContext;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -24,19 +27,13 @@ import scala.concurrent.duration.FiniteDuration;
 
 import java.util.concurrent.TimeUnit;
 
-import com.tomtom.speedtools.testutils.akka.SimpleExecutionContext;
-import com.tomtom.speedtools.akka.TypedActorContext;
-
-import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 public class TokenBucketImplTest {
     @Mock
     private TypedActorContext<TokenBucket> mockContext;
     @Mock
-    private TokenBucket.TokenAcceptor mockAcceptor;
+    private TokenAcceptor mockAcceptor;
 
     @Before
     public void setup() {

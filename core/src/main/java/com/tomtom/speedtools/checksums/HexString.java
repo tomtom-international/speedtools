@@ -113,7 +113,7 @@ public final class HexString {
         if (('0' <= lo) && (lo <= '9')) {
             result = (int) lo - (int) '0';
         } else if (('a' <= lo) && (lo <= 'f')) {
-            result = (int) lo - (int) 'a' + 10;
+            result = ((int) lo - (int) 'a') + 10;
         } else {
             throw new IllegalArgumentException("Unknown hex character '" + ch + "' in hex string");
         }

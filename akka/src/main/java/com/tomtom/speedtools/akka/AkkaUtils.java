@@ -102,7 +102,7 @@ public final class AkkaUtils {
         assert names.length > 0;
 
         // Add all names to list.
-        final ArrayList<String> list = new ArrayList<String>(names.length);
+        final ArrayList<String> list = new ArrayList<>(names.length);
         Collections.addAll(list, names);
 
         // Sort list to keep same name for same strings.

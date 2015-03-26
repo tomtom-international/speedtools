@@ -16,6 +16,8 @@
 
 package com.tomtom.speedtools.buffer;
 
+import com.tomtom.speedtools.buffer.CircularBuffer.OverflowException;
+import com.tomtom.speedtools.buffer.CircularBuffer.UnderflowException;
 import org.junit.Assert;
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -28,14 +30,14 @@ public class CircularBufferTest {
     public void testBuffer() {
         LOG.info("testBuffer");
 
-        final CircularBuffer<Integer> buffer = new CircularBuffer<Integer>(3);
+        final CircularBuffer<Integer> buffer = new CircularBuffer<>(3);
         LOG.info("Empty buffer = {}", buffer.toString());
 
         try {
             buffer.get();
             Assert.fail();
         }
-        catch (final CircularBuffer.UnderflowException ignored) {
+        catch (final UnderflowException ignored) {
             // Ok.
         }
 
@@ -43,7 +45,7 @@ public class CircularBufferTest {
             buffer.newest();
             Assert.fail();
         }
-        catch (final CircularBuffer.UnderflowException ignored) {
+        catch (final UnderflowException ignored) {
             // Ok.
         }
 
@@ -51,7 +53,7 @@ public class CircularBufferTest {
             buffer.oldest();
             Assert.fail();
         }
-        catch (final CircularBuffer.UnderflowException ignored) {
+        catch (final UnderflowException ignored) {
             // Ok.
         }
 
@@ -90,7 +92,7 @@ public class CircularBufferTest {
             buffer.get();
             Assert.fail();
         }
-        catch (final CircularBuffer.UnderflowException ignored) {
+        catch (final UnderflowException ignored) {
             // Ok.
         }
     }
@@ -99,7 +101,7 @@ public class CircularBufferTest {
     public void testBufferStress() {
         LOG.info("testBufferStress");
 
-        final CircularBuffer<Integer> buffer = new CircularBuffer<Integer>(5, true);
+        final CircularBuffer<Integer> buffer = new CircularBuffer<>(5, true);
 
         for (int i = 0; i < 100000; ++i) {
             if (buffer.size() < 5) {
@@ -123,7 +125,7 @@ public class CircularBufferTest {
     public void testBufferString() {
         LOG.info("testBufferString");
 
-        final CircularBuffer<Integer> buffer = new CircularBuffer<Integer>(3, true);
+        final CircularBuffer<Integer> buffer = new CircularBuffer<>(3, true);
         buffer.add(1);
         buffer.add(2);
         buffer.add(3);
@@ -135,14 +137,14 @@ public class CircularBufferTest {
     public void testBufferOverflow() {
         LOG.info("testBufferOverflow");
 
-        final CircularBuffer<Integer> buffer = new CircularBuffer<Integer>(3, true);
+        final CircularBuffer<Integer> buffer = new CircularBuffer<>(3, true);
         LOG.info("Empty buffer = {}", buffer.toString());
 
         try {
             buffer.get();
             Assert.fail();
         }
-        catch (final CircularBuffer.UnderflowException ignored) {
+        catch (final UnderflowException ignored) {
             // Ok.
         }
 
@@ -150,7 +152,7 @@ public class CircularBufferTest {
             buffer.newest();
             Assert.fail();
         }
-        catch (final CircularBuffer.UnderflowException ignored) {
+        catch (final UnderflowException ignored) {
             // Ok.
         }
 
@@ -158,7 +160,7 @@ public class CircularBufferTest {
             buffer.oldest();
             Assert.fail();
         }
-        catch (final CircularBuffer.UnderflowException ignored) {
+        catch (final UnderflowException ignored) {
             // Ok.
         }
 
@@ -177,7 +179,7 @@ public class CircularBufferTest {
             buffer.add(5);
             Assert.fail();
         }
-        catch (final CircularBuffer.OverflowException ignored) {
+        catch (final OverflowException ignored) {
             // Ok.
         }
 
@@ -203,7 +205,7 @@ public class CircularBufferTest {
             buffer.get();
             Assert.fail();
         }
-        catch (final CircularBuffer.UnderflowException ignored) {
+        catch (final UnderflowException ignored) {
             // Ok.
         }
 

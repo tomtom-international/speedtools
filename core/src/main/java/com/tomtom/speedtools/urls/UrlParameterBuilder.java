@@ -42,7 +42,7 @@ public class UrlParameterBuilder {
     public static final String ENCODING = "UTF-8";
 
     @Nonnull
-    protected final Collection<Pair> parameters = new ArrayList<Pair>();
+    protected final Collection<Pair> parameters = new ArrayList<>();
 
     /**
      * Clear all key/value pairs.

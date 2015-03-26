@@ -18,6 +18,12 @@ package com.tomtom.speedtools.apivalidation;
 
 import com.google.i18n.phonenumbers.NumberParseException;
 import com.google.i18n.phonenumbers.PhoneNumberUtil;
+import com.tomtom.speedtools.apivalidation.errors.*;
+import com.tomtom.speedtools.apivalidation.exceptions.ApiBadRequestException;
+import com.tomtom.speedtools.domain.ColorConverter;
+import com.tomtom.speedtools.domain.Uid;
+import com.tomtom.speedtools.locale.LocaleUtil;
+import com.tomtom.speedtools.utils.MathUtils;
 import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 import org.slf4j.Logger;
@@ -29,35 +35,7 @@ import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Currency;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Locale;
-import java.util.MissingResourceException;
-import java.util.Set;
-
-import com.tomtom.speedtools.apivalidation.errors.ApiBICFormatError;
-import com.tomtom.speedtools.apivalidation.errors.ApiColorFormatError;
-import com.tomtom.speedtools.apivalidation.errors.ApiDateOutOfRangeError;
-import com.tomtom.speedtools.apivalidation.errors.ApiDoubleOutOfRangeError;
-import com.tomtom.speedtools.apivalidation.errors.ApiIBANFormatError;
-import com.tomtom.speedtools.apivalidation.errors.ApiIntegerOutOfRangeError;
-import com.tomtom.speedtools.apivalidation.errors.ApiLocalDateFormatError;
-import com.tomtom.speedtools.apivalidation.errors.ApiLocalDateOutOfRangeError;
-import com.tomtom.speedtools.apivalidation.errors.ApiLongOutOfRangeError;
-import com.tomtom.speedtools.apivalidation.errors.ApiParameterMissingError;
-import com.tomtom.speedtools.apivalidation.errors.ApiParameterSyntaxError;
-import com.tomtom.speedtools.apivalidation.errors.ApiStringLengthError;
-import com.tomtom.speedtools.apivalidation.errors.ApiUidSyntaxError;
-import com.tomtom.speedtools.apivalidation.errors.ApiValidationError;
-import com.tomtom.speedtools.apivalidation.exceptions.ApiBadRequestException;
-import com.tomtom.speedtools.domain.ColorConverter;
-import com.tomtom.speedtools.domain.Uid;
-import com.tomtom.speedtools.locale.LocaleUtil;
-import com.tomtom.speedtools.utils.MathUtils;
+import java.util.*;
 
 /**
  * The class WebParameterValidator implements a simple way to validate monitoring parameters and throw a BAD_REQUEST
@@ -74,7 +52,7 @@ public final class ApiValidator {
     }
 
     @Nonnull
-    private final List<ApiValidationError> errors = new ArrayList<ApiValidationError>();
+    private final List<ApiValidationError> errors = new ArrayList<>();
     private Status status = Status.NOT_STARTED;
 
     public void start() {
@@ -291,7 +269,7 @@ public final class ApiValidator {
             }
 
             // Get all currency codes.
-            final Set<Currency> currencies = new HashSet<Currency>();
+            final Set<Currency> currencies = new HashSet<>();
             for (final Locale locale : Locale.getAvailableLocales()) {
                 try {
                     final Currency currency = Currency.getInstance(locale);

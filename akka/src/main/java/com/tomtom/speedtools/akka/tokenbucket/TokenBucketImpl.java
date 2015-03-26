@@ -17,6 +17,7 @@
 package com.tomtom.speedtools.akka.tokenbucket;
 
 import akka.dispatch.Futures;
+import com.tomtom.speedtools.akka.TypedActorContext;
 import scala.concurrent.Future;
 import scala.concurrent.duration.FiniteDuration;
 
@@ -24,8 +25,6 @@ import javax.annotation.Nonnull;
 import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
-
-import com.tomtom.speedtools.akka.TypedActorContext;
 
 /**
  * Note: this implementation could be made more efficient, by only scheduling a timer when there are not enough tokens
@@ -43,7 +42,7 @@ public class TokenBucketImpl implements TokenBucket {
 
     private double increment;
     private double nrTokens;
-    private final List<TokenAcceptor> waitingAcceptors = new ArrayList<TokenAcceptor>();
+    private final List<TokenAcceptor> waitingAcceptors = new ArrayList<>();
 
     @Inject
     public TokenBucketImpl(

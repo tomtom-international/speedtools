@@ -145,7 +145,7 @@ public final class Uid<T> implements Serializable {
     @Nonnull
     public static <T> Uid<T> fromString(@Nonnull final String id) {
         assert id != null;
-        return new Uid<T>(id);
+        return new Uid<>(id);
     }
 
     /**
@@ -164,7 +164,7 @@ public final class Uid<T> implements Serializable {
         final long msb = (Long.parseLong(id.substring(0, 8), 16) << 32) | (Long.parseLong(id.substring(8, 16), 16));
         final long lsb = (Long.parseLong(id.substring(16, 24), 16) << 32) | (Long.parseLong(id.substring(24, 32), 16));
 
-        return new Uid<T>(new UUID(msb, lsb));
+        return new Uid<>(new UUID(msb, lsb));
     }
 
     /**

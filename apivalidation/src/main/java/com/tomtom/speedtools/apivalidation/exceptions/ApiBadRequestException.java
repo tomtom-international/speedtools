@@ -42,7 +42,7 @@ public class ApiBadRequestException extends ApiException {
             @Nonnull final ApiValidationError error) {
         super();
         assert error != null;
-        this.errors = new ArrayList<ApiValidationError>();
+        this.errors = new ArrayList<>();
         errors.add(error);
     }
 

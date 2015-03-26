@@ -47,7 +47,7 @@ public final class Tuple<T1, T2> implements Serializable {
      */
     @Nonnull
     public static <T1, T2> Tuple<T1, T2> create(@Nonnull final T1 value1, @Nonnull final T2 value2) {
-        return new Tuple<T1, T2>(value1, value2);
+        return new Tuple<>(value1, value2);
     }
 
     /**

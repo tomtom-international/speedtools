@@ -59,7 +59,7 @@ public class RateLimiter {
 
         // Small frequencies needs some buffer.
         //noinspection NumericCastThatLosesPrecision
-        this.buffer = new CircularBuffer<Long>(Math.max(2, (int) Math.round((double) maxFreqHz / burstFreqHz)));
+        this.buffer = new CircularBuffer<>(Math.max(2, (int) Math.round((double) maxFreqHz / burstFreqHz)));
 
         // Convert 1/s to 1/nanoseconds.
         this.maxFreqGigaHz = maxFreqHz / 1.0e9d;

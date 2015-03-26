@@ -16,20 +16,11 @@
 
 package com.tomtom.speedtools.utils;
 
+import com.tomtom.speedtools.objects.Immutables;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Locale;
-import java.util.Random;
-import java.util.Set;
-
-import com.tomtom.speedtools.objects.Immutables;
+import java.util.*;
 
 public final class StringUtils {
 
@@ -228,7 +219,7 @@ public final class StringUtils {
 
     @Nonnull
     public static <T> String mkRevString(@Nonnull final String separator, @Nonnull final Collection<T> values) {
-        final LinkedList<T> rev = new LinkedList<T>();
+        final LinkedList<T> rev = new LinkedList<>();
         for (final T value : values) {
             rev.addFirst(value);
         }
@@ -242,6 +233,7 @@ public final class StringUtils {
      * @param values    The values.
      * @return String with values, separated by separator.
      */
+    @SafeVarargs
     @Nonnull
     public static <T> String mkString(@Nonnull final String separator, @Nonnull final T... values) {
         return mkString(separator, Arrays.asList(values));
@@ -254,6 +246,7 @@ public final class StringUtils {
      * @param values    The values.
      * @return String with values, separated by separator.
      */
+    @SafeVarargs
     @Nonnull
     public static <T> String mkRevString(@Nonnull final String separator, @Nonnull final T... values) {
         return mkRevString(separator, Arrays.asList(values));

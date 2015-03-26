@@ -22,6 +22,9 @@ import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
+import com.tomtom.speedtools.xmladapters.DateTimeAdapter.JsonDateTimeStringDeserializer;
+import com.tomtom.speedtools.xmladapters.DateTimeAdapter.JsonSerializerWithSecondsResolution;
+import com.tomtom.speedtools.xmladapters.DateTimeAdapter.XMLAdapterWithSecondsResolution;
 import org.joda.time.DateTime;
 
 import javax.annotation.Nonnull;
@@ -33,9 +36,9 @@ import java.util.Date;
 
 public final class DateAdapter {
 
-    private static final DateTimeAdapter.XMLAdapterWithSecondsResolution XML_DATE_TIME_ADAPTER = new DateTimeAdapter.XMLAdapterWithSecondsResolution();
-    private static final DateTimeAdapter.JsonSerializerWithSecondsResolution JSON_DATE_TIME_SERIALIZER = new DateTimeAdapter.JsonSerializerWithSecondsResolution();
-    private static final DateTimeAdapter.JsonDateTimeStringDeserializer JSON_DATE_TIME_DESERIALIZER = new DateTimeAdapter.JsonDateTimeStringDeserializer();
+    private static final XMLAdapterWithSecondsResolution XML_DATE_TIME_ADAPTER = new XMLAdapterWithSecondsResolution();
+    private static final JsonSerializerWithSecondsResolution JSON_DATE_TIME_SERIALIZER = new JsonSerializerWithSecondsResolution();
+    private static final JsonDateTimeStringDeserializer JSON_DATE_TIME_DESERIALIZER = new JsonDateTimeStringDeserializer();
 
     private DateAdapter() {
         // Prevent instantiation.

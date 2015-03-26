@@ -193,9 +193,7 @@ public class HexStringTest {
             final byte[] nullArray = null;
             //noinspection ConstantConditions
             HexString.getHexString(nullArray);
-        } catch (final AssertionError ignored) {
-            return;
-        } catch (final IllegalArgumentException ignored) {
+        } catch (final AssertionError | IllegalArgumentException ignored) {
             return;
         }
         Assert.fail("Wrong: null accepted by @Nonnull parameters!");
@@ -208,9 +206,7 @@ public class HexStringTest {
             final String nullString = null;
             //noinspection ConstantConditions
             HexString.getHexString(nullString);
-        } catch (final AssertionError ignored) {
-            return;
-        } catch (final IllegalArgumentException ignored) {
+        } catch (final AssertionError | IllegalArgumentException ignored) {
             return;
         }
         Assert.fail("Wrong: null accepted by @Nonnull parameters!");

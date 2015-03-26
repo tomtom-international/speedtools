@@ -108,10 +108,7 @@ public class UrlParameterBuilderTest {
             //noinspection ConstantConditions
             builder.addParameter(null, "a value");
         }
-        catch (final AssertionError ignored) {
-            return;
-        }
-        catch (final IllegalArgumentException ignored) {
+        catch (final AssertionError | IllegalArgumentException ignored) {
             return;
         }
         Assert.fail("Wrong: null accepted by @Nonnull parameters!");

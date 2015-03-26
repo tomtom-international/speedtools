@@ -23,10 +23,8 @@ import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 
-import com.tomtom.speedtools.utils.MathUtilsTest;
-
 public class ObjectsTest {
-    private static final Logger LOG = LoggerFactory.getLogger(MathUtilsTest.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ObjectsTest.class);
 
     @Test
     public void testEqual() {
@@ -45,7 +43,7 @@ public class ObjectsTest {
         Assert.assertFalse(Objects.equal(s1, s3));
     }
 
-    @SuppressWarnings("RedundantArrayCreation")
+    @SuppressWarnings({"RedundantArrayCreation", "PrimitiveArrayArgumentToVariableArgMethod"})
     @Test
     public void testHashCode() {
         LOG.info("testHashCode");
@@ -66,13 +64,13 @@ public class ObjectsTest {
         Assert.assertFalse(Objects.hashCode(new double[]{d0}) == Objects.hashCode(new double[]{d1}));
         Assert.assertTrue(Objects.hashCode(d0) == Objects.hashCode(0.0));
 
-        final ArrayList<String> a1 = new ArrayList<String>();
+        final ArrayList<String> a1 = new ArrayList<>();
         a1.add("1");
         a1.add("2");
-        final ArrayList<String> a2 = new ArrayList<String>();
+        final ArrayList<String> a2 = new ArrayList<>();
         a2.add("1");
         a2.add("2");
-        final ArrayList<String> a3 = new ArrayList<String>();
+        final ArrayList<String> a3 = new ArrayList<>();
         a3.add("a");
         a3.add("b");
         Assert.assertTrue(Objects.hashCode((Object) null) == Objects.hashCode((Object) null));

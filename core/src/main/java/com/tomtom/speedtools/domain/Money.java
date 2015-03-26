@@ -16,13 +16,12 @@
 
 package com.tomtom.speedtools.domain;
 
-import javax.annotation.Nullable;
+import com.tomtom.speedtools.objects.Objects;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 import java.util.Currency;
-
-import com.tomtom.speedtools.objects.Objects;
 
 
 /**
@@ -32,7 +31,7 @@ import com.tomtom.speedtools.objects.Objects;
  * placed in a monetary value amount is shifted completely to the right. For example, EURO 2.35 would be specified as
  * Currency:EURO Amount:235 and YEN 10234 as Currency:YEN Amount: 10234.
  *
- * Constructor: {@link #Money(java.util.Currency, Integer)}
+ * Constructor: {@link #Money(Currency, Integer)}
  */
 @Immutable
 public final class Money {

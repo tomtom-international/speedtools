@@ -43,11 +43,12 @@ import java.util.concurrent.ConcurrentMap;
  * Actor factory that will inject constructor parameters. Supports Google Guice. An actor system should be provided with
  * Guice injector by means for {@link #setInjector(ActorSystem, Injector)}.
  *
- * Since the class implements {@link UntypedActorFactory}, instances can be used to construct {@link Props} objects. As
+ * Since the class implements UntypedActorFactory, instances can be used to construct {@link Props} objects. As
  * a convenience, the static {@code actorOf} methods can be used to create an actor from this factory directly. These
  * convenience methods can be used when no {@link Props#withRouter(akka.routing.RouterConfig)}, or other Props specifics
  * are necessary.
  */
+@SuppressWarnings("deprecation")
 public class ActorFactory implements UntypedActorFactory {
     @Nonnull
     private static final Logger LOG = LoggerFactory.getLogger(ActorFactory.class);

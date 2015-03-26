@@ -16,22 +16,16 @@
 
 package com.tomtom.speedtools.thread;
 
-import javax.annotation.Nonnull;
-
+import com.tomtom.speedtools.time.UTCTime;
 import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.RejectedExecutionException;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
-
-import com.tomtom.speedtools.time.UTCTime;
+import java.util.concurrent.*;
 
 /**
  * This class creates a pool of worker threads that will execute workload tasks. The amount of actual threads is
@@ -256,7 +250,7 @@ public class WorkQueue {
     @Nonnull
     private ThreadPoolExecutor createNewExecutor() {
         final int nrCores = Runtime.getRuntime().availableProcessors();
-        final BlockingQueue<Runnable> queue = new LinkedBlockingQueue<Runnable>(this.maxQueueSize);
+        final BlockingQueue<Runnable> queue = new LinkedBlockingQueue<>(this.maxQueueSize);
         return new ThreadPoolExecutor(
                 Math.min(nrCores, MAX_THREADS_FOR_FULL_QUEUE),  // Core pool.
                 MAX_THREADS_FOR_FULL_QUEUE,                     // Max. pool.

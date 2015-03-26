@@ -16,8 +16,7 @@
 
 package com.tomtom.speedtools.apivalidation;
 
-import javax.annotation.Nonnull;
-
+import com.tomtom.speedtools.apivalidation.exceptions.ApiBadRequestException;
 import org.joda.time.DateTime;
 import org.junit.Assert;
 import org.junit.Before;
@@ -25,12 +24,9 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.tomtom.speedtools.apivalidation.exceptions.ApiBadRequestException;
-
 public class ApiValidatorTest {
     private static final Logger LOG = LoggerFactory.getLogger(ApiValidatorTest.class);
 
-    @Nonnull
     private ApiValidator validator;
 
     @Before

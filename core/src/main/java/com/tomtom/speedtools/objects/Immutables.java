@@ -17,6 +17,7 @@
 package com.tomtom.speedtools.objects;
 
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableList.Builder;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
 
@@ -66,6 +67,7 @@ public final class Immutables {
      * @param elts2 Elements to be concatenated.
      * @return Concatenated collection.
      */
+    @SafeVarargs
     @Nonnull
     public static <T> Collection<T> copyOf(@Nonnull final Collection<? extends T> elts1, @Nonnull final T... elts2) {
         assert elts1 != null;
@@ -75,7 +77,7 @@ public final class Immutables {
         } else if (elts2.length == 0) {
             return copyOf(elts1);
         } else {
-            final ImmutableList.Builder<T> builder = ImmutableList.builder();
+            final Builder<T> builder = ImmutableList.builder();
             builder.addAll(elts1);
             builder.add(elts2);
             return builder.build();
@@ -110,6 +112,7 @@ public final class Immutables {
      * @param elts Elements for the list.
      * @return Immutable list.
      */
+    @SafeVarargs
     @Nonnull
     public static <T> List<T> listOf(@Nonnull final T... elts) {
         assert elts != null;
@@ -137,6 +140,7 @@ public final class Immutables {
      * @param elts2 Elements to be concatenated.
      * @return Immutable list.
      */
+    @SafeVarargs
     @Nonnull
     public static <T> List<T> listOf(@Nonnull final Collection<? extends T> elts1, @Nonnull final T... elts2) {
         assert elts1 != null;
@@ -146,7 +150,7 @@ public final class Immutables {
         } else if (elts2.length == 0) {
             return listOf(elts1);
         } else {
-            final ImmutableList.Builder<T> builder = ImmutableList.builder();
+            final Builder<T> builder = ImmutableList.builder();
             builder.addAll(elts1);
             builder.add(elts2);
             return builder.build();
@@ -193,6 +197,7 @@ public final class Immutables {
      * @param elts Elements for the set.
      * @return Immutable set.
      */
+    @SafeVarargs
     @Nonnull
     public static <T> Set<T> setOf(@Nonnull final T... elts) {
         assert elts != null;
@@ -222,6 +227,7 @@ public final class Immutables {
      * @param elts2 Elements to be concatenated.
      * @return Immutable set.
      */
+    @SafeVarargs
     @Nonnull
     public static <T> Set<T> setOf(@Nonnull final Collection<? extends T> elts1, @Nonnull final T... elts2) {
         assert elts1 != null;
@@ -249,7 +255,7 @@ public final class Immutables {
      * @return New List with oldElt replaced.
      */
     public static <T> List<T> replace(final List<T> elts, final T oldElt, final T newElt) {
-        final ImmutableList.Builder<T> builder = ImmutableList.builder();
+        final Builder<T> builder = ImmutableList.builder();
         for (final T elt : elts) {
             if (elt.equals(oldElt)) {
                 builder.add(newElt);
@@ -270,7 +276,7 @@ public final class Immutables {
      * @return New List with oldElt replaced.
      */
     public static <T> List<T> replaceOrAdd(final List<T> elts, final T oldElt, final T newElt) {
-        final ImmutableList.Builder<T> builder = ImmutableList.builder();
+        final Builder<T> builder = ImmutableList.builder();
         boolean shouldAdd = true;
         for (final T elt : elts) {
             if (elt.equals(oldElt)) {

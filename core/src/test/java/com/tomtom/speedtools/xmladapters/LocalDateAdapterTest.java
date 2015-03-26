@@ -21,6 +21,9 @@ import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.SerializerProvider;
+import com.tomtom.speedtools.xmladapters.LocalDateAdapter.JsonLocalDateDeserializer;
+import com.tomtom.speedtools.xmladapters.LocalDateAdapter.JsonLocalDateSerializer;
+import com.tomtom.speedtools.xmladapters.LocalDateAdapter.XMLAdapter;
 import org.joda.time.DateTimeZone;
 import org.joda.time.IllegalFieldValueException;
 import org.joda.time.LocalDate;
@@ -39,7 +42,7 @@ public class LocalDateAdapterTest {
     public void testXmlMarshal() {
         LOG.info("Test: testXmlMarshal");
 
-        final LocalDateAdapter.XMLAdapter localDateAdapter = new LocalDateAdapter.XMLAdapter();
+        final XMLAdapter localDateAdapter = new XMLAdapter();
 
         // Valid.
         final LocalDate localDate = new LocalDate(1234567890123L, DateTimeZone.UTC);
@@ -53,7 +56,7 @@ public class LocalDateAdapterTest {
     public void testXmlUnmarshal() {
         LOG.info("Test: testXmlUnmarshal");
 
-        final LocalDateAdapter.XMLAdapter localDateAdapter = new LocalDateAdapter.XMLAdapter();
+        final XMLAdapter localDateAdapter = new XMLAdapter();
 
         // Valid.
         final LocalDate localDate = new LocalDate(1234567890123L, DateTimeZone.UTC);
@@ -67,7 +70,7 @@ public class LocalDateAdapterTest {
     public void testXmlInvalidUnmarshalValues() {
         LOG.info("Test: testXmlInvalidUnmarshalValues");
 
-        final LocalDateAdapter.XMLAdapter localDateAdapter = new LocalDateAdapter.XMLAdapter();
+        final XMLAdapter localDateAdapter = new XMLAdapter();
 
         try {
             // Month and day switched.
@@ -99,7 +102,7 @@ public class LocalDateAdapterTest {
     public void testJsonSerializer() throws IOException {
         LOG.info("testJsonSerializer");
 
-        final LocalDateAdapter.JsonLocalDateSerializer localDateSerializer = new LocalDateAdapter.JsonLocalDateSerializer();
+        final JsonLocalDateSerializer localDateSerializer = new JsonLocalDateSerializer();
         final LocalDate localDate = new LocalDate(1234567890123L, DateTimeZone.UTC);
 
         final JsonGenerator jgen = Mockito.mock(JsonGenerator.class);
@@ -113,7 +116,7 @@ public class LocalDateAdapterTest {
     public void testJsonDeserializer() throws IOException {
         LOG.info("testJsonDeserializer");
 
-        final LocalDateAdapter.JsonLocalDateDeserializer localDateDeserializer = new LocalDateAdapter.JsonLocalDateDeserializer();
+        final JsonLocalDateDeserializer localDateDeserializer = new JsonLocalDateDeserializer();
 
         final JsonParser jp = Mockito.mock(JsonParser.class);
         final DeserializationContext ctxt = Mockito.mock(DeserializationContext.class);
