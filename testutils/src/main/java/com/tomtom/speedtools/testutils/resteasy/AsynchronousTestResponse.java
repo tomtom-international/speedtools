@@ -24,6 +24,7 @@ import javax.annotation.Nullable;
 import org.joda.time.Duration;
 
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
@@ -39,9 +40,9 @@ import java.util.concurrent.atomic.AtomicReference;
 public final class AsynchronousTestResponse<T> implements AsynchronousResponse {
 
     @Nonnull
-    private final BlockingQueue<Response> queue = new LinkedBlockingQueue<Response>();
+    private final BlockingQueue<Response> queue = new LinkedBlockingQueue<>();
     @Nonnull
-    private final AtomicReference<Response> response = new AtomicReference<Response>(null);
+    private final AtomicReference<Response> response = new AtomicReference<>(null);
 
     /**
      * Creates a response instance.
@@ -51,7 +52,7 @@ public final class AsynchronousTestResponse<T> implements AsynchronousResponse {
      */
     @Nonnull
     public static <T> AsynchronousTestResponse<T> create() {
-        return new AsynchronousTestResponse<T>();
+        return new AsynchronousTestResponse<>();
     }
 
     /**
@@ -96,7 +97,7 @@ public final class AsynchronousTestResponse<T> implements AsynchronousResponse {
      */
     @Nonnull
     public T verifyEntity(final long timeout, @Nonnull final TimeUnit unit) throws UnexpectedResponseException {
-        return verifyEntity(Response.Status.OK.getStatusCode(), timeout, unit);
+        return verifyEntity(Status.OK.getStatusCode(), timeout, unit);
     }
 
     /**

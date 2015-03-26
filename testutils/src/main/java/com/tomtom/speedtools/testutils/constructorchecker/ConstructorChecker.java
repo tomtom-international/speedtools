@@ -63,7 +63,7 @@ public final class ConstructorChecker {
     /**
      * Map of instances that can used as parameters in case mocking is not possible or desirable.
      */
-    private static final Map<Class<?>, Object> instanceMap = new HashMap<Class<?>, Object>();
+    private static final Map<Class<?>, Object> instanceMap = new HashMap<>();
 
     static {
         instanceMap.put(Collection.class, Collections.emptyList());

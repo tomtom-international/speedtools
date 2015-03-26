@@ -34,8 +34,8 @@ public final class FakeData {
 
     // Static objects.
     private static final LoremIpsum        LOREM_IPSUM = new LoremIpsum();
-    private static final ArrayList<String> NAMES1      = new ArrayList<String>();
-    private static final ArrayList<String> NAMES2      = new ArrayList<String>();
+    private static final ArrayList<String> NAMES1      = new ArrayList<>();
+    private static final ArrayList<String> NAMES2      = new ArrayList<>();
 
     /**
      * Initialize arrays.

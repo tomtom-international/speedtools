@@ -179,12 +179,7 @@ public final class PrivateAccessHelper {
                     clazz.getDeclaredMethod(methodName, argumentTypes);
             method.setAccessible(true);
             result = method.invoke(instance, argumentObjects);
-        } catch (final NoSuchMethodException e) {
-            throw new PrivateAccessFailure(e);
-        } catch (final IllegalAccessException e) {
-            // Should not occur, since we explicitly make the private method accessible.
-            throw new PrivateAccessFailure(e);
-        } catch (final SecurityException e) {
+        } catch (final NoSuchMethodException | SecurityException | IllegalAccessException e) {
             throw new PrivateAccessFailure(e);
         } catch (final InvocationTargetException e) {
             // Unwrap exception thrown by invoked method and re-throwing.

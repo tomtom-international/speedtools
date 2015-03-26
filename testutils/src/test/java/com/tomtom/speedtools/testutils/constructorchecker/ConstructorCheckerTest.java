@@ -83,7 +83,7 @@ public class ConstructorCheckerTest {
 
     private static class CorrectIllegalArgumentClass {
         public CorrectIllegalArgumentClass(final String string, final List<?> list) {
-            if (string == null || list == null) {
+            if ((string == null) || (list == null)) {
                 throw new IllegalArgumentException();
             }
         }
