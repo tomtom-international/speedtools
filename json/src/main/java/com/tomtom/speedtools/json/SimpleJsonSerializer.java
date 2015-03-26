@@ -85,7 +85,7 @@ public class SimpleJsonSerializer {
     /**
      * Look-up cache for mappers.
      */
-    private final Map<String, Mapper> mappers = new ConcurrentHashMap<String, Mapper>();
+    private final Map<String, Mapper> mappers = new ConcurrentHashMap<>();
 
     /**
      * Singleton instance of this class.
@@ -125,7 +125,7 @@ public class SimpleJsonSerializer {
         try {
             final Class<?> cls = pojo.getClass();
             final Mapper mapper = getOrCreateMapper(cls);
-            final IdentityHashMap<Object, Object> seen = new IdentityHashMap<Object, Object>();
+            final IdentityHashMap<Object, Object> seen = new IdentityHashMap<>();
             serialized = mapper.toJson(pojo, cls, seen);
         } catch (final RuntimeException e) {
             LOG.warn("serialize: failure, value='{}'. Runtime exception:", Json.toStringJson(pojo), e);
@@ -190,7 +190,7 @@ public class SimpleJsonSerializer {
      */
     @Nonnull
     protected Map<String, Object> createJsonMappedObject() {
-        return new LinkedHashMap<String, Object>();
+        return new LinkedHashMap<>();
     }
 
     // ------------------------------------------------------------------------
@@ -322,12 +322,12 @@ public class SimpleJsonSerializer {
             return new EnumMapper(rawType);
         }
 
-        @Nonnull final Map<String, PropertyInfo> propertyMap = new HashMap<String, PropertyInfo>();
+        @Nonnull final Map<String, PropertyInfo> propertyMap = new HashMap<>();
         findBeanProperties(rawType, propertyMap);
 
         // Find suitable constructor.
         PropertyInfo[] mostConstructorProperties = null;
-        final List<BeanInfo.Ctor> ctors = new ArrayList<BeanInfo.Ctor>();
+        final List<BeanInfo.Ctor> ctors = new ArrayList<>();
         final Constructor<?>[] declaredConstructors = rawType.getDeclaredConstructors();
         for (final Constructor<?> constructor : declaredConstructors) {
             final PropertyInfo[] constructorProperties = getCompatibleConstructor(constructor, propertyMap);
@@ -356,7 +356,7 @@ public class SimpleJsonSerializer {
         }
 
         // Add all constructor parameters to the BeanInfo mapper object.
-        final Set<PropertyInfo> properties = new LinkedHashSet<PropertyInfo>();
+        final Set<PropertyInfo> properties = new LinkedHashSet<>();
         if (mostConstructorProperties != null) {
             properties.addAll(Immutables.listOf(mostConstructorProperties));
         }
@@ -635,7 +635,7 @@ public class SimpleJsonSerializer {
             assert beanClass != null;
             assert properties != null;
             this.beanClass = beanClass;
-            final List<Ctor> copy = new ArrayList<Ctor>(ctors.size());
+            final List<Ctor> copy = new ArrayList<>(ctors.size());
             copy.addAll(ctors);
             Collections.sort(copy);
             this.ctors = copy;
@@ -853,7 +853,7 @@ public class SimpleJsonSerializer {
 
             // List?
             if (jsonValue instanceof List) {
-                final List<Object> values = new ArrayList<Object>();
+                final List<Object> values = new ArrayList<>();
                 for (final Object jsonElem : (List) jsonValue) {
                     values.add(fromJson(jsonElem));
                 }
@@ -862,7 +862,7 @@ public class SimpleJsonSerializer {
 
             // Set?
             if (jsonValue instanceof Set) {
-                final Set<Object> values = new LinkedHashSet<Object>();
+                final Set<Object> values = new LinkedHashSet<>();
                 for (final Object jsonElem : (Set) jsonValue) {
                     values.add(fromJson(jsonElem));
                 }
@@ -1125,7 +1125,7 @@ public class SimpleJsonSerializer {
 
             // List?
             if (object instanceof List) {
-                final List<Object> result = new ArrayList<Object>();
+                final List<Object> result = new ArrayList<>();
                 for (final Object o : (List) object) {
                     final Object json = toJson(o, elementType, seen);
                     result.add(json);
@@ -1145,7 +1145,7 @@ public class SimpleJsonSerializer {
             if (object instanceof Set) {
                 final Map<String, Object> result = createJsonMappedObject();
                 result.put(CLASS_NAME_FIELD, object.getClass().getName());
-                final List<Object> values = new ArrayList<Object>();
+                final List<Object> values = new ArrayList<>();
                 for (final Object o : (Set) object) {
                     values.add(toJson(o, elementType, seen));
                 }
@@ -1233,9 +1233,9 @@ public class SimpleJsonSerializer {
             }
 
             if (Set.class.isAssignableFrom(rawType)) {
-                result = new LinkedHashSet<Object>();
+                result = new LinkedHashSet<>();
             } else {
-                result = new ArrayList<Object>();
+                result = new ArrayList<>();
             }
 
             final Mapper elementMapper = getOrCreateMapper(elementType);
@@ -1289,7 +1289,7 @@ public class SimpleJsonSerializer {
             // Store null for now - overwrite later.
             seen.put(object, null);
 
-            final List<Object> jsonValue = new ArrayList<Object>();
+            final List<Object> jsonValue = new ArrayList<>();
             if (object instanceof Collection) {
                 for (final Object elem : (Collection) object) {
                     if (elem == null) {
@@ -1355,7 +1355,7 @@ public class SimpleJsonSerializer {
             final Map<String, Object> jsonObject = createJsonMappedObject();
             jsonObject.put(CLASS_NAME_FIELD, object.getClass().getName());
 
-            final List<Object> jsonValue = new ArrayList<Object>();
+            final List<Object> jsonValue = new ArrayList<>();
             if (object instanceof Collection) {
                 for (final Object elem : (Collection) object) {
                     if (elem == null) {

@@ -107,11 +107,8 @@ public final class ImageSerializer {
     @Nullable
     private static BufferedImage readFromBytes(@Nonnull final byte[] bytes) throws IOException {
         assert bytes != null;
-        final InputStream is = new ByteArrayInputStream(bytes);
-        try {
+        try (InputStream is = new ByteArrayInputStream(bytes)) {
             return ImageIO.read(is);
-        } finally {
-            is.close();
         }
     }
 
@@ -123,8 +120,7 @@ public final class ImageSerializer {
          * Create a PNG output stream.
          */
         final String mimeType = "image/png";
-        final ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        try {
+        try (ByteArrayOutputStream stream = new ByteArrayOutputStream()) {
             final Iterator<ImageWriter> it = ImageIO.getImageWritersByMIMEType(mimeType);
             if (it.hasNext()) {
                 final ImageWriter w = it.next();
@@ -138,8 +134,6 @@ public final class ImageSerializer {
                 throw new IOException("No encoder for MIME type " + mimeType);
             }
             return stream.toByteArray();
-        } finally {
-            stream.close();
         }
     }
 

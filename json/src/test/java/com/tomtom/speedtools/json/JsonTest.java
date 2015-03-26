@@ -20,10 +20,10 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
+import com.tomtom.speedtools.domain.Uid;
+import com.tomtom.speedtools.objects.Objects;
+import com.tomtom.speedtools.testutils.ValidationFailException;
+import com.tomtom.speedtools.testutils.constructorchecker.ConstructorChecker;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.junit.Assert;
@@ -31,6 +31,8 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.imageio.ImageIO;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -39,10 +41,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 import java.awt.image.BufferedImage;
 import java.util.Date;
 import java.util.TimeZone;
-
-import com.tomtom.speedtools.domain.Uid;
-import com.tomtom.speedtools.testutils.ValidationFailException;
-import com.tomtom.speedtools.testutils.constructorchecker.ConstructorChecker;
 
 @SuppressWarnings({"deprecation", "OverlyBroadThrowsClause", "ProhibitedExceptionDeclared"})
 public class JsonTest {
@@ -148,7 +146,7 @@ public class JsonTest {
         LOG.info("Json GeoRectangle: " + x1);
         Assert.assertEquals(RECT_JSON, x1);
 
-        final Uid<Integer> uid = new Uid<Integer>("1-2-3-4-5");
+        final Uid<Integer> uid = new Uid<>("1-2-3-4-5");
         final String x2 = Json.toJson(uid);
         LOG.info("Json Uid: " + x2);
         Assert.assertEquals(
@@ -183,7 +181,7 @@ public class JsonTest {
         final Integer i = Json.fromJson(RECT_JSON, Integer.class);
         Assert.assertNull(i);
 
-        final Uid<Integer> uid = new Uid<Integer>("1-2-3-4-5");
+        final Uid<Integer> uid = new Uid<>("1-2-3-4-5");
         final String x1 = Json.toJson(uid);
         LOG.info("Json Uid: " + x1);
         final Uid<?> x2 = Json.fromJson(x1, Uid.class);
@@ -297,7 +295,7 @@ public class JsonTest {
     @SuppressWarnings("UnusedParameters")
     public static abstract class MixInGeoPoint {
         @JsonCreator
-        public MixInGeoPoint(
+        protected MixInGeoPoint(
                 @JsonProperty("lat") final Double lat,
                 @JsonProperty("lon") final Double lon) {
         }
@@ -306,7 +304,7 @@ public class JsonTest {
     @SuppressWarnings("UnusedParameters")
     public static abstract class MixInGeoRectangle {
         @JsonCreator
-        public MixInGeoRectangle(
+        protected MixInGeoRectangle(
                 @JsonProperty("southWest") final GeoPoint southWest,
                 @JsonProperty("northEast") final GeoPoint northEast) {
         }
@@ -417,6 +415,11 @@ public class JsonTest {
             }
             return false;
         }
+
+        @Override
+        public int hashCode() {
+            return Objects.hashCode(lat, lon);
+        }
     }
 
     public static class GeoRectangle {
@@ -444,6 +447,11 @@ public class JsonTest {
                 return southWest.equals(that.southWest) && northEast.equals(that.northEast);
             }
             return false;
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hashCode(southWest, northEast);
         }
     }
 }

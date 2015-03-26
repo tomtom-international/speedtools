@@ -372,7 +372,7 @@ public class SimpleJsonSerializerTest {
         LOG.info("testPlainList");
 
         // Create empty list.
-        ArrayList<Integer> before = new ArrayList<Integer>();
+        ArrayList<Integer> before = new ArrayList<>();
         Assert.assertEquals(0, before.size());
         LOG.debug("JSON:\n{}", serializer.toStringPretty(before, true));
 
@@ -384,7 +384,7 @@ public class SimpleJsonSerializerTest {
         Assert.assertEquals(0, after.size());
 
         // List with 1 element.
-        before = new ArrayList<Integer>();
+        before = new ArrayList<>();
         before.add(1);
         Assert.assertEquals(1, before.size());
         LOG.debug("JSON:\n{}", serializer.toStringPretty(before, true));
@@ -398,7 +398,7 @@ public class SimpleJsonSerializerTest {
         Assert.assertEquals(1, after.get(0).intValue());
 
         // List with 2 elements.
-        before = new ArrayList<Integer>();
+        before = new ArrayList<>();
         before.add(2);
         before.add(3);
         Assert.assertEquals(2, before.size());
@@ -420,7 +420,7 @@ public class SimpleJsonSerializerTest {
         LOG.info("testPlainSet");
 
         // Create empty set.
-        LinkedHashSet<Integer> before = new LinkedHashSet<Integer>();
+        LinkedHashSet<Integer> before = new LinkedHashSet<>();
         Assert.assertEquals(0, before.size());
         LOG.debug("JSON:\n{}", serializer.toStringPretty(before, true));
 
@@ -432,7 +432,7 @@ public class SimpleJsonSerializerTest {
         Assert.assertEquals(0, after.size());
 
         // Set with 1 element.
-        before = new LinkedHashSet<Integer>();
+        before = new LinkedHashSet<>();
         before.add(1);
         Assert.assertEquals(1, before.size());
         LOG.debug("JSON:\n{}", serializer.toStringPretty(before, true));
@@ -446,7 +446,7 @@ public class SimpleJsonSerializerTest {
         Assert.assertTrue(after.contains(1));
 
         // Set with 2 elements.
-        before = new LinkedHashSet<Integer>();
+        before = new LinkedHashSet<>();
         before.add(2);
         before.add(3);
         Assert.assertEquals(2, before.size());
@@ -484,7 +484,7 @@ public class SimpleJsonSerializerTest {
         Assert.assertEquals(0, after.size());
 
         // Use Immutables.listOf().
-        final List<Integer> mutable = new ArrayList<Integer>();
+        final List<Integer> mutable = new ArrayList<>();
         mutable.add(100);
         mutable.add(200);
         mutable.add(300);
@@ -545,7 +545,7 @@ public class SimpleJsonSerializerTest {
         Assert.assertEquals(0, after.size());
 
         // Use Immutables.listOf().
-        final Set<Integer> mutable = new HashSet<Integer>();
+        final Set<Integer> mutable = new HashSet<>();
         mutable.add(100);
         mutable.add(200);
         mutable.add(300);
@@ -594,7 +594,7 @@ public class SimpleJsonSerializerTest {
         LOG.info("testImmutablesMap");
 
         // Use Immutables.listOf().
-        final Map<String, Integer> mutable = new HashMap<String, Integer>();
+        final Map<String, Integer> mutable = new HashMap<>();
         mutable.put("x", 100);
         mutable.put("y", 200);
         mutable.put("z", 300);
@@ -653,7 +653,7 @@ public class SimpleJsonSerializerTest {
         Assert.assertEquals(0, after.size());
 
         // Create empty set in list.
-        before = new ArrayList<Set<Integer>>();
+        before = new ArrayList<>();
         Set<Integer> set = Immutables.emptySet();
         before.add(set);
         Assert.assertEquals(1, before.size());
@@ -669,8 +669,8 @@ public class SimpleJsonSerializerTest {
         Assert.assertEquals(0, after.get(0).size());
 
         // Create empty set in list.
-        before = new ArrayList<Set<Integer>>();
-        set = new LinkedHashSet<Integer>();
+        before = new ArrayList<>();
+        set = new LinkedHashSet<>();
         set.add(10);
         set.add(20);
         set.add(30);
@@ -712,7 +712,7 @@ public class SimpleJsonSerializerTest {
         LOG.info("testCollectionsInClass");
 
         // Create empty list.
-        List<Set<Integer>> list = new ArrayList<Set<Integer>>();
+        List<Set<Integer>> list = new ArrayList<>();
         MyCollections before = new MyCollections(list);
         Assert.assertEquals(0, before.getList().size());
         LOG.debug("JSON:\n{}", serializer.toStringPretty(before, true));
@@ -725,7 +725,7 @@ public class SimpleJsonSerializerTest {
         Assert.assertEquals(0, after.getList().size());
 
         // List with 1 element which is empty set.
-        list = new ArrayList<Set<Integer>>();
+        list = new ArrayList<>();
         final Set<Integer> set0 = Immutables.emptySet();
         list.add(set0);
         before = new MyCollections(list);
@@ -742,8 +742,8 @@ public class SimpleJsonSerializerTest {
         Assert.assertEquals(0, after.getList().get(0).size());
 
         // List with 1 element which is set with 1 element.
-        list = new ArrayList<Set<Integer>>();
-        final LinkedHashSet<Integer> set1 = new LinkedHashSet<Integer>();
+        list = new ArrayList<>();
+        final LinkedHashSet<Integer> set1 = new LinkedHashSet<>();
         set1.add(1);
         list.add(set0);
         list.add(set1);
@@ -763,8 +763,8 @@ public class SimpleJsonSerializerTest {
         Assert.assertEquals(1, after.getList().get(1).size());
 
         // List with 1 element which is set with 2 elements.
-        list = new ArrayList<Set<Integer>>();
-        final LinkedHashSet<Integer> set2 = new LinkedHashSet<Integer>();
+        list = new ArrayList<>();
+        final LinkedHashSet<Integer> set2 = new LinkedHashSet<>();
         set2.add(2);
         set2.add(3);
         list.add(set0);
@@ -926,9 +926,9 @@ public class SimpleJsonSerializerTest {
         final Currency eur = Currency.getInstance("EUR");
         final Uid<?> uid = new Uid("1-2-3-4-5");
 
-        List<Integer> listValue = new ArrayList<Integer>();
-        Set<Float> setValue = new LinkedHashSet<Float>();
-        List<Set<String>> listSetValue = new ArrayList<Set<String>>();
+        List<Integer> listValue = new ArrayList<>();
+        Set<Float> setValue = new LinkedHashSet<>();
+        List<Set<String>> listSetValue = new ArrayList<>();
         MyProperties before = new MyProperties(
                 'A', "", false, 1, 2L, (short) 3, (byte) 4, 5.6f, 7.8, now, eur,
                 uid, listValue, setValue, listSetValue);
@@ -957,16 +957,16 @@ public class SimpleJsonSerializerTest {
         Assert.assertEquals(0, after.getListSetValue().size());
 
         // Non-empty list in properties.
-        listValue = new ArrayList<Integer>();
+        listValue = new ArrayList<>();
         listValue.add(123);
-        setValue = new LinkedHashSet<Float>();
+        setValue = new LinkedHashSet<>();
         setValue.add(1.1f);
         setValue.add(2.2f);
-        final Set<String> set1 = new LinkedHashSet<String>();
-        final Set<String> set2 = new LinkedHashSet<String>();
+        final Set<String> set1 = new LinkedHashSet<>();
+        final Set<String> set2 = new LinkedHashSet<>();
         set2.add("S");
         set2.add("PQR");
-        listSetValue = new ArrayList<Set<String>>();
+        listSetValue = new ArrayList<>();
         listSetValue.add(set1);
         listSetValue.add(set2);
         before = new MyProperties(
@@ -1301,7 +1301,7 @@ public class SimpleJsonSerializerTest {
 
         @Nonnull
         public Woman withAdditionalFavorites(@Nonnull final Set<Person> persons) {
-            final List<Set<Person>> newFavorites = new ArrayList<Set<Person>>();
+            final List<Set<Person>> newFavorites = new ArrayList<>();
             newFavorites.addAll(favorites);
             newFavorites.add(persons);
             return new Woman(name, birthDate, mother, gender, friends, things,
@@ -1343,7 +1343,7 @@ public class SimpleJsonSerializerTest {
         final List<Person> friends = Immutables.listOf(joe, jim);
         final Object[] things = {someString, joe};
         Woman maryBefore = new Woman("mary", now, jane, Gender.FEMALE, friends, things, false, favorites);
-        final HashSet<Person> persons = new HashSet<Person>();
+        final HashSet<Person> persons = new HashSet<>();
         persons.add(maryBefore);
         maryBefore = maryBefore.withAdditionalFavorites(persons);
         LOG.debug("JSON:\n{}", serializer.toStringPretty(maryBefore, true));
