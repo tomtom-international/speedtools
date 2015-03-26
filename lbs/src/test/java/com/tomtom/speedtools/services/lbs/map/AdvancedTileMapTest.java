@@ -266,7 +266,8 @@ public class AdvancedTileMapTest {
 
                         /**
                          * Fake implementation of calling the URL and storing the HTTP response in
-                         * the bitmap buffer.
+                         * the bitmap buffer. The code assumes that if "img == null", the call to
+                         * get the image failed. In this example, the call never fails though.
                          */
 
                         img = new Bitmap(true);
