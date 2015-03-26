@@ -57,7 +57,7 @@ public final class GpsTrace implements JsonRenderable {
      */
     public GpsTrace() {
         super();
-        this.gpsTracePoints = new ArrayList<GpsTracePoint>(0);
+        this.gpsTracePoints = new ArrayList<>(0);
     }
 
     /**
@@ -136,7 +136,7 @@ public final class GpsTrace implements JsonRenderable {
         assert (fullList.size() <= maxSize) || (size == maxSize);
 
         // Copy last N data points only.
-        final ArrayList<GpsTracePoint> newList = new ArrayList<GpsTracePoint>(size);
+        final ArrayList<GpsTracePoint> newList = new ArrayList<>(size);
         final GpsTracePoint[] points = fullList.toArray(new GpsTracePoint[fullList.size()]);
         final DateTime oldest = (size == 0) ? null : points[size - 1].getTime().minus(maxAge);
         int i = start;

@@ -23,7 +23,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class UnionTest {
-    private static final Logger LOG = LoggerFactory.getLogger(GeoRectangleTest.class);
+    private static final Logger LOG = LoggerFactory.getLogger(UnionTest.class);
 
     @Test
     public void testEqualsVerifier() {

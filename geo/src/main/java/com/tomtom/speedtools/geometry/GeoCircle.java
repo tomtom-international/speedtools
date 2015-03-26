@@ -166,7 +166,7 @@ public final class GeoCircle extends Primitive {
     @Override
     @Nonnull
     public Collection<GeoRectangle> pixelate() {
-        final Collection<GeoRectangle> rects = new ArrayList<GeoRectangle>();
+        final Collection<GeoRectangle> rects = new ArrayList<>();
         rects.addAll(boundingBox().pixelate());
         assert rects.size() >= 1;
         return rects;

@@ -50,7 +50,7 @@ public class GeoAreaTest {
         LOG.info("testFromAreas");
         final GeoRectangle r1 = new GeoRectangle(new GeoPoint(0.0, 0.0), new GeoPoint(1.0, 1.0));
         final GeoRectangle r2 = new GeoRectangle(new GeoPoint(1.0, 0.0), new GeoPoint(2.0, 1.0));
-        final Collection<GeoArea> list = new ArrayList<GeoArea>();
+        final Collection<GeoArea> list = new ArrayList<>();
         list.add(r1);
         list.add(r2);
         final GeoArea area = GeoArea.fromAreas(list);

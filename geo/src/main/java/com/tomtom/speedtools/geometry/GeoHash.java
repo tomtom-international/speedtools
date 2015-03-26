@@ -43,7 +43,7 @@ public final class GeoHash {
     };
 
     @Nonnull
-    private final static HashMap<Character, Integer> lookup = new HashMap<Character, Integer>();
+    private final static HashMap<Character, Integer> lookup = new HashMap<>();
 
     /**
      * Static initialization of class. Fill 'lookup' table.

@@ -275,7 +275,7 @@ public final class GeoRectangle extends Primitive {
     @Override
     @Nonnull
     public Collection<GeoRectangle> pixelate() {
-        final Collection<GeoRectangle> rects = new ArrayList<GeoRectangle>();
+        final Collection<GeoRectangle> rects = new ArrayList<>();
         if (isWrapped()) {
             final GeoRectangle west = new GeoRectangle(
                     new GeoPoint(southWest.getLat(), -180.0), northEast);

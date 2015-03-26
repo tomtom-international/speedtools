@@ -24,7 +24,7 @@ import org.slf4j.LoggerFactory;
 import com.tomtom.speedtools.utils.MathUtils;
 
 public class GeoHashTest {
-    private static final Logger LOG = LoggerFactory.getLogger(GeoAreaTest.class);
+    private static final Logger LOG = LoggerFactory.getLogger(GeoHashTest.class);
 
     public static final GeoPoint POS_LONDON = new GeoPoint(51.506, -0.75);   // London.
     public static final GeoPoint POS_PARIS = new GeoPoint(48.861, 2.335);   // Paris.

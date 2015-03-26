@@ -16,13 +16,13 @@
 
 package com.tomtom.speedtools.geometry;
 
-import javax.annotation.Nonnull;
-
 import org.joda.time.Duration;
 import org.junit.Assert;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import javax.annotation.Nonnull;
 
 @SuppressWarnings("ConstantMathCall")
 public class GeoTest {
@@ -55,10 +55,10 @@ public class GeoTest {
         Assert.assertEquals(0, Double.compare(-Geo.METERS_PER_DEGREE_LON_EQUATOR * 180, Geo.degreesLonToMetersAtLat(
                 -180,
                 0)));
-        Assert.assertTrue(Math.abs(Geo.METERS_PER_DEGREE_LON_EQUATOR / 2.0) - Geo.degreesLonToMetersAtLat(1,
-                60) < DELTA);
-        Assert.assertTrue(Math.abs(Geo.METERS_PER_DEGREE_LON_EQUATOR / 2.0) - Geo.degreesLonToMetersAtLat(1,
-                -60) < DELTA);
+        Assert.assertTrue((Math.abs(Geo.METERS_PER_DEGREE_LON_EQUATOR / 2.0) - Geo.degreesLonToMetersAtLat(1,
+                60)) < DELTA);
+        Assert.assertTrue((Math.abs(Geo.METERS_PER_DEGREE_LON_EQUATOR / 2.0) - Geo.degreesLonToMetersAtLat(1,
+                -60)) < DELTA);
     }
 
     @Test
@@ -114,14 +114,14 @@ public class GeoTest {
 
         // Test wrapping.
         Assert.assertTrue(
-                Geo.distanceInMeters(new GeoPoint(0.0, -1.0), new GeoPoint(0.0, 1.0)) -
-                        Geo.distanceInMeters(new GeoPoint(0.0, 1.0), new GeoPoint(0.0, -1.0)) < DELTA);
+                (Geo.distanceInMeters(new GeoPoint(0.0, -1.0), new GeoPoint(0.0, 1.0)) -
+                        Geo.distanceInMeters(new GeoPoint(0.0, 1.0), new GeoPoint(0.0, -1.0))) < DELTA);
         Assert.assertTrue(
-                Geo.distanceInMeters(new GeoPoint(0.0, -180.0), new GeoPoint(0.0, Geo.LON180)) -
-                        Geo.distanceInMeters(new GeoPoint(0.0, Geo.LON180), new GeoPoint(0.0, -180.0)) < DELTA);
+                (Geo.distanceInMeters(new GeoPoint(0.0, -180.0), new GeoPoint(0.0, Geo.LON180)) -
+                        Geo.distanceInMeters(new GeoPoint(0.0, Geo.LON180), new GeoPoint(0.0, -180.0))) < DELTA);
         Assert.assertTrue(
-                Geo.distanceInMeters(new GeoPoint(0.0, -180.0), new GeoPoint(0.0, 0.0)) -
-                        Geo.distanceInMeters(new GeoPoint(0.0, -180.0), new GeoPoint(0.0, 0.0)) < DELTA);
+                (Geo.distanceInMeters(new GeoPoint(0.0, -180.0), new GeoPoint(0.0, 0.0)) -
+                        Geo.distanceInMeters(new GeoPoint(0.0, -180.0), new GeoPoint(0.0, 0.0))) < DELTA);
     }
 
     @Test

@@ -43,7 +43,7 @@ public class GpsTraceTest {
 
     @Before
     public void setUp() {
-        y1 = new ArrayList<GpsTracePoint>();
+        y1 = new ArrayList<>();
         y1.add(new GpsTracePoint(TestUtils.getUniqueDateTime(), new GeoPoint(1.0, 2.0)));
         y = new GpsTrace(y1);
     }
@@ -66,14 +66,14 @@ public class GpsTraceTest {
         // Limit to 10 seconds, 3 items.
         final Duration d = Duration.standardSeconds(10);
         final int len = 3;
-        y1 = new ArrayList<GpsTracePoint>();
+        y1 = new ArrayList<>();
         y = new GpsTrace(y1);
         Assert.assertEquals(0, y.getGpsTracePoints().size());
 
         y = new GpsTrace();
         Assert.assertEquals(0, y.getGpsTracePoints().size());
 
-        y1 = new ArrayList<GpsTracePoint>();
+        y1 = new ArrayList<>();
         y1.add(new GpsTracePoint(TestUtils.getUniqueDateTime(), new GeoPoint(1.0, 0.0)));
         y = new GpsTrace(GpsTrace.limitSize(d, len, y1));
         Assert.assertEquals(1, y.getGpsTracePoints().size());
@@ -116,7 +116,7 @@ public class GpsTraceTest {
         // Limit to 1 second, 3 items.
         final Duration d = Duration.standardSeconds(1);
         final int len = 3;
-        y1 = new ArrayList<GpsTracePoint>();
+        y1 = new ArrayList<>();
         y = new GpsTrace(y1);
         Assert.assertEquals(0, y.getGpsTracePoints().size());
 
@@ -124,7 +124,7 @@ public class GpsTraceTest {
         Assert.assertEquals(0, y.getGpsTracePoints().size());
 
         DateTime start = TestUtils.getUniqueDateTime();
-        y1 = new ArrayList<GpsTracePoint>();
+        y1 = new ArrayList<>();
         y1.add(new GpsTracePoint(start, new GeoPoint(5.0, 0.0)));
         y = new GpsTrace(GpsTrace.limitSize(d, len, y1));
         Assert.assertEquals(1, y.getGpsTracePoints().size());

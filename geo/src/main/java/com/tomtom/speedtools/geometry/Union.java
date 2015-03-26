@@ -149,4 +149,9 @@ final class Union extends BinaryExpr {
 
         return eq;
     }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
 }

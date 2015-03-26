@@ -139,8 +139,8 @@ public class GeoCircleTest {
         final GeoCircle a1 = new GeoCircle(new GeoPoint(0.0, 0.0), Geo.degreesLonToMetersAtLat(2, 0));
         final GeoRectangle b1 = new GeoRectangle(new GeoPoint(-2.0, -2.0), new GeoPoint(2.0, 2.0));
         LOG.info("{} == {}", a1.boundingBox().toString(), b1.boundingBox().toString());
-        Assert.assertTrue(b1.getNorthing() - a1.boundingBox().getNorthing() < 0.001);
-        Assert.assertTrue(b1.getEasting() - a1.boundingBox().getEasting() < 0.001);
+        Assert.assertTrue((b1.getNorthing() - a1.boundingBox().getNorthing()) < 0.001);
+        Assert.assertTrue((b1.getEasting() - a1.boundingBox().getEasting()) < 0.001);
     }
 }
 
