@@ -16,6 +16,8 @@
 
 package com.tomtom.speedtools.metrics;
 
+import com.tomtom.speedtools.metrics.MultiMetricsData.Period;
+import com.tomtom.speedtools.time.UTCTime;
 import org.joda.time.DateTime;
 import org.joda.time.Duration;
 import org.slf4j.Logger;
@@ -26,8 +28,6 @@ import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-
-import com.tomtom.speedtools.time.UTCTime;
 
 /**
  * Utility class to collect metrics data. It keeps track of a sum, count and average for the given time period. Not all
@@ -53,7 +53,7 @@ public class MetricsCollector implements MetricsData {
     private float sumSquares;
 
     @Nonnull
-    public static MetricsCollector create(@Nonnull final MultiMetricsData.Period interval) {
+    public static MetricsCollector create(@Nonnull final Period interval) {
         assert interval != null;
         switch (interval) {
 
@@ -82,7 +82,7 @@ public class MetricsCollector implements MetricsData {
         assert maxEntries > 0;
         this.totalMetricDuration = totalMetricDuration;
         this.timeSlotDuration = Duration.millis(totalMetricDuration.getMillis() / maxEntries);
-        this.values = new ArrayDeque<MetricsTimeSlot>();
+        this.values = new ArrayDeque<>();
     }
 
     /**
@@ -92,7 +92,7 @@ public class MetricsCollector implements MetricsData {
      */
     @Nonnull
     public synchronized List<MetricsTimeSlot> getSlots() {
-        return new ArrayList<MetricsTimeSlot>(this.values);
+        return new ArrayList<>(this.values);
     }
 
     /**

@@ -96,8 +96,8 @@ public final class MetricsTimeSlot implements JsonRenderable {
             eq = that.canEqual(this);
             // Top-level entity, don't check for super.equals(that).
             eq = eq && startTime.equals(that.startTime);
-            eq = eq && Float.compare(sum, that.sum) == 0;
-            eq = eq && count == that.count;
+            eq = eq && (Float.compare(sum, that.sum) == 0);
+            eq = eq && (count == that.count);
         } else {
             eq = false;
         }
