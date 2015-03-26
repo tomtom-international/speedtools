@@ -39,7 +39,7 @@ import com.tomtom.speedtools.time.UTCTime;
 
 
 /**
- * Implementation of a {@link com.tomtom.speedtools.services.lbs.route.RouteEngine} using the TomTom LBS Router. This
+ * Implementation of a {@link RouteEngine} using the TomTom LBS Router. This
  * implementation creates a number of actors to dispatch the routing calls to. This ensures LBS will not be flooded by
  * too many parallel calls. Should there be too many calls, then the calls will timeout prematurely to the caller of the
  * actor to avoid the original caller waiting too long.
@@ -62,7 +62,7 @@ public final class TomTomLbsRouteEngine implements RouteEngine {
         // TODO ST-3: Create a top-level supervisor actor which implements a strategy for these workers.
         // Create a bunch of worker actors.
         final TypedActorExtension typedActorExtension = TypedActor.get(system);
-        routeActorList = new ConcurrentLinkedQueue<TomTomLbsRouteEngineActor>();
+        routeActorList = new ConcurrentLinkedQueue<>();
         for (int i = 0; i < lbsProperties.getNumberOfRouteActors(); ++i) {
             final String name = "route-" + Integer.toString(i + 1);
             final Creator<TomTomLbsRouteEngineActor> creator = new Creator<TomTomLbsRouteEngineActor>() {
@@ -76,7 +76,7 @@ public final class TomTomLbsRouteEngine implements RouteEngine {
                 }
             };
             final TypedProps<TomTomLbsRouteEngineActor> typedProps =
-                    new TypedProps<TomTomLbsRouteEngineActor>(TomTomLbsRouteEngineActor.class, creator);
+                    new TypedProps<>(TomTomLbsRouteEngineActor.class, creator);
             final TomTomLbsRouteEngineActor worker = typedActorExtension.typedActorOf(typedProps);
             routeActorList.offer(worker);
         }

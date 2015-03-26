@@ -65,7 +65,7 @@ public class AdvancedTileMapTest {
          * all images asynchronously and in parallel, rather than serialized. This is not
          * mandatory; it's a nice use of futures and a low-cost optimization.
          */
-        final CachedTileMap<Future<Bitmap>> map = new CachedTileMap<Future<Bitmap>>(
+        final CachedTileMap<Future<Bitmap>> map = new CachedTileMap<>(
                 -1,                                                 // -1 means: use internal default limit.
                 new CacheLoader<TileKey, Future<Bitmap>>() {        // Define loading method for tiles.
 
@@ -145,6 +145,7 @@ public class AdvancedTileMapTest {
              * Determine if the image already has been loaded or not. If not, use a temporary
              * image until it has.
              */
+            assert tile.img != null;
             if (!tile.img.isCompleted()) {
 
                 // The tile wasn't loaded yet. Use an empty bitmap.
@@ -210,7 +211,7 @@ public class AdvancedTileMapTest {
      * Dummy implementation of a bitmap buffer. Does nothing. The 'defined' value is just to show
      * in the test output that tiles may or may not be loaded yet asynchronously.
      */
-    private class Bitmap {
+    private static class Bitmap {
         private final boolean isDefined;
 
         public Bitmap() {

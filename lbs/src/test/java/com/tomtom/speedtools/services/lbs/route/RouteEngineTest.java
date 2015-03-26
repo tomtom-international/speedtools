@@ -111,7 +111,7 @@ public final class RouteEngineTest {
         final RouteEngine geoCoder = new TomTomLbsRouteEngine(system, LBS_PROPS_5);
         try {
             final int total = 20;
-            final List<Future<RouteEngineResponse>> futures = new ArrayList<Future<RouteEngineResponse>>(total);
+            final List<Future<RouteEngineResponse>> futures = new ArrayList<>(total);
             for (int i = 0; i < total; ++i) {
                 final Future<RouteEngineResponse> future = geoCoder.route(Lbs.POS_AMSTERDAM, Lbs.POS_PARIS);
                 futures.add(future);
@@ -164,9 +164,7 @@ public final class RouteEngineTest {
             final Future<RouteEngineResponse> future = geoCoder.route(Lbs.POS_AMSTERDAM, Lbs.POS_PARIS);
             Await.result(future, TIMEOUT_LONG);
             Assert.fail();
-        } catch (final InvalidPropertyValueException ignored) {
-            // Ok.
-        } catch (final AuthorizationException ignored) {
+        } catch (final InvalidPropertyValueException | AuthorizationException ignored) {
             // Ok.
         } catch (final ServiceUnavailableException ignored) {
             LOG.info("Test cannot be executed... service unavailable");

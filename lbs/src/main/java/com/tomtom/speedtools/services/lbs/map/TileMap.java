@@ -313,7 +313,7 @@ public abstract class TileMap<T> {
         assert Lbs.PIXELS_PER_TILE > 0;
 
         final Collection<ViewportTile<T>> tiles =
-                new ArrayList<ViewportTile<T>>();
+                new ArrayList<>();
         processViewportTiles(widthPixels, heightPixels, mapCenter, zoomLevel, new ViewportTileProcessor<T>() {
 
             @Override
@@ -322,7 +322,7 @@ public abstract class TileMap<T> {
                     final int viewportX, final int viewportY,
                     final int tileOffsetX, final int tileOffsetY, final int width, final int height) {
                 final ViewportTile<T> viewportTile =
-                        new ViewportTile<T>(
+                        new ViewportTile<>(
                                 seqX, seqY, tileKey, img,
                                 viewportX, viewportY, tileOffsetX, tileOffsetY, width, height);
                 tiles.add(viewportTile);
@@ -476,7 +476,7 @@ public abstract class TileMap<T> {
             y = null;
         }
         if ((x != null) && (y != null)) {
-            return new Tuple<Integer, Integer>(x, y);
+            return new Tuple<>(x, y);
         } else {
             return null;
         }
@@ -528,7 +528,7 @@ public abstract class TileMap<T> {
                     convertLatLonToViewportXY(southWest, actualWidth, actualHeight, zoomLevel, mapCenter);
             found = (topLeft != null) && (bottomRight != null);
         }
-        return new Tuple<Integer, GeoPoint>(zoomLevel, mapCenter);
+        return new Tuple<>(zoomLevel, mapCenter);
     }
 
     /**

@@ -49,7 +49,7 @@ public class SimpleTileMapTest {
         /**
          * Create a tile map cache to hold the images for the map.
          */
-        final CachedTileMap<Bitmap> map = new CachedTileMap<Bitmap>(
+        final CachedTileMap<Bitmap> map = new CachedTileMap<>(
                 -1,                                         // -1 means: use internal default limit.
                 new CacheLoader<TileKey, Bitmap>() {        // Define loading method for tiles.
 
@@ -124,7 +124,7 @@ public class SimpleTileMapTest {
     }
 
     // Dummy implementation of a bitmap buffer. Does nothing.
-    private class Bitmap {
+    private static class Bitmap {
         // Empty.
     }
 

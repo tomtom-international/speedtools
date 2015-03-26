@@ -44,7 +44,7 @@ import com.tomtom.speedtools.urls.UrlParameterBuilder;
 
 
 /**
- * Implementation of a {@link com.tomtom.speedtools.services.lbs.geocode.GeoCodeEngine} using the TomTom LBS
+ * Implementation of a {@link GeoCodeEngine} using the TomTom LBS
  * Geocoder.
  */
 public final class TomTomLbsGeoCodeEngine implements GeoCodeEngine {

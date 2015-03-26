@@ -67,7 +67,7 @@ public final class GeoCodeEngineResponse implements JsonRenderable {
      * List of geocoding results. Possibly empty.
      */
     @Nonnull
-    private List<GeoCodeEngineResult> geoCodeEngineResultList = new ArrayList<GeoCodeEngineResult>();
+    private List<GeoCodeEngineResult> geoCodeEngineResultList = new ArrayList<>();
 
     @XmlAttribute(name = "count", required = true)
     public int getCount() {

@@ -78,9 +78,7 @@ public final class TomTomLbsGeoCodeEngineTest {
             //noinspection ConstantConditions
             final GeoCodeEngineResponse resp = geoCodeEngine.query(null);
             LOG.info("resp = {}", resp.toString());
-        } catch (final AssertionError ignored) {
-            return;
-        } catch (final IllegalArgumentException ignored) {
+        } catch (final AssertionError | IllegalArgumentException ignored) {
             return;
         } catch (final AuthorizationException e) {
             Assert.fail("Test failed... Is this API key still valid? " + LBS.getApiKey());
@@ -106,9 +104,7 @@ public final class TomTomLbsGeoCodeEngineTest {
             if (resp.getCount() > 0) {
                 Assert.fail();
             }
-        } catch (final InvalidPropertyValueException ignored) {
-            // Ok.
-        } catch (final AuthorizationException ignored) {
+        } catch (final InvalidPropertyValueException | AuthorizationException ignored) {
             // Ok.
         } catch (final ServiceUnavailableException ignored) {
             LOG.info("Test cannot be executed... service unavailable");
