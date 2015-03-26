@@ -17,13 +17,12 @@
 package com.tomtom.speedtools.services.lbs.map;
 
 import com.google.common.base.Objects;
+import com.tomtom.speedtools.json.Json;
+import com.tomtom.speedtools.services.lbs.Lbs;
+import com.tomtom.speedtools.utils.MathUtils;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-
-import com.tomtom.speedtools.services.lbs.Lbs;
-import com.tomtom.speedtools.json.Json;
-import com.tomtom.speedtools.utils.MathUtils;
 
 /**
  * Map tile keys for the TomTom LBS system.
@@ -31,7 +30,7 @@ import com.tomtom.speedtools.utils.MathUtils;
 public final class TileKey {
     private final long tileX;           // LBS tile index X.
     private final long tileY;           // LBS tile index Y.
-    private final int zoomLevel;       // LBS zoom-level.
+    private final int zoomLevel;        // LBS zoom-level.
 
     public TileKey(final long tileX, final long tileY, final int zoomLevel) {
         super();

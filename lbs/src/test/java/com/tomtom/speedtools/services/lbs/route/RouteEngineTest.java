@@ -46,7 +46,11 @@ import java.util.concurrent.TimeoutException;
 public final class RouteEngineTest {
     private static final Logger LOG = LoggerFactory.getLogger(RouteEngineTest.class);
 
+    /**
+     * Insert your own developer key here. All tests using this key are set to Ignored by default.
+     */
     private static final String DEFAULT_DEVELOPER_API_KEY = "0-0-0-0-0";
+
     private static final String DEFAULT_GEOCODE_URL_V1 = "http://lbs.tomtom.com/lbs/services/geocode/1/query";
     private static final String DEFAULT_GEOCODE_URL_V2 = "http://lbs.tomtom.com/lbs/services/geocode/2/query";
     private static final String DEFAULT_ROUTE_URL = "http://lbs.tomtom.com/lbs/services/route/1";
