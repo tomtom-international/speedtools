@@ -18,28 +18,18 @@ package com.tomtom.speedtools.guice;
 
 import com.google.inject.Binder;
 import com.google.inject.name.Names;
+import com.tomtom.speedtools.objects.Immutables;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.annotation.Nonnull;
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.naming.NameClassPair;
-import javax.naming.NamingEnumeration;
-import javax.naming.NamingException;
+import javax.naming.*;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-import java.util.Properties;
-import java.util.Set;
-
-import com.tomtom.speedtools.objects.Immutables;
+import java.util.*;
 
 /**
  * Utility for Guice dependency injection.
@@ -118,7 +108,7 @@ public final class GuiceUtils {
 
         // Always output properties when starting application.
         final Collection<String> propertyNames = properties.stringPropertyNames();
-        final List<String> sortedPropertyNames = new ArrayList<String>();
+        final List<String> sortedPropertyNames = new ArrayList<>();
         sortedPropertyNames.addAll(propertyNames);
         Collections.sort(sortedPropertyNames);
         int n = 1;
@@ -154,9 +144,7 @@ public final class GuiceUtils {
 
         try {
             loadUrl(properties, url.trim());
-        } catch (final IOException e) {
-            binder.addError(e);
-        } catch (final NamingException e) {
+        } catch (final IOException | NamingException e) {
             binder.addError(e);
         }
     }
