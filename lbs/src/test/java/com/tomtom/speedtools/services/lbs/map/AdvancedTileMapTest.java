@@ -82,14 +82,22 @@ public class AdvancedTileMapTest {
         map.setPreCachingHint(false);
 
         /**
-         * Tiles are 256x256, so given a viewport of 256x256, we can expect up to 4 tiles maximum to
-         * cover this area if the map center is not the center of a tile. In this case, we expect
-         * exactly 4 tiles.
+         * Assume a viewport width/height,map center and zoom-level.
+         *
+         * Note that the zoom-level is a double, not an int, because it allows you to switch between
+         * zoom-levels seemlessly. For example, if you are showing zoom-level 5 and wish to zoom in
+         * to zoom-level 6, you can gradually change the value of zoomLevel from 5, 5.1, 5.2, ... 6
+         * and redraw the screen every time to have a smooth transition rather than an immediate one.
+         *
+         * A really nice transition can be obtained by "easing out" the zoom level which is increasing
+         * or decreasing the value at a rate of n% until a limit has been reached. (A nice one is
+         * add/subtract 3% at 25 fps until you are within 0.02 of your goal level, then snap to the
+         * goal level).
          */
         final int mapWidth = 256;
         final int mapHeight = 256;
         final GeoPoint mapCenter = Lbs.POS_AMSTERDAM;
-        final double zoomLevel = 6;                     // This is a sliding zoom-level, for smooth zooms!
+        final double zoomLevel = 6.0;   // Use fractional zoom-levels for smooth transitions.
 
         /**
          * The purpose of this calculation is to allow "intermediate" zoom levels between integers
