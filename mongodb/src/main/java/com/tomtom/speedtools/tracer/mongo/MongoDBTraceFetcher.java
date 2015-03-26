@@ -54,7 +54,7 @@ class MongoDBTraceFetcher implements Runnable {
     @Nullable
     private final DBCollection collection;
     @Nonnull
-    private final AtomicReference<CurrentFetch> currentFetch = new AtomicReference<CurrentFetch>(null);
+    private final AtomicReference<CurrentFetch> currentFetch = new AtomicReference<>(null);
 
     @Nonnull
     private DateTime lastEventTime = UTCTime.now();
@@ -85,7 +85,7 @@ class MongoDBTraceFetcher implements Runnable {
      */
     @Nonnull
     public List<MongoDBTrace> getTraces(@Nullable final DateTime until) {
-        final List<MongoDBTrace> traces = new ArrayList<MongoDBTrace>();
+        final List<MongoDBTrace> traces = new ArrayList<>();
 
         // Bail-out if traces disabled.
         if (collection == null) {

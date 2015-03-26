@@ -73,7 +73,7 @@ public class MongoDBQuery {
     public static final String INDEX_0 = "0";
 
     @Nonnull
-    private final Map<String, List<FieldSelection>> fieldSelections = new HashMap<String, List<FieldSelection>>();
+    private final Map<String, List<FieldSelection>> fieldSelections = new HashMap<>();
 
     @Nonnull
     private final static StringMapper STRING_MAPPER = new StringMapper();
@@ -553,8 +553,9 @@ public class MongoDBQuery {
         return addFieldSelection(mongoPath(f0, f1, f2, f3, f4), OPERATOR_GTE, f4.getMapper(), value);
     }
 
+    @SafeVarargs
     @Nonnull
-    public <T> MongoDBQuery in(
+    public final <T> MongoDBQuery in(
             @Nonnull final EntityMapper<?>.Field<T> f0,
             @Nonnull final T... values) {
         assert f0 != null;
@@ -564,8 +565,9 @@ public class MongoDBQuery {
         return addFieldSelection(fieldName, OPERATOR_IN, mapper, Immutables.listOf(values));
     }
 
+    @SafeVarargs
     @Nonnull
-    public <T> MongoDBQuery in(
+    public final <T> MongoDBQuery in(
             @Nonnull final HasFieldName f0,
             @Nonnull final EntityMapper<?>.Field<T> f1,
             @Nonnull final T... values) {
@@ -577,8 +579,9 @@ public class MongoDBQuery {
         return addFieldSelection(fieldName, OPERATOR_IN, mapper, Immutables.listOf(values));
     }
 
+    @SafeVarargs
     @Nonnull
-    public <T> MongoDBQuery in(
+    public final <T> MongoDBQuery in(
             @Nonnull final HasFieldName f0,
             @Nonnull final HasFieldName f1,
             @Nonnull final EntityMapper<?>.Field<T> f2,
@@ -592,8 +595,9 @@ public class MongoDBQuery {
         return addFieldSelection(fieldName, OPERATOR_IN, mapper, Immutables.listOf(values));
     }
 
+    @SafeVarargs
     @Nonnull
-    public <T> MongoDBQuery in(
+    public final <T> MongoDBQuery in(
             @Nonnull final HasFieldName f0,
             @Nonnull final HasFieldName f1,
             @Nonnull final HasFieldName f2,
@@ -632,8 +636,9 @@ public class MongoDBQuery {
         return addFieldSelection(fieldName, OPERATOR_IN, mapper, values);
     }
 
+    @SafeVarargs
     @Nonnull
-    public <T> MongoDBQuery notIn(
+    public final <T> MongoDBQuery notIn(
             @Nonnull final EntityMapper<?>.Field<T> f0,
             @Nonnull final T... values) {
         assert f0 != null;
@@ -643,8 +648,9 @@ public class MongoDBQuery {
         return addFieldSelection(fieldName, OPERATOR_NIN, mapper, Immutables.listOf(values));
     }
 
+    @SafeVarargs
     @Nonnull
-    public <T> MongoDBQuery notIn(
+    public final <T> MongoDBQuery notIn(
             @Nonnull final HasFieldName f0,
             @Nonnull final EntityMapper<?>.Field<T> f1,
             @Nonnull final T... values) {
@@ -656,8 +662,9 @@ public class MongoDBQuery {
         return addFieldSelection(fieldName, OPERATOR_NIN, mapper, Immutables.listOf(values));
     }
 
+    @SafeVarargs
     @Nonnull
-    public <T> MongoDBQuery notIn(
+    public final <T> MongoDBQuery notIn(
             @Nonnull final HasFieldName f0,
             @Nonnull final HasFieldName f1,
             @Nonnull final EntityMapper<?>.Field<T> f2,
@@ -671,8 +678,9 @@ public class MongoDBQuery {
         return addFieldSelection(fieldName, OPERATOR_NIN, mapper, Immutables.listOf(values));
     }
 
+    @SafeVarargs
     @Nonnull
-    public <T> MongoDBQuery notIn(
+    public final <T> MongoDBQuery notIn(
             @Nonnull final HasFieldName f0,
             @Nonnull final HasFieldName f1,
             @Nonnull final HasFieldName f2,
@@ -866,7 +874,7 @@ public class MongoDBQuery {
         append(OPERATOR_OR, new FieldSelection("", "") {
             @Override
             Object toDBValue() throws MapperException {
-                final List<Object> operands = new ArrayList<Object>();
+                final List<Object> operands = new ArrayList<>();
                 for (final MongoDBQuery operand : queryOperands) {
                     operands.add(operand.toDBObject());
                 }
@@ -904,7 +912,7 @@ public class MongoDBQuery {
             if (selections.size() == 1) {
                 result.put(entry.getKey(), selections.get(0).toDBObject());
             } else {
-                final List<Object> operands = new ArrayList<Object>();
+                final List<Object> operands = new ArrayList<>();
                 for (final FieldSelection selection : selections) {
                     operands.add(selection.toDBObject());
                 }
@@ -924,7 +932,7 @@ public class MongoDBQuery {
             @Override
             @Nonnull
             Object toDBValue() throws MapperException {
-                final List<Object> mappedValues = new ArrayList<Object>();
+                final List<Object> mappedValues = new ArrayList<>();
                 for (final T value : values) {
                     mappedValues.add(mapper.toDb(value));
                 }
@@ -957,7 +965,7 @@ public class MongoDBQuery {
         if (selections == null) {
             fieldSelections.put(fieldName, Collections.singletonList(selection));
         } else if (selections.size() == 1) {
-            final List<FieldSelection> list = new ArrayList<FieldSelection>(selections);
+            final List<FieldSelection> list = new ArrayList<>(selections);
             list.add(selection);
             fieldSelections.put(fieldName, list);
         } else {

@@ -34,7 +34,7 @@ import java.util.Map;
 import com.tomtom.speedtools.mongodb.MongoDB;
 
 /**
- * Class should have an application-specific subclass that registers concrete migrations. Call {@link #migrate(com.tomtom.speedtools.mongodb.MongoDB,
+ * Class should have an application-specific subclass that registers concrete migrations. Call {@link #migrate(MongoDB,
  * boolean)} to perform the actual migration.
  */
 public abstract class MongoDBMigrator {
@@ -78,7 +78,7 @@ public abstract class MongoDBMigrator {
         assert db != null;
         LOG.info("MigrateDB starting..." + (dryRun ? " (dryRun mode)" : ""));
 
-        final Map<String, MongoDBMigration> migrationMap = new HashMap<String, MongoDBMigration>();
+        final Map<String, MongoDBMigration> migrationMap = new HashMap<>();
         for (final MongoDBMigration migration : migrations) {
             if (migrationMap.put(migration.getFromVersion(), migration) != null) {
                 throw new MigrationException("Multiple migrations found with 'from'-version: " +
@@ -112,7 +112,7 @@ public abstract class MongoDBMigrator {
         }
 
         // Create migration path to toVersion.
-        final List<MongoDBMigration> migrationPath = new ArrayList<MongoDBMigration>();
+        final List<MongoDBMigration> migrationPath = new ArrayList<>();
         String version = currentVersion;
 
         // Create a migration path.

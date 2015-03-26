@@ -60,7 +60,7 @@ public class MongoDB {
 
     @Nonnull
     public Iterable<String> getCollectionNames() {
-        final List<String> collectionNames = new ArrayList<String>();
+        final List<String> collectionNames = new ArrayList<>();
         for (final String name : db.getCollectionNames()) {
             if (name.startsWith(collectionPrefix)) {
                 collectionNames.add(name.substring(collectionPrefix.length()));

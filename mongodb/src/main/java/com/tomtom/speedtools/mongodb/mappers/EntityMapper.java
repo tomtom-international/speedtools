@@ -54,7 +54,7 @@ public abstract class EntityMapper<T> extends Mapper<T> {
 
     @Nonnull
     private static final Set<String> predefinedFieldNames =
-            new HashSet<String>(Arrays.asList(MongoDBKeyNames.ID_KEY,
+            new HashSet<>(Arrays.asList(MongoDBKeyNames.ID_KEY,
                     MongoDBKeyNames.DISCRIMINATOR_KEY, MongoDBKeyNames.LAST_MODIFIED_KEY, MongoDBKeyNames.VERSION_KEY));
 
     @Nonnull
@@ -68,17 +68,17 @@ public abstract class EntityMapper<T> extends Mapper<T> {
     @Nullable
     private MapperRegistry mapperRegistry = null;
     @Nonnull
-    private final List<EntityType> entityTypes = new ArrayList<EntityType>();
+    private final List<EntityType> entityTypes = new ArrayList<>();
     @Nonnull
-    private final List<CurrentVersion> currentVersions = new ArrayList<CurrentVersion>();
+    private final List<CurrentVersion> currentVersions = new ArrayList<>();
     @Nonnull
-    private final List<Field<?>> fields = new ArrayList<Field<?>>();
+    private final List<Field<?>> fields = new ArrayList<>();
     @Nonnull
-    private final Map<String, Field<?>> fieldExtent = new LinkedHashMap<String, Field<?>>();
+    private final Map<String, Field<?>> fieldExtent = new LinkedHashMap<>();
     @Nonnull
-    private final List<Field<?>> constructorFieldExtent = new ArrayList<Field<?>>();
+    private final List<Field<?>> constructorFieldExtent = new ArrayList<>();
     @Nonnull
-    private final List<SuperEntity> superEntities = new ArrayList<SuperEntity>();
+    private final List<SuperEntity> superEntities = new ArrayList<>();
     private int currentVersion = 0;
     @Nullable
     private Class<T> entityType = null;
@@ -116,7 +116,7 @@ public abstract class EntityMapper<T> extends Mapper<T> {
             return null;
         }
         if (dbValue instanceof DBObject) {
-            final List<MapperError> errors = new LinkedList<MapperError>();
+            final List<MapperError> errors = new LinkedList<>();
             final T entity = fromDb((DBObject) dbValue, errors);
             if (!errors.isEmpty()) {
                 throw new MapperException(errors);
@@ -151,7 +151,7 @@ public abstract class EntityMapper<T> extends Mapper<T> {
         final T2 entity;
         try {
             final Set<EntityMapper<?>.Field<?>> initializedFields =
-                    new LinkedHashSet<EntityMapper<?>.Field<?>>(SetUtils.hashSetSize(fieldExtent.size()));
+                    new LinkedHashSet<>(SetUtils.hashSetSize(fieldExtent.size()));
             entity = mapper.newInstance(dbObject, initializedFields);
 
             // Use the mapper to map all fields that were not initialized by newInstance().
@@ -176,7 +176,7 @@ public abstract class EntityMapper<T> extends Mapper<T> {
         assert mapperRegistry != null;
         assert initialized;
 
-        final List<MapperError> errors = new LinkedList<MapperError>();
+        final List<MapperError> errors = new LinkedList<>();
         fromDb(entity, dbObject, errors);
         if (!errors.isEmpty()) {
             throw new MapperException(errors);
@@ -212,7 +212,7 @@ public abstract class EntityMapper<T> extends Mapper<T> {
 
         // Use this mapper to map all fields.
         final Set<EntityMapper<?>.Field<?>> initializedFields =
-                new LinkedHashSet<EntityMapper<?>.Field<?>>(SetUtils.hashSetSize(fieldExtent.size()));
+                new LinkedHashSet<>(SetUtils.hashSetSize(fieldExtent.size()));
         return mapper.setAll((T2) entity, dbObject, initializedFields, version, errors, true);
     }
 
@@ -233,7 +233,7 @@ public abstract class EntityMapper<T> extends Mapper<T> {
         if (value == null) {
             return null;
         }
-        final List<MapperError> errors = new LinkedList<MapperError>();
+        final List<MapperError> errors = new LinkedList<>();
         final DBObject dbObject = toDb(value, errors);
         if (!errors.isEmpty()) {
             throw new MapperException(errors);
@@ -356,7 +356,7 @@ public abstract class EntityMapper<T> extends Mapper<T> {
      */
     @Nonnull
     public List<Field<?>> getFieldsIncludingSuperEntities() {
-        final List<Field<?>> fields = new ArrayList<Field<?>>(this.fields);
+        final List<Field<?>> fields = new ArrayList<>(this.fields);
 
         for (final SuperEntity superEntity : superEntities) {
             @SuppressWarnings("unchecked")
@@ -475,7 +475,7 @@ public abstract class EntityMapper<T> extends Mapper<T> {
         assert getter != null;
         assert setter != null;
         assert versionConstraints != null;
-        return new ReflectiveField<U>(fieldName, mapper, getter, setter, versionConstraints);
+        return new ReflectiveField<>(fieldName, mapper, getter, setter, versionConstraints);
     }
 
     /**
@@ -500,7 +500,7 @@ public abstract class EntityMapper<T> extends Mapper<T> {
         assert getter != null;
         assert setter != null;
         assert versionConstraints != null;
-        return new ReflectiveField<U>(fieldName, mapperType, getter, setter, versionConstraints);
+        return new ReflectiveField<>(fieldName, mapperType, getter, setter, versionConstraints);
     }
 
     /**
@@ -1022,7 +1022,7 @@ public abstract class EntityMapper<T> extends Mapper<T> {
             }
 
             // Collect all current versions from super entities.
-            final List<EntityMapper<?>.CurrentVersion> superVersions = new ArrayList<EntityMapper<?>.CurrentVersion>();
+            final List<EntityMapper<?>.CurrentVersion> superVersions = new ArrayList<>();
             maxVersion = Math.max(maxVersion, findSuperVersions(superVersions, version));
 
             // Check 1: current version required?
@@ -1147,7 +1147,7 @@ public abstract class EntityMapper<T> extends Mapper<T> {
             assert constructor.getParameterTypes().length == constructorFieldExtent.size();
             final Object[] args = new Object[constructorFieldExtent.size()];
 
-            final List<MapperError> mapperErrors = new ArrayList<MapperError>();
+            final List<MapperError> mapperErrors = new ArrayList<>();
             for (int i = 0; i < args.length; i++) {
                 try {
                     args[i] = constructorFieldExtent.get(i).fromDbObject(dbObject);
@@ -1509,7 +1509,7 @@ public abstract class EntityMapper<T> extends Mapper<T> {
         }
 
         // Loop over fields that are not excluded.
-        final List<Field<?>> remainingFields = new ArrayList<Field<?>>(fields);
+        final List<Field<?>> remainingFields = new ArrayList<>(fields);
         remainingFields.removeAll(initializedFields);
         for (final Field<?> field : remainingFields) {
 
@@ -1736,8 +1736,8 @@ public abstract class EntityMapper<T> extends Mapper<T> {
             assert fieldName != null;
             assert versionConstraints != null;
             assert versionConstraints.length <= 2 : "Only minVersion / maxVersion allowed.";
-            this.minVersion = versionConstraints.length > 0 ? versionConstraints[0] : 0;
-            this.maxVersion = versionConstraints.length > 1 ? versionConstraints[1] : Integer.MAX_VALUE;
+            this.minVersion = (versionConstraints.length > 0) ? versionConstraints[0] : 0;
+            this.maxVersion = (versionConstraints.length > 1) ? versionConstraints[1] : Integer.MAX_VALUE;
             assert fieldName != null;
             assert !fieldName.trim().isEmpty();
             this.fieldName = fieldName.trim();

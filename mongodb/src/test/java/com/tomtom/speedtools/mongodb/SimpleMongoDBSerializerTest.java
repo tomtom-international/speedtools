@@ -17,23 +17,20 @@
 package com.tomtom.speedtools.mongodb;
 
 import com.mongodb.DBObject;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
+import com.tomtom.speedtools.json.SimpleJsonSerializer;
+import com.tomtom.speedtools.objects.Immutables;
+import com.tomtom.speedtools.time.UTCTime;
 import org.joda.time.DateTime;
 import org.junit.Assert;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
-
-import com.tomtom.speedtools.json.SimpleJsonSerializer;
-import com.tomtom.speedtools.objects.Immutables;
-import com.tomtom.speedtools.time.UTCTime;
 
 public class SimpleMongoDBSerializerTest {
     private static final Logger LOG = LoggerFactory.getLogger(SimpleMongoDBSerializerTest.class);
@@ -49,7 +46,7 @@ public class SimpleMongoDBSerializerTest {
         final Person joe = new Person("joe", now, jane, Gender.MALE, Collections.<Person>emptyList(), new Object[0]);
         final Person jim = new Person("jim", now, jane, Gender.MALE, Collections.<Person>emptyList(), new Object[0]);
         final Person mary = new Woman("mary", now, jane, Gender.MALE, Immutables.listOf(joe, jim), false,
-                Collections.<Set<Person>>singletonList(Immutables.setOf(jane, joe)), new Object[]{"A String", joe});
+                Collections.singletonList(Immutables.setOf(jane, joe)), new Object[]{"A String", joe});
 
         final Object dbValue = SimpleMongoDBSerializer.getInstance().serialize(mary);
         LOG.info("Serialized: " + SimpleJsonSerializer.getInstance().toString(mary));

@@ -114,7 +114,7 @@ public final class SchemaPrinter {
 
     @Nonnull
     private List<EntityMapper<?>> findEntityMappers() {
-        final List<EntityMapper<?>> result = new ArrayList<EntityMapper<?>>();
+        final List<EntityMapper<?>> result = new ArrayList<>();
         for (final Mapper<?> mapper : mapperRegistry.getMappers()) {
             if (mapper instanceof EntityMapper) {
                 result.add((EntityMapper<?>) mapper);
@@ -125,7 +125,7 @@ public final class SchemaPrinter {
 
     @Nonnull
     private List<EntityMapper<?>> findTopLevelEntityMappers() {
-        final List<EntityMapper<?>> result = new ArrayList<EntityMapper<?>>();
+        final List<EntityMapper<?>> result = new ArrayList<>();
         for (final EntityMapper<?> mapper : findEntityMappers()) {
             if (mapper.getSuperEntities().isEmpty()) {
                 result.add(mapper);
@@ -138,7 +138,7 @@ public final class SchemaPrinter {
     @Nonnull
     private List<EntityMapper<?>> findChildEntityMappers(@Nonnull final EntityMapper<?> parent) {
         assert parent != null;
-        final List<EntityMapper<?>> result = new ArrayList<EntityMapper<?>>();
+        final List<EntityMapper<?>> result = new ArrayList<>();
         for (final EntityMapper<?> mapper : findEntityMappers()) {
             for (final EntityMapper<?>.SuperEntity superEntity : mapper.getSuperEntities()) {
                 if (superEntity.getSuperMapper().equals(parent)) {

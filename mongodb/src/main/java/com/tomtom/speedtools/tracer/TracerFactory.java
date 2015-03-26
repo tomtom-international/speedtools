@@ -69,7 +69,7 @@ public class TracerFactory implements InvocationHandler {
     private static final Object[] EMPTY_OBJECT_ARRAY = {};
 
     @Nonnull
-    private static final BlockingQueue<Trace> queue = new ArrayBlockingQueue<Trace>(QUEUE_CAPACITY);
+    private static final BlockingQueue<Trace> queue = new ArrayBlockingQueue<>(QUEUE_CAPACITY);
     @Nonnull
     private static final AtomicBoolean enabled = new AtomicBoolean(false);
     @Nonnull

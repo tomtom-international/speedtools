@@ -53,7 +53,7 @@ public class MongoDBUpdate {
     public static final String OPERATOR_ADD_TO_SET = "$addToSet";
 
     @Nonnull
-    private final List<Modifier> modifiers = new LinkedList<Modifier>();
+    private final List<Modifier> modifiers = new LinkedList<>();
 
     @Nonnull
     public <T> MongoDBUpdate set(
@@ -107,7 +107,7 @@ public class MongoDBUpdate {
         assert mapper != null;
         assert entity != null;
         assert fields != null;
-        final Set<EntityMapper<E>.Field<?>> fieldSet = new HashSet<EntityMapper<E>.Field<?>>(Arrays.asList(fields));
+        final Set<EntityMapper<E>.Field<?>> fieldSet = new HashSet<>(Arrays.asList(fields));
 
         // Get all fields from the sub mapper.
         for (final EntityMapper<E>.Field<?> field : mapper.getSubMapper(
@@ -536,7 +536,7 @@ public class MongoDBUpdate {
             @Override
             @Nonnull
             Object toDBValue() throws MapperException {
-                final List<Object> mappedValues = new ArrayList<Object>();
+                final List<Object> mappedValues = new ArrayList<>();
                 final Mapper<T> elementMapper = getElementMapper(mapper);
                 for (@Nullable final T value : values) {
                     mappedValues.add(elementMapper.toDb(value));

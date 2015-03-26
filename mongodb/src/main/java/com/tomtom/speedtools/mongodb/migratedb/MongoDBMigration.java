@@ -51,7 +51,7 @@ public class MongoDBMigration {
     public static final boolean NO_DUPLICATES = false;
 
     private final Map<DBObject, Context> contextMap = new MapMaker().weakKeys().makeMap();
-    private final List<MongoDBMigrationProblem> problems = new ArrayList<MongoDBMigrationProblem>();
+    private final List<MongoDBMigrationProblem> problems = new ArrayList<>();
     private final Context rootContext = new Context(null, null, "");
     private boolean dryRun = false;
     private boolean databaseChanged = true;
@@ -119,7 +119,7 @@ public class MongoDBMigration {
          * will ever occur.".
          */
         @SuppressWarnings("NumericCastThatLosesPrecision")
-        final Set<Object> recordIds = new HashSet<Object>((int) ((double) count / 0.75) + 1);
+        final Set<Object> recordIds = new HashSet<>((int) ((double) count / 0.75) + 1);
 
         return new IterableDelegate<DBObject, DBObject>(collection.find()) {
 
@@ -403,7 +403,7 @@ public class MongoDBMigration {
         assert object != null;
         assert fieldPath != null;
 
-        final List<T> result = new ArrayList<T>();
+        final List<T> result = new ArrayList<>();
         final Iterable<T> values = getValues(resultClass, object, fieldPath);
         for (final T value : values) {
             if (value != null) {
@@ -649,7 +649,7 @@ public class MongoDBMigration {
      * @param createChildContext If true, the created {@link Value}s will be added to the parent context. The
      *                           consequence of this is that the converter is then able to use MongoDBMigration-methods
      *                           that are dependent on this context (any of the getters that work with Values
-     *                           internally, such as {@link #getSingleValue(Class, com.mongodb.DBObject, String)}).
+     *                           internally, such as {@link #getSingleValue(Class, DBObject, String)}).
      * @param converter          The converter to convert the values with.
      */
     protected void convert(
@@ -937,7 +937,7 @@ public class MongoDBMigration {
         return databaseChanged;
     }
 
-    protected abstract class Replaceable<T, U> {
+    protected abstract static class Replaceable<T, U> {
 
         @Nonnull
         private final Context context;
@@ -1088,7 +1088,7 @@ public class MongoDBMigration {
             assert command != null;
             assertValid();
             if (commands == null) {
-                commands = new PriorityQueue<Command>(1, RANKING_COMPARATOR);
+                commands = new PriorityQueue<>(1, RANKING_COMPARATOR);
             }
             if (addIfPresent || !commands.contains(command)) {
                 commands.add(command);
@@ -1117,7 +1117,7 @@ public class MongoDBMigration {
         }
     }
 
-    protected abstract class IterableDelegate<T, U> implements Iterable<U> {
+    protected abstract static class IterableDelegate<T, U> implements Iterable<U> {
         @Nonnull
         final private Iterable<T> delegate;
 

@@ -33,13 +33,13 @@ public class ListMapper<T> extends Mapper<List<T>> {
     @Nonnull
     public static <T> ListMapper<T> create(@Nonnull final Class<? extends Mapper<T>> elementMapperType) {
         assert elementMapperType != null;
-        return new ListMapper<T>(elementMapperType, null);
+        return new ListMapper<>(elementMapperType, null);
     }
 
     @Nonnull
     public static <T> ListMapper<T> create(@Nonnull final Mapper<T> elementMapper) {
         assert elementMapper != null;
-        return new ListMapper<T>(null, elementMapper);
+        return new ListMapper<>(null, elementMapper);
     }
 
     protected ListMapper(@Nullable final Class<? extends Mapper<T>> elementMapperType,
@@ -69,7 +69,7 @@ public class ListMapper<T> extends Mapper<List<T>> {
         }
 
         // Gather mapped nested entities.
-        final List<T> values = new ArrayList<T>();
+        final List<T> values = new ArrayList<>();
 
         // Loop over the collection.
         assert elementMapper != null;
@@ -93,7 +93,7 @@ public class ListMapper<T> extends Mapper<List<T>> {
 
         // Convert references to DBObjects.
         assert elementMapper != null;
-        final List<Object> dbObjects = new ArrayList<Object>(value.size());
+        final List<Object> dbObjects = new ArrayList<>(value.size());
         for (final T v : value) {
             final Object dbValue = elementMapper.toDb(v);
             dbObjects.add(dbValue);

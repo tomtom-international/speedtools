@@ -108,7 +108,7 @@ public final class MongoConnectionCache {
     public static List<ServerAddress> getMongoDBServerAddresses(
             @Nonnull final String servers) throws UnknownHostException {
         final String[] serversArray = servers.split(HOSTNAME_SEPARATOR);
-        final List<ServerAddress> replicaSetSeeds = new ArrayList<ServerAddress>(serversArray.length);
+        final List<ServerAddress> replicaSetSeeds = new ArrayList<>(serversArray.length);
         for (final String server : serversArray) {
             final int sep = server.indexOf(PORTNAME_SEPARATOR);
             if ((sep <= 0) || (sep >= (server.length() - 1))) {

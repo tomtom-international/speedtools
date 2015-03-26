@@ -27,8 +27,8 @@ import java.util.Map;
  */
 public abstract class EnumerationMapper<T extends Enum<T>> extends Mapper<T> {
 
-    private final Map<T, String> toDb = new HashMap<T, String>();
-    private final Map<String, T> fromDb = new HashMap<String, T>();
+    private final Map<T, String> toDb = new HashMap<>();
+    private final Map<String, T> fromDb = new HashMap<>();
     private Class<T> enumClass;
 
     @Nullable

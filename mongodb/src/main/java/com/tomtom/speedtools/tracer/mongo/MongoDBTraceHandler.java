@@ -64,9 +64,7 @@ public class MongoDBTraceHandler implements GenericTraceHandler {
                         properties.getServers(), properties.getDatabase(),
                         properties.getUserName(), properties.getPassword(),
                         properties.getMaxDatabaseSizeMB(), properties.getConnectionTimeoutMsecs());
-            } catch (final UnknownHostException e) {
-                LOG.error("MongoDBTraceHandler: MongoDB exception, disabled traces: properties={}, {}", properties, e);
-            } catch (final MongoException e) {
+            } catch (final UnknownHostException | MongoException e) {
                 LOG.error("MongoDBTraceHandler: MongoDB exception, disabled traces: properties={}, {}", properties, e);
             } catch (final Exception e) {
                 LOG.error("MongoDBTraceHandler: Non-MongoDB exception, disabled traces: properties={}, {}", properties,

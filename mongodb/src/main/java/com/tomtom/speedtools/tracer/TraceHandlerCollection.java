@@ -40,11 +40,11 @@ public class TraceHandlerCollection {
     private static final Logger LOG = LoggerFactory.getLogger(TraceHandlerCollection.class);
 
     @Nonnull
-    private final List<Traceable> handlers = new CopyOnWriteArrayList<Traceable>();
+    private final List<Traceable> handlers = new CopyOnWriteArrayList<>();
 
     @Nonnull
     private final Map<Triple<Class<? extends Traceable>, String, String>, List<Method>> methods =
-            new ConcurrentHashMap<Triple<Class<? extends Traceable>, String, String>, List<Method>>();
+            new ConcurrentHashMap<>();
 
     // Public constructor.
     public TraceHandlerCollection() {

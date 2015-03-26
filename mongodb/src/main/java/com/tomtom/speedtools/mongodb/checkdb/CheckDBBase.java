@@ -20,38 +20,14 @@ import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 import com.mongodb.MongoException;
-import org.joda.time.DateTime;
-import org.joda.time.LocalDate;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.inject.Inject;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Set;
-import java.util.concurrent.BlockingDeque;
-import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.concurrent.LinkedBlockingDeque;
-import java.util.concurrent.atomic.AtomicLong;
-
 import com.tomtom.speedtools.domain.Uid;
 import com.tomtom.speedtools.geometry.Geo;
 import com.tomtom.speedtools.geometry.GeoPoint;
 import com.tomtom.speedtools.geometry.GeoRectangle;
 import com.tomtom.speedtools.mongodb.MongoDB;
-import com.tomtom.speedtools.mongodb.mappers.EntityMapper;
-import com.tomtom.speedtools.mongodb.mappers.GeoPointMapper;
-import com.tomtom.speedtools.mongodb.mappers.GeoRectangleMapper;
-import com.tomtom.speedtools.mongodb.mappers.MapperError;
-import com.tomtom.speedtools.mongodb.mappers.MapperException;
-import com.tomtom.speedtools.mongodb.mappers.MapperRegistry;
+import com.tomtom.speedtools.mongodb.mappers.*;
+import com.tomtom.speedtools.mongodb.mappers.EntityMapper.Field;
+import com.tomtom.speedtools.mongodb.mappers.EntityMapper.HasFieldName;
 import com.tomtom.speedtools.mongodb.migratedb.MongoDBMigrator;
 import com.tomtom.speedtools.objects.Immutables;
 import com.tomtom.speedtools.objects.Tuple;
@@ -60,6 +36,19 @@ import com.tomtom.speedtools.time.UTCTime;
 import com.tomtom.speedtools.utils.AddressUtils;
 import com.tomtom.speedtools.utils.MathUtils;
 import com.tomtom.speedtools.utils.StringUtils;
+import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import javax.inject.Inject;
+import java.util.*;
+import java.util.concurrent.BlockingDeque;
+import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.LinkedBlockingDeque;
+import java.util.concurrent.atomic.AtomicLong;
 
 import static com.tomtom.speedtools.mongodb.MongoDBUtils.mongoPath;
 
@@ -418,14 +407,14 @@ abstract public class CheckDBBase {
          * This field is directly referenced in threads, so must be thread safe.
          */
         @Nonnull
-        protected final Set<EntityMapper.Field> allFields =
-                Collections.synchronizedSet(new HashSet<EntityMapper.Field>());
+        protected final Set<Field> allFields =
+                Collections.synchronizedSet(new HashSet<Field>());
 
         protected long nrRecordsInCollection = 0;
         protected int count = 0;
         protected final boolean isEmpty;
         protected final String collectionName;
-        protected final List<UniquenessChecker<?>> uniquenessCheckers = new LinkedList<UniquenessChecker<?>>();
+        protected final List<UniquenessChecker<?>> uniquenessCheckers = new LinkedList<>();
 
         public CollectionChecker(
                 @Nonnull final String collectionName,
@@ -439,7 +428,7 @@ abstract public class CheckDBBase {
             cursor = collection.find();
             count = cursor.count();
             this.mapper = mapper;
-            for (final EntityMapper.Field field : mapper.getFields()) {
+            for (final Field field : mapper.getFields()) {
                 allFields.add(field);
             }
             this.isEmpty = !cursor.hasNext();
@@ -526,7 +515,7 @@ abstract public class CheckDBBase {
             workQueue.waitUntilFinished();
             assert workQueue.isEmptyAndFinished();
 
-            for (final EntityMapper.Field field : allFields) {
+            for (final Field field : allFields) {
                 internalErrors.add(collection.getName() + '.' + field.getFieldName());
             }
             showProgressCollectionEnd(collection, count);
@@ -570,9 +559,9 @@ abstract public class CheckDBBase {
          * be used for data contained within this collection, otherwise uniqueness violations will be reported on the
          * wrong collection.
          *
-         * Values to check for uniqueness can then be added to it using {@link UniquenessChecker#add(com.tomtom.speedtools.domain.Uid,
-         * Object) add(Uid, Object)} or {@link UniquenessChecker#add(com.tomtom.speedtools.domain.Uid,
-         * java.util.Collection) add(Uid, Collection)}. The actual check will be performed once all other checks in this
+         * Values to check for uniqueness can then be added to it using {@link UniquenessChecker#add(Uid,
+         * Object) add(Uid, Object)} or {@link UniquenessChecker#add(Uid,
+         * Collection) add(Uid, Collection)}. The actual check will be performed once all other checks in this
          * {@code CollectionChecker} have been finished, to ensure that all values to check for uniqueness have been
          * added to the {@code UniquenessChecker}.
          *
@@ -586,7 +575,7 @@ abstract public class CheckDBBase {
         protected <T> UniquenessChecker<T> createUniquenessChecker(final boolean logAsErrors,
                                                                    @Nonnull final EntityMapper<?>.Field<?>... fieldPath) {
             assert fieldPath != null;
-            final UniquenessChecker<T> uniquenessChecker = new UniquenessChecker<T>(this, logAsErrors, fieldPath);
+            final UniquenessChecker<T> uniquenessChecker = new UniquenessChecker<>(this, logAsErrors, fieldPath);
             uniquenessCheckers.add(uniquenessChecker);
             return uniquenessChecker;
         }
@@ -595,11 +584,11 @@ abstract public class CheckDBBase {
     public class UniquenessChecker<T> implements Runnable {
         @Nonnull
         protected final Collection<Tuple<Uid<?>, T>> valueTuples =
-                new ConcurrentLinkedQueue<Tuple<Uid<?>, T>>();
+                new ConcurrentLinkedQueue<>();
         @Nonnull
         protected final CollectionChecker collectionChecker;
         @Nonnull
-        protected final EntityMapper.HasFieldName[] fieldPath;
+        protected final HasFieldName[] fieldPath;
         protected final boolean logAsErrors;
 
         /**
@@ -616,7 +605,7 @@ abstract public class CheckDBBase {
         public UniquenessChecker(
                 @Nonnull final CollectionChecker collectionChecker,
                 final boolean logAsErrors,
-                @Nonnull final EntityMapper.HasFieldName... fieldPath) {
+                @Nonnull final HasFieldName... fieldPath) {
             assert collectionChecker != null;
             assert fieldPath != null;
             this.fieldPath = fieldPath;
@@ -667,7 +656,7 @@ abstract public class CheckDBBase {
          */
         @Override
         public void run() {
-            final Set<T> set = new HashSet<T>();
+            final Set<T> set = new HashSet<>();
             for (final Tuple<Uid<?>, T> valueTuple : valueTuples) {
                 final T value = valueTuple.getValue2();
                 if (!set.add(value)) {
@@ -694,14 +683,14 @@ abstract public class CheckDBBase {
          * The queue isEmpty contains flags indicating emptiness for the the current (sub)collections.
          */
         @Nonnull
-        protected final BlockingDeque<Boolean> isEmpty = new LinkedBlockingDeque<Boolean>();
+        protected final BlockingDeque<Boolean> isEmpty = new LinkedBlockingDeque<>();
         @Nonnull
-        protected final BlockingDeque<EntityMapper<?>> mappers = new LinkedBlockingDeque<EntityMapper<?>>();
+        protected final BlockingDeque<EntityMapper<?>> mappers = new LinkedBlockingDeque<>();
 
         @Nonnull
         protected final CollectionChecker collectionChecker;
         @Nonnull
-        protected EntityMapper.Field field = null;
+        protected Field field = null;
         protected boolean currentRecordInvalid = true;
 
         protected RecordCheckerBase(
@@ -724,7 +713,7 @@ abstract public class CheckDBBase {
             assert clazz != null;
 
             final T m = mapperRegistry.findMapper(clazz);
-            for (final EntityMapper.Field field : m.getFields()) {
+            for (final Field field : m.getFields()) {
                 collectionChecker.allFields.add(field);
             }
             mappers.push(m);
@@ -1060,7 +1049,7 @@ abstract public class CheckDBBase {
             assert recordId != null;
 
             if (objects != null) {
-                final Set<Object> set = new HashSet<Object>();
+                final Set<Object> set = new HashSet<>();
                 for (final Object object : objects) {
                     if (!set.add(object)) {
                         error(recordId, object, "A unique value.");

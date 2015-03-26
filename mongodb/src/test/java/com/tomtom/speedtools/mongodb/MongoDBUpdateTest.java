@@ -146,9 +146,6 @@ public class MongoDBUpdateTest {
         public final Field<String> f3 = stringField("f3", "getF3", CONSTRUCTOR);
         public final Field<String> f4 = stringField("f4", "getF4", CONSTRUCTOR);
 
-        private TestEntityMapper() {
-            super();
-        }
     }
 
     private static class TestMapperRegistry extends MapperRegistry {

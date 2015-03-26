@@ -23,7 +23,7 @@ import javax.annotation.Nullable;
  */
 public class IdentityMapper<T> extends Mapper<T> {
 
-    @Nonnull private static final IdentityMapper<Object> INSTANCE = new IdentityMapper<Object>();
+    @Nonnull private static final IdentityMapper<Object> INSTANCE = new IdentityMapper<>();
 
     @Nonnull
     public static <T> IdentityMapper<T> getInstance() {

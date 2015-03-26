@@ -23,6 +23,7 @@ import javax.annotation.Nonnull;
 import com.tomtom.speedtools.geometry.GeoPoint;
 import com.tomtom.speedtools.geometry.GeoRectangle;
 import com.tomtom.speedtools.mongodb.mappers.EntityMapper;
+import com.tomtom.speedtools.mongodb.mappers.EntityMapper.HasFieldName;
 import com.tomtom.speedtools.mongodb.mappers.GeoPointMapper;
 import com.tomtom.speedtools.mongodb.mappers.MapperException;
 
@@ -52,13 +53,13 @@ public final class MongoDBUtils {
      * @return A string representing the Mongo path.
      */
     @Nonnull
-    public static String mongoPath(@Nonnull final EntityMapper.HasFieldName... parts) {
+    public static String mongoPath(@Nonnull final HasFieldName... parts) {
         assert parts != null;
 
         final StringBuilder result = new StringBuilder();
 
         String sep = "";
-        for (final EntityMapper.HasFieldName field : parts) {
+        for (final HasFieldName field : parts) {
             result.append(sep).append(field.getFieldName());
             sep = MONGO_PATH_SEPARATOR;
         }

@@ -53,7 +53,7 @@ public class CollectionMapperTest {
         Assert.assertTrue(mem != null);
         Assert.assertTrue(mem.isEmpty());
 
-        db = new ArrayList<String>();
+        db = new ArrayList<>();
         mem = mapper.fromDb(db);
         Assert.assertTrue(mem != null);
         Assert.assertTrue(mem.isEmpty());
@@ -82,7 +82,7 @@ public class CollectionMapperTest {
         Assert.assertTrue(db != null);
         Assert.assertTrue(db.isEmpty());
 
-        mem = new ArrayList<String>();
+        mem = new ArrayList<>();
         db = mapper.toDb(mem);
         Assert.assertTrue(db != null);
         Assert.assertTrue(db.isEmpty());
@@ -121,7 +121,7 @@ public class CollectionMapperTest {
 
         @Nonnull
         public Collection<Dummy> getDummies() {
-            return new ArrayList<Dummy>();
+            return new ArrayList<>();
         }
     }
 

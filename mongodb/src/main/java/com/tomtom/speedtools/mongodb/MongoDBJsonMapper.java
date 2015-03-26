@@ -17,6 +17,7 @@
 package com.tomtom.speedtools.mongodb;
 
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.annotation.JsonTypeInfo.As;
 import com.fasterxml.jackson.core.Version;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -25,6 +26,11 @@ import com.fasterxml.jackson.databind.module.SimpleModule;
 
 import javax.annotation.Nonnull;
 
+import com.tomtom.speedtools.json.DateTimeSerializer.FromLongDeserializer;
+import com.tomtom.speedtools.json.DateTimeSerializer.ToLongSerializer;
+import com.tomtom.speedtools.json.ImageSerializer.FromBytesDeserializer;
+import com.tomtom.speedtools.json.ImageSerializer.FromBytesDeserializerForBufferedImage;
+import com.tomtom.speedtools.json.ImageSerializer.ToBytesSerializer;
 import org.joda.time.DateTime;
 
 import java.awt.*;
@@ -78,14 +84,14 @@ public final class MongoDBJsonMapper extends ObjectMapper {
 
         // Add custom mappers.
         final SimpleModule module = new SimpleModule("DateTimeToLongJsonMapper", new Version(0, 1, 0, ""));
-        module.addSerializer(DateTime.class, new DateTimeSerializer.ToLongSerializer());
-        module.addDeserializer(DateTime.class, new DateTimeSerializer.FromLongDeserializer());
+        module.addSerializer(DateTime.class, new ToLongSerializer());
+        module.addDeserializer(DateTime.class, new FromLongDeserializer());
 
-        module.addSerializer(Image.class, new ImageSerializer.ToBytesSerializer());
-        module.addDeserializer(Image.class, new ImageSerializer.FromBytesDeserializer());
+        module.addSerializer(Image.class, new ToBytesSerializer());
+        module.addDeserializer(Image.class, new FromBytesDeserializer());
 
-        module.addSerializer(BufferedImage.class, new ImageSerializer.ToBytesSerializer());
-        module.addDeserializer(BufferedImage.class, new ImageSerializer.FromBytesDeserializerForBufferedImage());
+        module.addSerializer(BufferedImage.class, new ToBytesSerializer());
+        module.addDeserializer(BufferedImage.class, new FromBytesDeserializerForBufferedImage());
         MONGO_JSON_MAPPER.registerModule(module);
 
         // Add some deserialization properties (to skip the added "_id" field).
@@ -95,7 +101,7 @@ public final class MongoDBJsonMapper extends ObjectMapper {
         MONGO_JSON_MAPPER.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
         // Add type information.
-        MONGO_JSON_MAPPER.enableDefaultTyping(DefaultTyping.JAVA_LANG_OBJECT, JsonTypeInfo.As.PROPERTY);
+        MONGO_JSON_MAPPER.enableDefaultTyping(DefaultTyping.JAVA_LANG_OBJECT, As.PROPERTY);
     }
 
     /**

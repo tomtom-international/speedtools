@@ -85,13 +85,7 @@ public final class DaoUtils {
                 LOG.debug("findOne: {}", message);
                 throw new EntityNotFoundException(message);
             }
-        } catch (final MapperException e) {
-            final String message =
-                    "Entity could not be mapped: " + query + ", collection=" + collection.getName() +
-                            ", object=" + Json.toStringJson(dbObject) + '.';
-            LOG.error("findOne: " + message, e);
-            throw new InternalDaoException(message, e);
-        } catch (final MongoException e) {
+        } catch (final MapperException | MongoException e) {
             final String message =
                     "Entity could not be mapped: " + query + ", collection=" + collection.getName() +
                             ", object=" + Json.toStringJson(dbObject) + '.';
@@ -171,8 +165,8 @@ public final class DaoUtils {
             final DBCursor dbCursor = collection.find(query.toDBObject());
             final DBCursor cursor = paging.apply(sorting.apply(dbCursor));
 
-            final List<MapperError> errors = new LinkedList<MapperError>();
-            final List<T> result = new ArrayList<T>();
+            final List<MapperError> errors = new LinkedList<>();
+            final List<T> result = new ArrayList<>();
             while (cursor.hasNext()) {
 
                 final DBObject dbValue = cursor.next();
@@ -189,12 +183,7 @@ public final class DaoUtils {
                 }
             }
             return result;
-        } catch (final MapperException e) {
-            final String message =
-                    "Entity could not be mapped: " + query + ", collection=" + collection.getName() + '.';
-            LOG.error("find: " + message, e);
-            throw new InternalDaoException(message, e);
-        } catch (final MongoException e) {
+        } catch (final MapperException | MongoException e) {
             final String message =
                     "Entity could not be mapped: " + query + ", collection=" + collection.getName() + '.';
             LOG.error("find: " + message, e);
@@ -230,12 +219,7 @@ public final class DaoUtils {
             dbObject.put(MongoDBKeyNames.LAST_MODIFIED_KEY, UTCTime.now().toDate());
 
             collection.save(dbObject, writeConcern);
-        } catch (final MapperException e) {
-            final String message = "Map entity failed: type=" +
-                    entity.getClass().getSimpleName() + ", collection=" + collection.getName() + '.';
-            LOG.error("storeEntity: " + message, e);
-            throw new EntityStoreException(message, e);
-        } catch (final MongoException e) {
+        } catch (final MapperException | MongoException e) {
             final String message = "Map entity failed: type=" +
                     entity.getClass().getSimpleName() + ", collection=" + collection.getName() + '.';
             LOG.error("storeEntity: " + message, e);
@@ -264,12 +248,7 @@ public final class DaoUtils {
         try {
             final DBObject dbObject = mapper.toDb(entity);
             collection.remove(dbObject);
-        } catch (final MapperException e) {
-            final String message = "Map entity failed: type=" +
-                    entity.getClass().getSimpleName() + ", collection=" + collection.getName() + '.';
-            LOG.error("removeEntity: " + message, e);
-            throw new EntityRemoveException(message, e);
-        } catch (final MongoException e) {
+        } catch (final MapperException | MongoException e) {
             final String message = "Map entity failed: type=" +
                     entity.getClass().getSimpleName() + ", collection=" + collection.getName() + '.';
             LOG.error("removeEntity: " + message, e);
@@ -297,12 +276,7 @@ public final class DaoUtils {
             final MongoDBQuery dbQuery = new MongoDBQuery().
                     eq(field, value);
             collection.remove(dbQuery.toDBObject());
-        } catch (final MapperException e) {
-            final String message = "Remove entity failed: field=" +
-                    field.getFieldName() + ", collection=" + collection.getName() + '.';
-            LOG.error("removeEntityByField: " + message, e);
-            throw new EntityRemoveException(message, e);
-        } catch (final MongoException e) {
+        } catch (final MapperException | MongoException e) {
             final String message = "Remove entity failed: field=" +
                     field.getFieldName() + ", collection=" + collection.getName() + '.';
             LOG.error("removeEntityByField: " + message, e);
@@ -361,13 +335,7 @@ public final class DaoUtils {
                 LOG.error("update: {}", message);
                 throw new EntityNotFoundException(message);
             }
-        } catch (final MapperException e) {
-            final String message =
-                    "Couldn't map entity to update, query: " + query + ", update: " + update + ", " +
-                            "collection: " + collection.getName() + '.';
-            LOG.error("update: " + message, e);
-            throw new EntityStoreException(message, e);
-        } catch (final MongoException e) {
+        } catch (final MapperException | MongoException e) {
             final String message =
                     "Couldn't map entity to update, query: " + query + ", update: " + update + ", " +
                             "collection: " + collection.getName() + '.';
@@ -450,13 +418,7 @@ public final class DaoUtils {
                 LOG.debug("upsert: Inserted new object, query={}, collection={}", query, collection.getName());
             }
             return nr;
-        } catch (final MapperException e) {
-            final String message =
-                    "Couldn't map entity to update, query: " + query + ", update: " + value + ", " +
-                            "collection: " + collection.getName() + '.';
-            LOG.error("upsert: " + message, e);
-            throw new EntityStoreException(message, e);
-        } catch (final MongoException e) {
+        } catch (final MapperException | MongoException e) {
             final String message =
                     "Couldn't map entity to update, query: " + query + ", update: " + value + ", " +
                             "collection: " + collection.getName() + '.';

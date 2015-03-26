@@ -37,14 +37,14 @@ public class MapperRegistry {
 
     @Nonnull
     private final Map<Class<? extends Mapper<?>>, Mapper<?>> mappers =
-            new HashMap<Class<? extends Mapper<?>>, Mapper<?>>();
+            new HashMap<>();
 
     @Nonnull
     private final Map<Mapper<?>, List<EntityMapper<?>.SuperEntity>> subEntityMappers =
-            new HashMap<Mapper<?>, List<EntityMapper<?>.SuperEntity>>();
+            new HashMap<>();
 
     @Nonnull
-    private final Set<Mapper<?>> initializedMappers = new HashSet<Mapper<?>>();
+    private final Set<Mapper<?>> initializedMappers = new HashSet<>();
 
     /**
      * There can only be one sub mapper cache per MapperRegistry. This Map used to be a static member of EntityMapper
@@ -55,7 +55,7 @@ public class MapperRegistry {
      */
     @Nonnull
     private final ConcurrentHashMap<Tuple<Class<?>, Class<?>>, EntityMapper<?>>
-            subMapperCache = new ConcurrentHashMap<Tuple<Class<?>, Class<?>>, EntityMapper<?>>();
+            subMapperCache = new ConcurrentHashMap<>();
 
     @SuppressWarnings("unchecked")
     public void register(@Nonnull final Mapper<?>... mappers) throws SchemaException {
@@ -84,7 +84,7 @@ public class MapperRegistry {
                     new DateTimeMapper(),
                     new DoubleMapper(),
                     new IntegerMapper(),
-                    new ReferenceMapper<Object>(),
+                    new ReferenceMapper<>(),
                     new StringMapper()
             );
         }
@@ -113,7 +113,7 @@ public class MapperRegistry {
                     List<EntityMapper<?>.SuperEntity> subMappers =
                             subEntityMappers.get(superEntity.getSuperMapper());
                     if (subMappers == null) {
-                        subMappers = new ArrayList<EntityMapper<?>.SuperEntity>();
+                        subMappers = new ArrayList<>();
                         subEntityMappers.put(superEntity.getSuperMapper(), subMappers);
                     }
                     subMappers.add(superEntity);
@@ -131,7 +131,7 @@ public class MapperRegistry {
      */
     @Nonnull
     public Set<Mapper<?>> getMappers() {
-        return new HashSet<Mapper<?>>(mappers.values());
+        return new HashSet<>(mappers.values());
     }
 
     /**
