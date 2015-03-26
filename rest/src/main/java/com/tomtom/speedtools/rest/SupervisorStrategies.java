@@ -18,23 +18,21 @@ package com.tomtom.speedtools.rest;
 
 import akka.actor.OneForOneStrategy;
 import akka.actor.SupervisorStrategy;
+import akka.actor.SupervisorStrategy.Directive;
 import akka.japi.Function;
 import com.google.inject.Injector;
-
-import javax.annotation.Nonnull;
-
+import com.tomtom.speedtools.guice.HasProperties;
+import com.tomtom.speedtools.guice.InvalidPropertyValueException;
+import com.tomtom.speedtools.utils.MathUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import scala.concurrent.duration.Duration;
 import scala.concurrent.duration.FiniteDuration;
 
+import javax.annotation.Nonnull;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.util.concurrent.TimeUnit;
-
-import com.tomtom.speedtools.guice.HasProperties;
-import com.tomtom.speedtools.guice.InvalidPropertyValueException;
-import com.tomtom.speedtools.utils.MathUtils;
 
 /**
  * Standard supervisor strategies.
@@ -78,11 +76,11 @@ public class SupervisorStrategies implements HasProperties {
         this.restartChildStrategy = new OneForOneStrategy(
                 maxNrOfRetries,
                 FiniteDuration.create(withinTimeRangeSecs, TimeUnit.SECONDS),
-                new Function<Throwable, SupervisorStrategy.Directive>() {
+                new Function<Throwable, Directive>() {
 
                     @Nonnull
                     @Override
-                    public SupervisorStrategy.Directive apply(@Nonnull final Throwable param) {
+                    public Directive apply(@Nonnull final Throwable param) {
                         assert param != null;
                         if (param instanceof Error) {
                             LOG.error("apply (restartChildStrategy): Error occurred in actor", param);
@@ -97,11 +95,11 @@ public class SupervisorStrategies implements HasProperties {
         );
 
         this.stopChildStrategy = new OneForOneStrategy(0, Duration.Inf(),
-                new Function<Throwable, SupervisorStrategy.Directive>() {
+                new Function<Throwable, Directive>() {
 
                     @Nonnull
                     @Override
-                    public SupervisorStrategy.Directive apply(@Nonnull final Throwable param) {
+                    public Directive apply(@Nonnull final Throwable param) {
                         assert param != null;
                         if (param instanceof Error) {
                             LOG.error("apply (stopChildStrategy): Error occurred in actor", param);

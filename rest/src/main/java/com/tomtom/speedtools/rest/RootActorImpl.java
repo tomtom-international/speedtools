@@ -18,10 +18,10 @@ package com.tomtom.speedtools.rest;
 
 import akka.actor.OneForOneStrategy;
 import akka.actor.SupervisorStrategy;
-import akka.actor.TypedActor;
 
 import javax.annotation.Nonnull;
 
+import akka.actor.TypedActor.Supervisor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -37,7 +37,7 @@ import com.tomtom.speedtools.akka.TypedActorFactory;
  * create() will never cause a deadlock. To ensure that no deadlocks occurs, methods of this actor must never block on
  * calls to other actors in the system.
  */
-public class RootActorImpl implements RootActor, TypedActor.Supervisor {
+public class RootActorImpl implements RootActor, Supervisor {
     private static final Logger LOG = LoggerFactory.getLogger(RootActorImpl.class);
 
     @Nonnull

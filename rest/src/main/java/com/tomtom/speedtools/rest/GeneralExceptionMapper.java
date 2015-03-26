@@ -19,6 +19,7 @@ package com.tomtom.speedtools.rest;
 
 import akka.pattern.AskTimeoutException;
 import com.fasterxml.jackson.databind.JsonMappingException;
+import com.tomtom.speedtools.xmladapters.DateTimeAdapter.XMLAdapterWithSecondsResolution;
 import org.bson.BSONException;
 import org.jboss.resteasy.spi.BadRequestException;
 import org.jboss.resteasy.spi.MethodNotAllowedException;
@@ -60,7 +61,6 @@ import com.tomtom.speedtools.apivalidation.exceptions.ApiUnauthorizedException;
 import com.tomtom.speedtools.json.Json;
 import com.tomtom.speedtools.objects.Tuple;
 import com.tomtom.speedtools.time.UTCTime;
-import com.tomtom.speedtools.xmladapters.DateTimeAdapter;
 
 import static com.tomtom.speedtools.utils.StringUtils.nullToEmpty;
 import static javax.ws.rs.core.Response.status;
@@ -77,7 +77,7 @@ public class GeneralExceptionMapper implements ExceptionMapper<Throwable> {
 
     @Nonnull
     private final static Map<Class<? extends Exception>, Tuple<Boolean, Status>> customExceptionsMap =
-            new HashMap<Class<? extends Exception>, Tuple<Boolean, Status>>();
+            new HashMap<>();
 
     /**
      * Add a custom exception mapping. For example, when using MongoDB you might wish to add:
@@ -95,7 +95,7 @@ public class GeneralExceptionMapper implements ExceptionMapper<Throwable> {
             @Nonnull final Status status) {
         assert exception != null;
         assert status != null;
-        customExceptionsMap.put(exception, new Tuple<Boolean, Status>(isInternalServerError, status));
+        customExceptionsMap.put(exception, new Tuple<>(isInternalServerError, status));
     }
 
     public static void removeCustomException(@Nonnull final Class<? extends Exception> exception) {
@@ -416,7 +416,7 @@ public class GeneralExceptionMapper implements ExceptionMapper<Throwable> {
         }
 
         @XmlElement(name = "time", required = true)
-        @XmlJavaTypeAdapter(type = DateTime.class, value = DateTimeAdapter.XMLAdapterWithSecondsResolution.class)
+        @XmlJavaTypeAdapter(type = DateTime.class, value = XMLAdapterWithSecondsResolution.class)
         @Nonnull
         public DateTime getTime() {
             assert time != null;
