@@ -16,29 +16,23 @@
 
 package com.tomtom.speedtools.mongodb;
 
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.JsonTypeInfo.As;
 import com.fasterxml.jackson.core.Version;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.module.SimpleModule;
-
-import javax.annotation.Nonnull;
-
 import com.tomtom.speedtools.json.DateTimeSerializer.FromLongDeserializer;
 import com.tomtom.speedtools.json.DateTimeSerializer.ToLongSerializer;
 import com.tomtom.speedtools.json.ImageSerializer.FromBytesDeserializer;
 import com.tomtom.speedtools.json.ImageSerializer.FromBytesDeserializerForBufferedImage;
 import com.tomtom.speedtools.json.ImageSerializer.ToBytesSerializer;
+import com.tomtom.speedtools.json.JsonObjectMapperFactory;
 import org.joda.time.DateTime;
 
+import javax.annotation.Nonnull;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-
-import com.tomtom.speedtools.json.DateTimeSerializer;
-import com.tomtom.speedtools.json.ImageSerializer;
-import com.tomtom.speedtools.json.JsonObjectMapperFactory;
 
 /**
  * MongoDB Json formatter class. This class provides access to an ObjectMapper for the MongoJsonMapper framework. Note
@@ -83,7 +77,8 @@ public final class MongoDBJsonMapper extends ObjectMapper {
         MONGO_JSON_MAPPER = JsonObjectMapperFactory.createJsonObjectMapper();
 
         // Add custom mappers.
-        final SimpleModule module = new SimpleModule("DateTimeToLongJsonMapper", new Version(0, 1, 0, ""));
+        final SimpleModule module = new SimpleModule("DateTimeToLongJsonMapper", new Version(0, 0, 1, "",
+                "com.tomtom.speedtools", "speedtools"));
         module.addSerializer(DateTime.class, new ToLongSerializer());
         module.addDeserializer(DateTime.class, new FromLongDeserializer());
 

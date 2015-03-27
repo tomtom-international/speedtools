@@ -18,6 +18,7 @@ package com.tomtom.speedtools.mongodb;
 
 import com.mongodb.BasicDBObject;
 import com.tomtom.speedtools.domain.Uid;
+import com.tomtom.speedtools.mongodb.MongoDBUpdate;
 import com.tomtom.speedtools.mongodb.mappers.EntityMapper;
 import com.tomtom.speedtools.mongodb.mappers.MapperException;
 import com.tomtom.speedtools.mongodb.mappers.MapperRegistry;
@@ -29,7 +30,6 @@ import org.slf4j.LoggerFactory;
 
 import javax.annotation.Nonnull;
 
-// TODO: Implement these tests.
 public class MongoDBUpdateTest {
     private static final Logger LOG = LoggerFactory.getLogger(MongoDBUpdateTest.class);
 

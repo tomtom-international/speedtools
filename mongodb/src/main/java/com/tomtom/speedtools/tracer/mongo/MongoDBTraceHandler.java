@@ -16,15 +16,11 @@
 
 package com.tomtom.speedtools.tracer.mongo;
 
-import com.mongodb.BasicDBObject;
-import com.mongodb.DB;
-import com.mongodb.DBCollection;
-import com.mongodb.DBObject;
-import com.mongodb.Mongo;
-import com.mongodb.MongoException;
-import com.mongodb.ReadPreference;
-import com.mongodb.ServerAddress;
-import com.mongodb.WriteConcern;
+import com.mongodb.*;
+import com.tomtom.speedtools.mongodb.MongoConnectionCache;
+import com.tomtom.speedtools.mongodb.SimpleMongoDBSerializer;
+import com.tomtom.speedtools.tracer.GenericTraceHandler;
+import com.tomtom.speedtools.tracer.TracerFactory;
 import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,12 +31,6 @@ import javax.inject.Inject;
 import java.net.UnknownHostException;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
-
-import com.tomtom.speedtools.mongodb.MongoConnectionCache;
-import com.tomtom.speedtools.mongodb.MongoDB;
-import com.tomtom.speedtools.mongodb.SimpleMongoDBSerializer;
-import com.tomtom.speedtools.tracer.GenericTraceHandler;
-import com.tomtom.speedtools.tracer.TracerFactory;
 
 @SuppressWarnings("ThisEscapedInObjectConstruction")
 public class MongoDBTraceHandler implements GenericTraceHandler {
@@ -138,7 +128,8 @@ public class MongoDBTraceHandler implements GenericTraceHandler {
         assert connectTimeoutMsecs >= 0;
 
         LOG.info("getDBCollection: Creating MongoDB connection for traces: {}", servers);
-        final Mongo mongo = MongoConnectionCache.getMongoDB(servers, connectTimeoutMsecs);
+        final Mongo mongo = MongoConnectionCache.getMongoDB(servers, connectTimeoutMsecs,
+                userName, database, password);
 
         // If this is a replica set, set read preference to secondary for traces.
         final List<ServerAddress> serverAddressList = mongo.getServerAddressList();
@@ -148,13 +139,12 @@ public class MongoDBTraceHandler implements GenericTraceHandler {
 
         // Should writes fail, then don't throw exceptions, just ignore.
         // We care more about not disturbing the primary system then our own (traces) integrity.
-        mongo.setWriteConcern(WriteConcern.NONE);
+        mongo.setWriteConcern(WriteConcern.UNACKNOWLEDGED);
 
         // The connection point may actually be null... Not an error.
         final String connectPoint = mongo.getConnectPoint();
         LOG.info("getDBCollection: MongoDB connection for traces established: '{}' at {}",
                 database, connectPoint);
-        MongoDB.authenticateIfRequired(mongo, database, userName, password);
 
         final DB db = mongo.getDB(database);
         final DBObject options = new BasicDBObject();

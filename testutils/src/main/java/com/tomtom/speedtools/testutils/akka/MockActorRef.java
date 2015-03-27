@@ -43,6 +43,7 @@ public class MockActorRef extends ActorRef {
         return actorPath;
     }
 
+    @Deprecated
     @Override
     public boolean isTerminated() {
         return false;

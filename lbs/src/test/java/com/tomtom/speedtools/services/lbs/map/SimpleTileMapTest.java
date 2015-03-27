@@ -30,7 +30,7 @@ import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
-import static junit.framework.Assert.assertTrue;
+import static org.junit.Assert.assertTrue;
 
 public class SimpleTileMapTest {
     private static final Logger LOG = LoggerFactory.getLogger(SimpleTileMapTest.class);

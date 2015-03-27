@@ -16,16 +16,15 @@
 
 package com.tomtom.speedtools.tracer.mongo;
 
-import javax.annotation.Nonnull;
-
-import javax.inject.Inject;
-import javax.inject.Named;
-import java.net.UnknownHostException;
-
 import com.tomtom.speedtools.guice.HasProperties;
 import com.tomtom.speedtools.guice.InvalidPropertyValueException;
 import com.tomtom.speedtools.json.Json;
 import com.tomtom.speedtools.mongodb.MongoConnectionCache;
+
+import javax.annotation.Nonnull;
+import javax.inject.Inject;
+import javax.inject.Named;
+import java.net.UnknownHostException;
 
 public class MongoDBTraceProperties implements HasProperties {
 
@@ -50,8 +49,8 @@ public class MongoDBTraceProperties implements HasProperties {
      *                               This can be DNS name or IP number.
      *                               The port number must be in range: [1, 65535]. Cannot be empty.
      * @param database               Database name for traces. Cannot be empty.
-     * @param userName               Database userName for traces. Cannot be empty.
-     * @param password               Database password for traces. Cannot be empty.
+     * @param userName               Database userName for traces. Can be empty.
+     * @param password               Database password for traces. Can be empty.
      * @param maxDatabaseSizeMB      Maximum size of capped collection, in megabytes. Must be &gt; 0.
      * @param connectionTimeoutMsecs Connection timeout in msecs. Must be &gt;= 0.
      * @param readEnabled            Specifies whether the MongoDB trace is read enabled or not.
@@ -87,12 +86,6 @@ public class MongoDBTraceProperties implements HasProperties {
 
         if (database.isEmpty()) {
             throw new InvalidPropertyValueException("MongoDBTrace.database cannot be empty.");
-        }
-        if (userName.isEmpty()) {
-            throw new InvalidPropertyValueException("MongoDBTrace.userName cannot be empty.");
-        }
-        if (password.isEmpty()) {
-            throw new InvalidPropertyValueException("MongoDBTrace.password cannot be empty.");
         }
         if (maxDatabaseSizeMB <= 0) {
             throw new InvalidPropertyValueException("MongoDBTrace.maxDatabaseSizeMB must be > 0.");

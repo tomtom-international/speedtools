@@ -19,10 +19,7 @@ package com.tomtom.speedtools.mongodb;
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
-import com.mongodb.Mongo;
-import com.mongodb.MongoClientOptions;
-import com.mongodb.MongoOptions;
-import com.mongodb.ServerAddress;
+import com.mongodb.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -74,21 +71,33 @@ public final class MongoConnectionCache {
      * @throws UnknownHostException If the MongoDB server cannot be found.
      */
     @Nonnull
-    public static Mongo getMongoDB(@Nonnull final String servers, final int connectTimeoutMsecs)
+    public static Mongo getMongoDB(@Nonnull final String servers, final int connectTimeoutMsecs,
+                                   @Nonnull final String userName, @Nonnull final String database,
+                                   @Nonnull final String password)
             throws UnknownHostException {
         assert servers != null;
         assert connectTimeoutMsecs >= 0;
+        assert userName != null;
+        assert database != null;
+        assert password != null;
         try {
             return mongoDBInstances.get(servers, new Callable<Mongo>() {
                 @Override
                 @Nonnull
                 public Mongo call() throws UnknownHostException {
                     LOG.info("getMongoDB: MongoDB servers: " + servers);
+
                     final List<ServerAddress> replicaSetSeeds = getMongoDBServerAddresses(servers);
-                    return new Mongo(replicaSetSeeds,
-                            new MongoOptions(MongoClientOptions.builder().
+                    final List<MongoCredential> credentials = new ArrayList<>();
+                    if (!userName.isEmpty()) {
+                        LOG.debug("getMongoDB: credentials provided (username/password)");
+                        final MongoCredential credential = MongoCredential.createPlainCredential(userName, database, password.toCharArray());
+                        credentials.add(credential);
+                    }
+                    return new MongoClient(replicaSetSeeds, credentials,
+                            MongoClientOptions.builder().
                                     connectTimeout(connectTimeoutMsecs).
-                                    build()));
+                                    build());
                 }
             });
         } catch (final ExecutionException e) {
