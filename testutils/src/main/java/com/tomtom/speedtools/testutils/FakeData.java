@@ -21,62 +21,18 @@ import de.svenjacobs.loremipsum.LoremIpsum;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.text.DecimalFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
 
 /**
- * The class "Fake" contains all sorts of the functions to generate "fake" names, times, license plates etc. that can be
+ * The class "Fake" contains all sorts of the functions to generate "fake" times or texts that can
  * be used in simulations.
  */
 public final class FakeData {
 
     // Static objects.
-    private static final LoremIpsum        LOREM_IPSUM = new LoremIpsum();
-    private static final ArrayList<String> NAMES1      = new ArrayList<>();
-    private static final ArrayList<String> NAMES2      = new ArrayList<>();
-
-    /**
-     * Initialize arrays.
-     */
-    static {
-        NAMES1.add("1-");
-        NAMES1.add("1-2-");
-        NAMES1.add("123-");
-        NAMES1.add("ABC ");
-        NAMES1.add("Auto ");
-        NAMES1.add("Cab4");
-        NAMES1.add("Car ");
-        NAMES1.add("Cars-");
-        NAMES1.add("Fast ");
-        NAMES1.add("Ride ");
-        NAMES1.add("Taxi ");
-        NAMES1.add("Taxi ");
-        NAMES1.add("Taxi-");
-        NAMES1.add("Drive");
-        NAMES1.add("XYZ:");
-        NAMES1.add("VWZ ");
-
-        NAMES2.add("Speedy");
-        NAMES2.add("Gonzales");
-        NAMES2.add("Mohammed");
-        NAMES2.add("John");
-        NAMES2.add("Peter");
-        NAMES2.add("Cycle");
-        NAMES2.add("Great");
-        NAMES2.add("Leiden");
-        NAMES2.add("Penguin");
-        NAMES2.add("Lion");
-        NAMES2.add("Alpha");
-        NAMES2.add("Beta");
-        NAMES2.add("Gamma");
-        NAMES2.add("Delta");
-        NAMES2.add("Bros");
-        NAMES2.add("Ultra");
-        NAMES2.add("Victory");
-        NAMES2.add("4Wheels");
-    }
+    private static final LoremIpsum LOREM_IPSUM = new LoremIpsum();
 
     // Utility class only has private constructor.
     private FakeData() {
@@ -131,46 +87,6 @@ public final class FakeData {
     @Nonnull
     public static Date randomTime(final int offset, final int len) {
         return randomTime(null, offset, len);
-    }
-
-    /**
-     * Generate a random license plate number, of some feasible format, like "AA-12-YW".
-     *
-     * @return Random license plate, max 8 characters.
-     */
-    @SuppressWarnings("NumericCastThatLosesPrecision")
-    @Nonnull
-    public static String randomLicensePlate() {
-        final StringBuilder licensePlate = new StringBuilder();
-        for (int i = 0; i < 3; ++i) {
-            if (Math.random() > 0.5) {
-
-                // Use a local decimal formatter (DecimalFormat is not thread-safe).
-                final DecimalFormat decimalFormat = new DecimalFormat("00");
-                licensePlate.append(decimalFormat.format(Math.round(Math.random() * 99.0)));
-            }
-            else {
-                licensePlate.append((char) (Math.round(Math.random() * 25.0) + 65));
-                licensePlate.append((char) (Math.round(Math.random() * 25.0) + 65));
-            }
-            if (i < 2) {
-                licensePlate.append('-');
-            }
-        }
-        return licensePlate.toString();
-    }
-
-    /**
-     * Generate a random Taxi company name.
-     *
-     * @return Random Taxi company name.
-     */
-    @Nonnull
-    @SuppressWarnings("NumericCastThatLosesPrecision")
-    public static String randomTaxiCompany() {
-        final String name = NAMES1.get((int) Math.round(Math.random() * (NAMES1.size() - 1))) +
-            NAMES2.get((int) Math.round(Math.random() * (NAMES2.size() - 1)));
-        return name;
     }
 
     /**

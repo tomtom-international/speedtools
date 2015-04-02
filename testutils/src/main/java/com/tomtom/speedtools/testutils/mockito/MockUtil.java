@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.tomtom.speedtools.testutils;
+package com.tomtom.speedtools.testutils.mockito;
 
 import org.mockito.ArgumentCaptor;
 import org.mockito.ArgumentMatcher;
