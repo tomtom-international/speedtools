@@ -46,6 +46,7 @@ public class TripleTest {
         y1 = 2.3;
         y2 = "a";
         y3 = true;
+        //noinspection ConstantConditions
         y = new Triple<>(y1, y2, y3);
     }
 

@@ -16,6 +16,13 @@
 
 package com.tomtom.speedtools.services.push.implementation.apns;
 
+import com.tomtom.speedtools.checksums.HexString;
+import com.tomtom.speedtools.json.JsonRenderable;
+import com.tomtom.speedtools.services.push.InvalidPushTokenException;
+import com.tomtom.speedtools.services.push.PushNotificationProvider;
+import com.tomtom.speedtools.services.push.domain.Notification;
+import com.tomtom.speedtools.services.push.domain.NotificationChannelType;
+import com.tomtom.speedtools.services.push.domain.PushToken;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -28,21 +35,7 @@ import java.io.OutputStream;
 import java.nio.ByteBuffer;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
-
-import com.tomtom.speedtools.checksums.HexString;
-import com.tomtom.speedtools.json.JsonRenderable;
-import com.tomtom.speedtools.services.push.InvalidPushTokenException;
-import com.tomtom.speedtools.services.push.PushNotificationProvider;
-import com.tomtom.speedtools.services.push.domain.Notification;
-import com.tomtom.speedtools.services.push.domain.NotificationChannelType;
-import com.tomtom.speedtools.services.push.domain.PushToken;
+import java.util.concurrent.*;
 
 import static com.tomtom.speedtools.loghelper.LogHelper.logId;
 import static com.tomtom.speedtools.services.push.implementation.apns.APNSFeedbackPacket.PACKET_LENGTH;
@@ -282,7 +275,8 @@ public class APNSConnector implements PushNotificationProvider {
     public Set<PushToken> getObsoletePushTokens() {
         LOG.debug("getObsoletePushTokens");
 
-        final Set<PushToken> obsoleteTokens = new HashSet<PushToken>();
+        final Set<PushToken> obsoleteTokens;
+        obsoleteTokens = new HashSet<PushToken>();
 
         if (!apnsProperties.isEnabled()) {
             LOG.debug("getObsoletePushTokens: not fetching obsolete tokens because connector is disabled");

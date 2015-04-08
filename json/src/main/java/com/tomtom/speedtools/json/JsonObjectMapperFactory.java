@@ -16,11 +16,11 @@
 
 package com.tomtom.speedtools.json;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.core.JsonFactory;
-import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonGenerator.Feature;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.MapperFeature;
@@ -49,8 +49,8 @@ public final class JsonObjectMapperFactory {
 
         // Json generation features.
         jsonFactory.
-                configure(JsonGenerator.Feature.QUOTE_FIELD_NAMES, true).
-                configure(JsonGenerator.Feature.WRITE_NUMBERS_AS_STRINGS, false);
+                configure(Feature.QUOTE_FIELD_NAMES, true).
+                configure(Feature.WRITE_NUMBERS_AS_STRINGS, false);
 
         // Create a custom object mapper from the newly created factory. This object mapper will be used by RestEasy.
         final ObjectMapper mapper = new ObjectMapper(jsonFactory);
@@ -64,8 +64,8 @@ public final class JsonObjectMapperFactory {
                 .configure(MapperFeature.CAN_OVERRIDE_ACCESS_MODIFIERS, true);
 
         mapper
-                .setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY)
-                .setSerializationInclusion(JsonInclude.Include.NON_NULL)
+                .setVisibility(PropertyAccessor.FIELD, Visibility.ANY)
+                .setSerializationInclusion(Include.NON_NULL)
                 .disableDefaultTyping()
                 .disable(SerializationFeature.WRITE_NULL_MAP_VALUES);
 

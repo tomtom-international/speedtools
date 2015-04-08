@@ -38,7 +38,7 @@ public class MongoDBUpdateTest {
         LOG.info("testSetAllExcept");
         final TestMapperRegistry testMapperRegistry = new TestMapperRegistry();
         final TestEntityMapper testEntityMapper = testMapperRegistry.getMapper(TestEntityMapper.class);
-        final TestEntity testEntity = new TestEntity(new Uid<TestEntity>(), "field0", "field1", "field2", "field3",
+        final TestEntity testEntity = new TestEntity(new Uid<>(), "field0", "field1", "field2", "field3",
                 "field4");
 
         // One exclude.

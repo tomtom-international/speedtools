@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-@javax.xml.bind.annotation.XmlSchema(
-        namespace = "http://lbs.tomtom.com/services",
-        xmlns = {@javax.xml.bind.annotation.XmlNs(prefix = "", namespaceURI = "http://lbs.tomtom.com/services")},
-        elementFormDefault = javax.xml.bind.annotation.XmlNsForm.QUALIFIED) package com.tomtom.speedtools.services.lbs.geocode;
+@javax.xml.bind.annotation.XmlSchema(namespace = "http://lbs.tomtom.com/services",
+        xmlns = @javax.xml.bind.annotation.XmlNs(prefix = "", namespaceURI = "http://lbs.tomtom.com/services"),
+        elementFormDefault = javax.xml.bind.annotation.XmlNsForm.QUALIFIED)
+package com.tomtom.speedtools.services.lbs.geocode;
 
 /**
  * This file is only used to annotate the package com.tomtom.speedtools.utils.lbs.geocode.

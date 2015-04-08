@@ -19,7 +19,10 @@ package com.tomtom.speedtools.json;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.annotation.JsonTypeInfo.As;
+import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
 import com.tomtom.speedtools.domain.Uid;
 import com.tomtom.speedtools.objects.Objects;
 import com.tomtom.speedtools.testutils.ValidationFailException;
@@ -183,7 +186,7 @@ public class JsonTest {
 
         final Uid<Integer> uid = new Uid<>("1-2-3-4-5");
         final String x1 = Json.toJson(uid);
-        LOG.info("Json Uid: " + x1);
+        LOG.info("Json Uid: {}", x1);
         final Uid<?> x2 = Json.fromJson(x1, Uid.class);
         Assert.assertNotNull(x2);
         final String x3 = x2.toString();
@@ -193,7 +196,7 @@ public class JsonTest {
         final String w2 = Json.toJson(w1);
         final Date w3 = Json.fromJson(w2, Date.class);
         Assert.assertNotNull(w3);
-        LOG.info("Json Date: " + w1 + " == " + w3 + " / " + w2);
+        LOG.info("Json Date: {} == {} / {}", w1, w3, w2);
         Assert.assertEquals(w1.getTime(), w3.getTime());
 
         final DateTime v1 = new DateTime(2012, 1, 2, 3, 4, 5, 678);
@@ -205,10 +208,10 @@ public class JsonTest {
 
         final GeoPoint q = new GeoPoint(-1.0, -2.0);
         final String z1 = Json.toJson(q);
-        LOG.info("Json GeoPoint 1: " + z1);
+        LOG.info("Json GeoPoint 1: {}", z1);
         final GeoPoint r = Json.fromJson(z1, GeoPoint.class);
         Assert.assertNotNull(r);
-        LOG.info("Json GeoPoint 2: " + r);
+        LOG.info("Json GeoPoint 2: {}", r);
         Assert.assertEquals(q, r);
     }
 
@@ -230,20 +233,20 @@ public class JsonTest {
 
         final GeoPoint a = new GeoPoint(1.0, 2.0);
         final String y1 = Json.toJson(a);
-        LOG.info("Json GeoPoint 1: " + y1);
+        LOG.info("Json GeoPoint 1: {}", y1);
         final GeoPoint b = Json.fromJson(y1, GeoPoint.class);
         Assert.assertNotNull(b);
-        LOG.info("Json GeoPoint 2: " + b);
+        LOG.info("Json GeoPoint 2: {}", b);
         Assert.assertEquals(a, b);
 
         Json.getCurrentJsonObjectMapper().addMixInAnnotations(GeoRectangle.class, MixInGeoRectangle.class);
 
         final GeoRectangle c = new GeoRectangle(new GeoPoint(3.0, 4.0), new GeoPoint(5.0, 6.0));
         final String y2 = Json.toJson(c);
-        LOG.info("Json GeoRectangle 1: " + y2);
+        LOG.info("Json GeoRectangle 1: {}", y2);
         final GeoRectangle d = Json.fromJson(y2, GeoRectangle.class);
         Assert.assertNotNull(d);
-        LOG.info("Json GeoRectangle 2: " + d);
+        LOG.info("Json GeoRectangle 2: {}", d);
         Assert.assertEquals(c, d);
     }
 
@@ -313,10 +316,10 @@ public class JsonTest {
 
     @XmlRootElement(name = "abstract")
     @XmlAccessorType(XmlAccessType.FIELD)
-    @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.WRAPPER_OBJECT)
+    @JsonTypeInfo(use = Id.NAME, include = As.WRAPPER_OBJECT)
     @JsonSubTypes({
-            @JsonSubTypes.Type(value = SomeConcrete.class, name = "CONCRETE"),
-            @JsonSubTypes.Type(value = SomeOther.class, name = "OTHER")
+            @Type(value = SomeConcrete.class, name = "CONCRETE"),
+            @Type(value = SomeOther.class, name = "OTHER")
     })
     public static class SomeAbstract {
 
@@ -369,8 +372,8 @@ public class JsonTest {
 
     @XmlRootElement(name = "simple")
     @XmlAccessorType(XmlAccessType.FIELD)
-    @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.WRAPPER_OBJECT)
-    @JsonSubTypes(@JsonSubTypes.Type(value = Simple.class, name = "SIMPLE"))
+    @JsonTypeInfo(use = Id.NAME, include = As.WRAPPER_OBJECT)
+    @JsonSubTypes(@Type(value = Simple.class, name = "SIMPLE"))
     public static final class Simple {
         @Nonnull
         public final SomeAbstract[] myAbstract;
@@ -392,6 +395,7 @@ public class JsonTest {
         }
     }
 
+    @SuppressWarnings("PackageVisibleField")
     public static class GeoPoint {
         final double lat;
         final double lon;
@@ -422,6 +426,7 @@ public class JsonTest {
         }
     }
 
+    @SuppressWarnings("PackageVisibleField")
     public static class GeoRectangle {
         @Nonnull
         final GeoPoint southWest;

@@ -16,11 +16,9 @@
 
 package com.tomtom.speedtools.tracer.mongo;
 
-import com.mongodb.BasicDBObject;
-import com.mongodb.Bytes;
-import com.mongodb.DBCollection;
-import com.mongodb.DBCursor;
-import com.mongodb.DBObject;
+import com.mongodb.*;
+import com.tomtom.speedtools.mongodb.SimpleMongoDBSerializer;
+import com.tomtom.speedtools.time.UTCTime;
 import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,9 +30,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.atomic.AtomicReference;
-
-import com.tomtom.speedtools.mongodb.SimpleMongoDBSerializer;
-import com.tomtom.speedtools.time.UTCTime;
 
 /**
  * This class implement a fetcher for events from a MongoDB database.
@@ -192,7 +187,7 @@ class MongoDBTraceFetcher implements Runnable {
                 addOption(Bytes.QUERYOPTION_AWAITDATA);
 
         // Start a new fetch
-        currentFetch.set(new CurrentFetch(cursor, new ConcurrentLinkedQueue<MongoDBTrace>()));
+        currentFetch.set(new CurrentFetch(cursor, new ConcurrentLinkedQueue<>()));
         return fromTime;
     }
 

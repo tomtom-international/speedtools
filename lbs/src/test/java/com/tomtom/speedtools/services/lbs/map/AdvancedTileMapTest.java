@@ -39,6 +39,7 @@ import java.util.concurrent.Callable;
 
 import static org.junit.Assert.assertEquals;
 
+@SuppressWarnings("NumericCastThatLosesPrecision")
 public class AdvancedTileMapTest {
     private static final Logger LOG = LoggerFactory.getLogger(AdvancedTileMapTest.class);
 
@@ -195,7 +196,7 @@ public class AdvancedTileMapTest {
     }
 
     // Dummy implementation of plot method. Does nothing here, expect log its parameters.
-    private void plotResizedPartialTile(
+    private static void plotResizedPartialTile(
             final Bitmap bitmap,
             final int tileOffsetX, final int tileOffsetY,
             final int tileWidth, final int tileHeight,
@@ -234,7 +235,7 @@ public class AdvancedTileMapTest {
      * @return {@link Future} to tile image.
      */
     @NotNull
-    private Future<Bitmap> getMapTileFromLbs(@NotNull final TileKey key) {
+    private static Future<Bitmap> getMapTileFromLbs(@NotNull final TileKey key) {
 
         // Create a URL to fetch a bitmap from the TomTom LBS system. This is an actual working URL!
         final String url = DEFAULT_TILEMAP_URL + '/' +

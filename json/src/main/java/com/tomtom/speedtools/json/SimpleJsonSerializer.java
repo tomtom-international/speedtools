@@ -19,6 +19,10 @@ package com.tomtom.speedtools.json;
 import com.google.common.collect.ImmutableMap;
 import com.thoughtworks.paranamer.BytecodeReadingParanamer;
 import com.thoughtworks.paranamer.ParameterNamesNotFoundException;
+import com.tomtom.speedtools.domain.Uid;
+import com.tomtom.speedtools.objects.Immutables;
+import com.tomtom.speedtools.time.UTCTime;
+import com.tomtom.speedtools.utils.StringUtils;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.slf4j.Logger;
@@ -27,31 +31,10 @@ import org.slf4j.LoggerFactory;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.lang.annotation.Annotation;
-import java.lang.reflect.Array;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Currency;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.IdentityHashMap;
-import java.util.LinkedHashMap;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.lang.reflect.*;
+import java.util.*;
+import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
-
-import com.tomtom.speedtools.domain.Uid;
-import com.tomtom.speedtools.objects.Immutables;
-import com.tomtom.speedtools.time.UTCTime;
-import com.tomtom.speedtools.utils.StringUtils;
 
 /**
  * Simple POJO (Plain Old Java Object, or 'regular Java object') to JSON object mapper. It is lenient, invalid values
@@ -597,7 +580,7 @@ public class SimpleJsonSerializer {
             final String nestedPrefix = prefix + INDENT;
             String sep = "";
             //noinspection unchecked
-            for (final Map.Entry<String, Object> elem : ((Map<String, Object>) value).entrySet()) {
+            for (final Entry<String, Object> elem : ((Map<String, Object>) value).entrySet()) {
                 sb.append(sep);
                 sep = ", ";
                 if (pretty) {
@@ -1818,6 +1801,7 @@ public class SimpleJsonSerializer {
             }
 
             // No cycle detection required.
+            //noinspection EqualsBetweenInconvertibleTypes
             if (elementType.equals(Boolean.class) || elementType.equals(Boolean.TYPE)) {
                 return object;
             }

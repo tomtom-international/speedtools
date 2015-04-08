@@ -24,6 +24,15 @@ import com.fasterxml.jackson.databind.introspect.JacksonAnnotationIntrospector;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.databind.type.TypeFactory;
 import com.fasterxml.jackson.module.jaxb.JaxbAnnotationIntrospector;
+import com.tomtom.speedtools.json.ImageSerializer.FromBytesDeserializer;
+import com.tomtom.speedtools.json.ImageSerializer.FromBytesDeserializerForBufferedImage;
+import com.tomtom.speedtools.json.ImageSerializer.ToBytesSerializer;
+import com.tomtom.speedtools.xmladapters.DateTimeAdapter.JsonDateTimeStringDeserializer;
+import com.tomtom.speedtools.xmladapters.DateTimeAdapter.JsonSerializerWithMillisResolution;
+import com.tomtom.speedtools.xmladapters.DateTimeZoneAdapter.JsonDateTimeZoneDeserializer;
+import com.tomtom.speedtools.xmladapters.DateTimeZoneAdapter.JsonDateTimeZoneSerializer;
+import com.tomtom.speedtools.xmladapters.LocalDateAdapter.JsonLocalDateDeserializer;
+import com.tomtom.speedtools.xmladapters.LocalDateAdapter.JsonLocalDateSerializer;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.joda.time.LocalDate;
@@ -36,10 +45,6 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.StringReader;
-
-import com.tomtom.speedtools.xmladapters.DateTimeAdapter;
-import com.tomtom.speedtools.xmladapters.DateTimeZoneAdapter;
-import com.tomtom.speedtools.xmladapters.LocalDateAdapter;
 
 /**
  * Simple Json formatter class. The functions in this class have 2 variants. One with a default configured Json object
@@ -73,16 +78,16 @@ public final class Json {
         // Add custom mappers.
         final SimpleModule module = new SimpleModule("EnhancedJsonMappers", new Version(0, 1, 0, "", "", ""));
         module
-                .addSerializer(DateTime.class, new DateTimeAdapter.JsonSerializerWithMillisResolution())
-                .addDeserializer(DateTime.class, new DateTimeAdapter.JsonDateTimeStringDeserializer())
-                .addSerializer(DateTimeZone.class, new DateTimeZoneAdapter.JsonDateTimeZoneSerializer())
-                .addDeserializer(DateTimeZone.class, new DateTimeZoneAdapter.JsonDateTimeZoneDeserializer())
-                .addSerializer(LocalDate.class, new LocalDateAdapter.JsonLocalDateSerializer())
-                .addDeserializer(LocalDate.class, new LocalDateAdapter.JsonLocalDateDeserializer())
-                .addSerializer(Image.class, new ImageSerializer.ToBytesSerializer())
-                .addDeserializer(Image.class, new ImageSerializer.FromBytesDeserializer())
-                .addSerializer(BufferedImage.class, new ImageSerializer.ToBytesSerializer())
-                .addDeserializer(BufferedImage.class, new ImageSerializer.FromBytesDeserializerForBufferedImage());
+                .addSerializer(DateTime.class, new JsonSerializerWithMillisResolution())
+                .addDeserializer(DateTime.class, new JsonDateTimeStringDeserializer())
+                .addSerializer(DateTimeZone.class, new JsonDateTimeZoneSerializer())
+                .addDeserializer(DateTimeZone.class, new JsonDateTimeZoneDeserializer())
+                .addSerializer(LocalDate.class, new JsonLocalDateSerializer())
+                .addDeserializer(LocalDate.class, new JsonLocalDateDeserializer())
+                .addSerializer(Image.class, new ToBytesSerializer())
+                .addDeserializer(Image.class, new FromBytesDeserializer())
+                .addSerializer(BufferedImage.class, new ToBytesSerializer())
+                .addDeserializer(BufferedImage.class, new FromBytesDeserializerForBufferedImage());
 
         OBJECT_MAPPER.registerModule(module);
         STRING_MAPPER.registerModule(module);

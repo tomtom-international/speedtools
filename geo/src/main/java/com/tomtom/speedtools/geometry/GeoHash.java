@@ -16,17 +16,16 @@
 
 package com.tomtom.speedtools.geometry;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
-import java.util.BitSet;
-import java.util.HashMap;
-
 import com.tomtom.speedtools.json.Json;
 import com.tomtom.speedtools.objects.Objects;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.util.BitSet;
+import java.util.HashMap;
+
 /**
- * This class deals with GeoHash functionality. Base source taken from LBS team (thanks Eric Bowman, Wouter Heijke).
+ * This class deals with GeoHash functionality. Base source taken from LBS team (thanks Eric Bowman).
  *
  * See http://en.wikipedia.org/wiki/Geohash and http://geospatialweb.googlecode.com.
  */

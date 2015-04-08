@@ -16,9 +16,10 @@
 
 package com.tomtom.speedtools.json;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
+import com.tomtom.speedtools.domain.Uid;
+import com.tomtom.speedtools.objects.Immutables;
+import com.tomtom.speedtools.time.UTCTime;
+import com.tomtom.speedtools.utils.MathUtils;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.junit.Assert;
@@ -26,22 +27,11 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Currency;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.util.*;
 
-import com.tomtom.speedtools.utils.MathUtils;
-import com.tomtom.speedtools.domain.Uid;
-import com.tomtom.speedtools.objects.Immutables;
-import com.tomtom.speedtools.time.UTCTime;
-
+@SuppressWarnings("ConstantConditions")
 public class SimpleJsonSerializerTest {
     private static final Logger LOG = LoggerFactory.getLogger(SimpleJsonSerializerTest.class);
 
@@ -74,6 +64,7 @@ public class SimpleJsonSerializerTest {
         }
     }
 
+    @SuppressWarnings("ConstantConditions")
     @Test
     public void testString() {
         LOG.info("testString");
@@ -962,6 +953,7 @@ public class SimpleJsonSerializerTest {
         setValue = new LinkedHashSet<>();
         setValue.add(1.1f);
         setValue.add(2.2f);
+        //noinspection MismatchedQueryAndUpdateOfCollection
         final Set<String> set1 = new LinkedHashSet<>();
         final Set<String> set2 = new LinkedHashSet<>();
         set2.add("S");

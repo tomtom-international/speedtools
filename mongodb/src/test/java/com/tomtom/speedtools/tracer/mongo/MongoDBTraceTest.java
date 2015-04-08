@@ -30,22 +30,21 @@ import org.slf4j.LoggerFactory;
 
 import javax.annotation.Nonnull;
 
-import static java.lang.Thread.sleep;
 import static org.junit.Assert.assertTrue;
 
-@SuppressWarnings({"OverlyBroadThrowsClause", "ProhibitedExceptionDeclared"})
+@SuppressWarnings({"OverlyBroadThrowsClause", "ProhibitedExceptionDeclared", "StaticVariableMayNotBeInitialized"})
 public class MongoDBTraceTest {
     private static final Logger LOG = LoggerFactory.getLogger(MongoDBTraceTest.class);
     private static final Tracer TRACER = TracerFactory.getTracer(MongoDBTraceTest.class, Tracer.class);
 
-    private static final String server = "127.0.0.1:27017";
-    private static final String database = "trace";
-    private static final String userName = "";
-    private static final String password = "";
-    private static final int maxDatabaseSizeMB = 10;
-    private static final int connectionTimeoutMsecs = 10000;
+    private static final String SERVER = "127.0.0.1:27017";
+    private static final String DATABASE = "trace";
+    private static final String USERNAME = "";
+    private static final String PASSWORD = "";
+    private static final int MAX_DATABASE_SIZE_MB = 10;
+    private static final int CONNECTION_TIMEOUT_MSECS = 10000;
     private static final MongoDBTraceProperties mongoDBTraceProperties = new MongoDBTraceProperties(
-            server, database, userName, password, maxDatabaseSizeMB, connectionTimeoutMsecs, true, true);
+            SERVER, DATABASE, USERNAME, PASSWORD, MAX_DATABASE_SIZE_MB, CONNECTION_TIMEOUT_MSECS, true, true);
 
     private static DateTime startOfTest;
 
@@ -59,6 +58,7 @@ public class MongoDBTraceTest {
 
     private static boolean databaseAvailable = false;
 
+    @SuppressWarnings("NumericCastThatLosesPrecision")
     @BeforeClass
     static public void before() throws Exception {
         LOG.info("before");
@@ -68,17 +68,18 @@ public class MongoDBTraceTest {
          * The first part of the test case creates an empty traces
          * data base collection and enables tracing.
          */
-        LOG.info("before: dropping database '{}' on {}", database, server);
+        LOG.info("before: dropping database '{}' on {}", DATABASE, SERVER);
         final DBCollection collection;
         try {
             collection = MongoDBTraceHandler.getDBCollection(
-                    server, database, userName, password, maxDatabaseSizeMB, connectionTimeoutMsecs);
+                    SERVER, DATABASE, USERNAME, PASSWORD, MAX_DATABASE_SIZE_MB, CONNECTION_TIMEOUT_MSECS);
             collection.drop();
             LOG.info("before: start tracer");
             final MongoDBTraceProperties mongoDBTraceProperties = new MongoDBTraceProperties(
-                    server, database, userName, password, maxDatabaseSizeMB, connectionTimeoutMsecs, true, true);
+                    SERVER, DATABASE, USERNAME, PASSWORD, MAX_DATABASE_SIZE_MB, CONNECTION_TIMEOUT_MSECS, true, true);
 
             final MongoDBTraceHandler handler = new MongoDBTraceHandler(mongoDBTraceProperties);
+            assert handler != null;
             TracerFactory.setEnabled(true);
 
             // Create random values for events.
@@ -117,7 +118,7 @@ public class MongoDBTraceTest {
         TRACER.traceDateTime(someTime);
 
         LOG.info("testTrace: sleep... flushing traces to database");
-        sleep(2000);
+        Thread.sleep(2000);
         TracerFactory.setEnabled(false);
         LOG.info("testTrace: done");
 

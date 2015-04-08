@@ -18,6 +18,7 @@ package com.tomtom.speedtools.mongodb.mappers;
 
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
+import com.tomtom.speedtools.geometry.GeoPoint;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -26,8 +27,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.Iterator;
 
-import com.tomtom.speedtools.geometry.GeoPoint;
-
+@SuppressWarnings("StaticVariableMayNotBeInitialized")
 public class GeoPointMapperTest {
 
     private static final Logger LOG = LoggerFactory.getLogger(GeoPointMapperTest.class);

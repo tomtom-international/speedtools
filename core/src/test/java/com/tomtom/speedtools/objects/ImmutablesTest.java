@@ -124,7 +124,7 @@ public class ImmutablesTest {
 
         final Collection<Integer> u0 = Immutables.copyOf(Immutables.<Integer>emptyList());
         @SuppressWarnings("unchecked")
-        final Collection<Integer> v0 = Immutables.copyOf(new ArrayList<Integer>());
+        final Collection<Integer> v0 = Immutables.copyOf(new ArrayList<>());
         Assert.assertTrue("Array " + u0 + " should equal " + v0, u0.equals(v0));
     }
 

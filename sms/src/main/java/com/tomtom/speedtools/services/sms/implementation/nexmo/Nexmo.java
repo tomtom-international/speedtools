@@ -16,26 +16,22 @@
 
 package com.tomtom.speedtools.services.sms.implementation.nexmo;
 
+import com.tomtom.speedtools.json.Json;
 import com.tomtom.speedtools.services.sms.SMSDeliveryReportListener.DeliveryStatus;
-import org.jboss.resteasy.client.ClientResponse;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import javax.inject.Inject;
-import javax.ws.rs.core.Response;
-import java.util.Map;
-
-import com.tomtom.speedtools.services.sms.SMSDeliveryReportListener;
 import com.tomtom.speedtools.services.sms.SMSDeliveryReportParameterException;
 import com.tomtom.speedtools.services.sms.SMSDeliveryReportProcessor;
 import com.tomtom.speedtools.services.sms.SMSProviderConnector;
 import com.tomtom.speedtools.services.sms.implementation.ProviderNames;
 import com.tomtom.speedtools.services.sms.implementation.ProviderRanking;
-import com.tomtom.speedtools.json.Json;
+import org.jboss.resteasy.client.ClientResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import javax.inject.Inject;
+import javax.ws.rs.core.Response;
+import java.util.Map;
 
 /**
  * Provides SMS functionality through Nexmo (www.nexmo.com).

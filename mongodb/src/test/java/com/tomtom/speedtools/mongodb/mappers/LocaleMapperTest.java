@@ -24,6 +24,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.Locale;
 
+@SuppressWarnings("StaticVariableMayNotBeInitialized")
 public class LocaleMapperTest {
     private static final Logger LOG = LoggerFactory.getLogger(LocaleMapperTest.class);
 

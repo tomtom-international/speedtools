@@ -19,30 +19,26 @@ package com.tomtom.speedtools.services.sms.implementation.messagebird;
 import com.google.i18n.phonenumbers.NumberParseException;
 import com.google.i18n.phonenumbers.PhoneNumberUtil;
 import com.google.i18n.phonenumbers.PhoneNumberUtil.PhoneNumberFormat;
+import com.tomtom.speedtools.json.Json;
 import com.tomtom.speedtools.services.sms.SMSDeliveryReportListener.DeliveryStatus;
-import com.tomtom.speedtools.services.sms.implementation.messagebird.MessageBirdMessageResponse.Item;
-import com.tomtom.speedtools.services.sms.implementation.messagebird.MessageBirdResource.ResponseType;
-import org.jboss.resteasy.client.ClientResponse;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import javax.inject.Inject;
-import javax.ws.rs.core.HttpHeaders;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-import java.util.Map;
-
-import com.tomtom.speedtools.services.sms.SMSDeliveryReportListener;
 import com.tomtom.speedtools.services.sms.SMSDeliveryReportParameterException;
 import com.tomtom.speedtools.services.sms.SMSDeliveryReportProcessor;
 import com.tomtom.speedtools.services.sms.SMSProviderConnector;
 import com.tomtom.speedtools.services.sms.implementation.ProviderNames;
 import com.tomtom.speedtools.services.sms.implementation.ProviderRanking;
-import com.tomtom.speedtools.json.Json;
+import com.tomtom.speedtools.services.sms.implementation.messagebird.MessageBirdMessageResponse.Item;
+import com.tomtom.speedtools.services.sms.implementation.messagebird.MessageBirdResource.ResponseType;
+import org.jboss.resteasy.client.ClientResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import javax.inject.Inject;
+import javax.ws.rs.core.HttpHeaders;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import java.util.Map;
 
 /**
  * Provides SMS functionality using MessageBird (www.messagebird.com). Api documentation can be found here:

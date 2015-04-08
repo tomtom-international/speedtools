@@ -16,6 +16,7 @@
 
 package com.tomtom.speedtools.metrics;
 
+import com.tomtom.speedtools.time.UTCTime;
 import org.joda.time.DateTime;
 import org.joda.time.Duration;
 import org.junit.Assert;
@@ -24,8 +25,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.annotation.Nonnull;
-
-import com.tomtom.speedtools.time.UTCTime;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
@@ -198,6 +197,7 @@ public class MetricsCollectorTest {
         assertThat("StdDev", metricsCollector.getStdDev(), is(expectedStdDev));
     }
 
+    @SuppressWarnings("NumericCastThatLosesPrecision")
     private static void sleep(final long millis) {
         final DateTime start = UTCTime.now();
         try {
