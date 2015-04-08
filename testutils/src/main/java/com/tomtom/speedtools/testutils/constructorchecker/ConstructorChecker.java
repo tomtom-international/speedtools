@@ -16,6 +16,7 @@
 
 package com.tomtom.speedtools.testutils.constructorchecker;
 
+import com.tomtom.speedtools.testutils.ValidationFailException;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.joda.time.Duration;
@@ -28,13 +29,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
-
-import com.tomtom.speedtools.testutils.ValidationFailException;
+import java.util.*;
 
 import static org.mockito.Mockito.mock;
 
@@ -43,7 +38,7 @@ import static org.mockito.Mockito.mock;
  * parameters. The contract that is being validated is that if any parameter (nullable parameters must be explicitly
  * indicated) is null an {@code AssertionError} or an {@code IllegalArgumentException} is thrown.  <p>All parameters
  * are assumed to be checked for nullity. If that isn't so, the indexes of the nullable parameters has to be given in a
- * array of integers.</p>
+ * array of integers.
  *
  * The strategy used is the following:
  *

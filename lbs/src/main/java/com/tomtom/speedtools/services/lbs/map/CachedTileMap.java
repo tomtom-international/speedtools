@@ -101,25 +101,19 @@ public final class CachedTileMap<T> extends TileMap<T> {
         }
     }
 
-    /**
-     * Invalidate tile in the the tile cache.
-     */
+    // Invalidate tile in the the tile cache.
     public void invalidate(@Nonnull final TileKey key) {
         assert key != null;
         mapTiles.invalidate(key);
     }
 
-    /**
-     * Invalidate tiles in the the tile cache.
-     */
+    // Invalidate tiles in the the tile cache.
     public void invalidateAll(@Nonnull final Iterable<TileKey> keys) {
         assert keys != null;
         mapTiles.invalidateAll(keys);
     }
 
-    /**
-     * Invalidate the tile cache.
-     */
+    // Invalidate tiles in the the tile cache.
     public void invalidateAll() {
         mapTiles.invalidateAll();
     }

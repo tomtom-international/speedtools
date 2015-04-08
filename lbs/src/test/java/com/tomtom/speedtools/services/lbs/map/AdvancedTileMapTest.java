@@ -19,7 +19,6 @@ package com.tomtom.speedtools.services.lbs.map;
 import akka.actor.ActorSystem;
 import akka.dispatch.Futures;
 import com.google.common.cache.CacheLoader;
-import com.sun.istack.internal.NotNull;
 import com.tomtom.speedtools.geometry.GeoPoint;
 import com.tomtom.speedtools.services.lbs.Lbs;
 import com.tomtom.speedtools.time.UTCTime;
@@ -234,8 +233,8 @@ public class AdvancedTileMapTest {
      * @param key Tile key.
      * @return {@link Future} to tile image.
      */
-    @NotNull
-    private static Future<Bitmap> getMapTileFromLbs(@NotNull final TileKey key) {
+    @Nonnull
+    private static Future<Bitmap> getMapTileFromLbs(@Nonnull final TileKey key) {
 
         // Create a URL to fetch a bitmap from the TomTom LBS system. This is an actual working URL!
         final String url = DEFAULT_TILEMAP_URL + '/' +
@@ -246,7 +245,7 @@ public class AdvancedTileMapTest {
 
         final Future<Bitmap> promise = Futures.future(new Callable<Bitmap>() {
 
-            @NotNull
+            @Nonnull
             @Override
             public Bitmap call() throws IOException {
 

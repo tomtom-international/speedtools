@@ -89,7 +89,7 @@ public abstract class EntityMapper<T> extends Mapper<T> {
 
     /**
      * Gets the current version of this mapper.  <p>Note that the corresponding mapperRegistry should be initialized
-     * first.</p>
+     * first.
      *
      * @return Current version.
      */
@@ -128,7 +128,7 @@ public abstract class EntityMapper<T> extends Mapper<T> {
 
     /**
      * Converts a database object to an entity. A null value can be returned, but will always cause an error to be added
-     * to errors.  <p>Note that the corresponding mapperRegistry should be initialized first.</p>
+     * to errors.  <p>Note that the corresponding mapperRegistry should be initialized first.
      *
      * @param dbObject Database object to convert to an entity.
      * @param errors   Container for errors that might occur.
@@ -164,7 +164,7 @@ public abstract class EntityMapper<T> extends Mapper<T> {
 
     /**
      * Merges a database object into an existing entity. Fields will be overwritten, collections will be replaced.
-     * <p>Note that the corresponding mapperRegistry should be initialized first.</p>
+     * <p>Note that the corresponding mapperRegistry should be initialized first.
      *
      * @param entity   Entity to merge into.
      * @param dbObject Data object to read data from.
@@ -185,7 +185,7 @@ public abstract class EntityMapper<T> extends Mapper<T> {
 
     /**
      * Merges a database object into an existing entity. Fields will be overwritten, collections will be replaced.
-     * <p>Note that the corresponding mapperRegistry should be initialized first.</p>
+     * <p>Note that the corresponding mapperRegistry should be initialized first.
      *
      * @param entity   Entity to merge into.
      * @param dbObject Data object to read data from.
@@ -218,7 +218,7 @@ public abstract class EntityMapper<T> extends Mapper<T> {
 
     /**
      * Converts a database object to an entity.  <p>Note that the corresponding mapperRegistry should be initialized
-     * first.</p>
+     * first.
      *
      * @param value Entity to convert to a database object.
      * @return Database object.
@@ -244,7 +244,7 @@ public abstract class EntityMapper<T> extends Mapper<T> {
     /**
      * Converts an entity to a DBObject. Errors are collected into the errors parameters, they will not stop the
      * conversion. The most specific mapper is search for, so a mapper can be used to convert an instance of a
-     * sub-class.  <p>Note that the corresponding mapperRegistry should be initialized first.</p>
+     * sub-class.  <p>Note that the corresponding mapperRegistry should be initialized first.
      *
      * @param entity Entity to convert to a database object.
      * @param errors Collection to collect errors in.
@@ -265,7 +265,7 @@ public abstract class EntityMapper<T> extends Mapper<T> {
     /**
      * Converts an entity into a given dbObject. Mapped fields will be copied onto the dbObject. Pre-existing values
      * will not be removed from the dbObject.  <p>Note that the corresponding mapperRegistry should be initialized
-     * first.</p>
+     * first.
      *
      * @param entity   Entity to copy data from. May not be null.
      * @param dbObject Database object to copy data into. May not be null.
