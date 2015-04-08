@@ -17,6 +17,7 @@
 package com.tomtom.speedtools.tracer.mongo;
 
 import com.mongodb.DBCollection;
+import com.mongodb.MongoTimeoutException;
 import com.tomtom.speedtools.time.UTCTime;
 import com.tomtom.speedtools.tracer.Traceable;
 import com.tomtom.speedtools.tracer.TracerFactory;
@@ -32,6 +33,7 @@ import javax.annotation.Nonnull;
 import static java.lang.Thread.sleep;
 import static org.junit.Assert.assertTrue;
 
+@SuppressWarnings({"OverlyBroadThrowsClause", "ProhibitedExceptionDeclared"})
 public class MongoDBTraceTest {
     private static final Logger LOG = LoggerFactory.getLogger(MongoDBTraceTest.class);
     private static final Tracer TRACER = TracerFactory.getTracer(MongoDBTraceTest.class, Tracer.class);
@@ -41,7 +43,7 @@ public class MongoDBTraceTest {
     private static final String userName = "";
     private static final String password = "";
     private static final int maxDatabaseSizeMB = 10;
-    private static final int connectionTimeoutMsecs = 30000;
+    private static final int connectionTimeoutMsecs = 10000;
     private static final MongoDBTraceProperties mongoDBTraceProperties = new MongoDBTraceProperties(
             server, database, userName, password, maxDatabaseSizeMB, connectionTimeoutMsecs, true, true);
 
@@ -55,6 +57,8 @@ public class MongoDBTraceTest {
     private static boolean foundString = false;
     private static boolean foundDateTime = false;
 
+    private static boolean databaseAvailable = false;
+
     @BeforeClass
     static public void before() throws Exception {
         LOG.info("before");
@@ -65,25 +69,29 @@ public class MongoDBTraceTest {
          * data base collection and enables tracing.
          */
         LOG.info("before: dropping database '{}' on {}", database, server);
-        final DBCollection collection = MongoDBTraceHandler.getDBCollection(
-                server, database, userName, password, maxDatabaseSizeMB, connectionTimeoutMsecs);
-        collection.drop();
+        final DBCollection collection;
+        try {
+            collection = MongoDBTraceHandler.getDBCollection(
+                    server, database, userName, password, maxDatabaseSizeMB, connectionTimeoutMsecs);
+            collection.drop();
+            LOG.info("before: start tracer");
+            final MongoDBTraceProperties mongoDBTraceProperties = new MongoDBTraceProperties(
+                    server, database, userName, password, maxDatabaseSizeMB, connectionTimeoutMsecs, true, true);
 
-        LOG.info("before: start tracer");
-        final MongoDBTraceProperties mongoDBTraceProperties = new MongoDBTraceProperties(
-                server, database, userName, password, maxDatabaseSizeMB, connectionTimeoutMsecs, true, true);
+            final MongoDBTraceHandler handler = new MongoDBTraceHandler(mongoDBTraceProperties);
+            TracerFactory.setEnabled(true);
 
-        final MongoDBTraceHandler handler = new MongoDBTraceHandler(mongoDBTraceProperties);
-        TracerFactory.setEnabled(true);
-
-        // Create random values for events.
-        someInt = (int) (Math.random() * 1000.0) + 1000;
-        final StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < 20; ++i) {
-            sb.append((char) ((int) (Math.random() * 25.999) + 65));
+            // Create random values for events.
+            someInt = (int) (Math.random() * 1000.0) + 1000;
+            final StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < 20; ++i) {
+                sb.append((char) ((int) (Math.random() * 25.999) + 65));
+            }
+            someString = sb.toString();
+            someTime = UTCTime.now();
+        } catch (final MongoTimeoutException ignored) {
+            LOG.info("before: warning -- MongoDB is not found or not running, test skipped!");
         }
-        someString = sb.toString();
-        someTime = UTCTime.now();
     }
 
     @Test
@@ -94,6 +102,10 @@ public class MongoDBTraceTest {
          * The second part of the test case writes a number of test traces
          * to the database, asynchronously (hence the sleeps).
          */
+        if (!databaseAvailable) {
+            LOG.info("testTrace: warning -- MongoDB is not found or not running, test skipped!");
+            return;
+        }
 
         LOG.info("testTrace: trace an int");
         TRACER.traceInteger(someInt);
@@ -127,8 +139,7 @@ public class MongoDBTraceTest {
             try {
                 //noinspection BusyWait
                 Thread.sleep(100);
-            }
-            catch (InterruptedException ignored) {
+            } catch (InterruptedException ignored) {
                 // Ignore.
             }
         }
