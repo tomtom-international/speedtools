@@ -16,15 +16,13 @@
 
 package com.tomtom.speedtools.ratelimiter;
 
-import com.tomtom.speedtools.ratelimiter.RateLimiter.WorkFunction;
+import com.tomtom.speedtools.time.UTCTime;
+import com.tomtom.speedtools.utils.MathUtils;
 import org.joda.time.DateTime;
 import org.junit.Assert;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.tomtom.speedtools.time.UTCTime;
-import com.tomtom.speedtools.utils.MathUtils;
 
 @SuppressWarnings("SSBasedInspection")
 public class RateLimiterTest {
@@ -38,11 +36,8 @@ public class RateLimiterTest {
 
         final DateTime start = DateTime.now();
         for (int i = 0; i < 15; ++i) {
-            limiter.limit(new WorkFunction() {
-                @Override
-                public void work() {
-                    // Empty.
-                }
+            limiter.limit(() -> {
+                // Empty.
             });
         }
         final DateTime end = DateTime.now();
@@ -60,11 +55,8 @@ public class RateLimiterTest {
 
         final DateTime start = UTCTime.now();
         for (int i = 0; i < 300; ++i) {
-            limiter.limit(new WorkFunction() {
-                @Override
-                public void work() {
-                    // Empty.
-                }
+            limiter.limit(() -> {
+                // Empty.
             });
         }
         final DateTime end = DateTime.now();

@@ -20,22 +20,18 @@ import akka.actor.ActorSystem;
 import akka.actor.TypedActor;
 import akka.actor.TypedActorExtension;
 import akka.actor.TypedProps;
-import akka.japi.Creator;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
-import org.joda.time.Duration;
-import scala.concurrent.Future;
-
-import javax.inject.Inject;
-import java.util.concurrent.ConcurrentLinkedQueue;
-
+import com.tomtom.speedtools.geometry.GeoPoint;
 import com.tomtom.speedtools.services.lbs.LbsProperties;
 import com.tomtom.speedtools.services.lbs.route.RouteEngine;
 import com.tomtom.speedtools.services.lbs.route.RouteEngineResponse;
-import com.tomtom.speedtools.geometry.GeoPoint;
 import com.tomtom.speedtools.time.UTCTime;
+import org.joda.time.Duration;
+import scala.concurrent.Future;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import javax.inject.Inject;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 
 /**
@@ -65,18 +61,12 @@ public final class TomTomLbsRouteEngine implements RouteEngine {
         routeActorList = new ConcurrentLinkedQueue<>();
         for (int i = 0; i < lbsProperties.getNumberOfRouteActors(); ++i) {
             final String name = "route-" + Integer.toString(i + 1);
-            final Creator<TomTomLbsRouteEngineActor> creator = new Creator<TomTomLbsRouteEngineActor>() {
-
-                @Override
-                @Nonnull
-                public TomTomLbsRouteEngineActor create() {
-                    final TomTomLbsRouteEngineRouteEngineActorImpl actor =
-                            new TomTomLbsRouteEngineRouteEngineActorImpl(name, lbsProperties);
-                    return actor;
-                }
-            };
             final TypedProps<TomTomLbsRouteEngineActor> typedProps =
-                    new TypedProps<>(TomTomLbsRouteEngineActor.class, creator);
+                    new TypedProps<>(TomTomLbsRouteEngineActor.class, () -> {
+                        final TomTomLbsRouteEngineRouteEngineActorImpl actor =
+                                new TomTomLbsRouteEngineRouteEngineActorImpl(name, lbsProperties);
+                        return actor;
+                    });
             final TomTomLbsRouteEngineActor worker = typedActorExtension.typedActorOf(typedProps);
             routeActorList.offer(worker);
         }

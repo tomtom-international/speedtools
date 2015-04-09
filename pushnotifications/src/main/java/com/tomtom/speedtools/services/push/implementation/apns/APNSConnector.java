@@ -44,7 +44,7 @@ import static java.util.Arrays.copyOfRange;
 /**
  * Connector that is able to push messages for IOS devices Apple Push Notification Service. This should be a singleton
  * in the context of a single thread because it maintains state.
- *
+ * <p>
  * See also
  * http://developer.apple.com/library/mac/documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/Chapters/ApplePushService.html
  */
@@ -198,24 +198,13 @@ public class APNSConnector implements PushNotificationProvider {
                 final InputStream inputStream = pushConnection.getInputStream();
                 final InputStream in = inputStream;
 
-                // Since the connection should remain open, a Future is used to read data with a timeout.
-                final Callable<Integer> readTask = new Callable<Integer>() {
-                    @Override
-                    @Nonnull
-                    public Integer call() throws IOException {
-
-                        // Runtime exception in read() will be lost.
-                        return in.read();
-                    }
-                };
-
                 final ExecutorService executor = Executors.newSingleThreadExecutor();
                 final ByteBuffer byteBuffer = ByteBuffer.allocate(RETURN_PACKET_BYTE_LENGTH);
                 int readByte = 0;
                 //noinspection NestedTryStatement
                 try {
                     while (byteBuffer.hasRemaining() && (readByte >= 0)) {
-                        final Future<Integer> future = executor.submit(readTask);
+                        final Future<Integer> future = executor.submit(() -> in.read());
                         readByte = future.get(MSECS_TO_WAIT_FOR_RESPONSE, TimeUnit.MILLISECONDS);
                         if (readByte >= 0) {
                             //noinspection NumericCastThatLosesPrecision
@@ -291,24 +280,12 @@ public class APNSConnector implements PushNotificationProvider {
             final InputStream inputStream = connection.getInputStream();
             final InputStream in = inputStream;
             int readByte = 1;
-            // Read data with timeout
-            final Callable<Integer> readTask = new Callable<Integer>() {
-                @SuppressWarnings({"OverlyBroadThrowsClause", "ProhibitedExceptionDeclared"})
-                @Override
-                @Nonnull
-                public Integer call() throws Exception {
-
-                    // Runtime exception in read() will be lost.
-                    return in.read();
-                }
-            };
-
             final ExecutorService executor = Executors.newSingleThreadExecutor();
             final ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
             //noinspection NestedTryStatement
             try {
                 while (readByte >= 0) {
-                    final Future<Integer> future = executor.submit(readTask);
+                    final Future<Integer> future = executor.submit(() -> in.read());
                     readByte = future.get(MSECS_TO_WAIT_FOR_FEEDBACK, TimeUnit.MILLISECONDS);
                     if (readByte >= 0) {
                         //noinspection NumericCastThatLosesPrecision

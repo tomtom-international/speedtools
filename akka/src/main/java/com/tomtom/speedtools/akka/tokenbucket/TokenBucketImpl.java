@@ -137,13 +137,7 @@ public class TokenBucketImpl implements TokenBucket {
     }
 
     private void scheduleNextIncrement() {
-        context.scheduleOnce(interval, new Runnable() {
-                    @Override
-                    public void run() {
-                        context.self().addNextIncrement();
-                    }
-                }
-        );
+        context.scheduleOnce(interval, () -> context.self().addNextIncrement());
     }
 
     /**

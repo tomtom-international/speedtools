@@ -38,13 +38,10 @@ public class WorkQueueTest {
 
         final int totalTasks = maxQueueSize * 10;
         for (int i = 0; i < totalTasks; ++i) {
-            queue.startOrWait(new Runnable() {
-                @Override
-                public void run() {
-                    total.incrementAndGet();
-                    for (int x = 0; x < 1000; ++x) {
-                        assert Math.sqrt((double) x) >= 0;
-                    }
+            queue.startOrWait(() -> {
+                total.incrementAndGet();
+                for (int x = 0; x < 1000; ++x) {
+                    assert Math.sqrt((double) x) >= 0;
                 }
             });
             if ((i % 100) == 0) {

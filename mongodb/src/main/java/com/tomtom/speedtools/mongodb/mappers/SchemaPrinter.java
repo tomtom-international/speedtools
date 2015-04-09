@@ -17,10 +17,8 @@
 package com.tomtom.speedtools.mongodb.mappers;
 
 import javax.annotation.Nonnull;
-
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -152,12 +150,8 @@ public final class SchemaPrinter {
 
     private static void sort(@Nonnull final List<? extends Mapper<?>> mappers) {
         assert mappers != null;
-        Collections.sort(mappers, new Comparator<Mapper<?>>() {
-            @Override
-            public int compare(@Nonnull final Mapper<?> o1, @Nonnull final Mapper<?> o2) {
-                return displayName(o1).compareTo(displayName(o2));
-            }
-        });
+        Collections.sort(mappers, (@Nonnull final Mapper<?> o1, @Nonnull final Mapper<?> o2) ->
+                displayName(o1).compareTo(displayName(o2)));
     }
 
     @Nonnull

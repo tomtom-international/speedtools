@@ -18,9 +18,7 @@ package com.tomtom.speedtools.utils;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-
 import java.util.Arrays;
-import java.util.Comparator;
 import java.util.Locale;
 
 /**
@@ -42,13 +40,7 @@ public final class AddressUtils {
         if ((countryCode == null) || (countryCode.length() != 2)) {
             return false;
         }
-        final int index = Arrays.binarySearch(Locale.getISOCountries(), countryCode, new Comparator<String>() {
-
-            @Override
-            public int compare(final String o1, final String o2) {
-                return o1.compareTo(o2);
-            }
-        });
+        final int index = Arrays.binarySearch(Locale.getISOCountries(), countryCode, (String o1, final String o2) -> o1.compareTo(o2));
         return index >= 0;
     }
 

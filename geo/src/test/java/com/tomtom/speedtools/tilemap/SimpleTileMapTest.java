@@ -19,7 +19,6 @@ package com.tomtom.speedtools.tilemap;
 import com.google.common.cache.CacheLoader;
 import com.tomtom.speedtools.geometry.GeoPoint;
 import com.tomtom.speedtools.objects.Tuple;
-import com.tomtom.speedtools.tilemap.TileMap.ViewportTileProcessor;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -93,23 +92,18 @@ public class SimpleTileMapTest {
                 mapHeight,          // Height of viewport.
                 mapCenter,          // Center of viewport.
                 discreteZoomLevel,  // Zoom-level to fetch.
-                new ViewportTileProcessor<Bitmap>() {
+                (final int seqX, final int seqY, @Nonnull final TileKey tileKey, @Nullable final Bitmap img,
+                 final int viewportX, final int viewportY,
+                 final int tileOffsetX, final int tileOffsetY, final int width, final int height) -> {
 
-                    @Override
-                    public void process(
-                            final int seqX, final int seqY, @Nonnull final TileKey tileKey, @Nullable final Bitmap img,
-                            final int viewportX, final int viewportY,
-                            final int tileOffsetX, final int tileOffsetY, final int width, final int height) {
+                    /**
+                     * Dummy implementation of tile plotting. The actual plot method should cut out the rectangle
+                     * fo the tile described by tileOffsetXY and width/height.
+                     */
+                    LOG.info("process: plot tile ({}, {}) at ({}, {})", seqX, seqY, viewportX, viewportY);
 
-                        /**
-                         * Dummy implementation of tile plotting. The actual plot method should cut out the rectangle
-                         * fo the tile described by tileOffsetXY and width/height.
-                         */
-                        LOG.info("process: plot tile ({}, {}) at ({}, {})", seqX, seqY, viewportX, viewportY);
-
-                        // This code is just to make this an actual unit test, rather than just sample code.
-                        check.add(new Tuple<>(new Tuple<>(seqX, seqY), new Tuple<>(viewportX, viewportY)));
-                    }
+                    // This code is just to make this an actual unit test, rather than just sample code.
+                    check.add(new Tuple<>(new Tuple<>(seqX, seqY), new Tuple<>(viewportX, viewportY)));
                 });
 
         /**

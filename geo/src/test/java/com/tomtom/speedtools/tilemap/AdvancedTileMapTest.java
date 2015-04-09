@@ -33,7 +33,6 @@ import scala.util.Try;
 import javax.annotation.Nonnull;
 import java.io.IOException;
 import java.util.Collection;
-import java.util.concurrent.Callable;
 
 import static org.junit.Assert.assertEquals;
 
@@ -242,52 +241,47 @@ public class AdvancedTileMapTest {
                 key.getTileY() + '/' +
                 DEFAULT_DEVELOPER_API_KEY;
 
-        final Future<Bitmap> promise = Futures.future(new Callable<Bitmap>() {
+        final Future<Bitmap> promise = Futures.future(() -> {
 
-            @Nonnull
-            @Override
-            public Bitmap call() throws IOException {
+            /**
+             * Try to load an image if the network is not down, or retry after some time.
+             *
+             * Note: app.loadImage seems to have an occasional problem with thread-safety,
+             * but synchronizing on app makes it way too slow.
+             *
+             * Note also that accessing networkFailureTime is extremely fast, but not
+             * thread-safe this way, so it might be set to null any time. Hence, do not
+             * rely on its non-nullity in the if-expression (DateTime.isAfter works fine
+             * with null).
+             */
+            if ((networkFailureTime == null) ||
+                    (UTCTime.now().minus(TIMEOUT_RETRY_NETWORK_AFTER).isAfter(networkFailureTime))) {
+                Bitmap img = null;
+                try {
 
-                /**
-                 * Try to load an image if the network is not down, or retry after some time.
-                 *
-                 * Note: app.loadImage seems to have an occasional problem with thread-safety,
-                 * but synchronizing on app makes it way too slow.
-                 *
-                 * Note also that accessing networkFailureTime is extremely fast, but not
-                 * thread-safe this way, so it might be set to null any time. Hence, do not
-                 * rely on its non-nullity in the if-expression (DateTime.isAfter works fine
-                 * with null).
-                 */
-                if ((networkFailureTime == null) ||
-                        (UTCTime.now().minus(TIMEOUT_RETRY_NETWORK_AFTER).isAfter(networkFailureTime))) {
-                    Bitmap img = null;
-                    try {
+                    /**
+                     * Fake implementation of calling the URL and storing the HTTP response in
+                     * the bitmap buffer. The code assumes that if "img == null", the call to
+                     * get the image failed. In this example, the call never fails though.
+                     */
 
-                        /**
-                         * Fake implementation of calling the URL and storing the HTTP response in
-                         * the bitmap buffer. The code assumes that if "img == null", the call to
-                         * get the image failed. In this example, the call never fails though.
-                         */
-
-                        img = new Bitmap(true);
-                        LOG.info("getMapTileFromLbs: HTTP GET {}...", url);
-                    } catch (Exception ignored) {
-                        // Continue.
-                    }
-
-                    // Remember failure time.
-                    if (img == null) {
-                        networkFailureTime = UTCTime.now();
-                        throw new IOException("Image could not be loaded, url=" + url);
-                    }
-
-                    // Network seems to be OK again.
-                    networkFailureTime = null;
-                    return img;
-                } else {
-                    throw new IOException("Image could not be loaded (not even tried), url=" + url);
+                    img = new Bitmap(true);
+                    LOG.info("getMapTileFromLbs: HTTP GET {}...", url);
+                } catch (Exception ignored) {
+                    // Continue.
                 }
+
+                // Remember failure time.
+                if (img == null) {
+                    networkFailureTime = UTCTime.now();
+                    throw new IOException("Image could not be loaded, url=" + url);
+                }
+
+                // Network seems to be OK again.
+                networkFailureTime = null;
+                return img;
+            } else {
+                throw new IOException("Image could not be loaded (not even tried), url=" + url);
             }
         }, AKKA_SYSTEM.dispatcher());
         return promise;

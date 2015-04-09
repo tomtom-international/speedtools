@@ -28,15 +28,7 @@ public final class DoubleUtils {
      * Comparator that uses the Double's natural ordering.
      */
     public static final Comparator<Double> DOUBLE_COMPARATOR =
-            new Comparator<Double>() {
-                @Override
-                public int compare(@Nonnull final Double o1, @Nonnull final Double o2) {
-                    assert o1 != null;
-                    assert o2 != null;
-
-                    return o1.compareTo(o2);
-                }
-            };
+            (@Nonnull final Double o1, @Nonnull final Double o2) -> o1.compareTo(o2);
 
     private DoubleUtils() {
         // Prevent instantiation.

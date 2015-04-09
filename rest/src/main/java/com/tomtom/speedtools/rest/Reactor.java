@@ -16,10 +16,10 @@
 
 package com.tomtom.speedtools.rest;
 
-import javax.annotation.Nonnull;
-
 import org.joda.time.DateTime;
 import scala.concurrent.ExecutionContext;
+
+import javax.annotation.Nonnull;
 
 /**
  * The reactor defines the Akka system in which the 'engine' of the system is running. The reactor provides utilities to
@@ -36,9 +36,9 @@ public interface Reactor {
      * Get the Akka execution context. This context can be used to schedule Futures in. Example:
      * <pre>
      * Futures.future(
-     *    new Callable... {
-     *    ... Void call() ...
-     *    }, reactor.getExecutionContext())
+     *    () -&gt; {
+     *      ... do things ...
+     *    }, reactor.getExecutionContext());
      * </pre>
      *
      * @return Akka execution context.

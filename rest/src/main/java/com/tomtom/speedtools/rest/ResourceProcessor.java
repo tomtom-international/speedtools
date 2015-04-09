@@ -27,7 +27,6 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.inject.Inject;
 import javax.ws.rs.core.Response;
-import java.util.concurrent.Callable;
 
 
 /**
@@ -52,13 +51,16 @@ public final class ResourceProcessor {
      * Process an API resource. The actual resource handling is delegated to an {@link ResourceHandler}, which is an
      * interface with an implementation for each individual resource.
      *
+     * @param name     Name of processor; used for logging purposes.
      * @param log      Logger of caller, so log message appear to come from the caller, which makes more sense than from
      *                 this generic class.
      * @param response Asynchronous rest response object.
      * @param handler  Handler that actually calculates the REST response. If the handler returns a non-null value in
      *                 the future success, it will be wrapped in an "200 OK" response.
      */
+    @SuppressWarnings("InstanceofCatchParameter")
     public void process(
+            @Nonnull final String name,
             @Nonnull final Logger log,
             @Nonnull final AsynchronousResponse response,
             @Nonnull final ResourceHandler handler) {
@@ -72,80 +74,74 @@ public final class ResourceProcessor {
          *
          * Note that the Future call() closure has access to the parameter values above.
          */
-        log.debug("process (WEB): handler={}", handler.getName());
-        Futures.future(new Callable<Object>() {
-                           @SuppressWarnings({"InstanceofCatchParameter", "ProhibitedExceptionDeclared"})
-                           @Override
-                           @Nullable
-                           public Object call() throws Exception {
+        log.debug("process (WEB): handler={}", name);
+        Futures.future(() -> {
 
-                               /**
-                                * Catch exceptions to map them to proper HTTP status code.
-                                */
-                               try {
+                    /**
+                     * Catch exceptions to map them to proper HTTP status code.
+                     */
+                    try {
 
-                                   /**
-                                    * Call the actual resource handler. The call to "process()" returns a {@link Future},
-                                    * which is scheduled asynchronously for execution. The {@link Future} will hold a specific response.
-                                    * As this is a generic resource processor, the response is passed as an {@link Object} here.
-                                    */
-                                   @SuppressWarnings("unchecked")
-                                   final Future<Object> future = (Future<Object>) handler.process();
+                        /**
+                         * Call the actual resource handler. The call to "process()" returns a {@link Future},
+                         * which is scheduled asynchronously for execution. The {@link Future} will hold a specific response.
+                         * As this is a generic resource processor, the response is passed as an {@link Object} here.
+                         */
+                        @SuppressWarnings("unchecked")
+                        final Future<Object> future = (Future<Object>) handler.process();
 
-                                   /**
-                                    * If the {@link Future} completes, the {@link OnComplete}.onComplete is called,
-                                    * which passes the result of the {@link Future} into the {@link AsynchronousResponse} object,
-                                    * which will be passed bac to the caller of the resource.
-                                    */
-                                   future.onComplete(new OnComplete<Object>() {
+                        /**
+                         * If the {@link Future} completes, the {@link OnComplete}.onComplete is called,
+                         * which passes the result of the {@link Future} into the {@link AsynchronousResponse} object,
+                         * which will be passed bac to the caller of the resource.
+                         */
+                        future.onComplete(new OnComplete<Object>() {
 
-                                       /**
-                                        * This function is called whenever the {@link Future} completes, dies or times out.
-                                        *
-                                        * @param failure Exception in case something went wrong, null if OK.
-                                        * @param success Result of {@link Future} computation. If the handler set the response itself,
-                                        *              it should pass null as a value. This can be used, for example,
-                                        *              for a handler to set a specific HTTP status code,
-                                        *              other than this processor would.
-                                        */
-                                       @SuppressWarnings("ParameterNameDiffersFromOverriddenParameter")
-                                       @Override
-                                       public void onComplete(
-                                               @Nullable final Throwable failure,
-                                               @Nullable final Object success) {
+                            /**
+                             * This function is called whenever the {@link Future} completes, dies or times out.
+                             *
+                             * @param failure Exception in case something went wrong, null if OK.
+                             * @param success Result of {@link Future} computation. If the handler set the response itself,
+                             *              it should pass null as a value. This can be used, for example,
+                             *              for a handler to set a specific HTTP status code,
+                             *              other than this processor would.
+                             */
+                            @SuppressWarnings("ParameterNameDiffersFromOverriddenParameter")
+                            @Override
+                            public void onComplete(
+                                    @Nullable final Throwable failure,
+                                    @Nullable final Object success) {
 
-                                           if (failure != null) {
-                                               log.info("process: resource exception, handler=" + handler.getName(),
-                                                       failure);
-                                               response.setResponse(GeneralExceptionMapper.toResponse(log, failure));
-                                           } else if (success != null) {
-                                               response.setResponse(Response.ok(success).build());
-                                           } else {
+                                if (failure != null) {
+                                    log.info("process: resource exception, handler=" + name, failure);
+                                    response.setResponse(GeneralExceptionMapper.toResponse(log, failure));
+                                } else if (success != null) {
+                                    response.setResponse(Response.ok(success).build());
+                                } else {
 
-                                               /**
-                                                * Response was already set by resource handler.
-                                                * Do nothing.
-                                                */
-                                               assert true;
-                                           }
-                                       }
-                                   }, reactor.getExecutionContext());
-                               } catch (final Throwable e) {
-                                   if (((e instanceof RuntimeException) || (e instanceof Error)) &&
-                                           !(e instanceof ApiException)) {
-                                       // Something went wrong, probably a bug in the code.
-                                       log.error("process: exception encountered, handler={}",
-                                               handler.getName(), e);
-                                   } else {
-                                       // Some-one is firing requests that cause errors.
-                                       log.info("process: exception encountered, handler={}, exception={}",
-                                               handler.getName(), e.getMessage());
-                                   }
-                                   response.setResponse(GeneralExceptionMapper.toResponse(log, e));
-                               }
-                               return null;
-                           }
-                       },
+                                    /**
+                                     * Response was already set by resource handler.
+                                     * Do nothing.
+                                     */
+                                    assert true;
+                                }
+                            }
+                        }, reactor.getExecutionContext());
+                    } catch (final Throwable e) {
+                        if (((e instanceof RuntimeException) || (e instanceof Error)) &&
+                                !(e instanceof ApiException)) {
+                            // Something went wrong, probably a bug in the code.
+                            log.error("process: exception encountered, handler={}", name, e);
+                        } else {
+                            // Some-one is firing requests that cause errors.
+                            log.info("process: exception encountered, handler={}, exception={}",
+                                    name, e.getMessage());
+                        }
+                        response.setResponse(GeneralExceptionMapper.toResponse(log, e));
+                    }
+                    return null;
+                },
+
                 /**
                  * Execute Future in reactor context.
                  */

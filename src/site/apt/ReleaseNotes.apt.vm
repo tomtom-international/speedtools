@@ -4,6 +4,10 @@ Release Notes (Version ${project.version})
 
     * Moved to JDK 1.8 and Java 8 language level.
 
+    * Refactored REST API handler/controller interface to using Java Lambda expressions.
+
+    * Introduced Lambda expressions elsewhere in implementation code.
+
     * Moved package 'map' and classes TileMap from package 'lbs' to package 'geo'.
 
     * Fixed many inspection warnings.

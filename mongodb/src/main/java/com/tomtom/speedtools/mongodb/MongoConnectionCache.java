@@ -27,7 +27,6 @@ import javax.annotation.Nonnull;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 
 /**
@@ -81,24 +80,20 @@ public final class MongoConnectionCache {
         assert database != null;
         assert password != null;
         try {
-            return mongoDBInstances.get(servers, new Callable<Mongo>() {
-                @Override
-                @Nonnull
-                public Mongo call() throws UnknownHostException {
-                    LOG.info("getMongoDB: MongoDB servers: " + servers);
+            return mongoDBInstances.get(servers, () -> {
+                LOG.info("getMongoDB: MongoDB servers: " + servers);
 
-                    final List<ServerAddress> replicaSetSeeds = getMongoDBServerAddresses(servers);
-                    final List<MongoCredential> credentials = new ArrayList<>();
-                    if (!userName.isEmpty()) {
-                        LOG.debug("getMongoDB: credentials provided (username/password)");
-                        final MongoCredential credential = MongoCredential.createPlainCredential(userName, database, password.toCharArray());
-                        credentials.add(credential);
-                    }
-                    return new MongoClient(replicaSetSeeds, credentials,
-                            MongoClientOptions.builder().
-                                    connectTimeout(connectTimeoutMsecs).
-                                    build());
+                final List<ServerAddress> replicaSetSeeds = getMongoDBServerAddresses(servers);
+                final List<MongoCredential> credentials = new ArrayList<>();
+                if (!userName.isEmpty()) {
+                    LOG.debug("getMongoDB: credentials provided (username/password)");
+                    final MongoCredential credential = MongoCredential.createPlainCredential(userName, database, password.toCharArray());
+                    credentials.add(credential);
                 }
+                return new MongoClient(replicaSetSeeds, credentials,
+                        MongoClientOptions.builder().
+                                connectTimeout(connectTimeoutMsecs).
+                                build());
             });
         } catch (final ExecutionException e) {
             throw new UnknownHostException("Couldn't connect to MongoDB at: " + servers + ", cause: " + e.getCause());

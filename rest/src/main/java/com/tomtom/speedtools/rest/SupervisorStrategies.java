@@ -18,8 +18,6 @@ package com.tomtom.speedtools.rest;
 
 import akka.actor.OneForOneStrategy;
 import akka.actor.SupervisorStrategy;
-import akka.actor.SupervisorStrategy.Directive;
-import akka.japi.Function;
 import com.google.inject.Injector;
 import com.tomtom.speedtools.guice.HasProperties;
 import com.tomtom.speedtools.guice.InvalidPropertyValueException;
@@ -75,39 +73,28 @@ public class SupervisorStrategies implements HasProperties {
 
         this.restartChildStrategy = new OneForOneStrategy(
                 maxNrOfRetries,
-                FiniteDuration.create(withinTimeRangeSecs, TimeUnit.SECONDS),
-                new Function<Throwable, Directive>() {
+                FiniteDuration.create(withinTimeRangeSecs, TimeUnit.SECONDS), (Throwable param) -> {
 
-                    @Nonnull
-                    @Override
-                    public Directive apply(@Nonnull final Throwable param) {
-                        assert param != null;
-                        if (param instanceof Error) {
-                            LOG.error("apply (restartChildStrategy): Error occurred in actor", param);
-                        }
-                        LOG.warn("apply (restartChildStrategy): Actor restarted (maxNrOfRetries=" +
-                                maxNrOfRetries + ", " +
-                                "withinTimeRangeSecs=" +
-                                withinTimeRangeSecs + ')', param);
-                        return SupervisorStrategy.restart();
-                    }
-                }
+            assert param != null;
+            if (param instanceof Error) {
+                LOG.error("apply (restartChildStrategy): Error occurred in actor", param);
+            }
+            LOG.warn("apply (restartChildStrategy): Actor restarted (maxNrOfRetries=" +
+                    maxNrOfRetries + ", " +
+                    "withinTimeRangeSecs=" +
+                    withinTimeRangeSecs + ')', param);
+            return SupervisorStrategy.restart();
+        }
         );
 
-        this.stopChildStrategy = new OneForOneStrategy(0, Duration.Inf(),
-                new Function<Throwable, Directive>() {
-
-                    @Nonnull
-                    @Override
-                    public Directive apply(@Nonnull final Throwable param) {
-                        assert param != null;
-                        if (param instanceof Error) {
-                            LOG.error("apply (stopChildStrategy): Error occurred in actor", param);
-                        }
-                        LOG.warn("apply (stopChildStrategy): Actor stopped", param);
-                        return SupervisorStrategy.stop();
-                    }
-                }
+        this.stopChildStrategy = new OneForOneStrategy(0, Duration.Inf(), (Throwable param) -> {
+            assert param != null;
+            if (param instanceof Error) {
+                LOG.error("apply (stopChildStrategy): Error occurred in actor", param);
+            }
+            LOG.warn("apply (stopChildStrategy): Actor stopped", param);
+            return SupervisorStrategy.stop();
+        }
         );
     }
 

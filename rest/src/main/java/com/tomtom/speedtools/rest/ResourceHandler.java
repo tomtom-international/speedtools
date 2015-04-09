@@ -24,31 +24,18 @@ import javax.annotation.Nonnull;
  * This class defines a resource handler for API resources. The handler processes the request asynchronously by
  * returning a Future.
  */
-public abstract class ResourceHandler {
-    @Nonnull
-    private final String name;
-
-    protected ResourceHandler(@Nonnull final String name) {
-        assert name != null;
-        this.name = name;
-    }
-
-    @Nonnull
-    public String getName() {
-        return name;
-    }
+public interface ResourceHandler {
 
     /**
-     * The process call calls the actual processor.
-     *
+     * The process() call calls the actual processor.
+     * <p>
      * Note that actual implementations of resource handlers should specify the &gt;?&lt; type parameter of the
-     * Future to
-     * match the specific response type.
+     * Future to match the specific response type.
      *
      * @return Future with {@link org.jboss.resteasy.spi.AsynchronousResponse} object.
      * @throws Exception When something went wrong. Will be translated to a "Internal Server Error" response (500).
      */
     @SuppressWarnings("ProhibitedExceptionDeclared")
     @Nonnull
-    public abstract Future<?> process() throws Exception;
+    public Future<?> process() throws Exception;
 }
