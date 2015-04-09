@@ -1,5 +1,11 @@
 Release Notes (Version ${project.version})
 
+* 3.0.2
+
+    * To be done.
+
+    []
+
 * 3.0.1
 
     * Moved to JDK 1.8 and Java 8 language level.
