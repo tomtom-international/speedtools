@@ -51,12 +51,12 @@ import static java.util.Arrays.copyOfRange;
 public class APNSConnector implements PushNotificationProvider {
     private static final Logger LOG = LoggerFactory.getLogger(APNSConnector.class);
 
-    private static final int MSECS_TO_WAIT_FOR_RESPONSE = 5000; // APNS directly returns, this should be enough.
+    private static final int MSECS_TO_WAIT_FOR_RESPONSE = 5000;     // APNS directly returns, this should be enough.
     private static final int MSECS_TO_WAIT_FOR_FEEDBACK = 5000;
-    private static final int RETURN_PACKET_BYTE_LENGTH = 6; // Should be >= 0.
-    private static final int RETURN_COMMAND_BYTE_INDEX = 0; // Should be >= 0 and < RETURN_PACKET_BYTE_LENGTH.
+    private static final int RETURN_PACKET_BYTE_LENGTH = 6;         // Should be >= 0.
+    private static final int RETURN_COMMAND_BYTE_INDEX = 0;         // Should be >= 0 and < RETURN_PACKET_BYTE_LENGTH.
     private static final byte RETURN_COMMAND_BYTE = (byte) 8;
-    private static final int RETURN_ERROR_CODE_BYTE_INDEX = 1; // Should be >= 0 and < RETURN_PACKET_BYTE_LENGTH.
+    private static final int RETURN_ERROR_CODE_BYTE_INDEX = 1;      // Should be >= 0 and < RETURN_PACKET_BYTE_LENGTH.
     private static final byte RETURN_INVALID_TOKEN_BYTE = (byte) 8;
 
     @Nonnull
@@ -276,7 +276,7 @@ public class APNSConnector implements PushNotificationProvider {
         LOG.debug("getObsoletePushTokens");
 
         final Set<PushToken> obsoleteTokens;
-        obsoleteTokens = new HashSet<PushToken>();
+        obsoleteTokens = new HashSet<>();
 
         if (!apnsProperties.isEnabled()) {
             LOG.debug("getObsoletePushTokens: not fetching obsolete tokens because connector is disabled");
@@ -293,6 +293,7 @@ public class APNSConnector implements PushNotificationProvider {
             int readByte = 1;
             // Read data with timeout
             final Callable<Integer> readTask = new Callable<Integer>() {
+                @SuppressWarnings({"OverlyBroadThrowsClause", "ProhibitedExceptionDeclared"})
                 @Override
                 @Nonnull
                 public Integer call() throws Exception {

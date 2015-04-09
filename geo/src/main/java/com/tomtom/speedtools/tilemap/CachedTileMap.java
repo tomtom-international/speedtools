@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.tomtom.speedtools.services.lbs.map;
+package com.tomtom.speedtools.tilemap;
 
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;

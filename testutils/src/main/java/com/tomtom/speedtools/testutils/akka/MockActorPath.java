@@ -47,25 +47,25 @@ public class MockActorPath implements ActorPath {
 
     @Override
     @Nullable
-    public ActorPath $div(@Nullable final String child) {
+    public ActorPath $div(@Nullable final String s) {
         return null;
     }
 
     @Override
     @Nullable
-    public ActorPath child(@Nullable final String child) {
+    public ActorPath child(@Nullable final String s) {
         return null;
     }
 
     @Override
     @Nullable
-    public ActorPath $div(@Nullable final scala.collection.Iterable<String> child) {
+    public ActorPath $div(@Nullable final scala.collection.Iterable<String> iterable) {
         return null;
     }
 
     @Override
     @Nullable
-    public ActorPath descendant(@Nullable final Iterable<String> names) {
+    public ActorPath descendant(@Nullable final Iterable<String> iterable) {
         return null;
     }
 
@@ -118,7 +118,7 @@ public class MockActorPath implements ActorPath {
 
     @Override
     @Nullable
-    public ActorPath withUid(final int uid) {
+    public ActorPath withUid(final int i) {
         return null;
     }
 

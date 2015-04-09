@@ -22,6 +22,7 @@ import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
+import com.tomtom.speedtools.time.UTCTime;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.joda.time.format.DateTimeFormat;
@@ -33,8 +34,9 @@ import javax.annotation.Nullable;
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 import java.io.IOException;
 
-import com.tomtom.speedtools.time.UTCTime;
-
+/**
+ * Adapter class for serializing and deserializing date/time values in XML/JSON.
+ */
 public final class DateTimeAdapter {
 
     // A DateTimeFormatter is thread-safe, so it can safely be declared static here.

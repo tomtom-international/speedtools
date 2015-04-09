@@ -16,6 +16,9 @@
 
 package com.tomtom.speedtools.utils;
 
+/**
+ * Utility class which provides convenience methods for hash set related operations.
+ */
 @SuppressWarnings("OverloadedMethodsWithSameNumberOfParameters")
 public final class SetUtils {
 

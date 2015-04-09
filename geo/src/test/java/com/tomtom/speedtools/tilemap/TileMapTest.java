@@ -14,11 +14,10 @@
  * limitations under the License.
  */
 
-package com.tomtom.speedtools.services.lbs.map;
+package com.tomtom.speedtools.tilemap;
 
 import com.tomtom.speedtools.geometry.GeoPoint;
 import com.tomtom.speedtools.objects.Tuple;
-import com.tomtom.speedtools.services.lbs.Lbs;
 import org.junit.Assert;
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -49,7 +48,7 @@ public class TileMapTest {
         final int width = 600;
         final int height = 400;
         final int zoomLevel = 6;
-        final GeoPoint mapCenter = Lbs.POS_AMSTERDAM;
+        final GeoPoint mapCenter = MapConst.POS_AMSTERDAM;
         final GeoPoint point = TileMap.convertViewportXYToLatLon(posX, posY, width, height, zoomLevel, mapCenter);
         Assert.assertNotNull(point);
 

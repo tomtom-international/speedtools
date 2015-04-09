@@ -18,17 +18,33 @@ package com.tomtom.speedtools.loghelper;
 
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
+import com.tomtom.speedtools.domain.Uid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.concurrent.TimeUnit;
 
-import com.tomtom.speedtools.domain.Uid;
-
+/**
+ * Utility class to store (key, value) pairs, so human readable names can be used in log
+ * messages.
+ *
+ * For example, if an application creates a User with database ID N, it may wish to call
+ * {@link #logId(String, String)} for N and userName, so subsequent log messages can use
+ * {@link #logId(String)} for N only and show both the ID and the name.
+ *
+ * <pre>
+ *     // Create user. ID and user name both known at this point.
+ *     LOG.info("User created: {}", logId(id, name));
+ *     ...
+ *     // Finds user ID only. User name not known here, but inserted by log helper.
+ *     LOG.info("Found user: {}", logId(id));
+ * </pre>
+ *
+ * Note that the LogHelper class has a limited cache of (key, value) pairs, to limit
+ * memory usage. The cache auto-expires unused items as well.
+ */
 public final class LogHelper {
     private static final Logger LOG = LoggerFactory.getLogger(LogHelper.class);
 

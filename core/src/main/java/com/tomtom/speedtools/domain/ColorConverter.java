@@ -19,7 +19,8 @@ package com.tomtom.speedtools.domain;
 import javax.annotation.Nonnull;
 
 /**
- * Color conversions.
+ * A simple utility class for color conversions from a CSS-type format (#RRGGBB) to an actual
+ * RGB color class.
  */
 public final class ColorConverter {
 
@@ -41,7 +42,7 @@ public final class ColorConverter {
      * @throws IllegalArgumentException If the format is nor recognized.
      */
     @Nonnull
-    public static ColorRGB toColorRGB(@Nonnull final String colorCSS) throws IllegalArgumentException {
+    public static ColorRGB8 toColorRGB(@Nonnull final String colorCSS) throws IllegalArgumentException {
         assert colorCSS != null;
 
         // Trim white space.
@@ -78,19 +79,19 @@ public final class ColorConverter {
             --i;
         }
 
-        return new ColorRGB(total);
+        return new ColorRGB8(total);
     }
 
     /**
      * Return a CSS color.
      *
-     * @param colorRGB RGB color string.
+     * @param colorRGB8 RGB color string.
      * @return CSS color string.
      */
     @Nonnull
-    public static String toColorCSS(@Nonnull final ColorRGB colorRGB) {
-        assert colorRGB != null;
-        final String hex = "000000" + Integer.toHexString(colorRGB.toIntegerRGB());
+    public static String toColorCSS(@Nonnull final ColorRGB8 colorRGB8) {
+        assert colorRGB8 != null;
+        final String hex = "000000" + Integer.toHexString(colorRGB8.toIntegerRGB());
         return '#' + hex.substring(hex.length() - 6);
     }
 }

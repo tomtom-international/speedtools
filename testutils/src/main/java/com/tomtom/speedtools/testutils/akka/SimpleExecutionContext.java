@@ -51,7 +51,7 @@ public class SimpleExecutionContext implements ExecutionContext {
     }
 
     @Override
-    public void reportFailure(@Nonnull final Throwable t) {
-        assert t != null;
+    public void reportFailure(@Nonnull final Throwable throwable) {
+        assert throwable != null;
     }
 }

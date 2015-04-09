@@ -24,7 +24,8 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 /**
- * Simple utility class to deal with hash and cryptographic functions.
+ * Simple utility class to deal with hash and cryptographic functions. It provides a thin
+ * convenience layer on top of Java Security.
  */
 public final class Crypto {
     private static final Logger LOG = LoggerFactory.getLogger(Crypto.class);

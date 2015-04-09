@@ -14,15 +14,13 @@
  * limitations under the License.
  */
 
-package com.tomtom.speedtools.services.lbs.map;
+package com.tomtom.speedtools.tilemap;
 
 import com.google.common.base.Objects;
+import com.tomtom.speedtools.json.Json;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-
-import com.tomtom.speedtools.services.lbs.Lbs;
-import com.tomtom.speedtools.json.Json;
 
 /**
  * Class used to specify a plot position and crop area for images.
@@ -51,10 +49,10 @@ final class ViewportTile<T> {
         assert seqY >= 0;
         assert viewportX >= 0;
         assert viewportY >= 0;
-        assert ((0 <= tileOffsetX) && (tileOffsetX < Lbs.PIXELS_PER_TILE)) : tileOffsetX;
-        assert ((0 <= tileOffsetY) && (tileOffsetY < Lbs.PIXELS_PER_TILE)) : tileOffsetY;
-        assert ((0 <= width) && ((tileOffsetX + width) <= Lbs.PIXELS_PER_TILE)) : tileOffsetX + ", " + width;
-        assert ((0 <= height) && ((tileOffsetY + height) <= Lbs.PIXELS_PER_TILE)) : tileOffsetY + ", " + height;
+        assert ((0 <= tileOffsetX) && (tileOffsetX < MapConst.PIXELS_PER_TILE)) : tileOffsetX;
+        assert ((0 <= tileOffsetY) && (tileOffsetY < MapConst.PIXELS_PER_TILE)) : tileOffsetY;
+        assert ((0 <= width) && ((tileOffsetX + width) <= MapConst.PIXELS_PER_TILE)) : tileOffsetX + ", " + width;
+        assert ((0 <= height) && ((tileOffsetY + height) <= MapConst.PIXELS_PER_TILE)) : tileOffsetY + ", " + height;
         this.seqX = seqX;
         this.seqY = seqY;
         this.tileKey = tileKey;

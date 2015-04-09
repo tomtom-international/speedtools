@@ -19,6 +19,9 @@ package com.tomtom.speedtools.utils;
 import javax.annotation.Nonnull;
 import java.util.Comparator;
 
+/**
+ * Utility class to handle double comparisons properly.
+ */
 public final class DoubleUtils {
 
     /**

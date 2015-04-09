@@ -30,7 +30,8 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * Utility methods to work with immutable data structures.
+ * Utility methods to work with immutable data structures. These methods rely on Google immutable libraries and
+ * provide a convenience layer on top of them.
  */
 public final class Immutables {
 

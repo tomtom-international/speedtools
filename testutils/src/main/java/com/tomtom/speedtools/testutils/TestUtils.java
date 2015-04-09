@@ -62,7 +62,9 @@ public final class TestUtils {
             "[\"]*9999[-]99[-]99T99[:]99[:]99[.]?9*[Z][\"]*".replaceAll("\\d", "\\\\d");
     private static final String REGEX_UID = "00000000-0000-0000-0000-000000000000".replaceAll("0", "\\\\w");
 
-    private static DateTime lastDateTime = FIRST_DATETIME;
+    @SuppressWarnings("StaticNonFinalField")
+    private static volatile DateTime lastDateTime = FIRST_DATETIME;
+
     private static final AtomicInteger lastUid = new AtomicInteger(1);
 
     private TestUtils() {
@@ -88,6 +90,7 @@ public final class TestUtils {
     @Nonnull
     public static DateTime getUniqueDateTime() {
         final DateTime next = lastDateTime;
+        //noinspection NonAtomicOperationOnVolatileField
         lastDateTime = lastDateTime.plusMillis(350);
         return next;
     }

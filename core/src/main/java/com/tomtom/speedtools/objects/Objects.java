@@ -22,7 +22,7 @@ import javax.annotation.Nullable;
 import java.util.Arrays;
 
 /**
- * Generic java utility methods.
+ * Generic Java helper methods to implement proper equals and hashCode methods.
  */
 @SuppressWarnings("OverloadedMethodsWithSameNumberOfParameters")
 public final class Objects {

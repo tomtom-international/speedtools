@@ -21,8 +21,8 @@ import javax.annotation.Nonnull;
 import java.util.Arrays;
 
 /**
- * Simple circular buffer class. This class is not thread-safe if the buffer object is shared between threads. It is
- * thread safe if every thread creates its own buffer though.
+ * Simple circular buffer class. This class is thread safe if every thread creates its own buffer though.
+ * It is not thread-safe if the buffer object is shared between threads.
  *
  * @param <T> Type of buffer elements.
  */
@@ -107,7 +107,7 @@ public class CircularBuffer<T> {
         tail = (tail + 1) % buffer.length;
         count = count - 1;
 
-        assert ((count == 0) && (head == tail)) ||            // Buffer is empty.
+        assert ((count == 0) && (head == tail)) ||                // Buffer is empty.
                 ((count == buffer.length) && (head == tail)) ||   // Buffer is full.
                 (head != tail);                                   // Buffer is not empty and not full.
 

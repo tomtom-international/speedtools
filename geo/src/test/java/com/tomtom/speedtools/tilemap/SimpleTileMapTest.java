@@ -14,13 +14,12 @@
  * limitations under the License.
  */
 
-package com.tomtom.speedtools.services.lbs.map;
+package com.tomtom.speedtools.tilemap;
 
 import com.google.common.cache.CacheLoader;
 import com.tomtom.speedtools.geometry.GeoPoint;
 import com.tomtom.speedtools.objects.Tuple;
-import com.tomtom.speedtools.services.lbs.Lbs;
-import com.tomtom.speedtools.services.lbs.map.TileMap.ViewportTileProcessor;
+import com.tomtom.speedtools.tilemap.TileMap.ViewportTileProcessor;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -79,7 +78,7 @@ public class SimpleTileMapTest {
          */
         final int mapWidth = 256;
         final int mapHeight = 256;
-        final GeoPoint mapCenter = Lbs.POS_AMSTERDAM;
+        final GeoPoint mapCenter = MapConst.POS_AMSTERDAM;
         final int discreteZoomLevel = 6;
 
         // Required for unit test checking (see below).

@@ -45,6 +45,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * DBObject (which effectively is also a JSON map object). To do so, override the {@link #createJsonMappedObject()}
  * method.
  */
+@SuppressWarnings("UnnecessarilyQualifiedInnerClassAccess")
 public class SimpleJsonSerializer {
     private static final Logger LOG = LoggerFactory.getLogger(SimpleJsonSerializer.class);
 
@@ -814,6 +815,7 @@ public class SimpleJsonSerializer {
     // objects and wraps non-JSON types to mapped objects (type/value pairs).
     // ------------------------------------------------------------------------
 
+    @SuppressWarnings("UnnecessarilyQualifiedInnerClassAccess")
     private class BeanInfoMapper extends NamedMapper {
         @Nonnull
         private final BeanInfo beanInfo;

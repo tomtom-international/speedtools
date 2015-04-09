@@ -18,11 +18,12 @@ package com.tomtom.speedtools.services.lbs.route;
 
 import akka.actor.ActorSystem;
 import com.tomtom.speedtools.geometry.Geo;
+import com.tomtom.speedtools.geometry.GeoPoint;
 import com.tomtom.speedtools.guice.InvalidPropertyValueException;
 import com.tomtom.speedtools.services.lbs.AuthorizationException;
-import com.tomtom.speedtools.services.lbs.Lbs;
 import com.tomtom.speedtools.services.lbs.LbsProperties;
 import com.tomtom.speedtools.services.lbs.route.implementation.TomTomLbsRouteEngine;
+import com.tomtom.speedtools.tilemap.MapConst;
 import org.joda.time.Duration;
 import org.junit.*;
 import org.slf4j.Logger;
@@ -70,6 +71,16 @@ public final class RouteEngineTest {
     private static final FiniteDuration TIMEOUT_SHORT = new FiniteDuration(1, TimeUnit.MICROSECONDS);
     private static final FiniteDuration TIMEOUT_LONG = new FiniteDuration(10, TimeUnit.SECONDS);
 
+    /**
+     * These geo locations can be used for test cases which require locations separated by a traffic obstacle, in this
+     * case the river IJ in Amsterdam. These locations are added as generic locations here for convenience, because you
+     * might want to use them in different test scenarios.
+     */
+    private static final GeoPoint POS_TEST_THIS_RIVERSIDE      = new GeoPoint(52.378555, 4.8940997);
+    private static final GeoPoint POS_TEST_THIS_RIVERSIDE_NEAR = POS_TEST_THIS_RIVERSIDE.translate(200.0, 300.0);
+    private static final GeoPoint POS_TEST_THIS_RIVERSIDE_FAR  = new GeoPoint(52.36693, 4.93947); // Real: 4.2km, 9min.
+    private static final GeoPoint POS_TEST_OTHER_RIVERSIDE     = new GeoPoint(52.38353, 4.9023); //  Real: 6.4km, 17min.
+
     private ActorSystem system;
 
     @Before
@@ -88,7 +99,7 @@ public final class RouteEngineTest {
         LOG.info("testRouteOK");
         final RouteEngine geoCoder = new TomTomLbsRouteEngine(system, LBS_PROPS_1);
         try {
-            final Future<RouteEngineResponse> future = geoCoder.route(Lbs.POS_AMSTERDAM, Lbs.POS_PARIS);
+            final Future<RouteEngineResponse> future = geoCoder.route(MapConst.POS_AMSTERDAM, MapConst.POS_PARIS);
             final RouteEngineResponse resp = Await.result(future, TIMEOUT_LONG);
             LOG.info("resp = {}", resp.toString());
             Assert.assertTrue(resp.getTotalTimeSeconds() > 15000);
@@ -113,7 +124,7 @@ public final class RouteEngineTest {
             final int total = 20;
             final List<Future<RouteEngineResponse>> futures = new ArrayList<>(total);
             for (int i = 0; i < total; ++i) {
-                final Future<RouteEngineResponse> future = geoCoder.route(Lbs.POS_AMSTERDAM, Lbs.POS_PARIS);
+                final Future<RouteEngineResponse> future = geoCoder.route(MapConst.POS_AMSTERDAM, MapConst.POS_PARIS);
                 futures.add(future);
             }
             for (int i = 0; i < total; ++i) {
@@ -140,7 +151,7 @@ public final class RouteEngineTest {
         final RouteEngine geoCoder = new TomTomLbsRouteEngine(system, LBS_PROPS_1);
         try {
             //noinspection UnusedDeclaration
-            final Future<RouteEngineResponse> future = geoCoder.route(Lbs.POS_AMSTERDAM, Lbs.POS_PARIS);
+            final Future<RouteEngineResponse> future = geoCoder.route(MapConst.POS_AMSTERDAM, MapConst.POS_PARIS);
             Await.result(future, TIMEOUT_SHORT);
             Assert.fail("Expected timeout exception in LBS call");
         } catch (final AuthorizationException e) {
@@ -161,7 +172,7 @@ public final class RouteEngineTest {
         final LbsProperties lbsNoApiKey = LBS_PROPS_NO_API_KEY;
         final RouteEngine geoCoder = new TomTomLbsRouteEngine(system, lbsNoApiKey);
         try {
-            final Future<RouteEngineResponse> future = geoCoder.route(Lbs.POS_AMSTERDAM, Lbs.POS_PARIS);
+            final Future<RouteEngineResponse> future = geoCoder.route(MapConst.POS_AMSTERDAM, MapConst.POS_PARIS);
             Await.result(future, TIMEOUT_LONG);
             Assert.fail();
         } catch (final InvalidPropertyValueException | AuthorizationException ignored) {
@@ -181,18 +192,18 @@ public final class RouteEngineTest {
         LOG.info("testRouteAndCrowFlight");
         final RouteEngine geoCoder = new TomTomLbsRouteEngine(system, LBS_PROPS_1);
         final Duration lowerNearSlow =
-                Geo.estimatedMinTravelTime(Lbs.POS_TEST_THIS_RIVERSIDE, Lbs.POS_TEST_OTHER_RIVERSIDE);
+                Geo.estimatedMinTravelTime(POS_TEST_THIS_RIVERSIDE, POS_TEST_OTHER_RIVERSIDE);
         final Duration lowerFarFast =
-                Geo.estimatedMinTravelTime(Lbs.POS_TEST_THIS_RIVERSIDE, Lbs.POS_TEST_THIS_RIVERSIDE_FAR);
+                Geo.estimatedMinTravelTime(POS_TEST_THIS_RIVERSIDE, POS_TEST_THIS_RIVERSIDE_FAR);
         final double distanceNearSlow =
-                Geo.distanceInMeters(Lbs.POS_TEST_THIS_RIVERSIDE, Lbs.POS_TEST_OTHER_RIVERSIDE);
+                Geo.distanceInMeters(POS_TEST_THIS_RIVERSIDE, POS_TEST_OTHER_RIVERSIDE);
         final double distanceFarFast =
-                Geo.distanceInMeters(Lbs.POS_TEST_THIS_RIVERSIDE, Lbs.POS_TEST_THIS_RIVERSIDE_FAR);
+                Geo.distanceInMeters(POS_TEST_THIS_RIVERSIDE, POS_TEST_THIS_RIVERSIDE_FAR);
         try {
             final Future<RouteEngineResponse> futureNearSlow = geoCoder.route(
-                    Lbs.POS_TEST_THIS_RIVERSIDE, Lbs.POS_TEST_OTHER_RIVERSIDE);
+                    POS_TEST_THIS_RIVERSIDE, POS_TEST_OTHER_RIVERSIDE);
             final Future<RouteEngineResponse> futureFarFast = geoCoder.route(
-                    Lbs.POS_TEST_THIS_RIVERSIDE, Lbs.POS_TEST_THIS_RIVERSIDE_FAR);
+                    POS_TEST_THIS_RIVERSIDE, POS_TEST_THIS_RIVERSIDE_FAR);
             final RouteEngineResponse accurateNearSlow = Await.result(futureNearSlow, TIMEOUT_LONG);
             final RouteEngineResponse accurateFarFast = Await.result(futureFarFast, TIMEOUT_LONG);
 

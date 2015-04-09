@@ -23,6 +23,9 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Locale;
 
+/**
+ * Utility class to deal with (house) addresses, country values, street names etc.
+ */
 public final class AddressUtils {
 
     private AddressUtils() {

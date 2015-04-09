@@ -17,14 +17,12 @@
 package com.tomtom.speedtools.apivalidation;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import javax.annotation.Nonnull;
-
+import com.tomtom.speedtools.apivalidation.exceptions.ApiInternalException;
+import com.tomtom.speedtools.json.JsonBased;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.tomtom.speedtools.apivalidation.exceptions.ApiInternalException;
-import com.tomtom.speedtools.json.JsonBased;
+import javax.annotation.Nonnull;
 
 /**
  * This class provides an abstract base class for JAX-B data binder classes.
@@ -56,6 +54,25 @@ import com.tomtom.speedtools.json.JsonBased;
  *       }
  *    }
  * </pre>
+ *
+ * The method call {@link ApiValidator#start()} initializes the validation process and
+ * subsequent checkXXX() calls will check the value and ranges of parameters. If errors
+ * are found, they are accumulated. Finally, {@link ApiValidator#done()} will throw an
+ * {@link com.tomtom.speedtools.apivalidation.exceptions.ApiBadRequestException} if errors
+ * were found. The exception contains all errors in a structured format, which will normally
+ * be passed back to the caller as a 400 (Bad Request) status, with a JSON body containing
+ * the error list.
+ *
+ * The advantage of this type of validation over other frameworks is that it accumulates
+ * ALL API parameter validations before an exception is thrown.
+ *
+ * This allows the caller to mark ALL offending fields at once. As the result message contains
+ * the allowed values, or value ranges as well, in a structured format, these can be easily
+ * shown as feedback to the user.
+ *
+ * The framework was originally designed to work in a WEB and mobile based environment, where
+ * a user enters all sorts of details and a single validation call allows the client to mark
+ * all offending fields.
  */
 public abstract class ApiDataBinder extends JsonBased {
 

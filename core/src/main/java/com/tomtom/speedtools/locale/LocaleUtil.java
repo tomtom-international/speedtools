@@ -23,6 +23,9 @@ import java.util.Set;
 
 import static com.tomtom.speedtools.objects.Immutables.setOf;
 
+/**
+ * Utility class to parse locale values, like "en", "en_GB", etc.
+ */
 public final class LocaleUtil {
 
     private static final Set<String> COUNTRIES = setOf(Locale.getISOCountries());

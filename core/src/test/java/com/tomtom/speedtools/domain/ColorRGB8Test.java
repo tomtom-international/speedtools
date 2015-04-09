@@ -28,31 +28,31 @@ import org.slf4j.LoggerFactory;
  * structure.
  */
 @SuppressWarnings("FieldMayBeStatic")
-public class ColorRGBTest {
-    private static final Logger LOG = LoggerFactory.getLogger(ColorRGBTest.class);
+public class ColorRGB8Test {
+    private static final Logger LOG = LoggerFactory.getLogger(ColorRGB8Test.class);
 
     private final int x1 = 0;
     private final int x2 = 0;
     private final int x3 = 0;
-    private final ColorRGB x = new ColorRGB(x1, x2, x3);
+    private final ColorRGB8 x = new ColorRGB8(x1, x2, x3);
 
     private int y1;
     private int y2;
     private int y3;
-    private ColorRGB y = null;
+    private ColorRGB8 y = null;
 
     @Before
     public void setUp() {
         y1 = 1;
         y2 = 2;
         y3 = 3;
-        y = new ColorRGB(y1, y2, y3);
+        y = new ColorRGB8(y1, y2, y3);
     }
 
     @Test
     public void testEqualsVerifier() {
         LOG.info("testEqualsVerifier");
-        EqualsVerifier.forClass(ColorRGB.class).
+        EqualsVerifier.forClass(ColorRGB8.class).
                 allFieldsShouldBeUsed().
                 verify();
     }
@@ -60,8 +60,8 @@ public class ColorRGBTest {
     @Test
     public void testEquals() {
         LOG.info("testEquals");
-        final ColorRGB s = y.withR(x1).withG(x2).withB(x3);
-        final ColorRGB t = x.withR(y1).withG(y2).withB(y3);
+        final ColorRGB8 s = y.withR(x1).withG(x2).withB(x3);
+        final ColorRGB8 t = x.withR(y1).withG(y2).withB(y3);
         Assert.assertTrue(x.equals(s));
         Assert.assertTrue(y.equals(t));
         Assert.assertFalse(x.equals(t));
@@ -93,8 +93,8 @@ public class ColorRGBTest {
     public void testInteger() {
         LOG.info("testInteger");
         final int i1 = 0x00010203;
-        final ColorRGB c1 = new ColorRGB(i1);
-        final ColorRGB c2 = new ColorRGB(1, 2, 3);
+        final ColorRGB8 c1 = new ColorRGB8(i1);
+        final ColorRGB8 c2 = new ColorRGB8(1, 2, 3);
         Assert.assertEquals(c1, c2);
         Assert.assertEquals((Integer) i1, c2.toIntegerRGB());
     }

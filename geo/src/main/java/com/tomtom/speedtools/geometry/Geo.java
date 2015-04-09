@@ -16,15 +16,16 @@
 
 package com.tomtom.speedtools.geometry;
 
+import com.tomtom.speedtools.utils.MathUtils;
+import org.joda.time.Duration;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import org.joda.time.Duration;
-
-import com.tomtom.speedtools.utils.MathUtils;
-
 /**
- * Utility class for geometry package.
+ * Utility class for geometry package. It provides a number of geo-relevant constants as well as
+ * methods to convert degrees to distances, extend geo-areas (to include specific points, for
+ * \example) and estimate travel times from one point to another.
  */
 public final class Geo {
 

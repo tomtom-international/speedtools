@@ -16,13 +16,12 @@
 
 package com.tomtom.speedtools.domain;
 
+import com.tomtom.speedtools.utils.MathUtils;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-
 import java.io.Serializable;
 import java.util.UUID;
-
-import com.tomtom.speedtools.utils.MathUtils;
 
 
 /**
@@ -34,7 +33,7 @@ import com.tomtom.speedtools.utils.MathUtils;
  * code.
  *
  * Note also that this class represents UUID as a String internally, to avoid loads of UUID to String conversions all
- * the time.
+ * the time. This makes the class considerably faster in use than the regular {@link Uid} class.
  */
 @SuppressWarnings("UnusedDeclaration")
 public final class Uid<T> implements Serializable {

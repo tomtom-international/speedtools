@@ -16,13 +16,22 @@
 
 package com.tomtom.speedtools.maven;
 
-import javax.annotation.Nonnull;
+import com.tomtom.speedtools.guice.HasProperties;
 
+import javax.annotation.Nonnull;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import com.tomtom.speedtools.guice.HasProperties;
-
+/**
+ * This class allows an application to read the maven POM version. The property
+ * file in the code base should contain a line like this:
+ *
+ * <pre>
+ *     Maven.pomVersion = ${pom.version}
+ * </pre>
+ *
+ * This will cause Maven to properly expand the POM version in the property.
+ */
 public class MavenProperties implements HasProperties {
 
     @Nonnull

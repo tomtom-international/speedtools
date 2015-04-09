@@ -34,6 +34,9 @@ import java.io.IOException;
 import java.util.Date;
 
 
+/**
+ * Adapter class for serializing and deserializing dates in XML/JSON.
+ */
 public final class DateAdapter {
 
     private static final XMLAdapterWithSecondsResolution XML_DATE_TIME_ADAPTER = new XMLAdapterWithSecondsResolution();

@@ -7,7 +7,7 @@ Introduction
     <<SpeedTools>> is a collection of generic Java utilities which are specifically coded to be high-performance
     and very reliable. Most of the code has been 100% code reviewed and has great test coverage.
 
-    The code was originally developed by Rijn Buve, Daan van Dijk and Ruud Diterwich for a commercial TomTom 
+    The code was originally developed by Rijn Buve, Daan van Dijk and Ruud Diterwich for a commercial TomTom
     service and ran for with zero-downtime for months in a data center, serving hundreds of thousands of requests.
 
     Feel free to use them in your project.
@@ -203,6 +203,11 @@ SpeedTools Packages
         is highly efficient and allows many tasks to be scheduled in parallel. The original caller
         can wait for completion of all or individual tasks.
 
+    * <<<com.tomtom.speedtools.tiledmap>>>
+
+        This package provides interfaces that you may wish to use in combination with tiled
+        mapping services.
+
     * <<<com.tomtom.speedtools.time>>>
 
         Using time is always a cause for issues if you're not
@@ -277,10 +282,6 @@ SpeedTools Packages
     * <<<com.tomtom.speedtools.services.geocode>>>
 
         This package provides interfaces to (TomTom) geocoding services.
-
-    * <<<com.tomtom.speedtools.services.map>>>
-
-        This package provides interfaces to (TomTom) tile mapping services.
 
     * <<<com.tomtom.speedtools.services.route>>>
 

@@ -16,24 +16,22 @@
 
 package com.tomtom.speedtools.gpstrace;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
-import org.joda.time.DateTime;
-import org.joda.time.Duration;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
-import com.tomtom.speedtools.utils.MathUtils;
 import com.tomtom.speedtools.json.Json;
 import com.tomtom.speedtools.json.JsonRenderable;
 import com.tomtom.speedtools.objects.Immutables;
 import com.tomtom.speedtools.objects.Objects;
+import com.tomtom.speedtools.utils.MathUtils;
+import org.joda.time.DateTime;
+import org.joda.time.Duration;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 /**
- * Trace represents a trace of GPS point.
+ * This class represents a trace of GPS points.
  *
  * Constructor: {@link #GpsTrace}
  */

@@ -14,11 +14,10 @@
  * limitations under the License.
  */
 
-package com.tomtom.speedtools.services.lbs.map;
+package com.tomtom.speedtools.tilemap;
 
 import com.google.common.base.Objects;
 import com.tomtom.speedtools.json.Json;
-import com.tomtom.speedtools.services.lbs.Lbs;
 import com.tomtom.speedtools.utils.MathUtils;
 
 import javax.annotation.Nonnull;
@@ -34,7 +33,7 @@ public final class TileKey {
 
     public TileKey(final long tileX, final long tileY, final int zoomLevel) {
         super();
-        assert MathUtils.isBetween(zoomLevel, Lbs.MINIMUM_ZOOM, Lbs.MAXIMUM_ZOOM) : zoomLevel;
+        assert MathUtils.isBetween(zoomLevel, MapConst.MINIMUM_ZOOM, MapConst.MAXIMUM_ZOOM) : zoomLevel;
         assert (0 <= tileX) && (tileX < (1 << zoomLevel)) : tileX + ", " + zoomLevel;
         assert (0 <= tileY) && (tileY < (1 << zoomLevel)) : tileY + ", " + zoomLevel;
         this.tileX = tileX;

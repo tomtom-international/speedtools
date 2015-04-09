@@ -25,10 +25,10 @@ import javax.annotation.concurrent.Immutable;
 
 
 /**
- * Color. (Immutable)
+ * RGB color class, 24-bit (3x 8 bits). (Immutable)
  */
 @Immutable
-public final class ColorRGB {
+public final class ColorRGB8 {
     private final int r;
     private final int g;
     private final int b;
@@ -40,7 +40,7 @@ public final class ColorRGB {
      * @param g Green, 0..255.
      * @param b Blue, 0..255.
      */
-    public ColorRGB(
+    public ColorRGB8(
             final int r,
             final int g,
             final int b) {
@@ -53,7 +53,7 @@ public final class ColorRGB {
         this.b = b;
     }
 
-    public ColorRGB(@Nonnull final Integer intRGB) {
+    public ColorRGB8(@Nonnull final Integer intRGB) {
         this((intRGB & 0x00FF0000) >> 16, (intRGB & 0x0000FF00) >> 8, intRGB & 0x000000FF);
     }
 
@@ -62,7 +62,7 @@ public final class ColorRGB {
      */
     @SuppressWarnings("UnusedDeclaration")
     @Deprecated
-    private ColorRGB() {
+    private ColorRGB8() {
         super();
         r = 0;
         g = 0;
@@ -103,8 +103,8 @@ public final class ColorRGB {
      * @return New immutable object.
      */
     @Nonnull
-    public ColorRGB withR(final int r) {
-        return new ColorRGB(r, g, b);
+    public ColorRGB8 withR(final int r) {
+        return new ColorRGB8(r, g, b);
     }
 
     /**
@@ -114,8 +114,8 @@ public final class ColorRGB {
      * @return New immutable object.
      */
     @Nonnull
-    public ColorRGB withG(final int g) {
-        return new ColorRGB(r, g, b);
+    public ColorRGB8 withG(final int g) {
+        return new ColorRGB8(r, g, b);
     }
 
     /**
@@ -125,8 +125,8 @@ public final class ColorRGB {
      * @return New immutable object.
      */
     @Nonnull
-    public ColorRGB withB(final int b) {
-        return new ColorRGB(r, g, b);
+    public ColorRGB8 withB(final int b) {
+        return new ColorRGB8(r, g, b);
     }
 
     @Nonnull
@@ -137,7 +137,7 @@ public final class ColorRGB {
 
     public boolean canEqual(@Nonnull final Object obj) {
         assert obj != null;
-        return obj instanceof ColorRGB;
+        return obj instanceof ColorRGB8;
     }
 
     @Override
@@ -145,8 +145,8 @@ public final class ColorRGB {
         boolean eq;
         if (this == obj) {
             eq = true;
-        } else if ((obj != null) && (obj instanceof ColorRGB)) {
-            final ColorRGB that = (ColorRGB) obj;
+        } else if ((obj != null) && (obj instanceof ColorRGB8)) {
+            final ColorRGB8 that = (ColorRGB8) obj;
             eq = that.canEqual(this);
             // Top-level entity, don't check for super.equals(that).
             eq = eq && (r == that.r);

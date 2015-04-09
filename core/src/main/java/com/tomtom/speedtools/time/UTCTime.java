@@ -16,15 +16,14 @@
 
 package com.tomtom.speedtools.time;
 
-import javax.annotation.Nonnull;
-
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 
+import javax.annotation.Nonnull;
 import java.util.Date;
 
 /**
- * Utility class for UTC time usage.
+ * Utility class for UTC time usage. Date/time value created with this class are always time zoned UTC.
  */
 public final class UTCTime {
 

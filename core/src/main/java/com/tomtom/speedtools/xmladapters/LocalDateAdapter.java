@@ -32,6 +32,9 @@ import javax.annotation.Nullable;
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 import java.io.IOException;
 
+/**
+ * Adapter class for serializing and deserializing local date/time values (timezone-less) in XML/JSON.
+ */
 public final class LocalDateAdapter {
 
     // A DateTimeFormatter is thread-safe, so it can safely be declared static here.

@@ -14,12 +14,11 @@
  * limitations under the License.
  */
 
-package com.tomtom.speedtools.services.lbs.map;
+package com.tomtom.speedtools.tilemap;
 
 import com.tomtom.speedtools.geometry.GeoPoint;
 import com.tomtom.speedtools.geometry.GeoRectangle;
 import com.tomtom.speedtools.objects.Tuple;
-import com.tomtom.speedtools.services.lbs.Lbs;
 import com.tomtom.speedtools.utils.MathUtils;
 
 import javax.annotation.Nonnull;
@@ -107,7 +106,7 @@ public abstract class TileMap<T> {
 
     /**
      * Callback function for viewport tile processing.
-     * 
+     *
      * The template parameter T is the image class, e.g. Image or PImage.
      */
     public interface ViewportTileProcessor<T> {
@@ -141,7 +140,7 @@ public abstract class TileMap<T> {
      * @param widthPixels  Width of viewport in pixels.
      * @param heightPixels Height of viewport in pixels.
      * @param mapCenter    Center of map, as lat/lon.
-     * @param zoomLevel    Zoomlevel (from 0..LbsConst.MAXIMUM_ZOOM).
+     * @param zoomLevel    Zoomlevel (from 0..LbsConst.MapConst.MAXIMUM_ZOOM).
      * @param processor    Viewport processor.
      */
     @SuppressWarnings("ConstantConditions")
@@ -153,24 +152,24 @@ public abstract class TileMap<T> {
         assert heightPixels >= 0;
         assert mapCenter != null;
         assert processor != null;
-        assert MathUtils.isBetween(zoomLevel, 0, Lbs.MAXIMUM_ZOOM) : zoomLevel;
-        assert Lbs.PIXELS_PER_TILE > 0;
+        assert MathUtils.isBetween(zoomLevel, 0, MapConst.MAXIMUM_ZOOM) : zoomLevel;
+        assert MapConst.PIXELS_PER_TILE > 0;
         assert processor != null;
 
         // Calculate total number of tiles on this zoomlevel.
         final long nrTiles = (1L << zoomLevel);
 
         // Determine how many tiles top-left tile should shift to center the map.
-        final int shiftTileX = (widthPixels / Lbs.PIXELS_PER_TILE) / 2;
-        final int shiftTileY = (heightPixels / Lbs.PIXELS_PER_TILE) / 2;
+        final int shiftTileX = (widthPixels / MapConst.PIXELS_PER_TILE) / 2;
+        final int shiftTileY = (heightPixels / MapConst.PIXELS_PER_TILE) / 2;
 
         // Determine offset within tile when centering tiles.
         final int centerX = widthPixels / 2;
         final int centerY = heightPixels / 2;
-        final int offsetCenterX = centerX - (shiftTileX * Lbs.PIXELS_PER_TILE);
-        final int offsetCenterY = centerY - (shiftTileY * Lbs.PIXELS_PER_TILE);
-        assert MathUtils.isBetween(offsetCenterX, 0, Lbs.PIXELS_PER_TILE) : offsetCenterX;
-        assert MathUtils.isBetween(offsetCenterY, 0, Lbs.PIXELS_PER_TILE) : offsetCenterY;
+        final int offsetCenterX = centerX - (shiftTileX * MapConst.PIXELS_PER_TILE);
+        final int offsetCenterY = centerY - (shiftTileY * MapConst.PIXELS_PER_TILE);
+        assert MathUtils.isBetween(offsetCenterX, 0, MapConst.PIXELS_PER_TILE) : offsetCenterX;
+        assert MathUtils.isBetween(offsetCenterY, 0, MapConst.PIXELS_PER_TILE) : offsetCenterY;
 
         // Determine top-left tile.
         final TileOffset centerTile =
@@ -185,7 +184,7 @@ public abstract class TileMap<T> {
         final int offsetTileY;
         if (centerTile.getOffsetX() <= offsetCenterX) {
             if (tileX > 0) {
-                offsetTileX = (Lbs.PIXELS_PER_TILE - 1) - (offsetCenterX - centerTile.getOffsetX());
+                offsetTileX = (MapConst.PIXELS_PER_TILE - 1) - (offsetCenterX - centerTile.getOffsetX());
                 --tileX;
             } else {
                 offsetTileX = 0;
@@ -193,11 +192,11 @@ public abstract class TileMap<T> {
         } else {
             offsetTileX = centerTile.getOffsetX() - offsetCenterX;
         }
-        assert MathUtils.isBetween(offsetTileX, 0, Lbs.PIXELS_PER_TILE) : offsetTileX;
+        assert MathUtils.isBetween(offsetTileX, 0, MapConst.PIXELS_PER_TILE) : offsetTileX;
 
         if (centerTile.getOffsetY() <= offsetCenterY) {
             if (tileY > 0) {
-                offsetTileY = (Lbs.PIXELS_PER_TILE - 1) - (offsetCenterY - centerTile.getOffsetY());
+                offsetTileY = (MapConst.PIXELS_PER_TILE - 1) - (offsetCenterY - centerTile.getOffsetY());
                 --tileY;
             } else {
                 offsetTileY = 0;
@@ -205,7 +204,7 @@ public abstract class TileMap<T> {
         } else {
             offsetTileY = centerTile.getOffsetY() - offsetCenterY;
         }
-        assert MathUtils.isBetween(offsetTileY, 0, Lbs.PIXELS_PER_TILE) : offsetTileY;
+        assert MathUtils.isBetween(offsetTileY, 0, MapConst.PIXELS_PER_TILE) : offsetTileY;
 
         // Constrain tile numbers for extreme coordinates.
         final long startTileIndexX = Math.min(Math.max(tileX, 0), nrTiles);
@@ -226,10 +225,10 @@ public abstract class TileMap<T> {
             tileX = startTileIndexX;
             int seqX = 0;
             int tileOffsetX = topLeft.getOffsetX();
-            final int tileHeight = Math.min(Lbs.PIXELS_PER_TILE, heightPixels - viewportY) - tileOffsetY;
+            final int tileHeight = Math.min(MapConst.PIXELS_PER_TILE, heightPixels - viewportY) - tileOffsetY;
 
             while (viewportX < widthPixels) {
-                final int tileWidth = Math.min(Lbs.PIXELS_PER_TILE, widthPixels - viewportX) - tileOffsetX;
+                final int tileWidth = Math.min(MapConst.PIXELS_PER_TILE, widthPixels - viewportX) - tileOffsetX;
 
                 // Create tile key.
                 tileX = tileX % nrTiles;
@@ -297,7 +296,7 @@ public abstract class TileMap<T> {
      * @param widthPixels  Width of viewport in pixels.
      * @param heightPixels Height of viewport in pixels.
      * @param mapCenter    Center of map, as lat/lon.
-     * @param zoomLevel    Zoomlevel (from 0..LbsConst.MAXIMUM_ZOOM).
+     * @param zoomLevel    Zoomlevel (from 0..LbsConst.MapConst.MAXIMUM_ZOOM).
      * @return The returned value is a collection of viewport images. Every viewport image element is contains an image
      * to be plotted, the position from the top-left of the viewport and the crop area to plot from the image. This
      * makes it easy to crop the images at the edges correctly.
@@ -310,8 +309,8 @@ public abstract class TileMap<T> {
         assert widthPixels >= 0;
         assert heightPixels >= 0;
         assert mapCenter != null;
-        assert MathUtils.isBetween(zoomLevel, 0, Lbs.MAXIMUM_ZOOM) : zoomLevel;
-        assert Lbs.PIXELS_PER_TILE > 0;
+        assert MathUtils.isBetween(zoomLevel, 0, MapConst.MAXIMUM_ZOOM) : zoomLevel;
+        assert MapConst.PIXELS_PER_TILE > 0;
 
         final Collection<ViewportTile<T>> tiles =
                 new ArrayList<>();
@@ -329,8 +328,8 @@ public abstract class TileMap<T> {
                 tiles.add(viewportTile);
             }
         });
-        final int sizeMin = (widthPixels / Lbs.PIXELS_PER_TILE) * ((heightPixels / Lbs.PIXELS_PER_TILE));
-        final int sizeMax = ((widthPixels / Lbs.PIXELS_PER_TILE) + 2) * ((heightPixels / Lbs.PIXELS_PER_TILE) + 2);
+        final int sizeMin = (widthPixels / MapConst.PIXELS_PER_TILE) * ((heightPixels / MapConst.PIXELS_PER_TILE));
+        final int sizeMax = ((widthPixels / MapConst.PIXELS_PER_TILE) + 2) * ((heightPixels / MapConst.PIXELS_PER_TILE) + 2);
         assert MathUtils.isBetween(tiles.size(), sizeMin, sizeMax) :
                 tiles.size() + " not in [" + sizeMin + ", " + sizeMax + ']';
         return tiles;
@@ -363,11 +362,11 @@ public abstract class TileMap<T> {
 
         final double deltaMercX = mercs.mercX - ((double) tileX / nrTiles);
         final double deltaMercY = mercs.mercY - ((double) tileY / nrTiles);
-        final long nrPixels = Math.round(nrTiles * Lbs.PIXELS_PER_TILE);
-        final int offsetX = (int) Math.min(Math.round(deltaMercX * nrPixels), Lbs.PIXELS_PER_TILE);
-        final int offsetY = (int) Math.min(Math.round(deltaMercY * nrPixels), Lbs.PIXELS_PER_TILE);
-        assert MathUtils.isBetween(offsetX, 0, Lbs.PIXELS_PER_TILE) : offsetX;
-        assert MathUtils.isBetween(offsetY, 0, Lbs.PIXELS_PER_TILE) : offsetY;
+        final long nrPixels = Math.round(nrTiles * MapConst.PIXELS_PER_TILE);
+        final int offsetX = (int) Math.min(Math.round(deltaMercX * nrPixels), MapConst.PIXELS_PER_TILE);
+        final int offsetY = (int) Math.min(Math.round(deltaMercY * nrPixels), MapConst.PIXELS_PER_TILE);
+        assert MathUtils.isBetween(offsetX, 0, MapConst.PIXELS_PER_TILE) : offsetX;
+        assert MathUtils.isBetween(offsetY, 0, MapConst.PIXELS_PER_TILE) : offsetY;
 
         return new TileOffset(key, offsetX, offsetY);
     }
@@ -384,9 +383,9 @@ public abstract class TileMap<T> {
         final int offsetX = tileOffset.getOffsetX();
         final int offsetY = tileOffset.getOffsetY();
         final int zoomLevel = tileOffset.getKey().getZoomLevel();
-        final double nrTiles = (1L << zoomLevel) * Lbs.PIXELS_PER_TILE;
-        final long tileX = tileOffset.getKey().getTileX() * Lbs.PIXELS_PER_TILE;
-        final long tileY = tileOffset.getKey().getTileY() * Lbs.PIXELS_PER_TILE;
+        final double nrTiles = (1L << zoomLevel) * MapConst.PIXELS_PER_TILE;
+        final long tileX = tileOffset.getKey().getTileX() * MapConst.PIXELS_PER_TILE;
+        final long tileY = tileOffset.getKey().getTileY() * MapConst.PIXELS_PER_TILE;
         final double mercX = (tileX + offsetX) / nrTiles;
         final double mercY = (tileY + offsetY) / nrTiles;
         final GeoPoint point = MercatorPoint.mercsToLatLon(mercX, mercY);
@@ -413,11 +412,11 @@ public abstract class TileMap<T> {
         assert (0 <= posY) && (posY < height);
         assert width > 0;
         assert height > 0;
-        assert MathUtils.isBetween(zoomLevel, Lbs.MINIMUM_ZOOM, Lbs.MAXIMUM_ZOOM) : zoomLevel;
+        assert MathUtils.isBetween(zoomLevel, MapConst.MINIMUM_ZOOM, MapConst.MAXIMUM_ZOOM) : zoomLevel;
         assert mapCenter != null;
         final double deltaX = posX - ((double) width / 2.0);
         final double deltaY = posY - ((double) height / 2.0);
-        final double totalSize = (1L << zoomLevel) * Lbs.PIXELS_PER_TILE;
+        final double totalSize = (1L << zoomLevel) * MapConst.PIXELS_PER_TILE;
 
         final MercatorPoint mercs = MercatorPoint.latLonToMercs(mapCenter);
         final double mercX = MathUtils.limitTo(mercs.mercX + (deltaX / totalSize), 0.0, 1.0);
@@ -448,8 +447,8 @@ public abstract class TileMap<T> {
         assert mapCenter != null;
         assert width > 0;
         assert height > 0;
-        assert MathUtils.isBetween(zoomLevel, Lbs.MINIMUM_ZOOM, Lbs.MAXIMUM_ZOOM) : zoomLevel;
-        final double totalSize = (1L << zoomLevel) * Lbs.PIXELS_PER_TILE;
+        assert MathUtils.isBetween(zoomLevel, MapConst.MINIMUM_ZOOM, MapConst.MAXIMUM_ZOOM) : zoomLevel;
+        final double totalSize = (1L << zoomLevel) * MapConst.PIXELS_PER_TILE;
 
         final MercatorPoint mercsCenter = MercatorPoint.latLonToMercs(mapCenter);
         final MercatorPoint mercsPoint = MercatorPoint.latLonToMercs(point);
@@ -520,8 +519,8 @@ public abstract class TileMap<T> {
         // Search for a zoom-level until both northEast and southWest fit.
         boolean found = false;
         final GeoPoint mapCenter = rect.getCenter();
-        int zoomLevel = Lbs.MAXIMUM_ZOOM + 1;
-        while ((zoomLevel > Lbs.MINIMUM_ZOOM) && !found) {
+        int zoomLevel = MapConst.MAXIMUM_ZOOM + 1;
+        while ((zoomLevel > MapConst.MINIMUM_ZOOM) && !found) {
             --zoomLevel;
             final Tuple<Integer, Integer> topLeft =
                     convertLatLonToViewportXY(northEast, actualWidth, actualHeight, zoomLevel, mapCenter);
@@ -546,8 +545,8 @@ public abstract class TileMap<T> {
             final int deltaX, final int deltaY, final int zoomLevel,
             @Nonnull final GeoPoint mapCenter) {
         assert mapCenter != null;
-        assert MathUtils.isBetween(zoomLevel, Lbs.MINIMUM_ZOOM, Lbs.MAXIMUM_ZOOM) : zoomLevel;
-        final double totalSize = (1L << zoomLevel) * Lbs.PIXELS_PER_TILE;
+        assert MathUtils.isBetween(zoomLevel, MapConst.MINIMUM_ZOOM, MapConst.MAXIMUM_ZOOM) : zoomLevel;
+        final double totalSize = (1L << zoomLevel) * MapConst.PIXELS_PER_TILE;
 
         final MercatorPoint mercs = MercatorPoint.latLonToMercs(mapCenter);
         final double mercX = MathUtils.limitTo(mercs.mercX + (deltaX / totalSize), 0.0, 1.0);

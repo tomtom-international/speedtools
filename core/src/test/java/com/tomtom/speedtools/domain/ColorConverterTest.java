@@ -27,14 +27,14 @@ public class ColorConverterTest {
     @Test
     public void testToColorRGB() {
         LOG.info("testToColorRGB");
-        final ColorRGB c1 = new ColorRGB(1, 2, 3);
+        final ColorRGB8 c1 = new ColorRGB8(1, 2, 3);
         Assert.assertEquals(c1, ColorConverter.toColorRGB("#010203"));
     }
 
     @Test
     public void testToColorCSS() {
         LOG.info("testToColorCSS");
-        final ColorRGB c1 = new ColorRGB(1, 2, 3);
+        final ColorRGB8 c1 = new ColorRGB8(1, 2, 3);
         Assert.assertEquals("#010203", ColorConverter.toColorCSS(c1));
     }
 }

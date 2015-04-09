@@ -14,13 +14,12 @@
  * limitations under the License.
  */
 
-package com.tomtom.speedtools.services.lbs.map;
+package com.tomtom.speedtools.tilemap;
 
 import akka.actor.ActorSystem;
 import akka.dispatch.Futures;
 import com.google.common.cache.CacheLoader;
 import com.tomtom.speedtools.geometry.GeoPoint;
-import com.tomtom.speedtools.services.lbs.Lbs;
 import com.tomtom.speedtools.time.UTCTime;
 import org.joda.time.DateTime;
 import org.joda.time.Duration;
@@ -96,7 +95,7 @@ public class AdvancedTileMapTest {
          */
         final int mapWidth = 256;
         final int mapHeight = 256;
-        final GeoPoint mapCenter = Lbs.POS_AMSTERDAM;
+        final GeoPoint mapCenter = MapConst.POS_AMSTERDAM;
         final double zoomLevel = 6.0;   // Use fractional zoom-levels for smooth transitions.
 
         /**

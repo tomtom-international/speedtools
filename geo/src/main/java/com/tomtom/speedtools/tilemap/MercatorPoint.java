@@ -14,17 +14,15 @@
  * limitations under the License.
  */
 
-package com.tomtom.speedtools.services.lbs.map;
+package com.tomtom.speedtools.tilemap;
 
-import javax.annotation.concurrent.Immutable;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
-import java.util.Arrays;
-
-import com.tomtom.speedtools.services.lbs.Lbs;
 import com.tomtom.speedtools.geometry.GeoPoint;
 import com.tomtom.speedtools.utils.MathUtils;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import javax.annotation.concurrent.Immutable;
+import java.util.Arrays;
 
 /**
  * Mercator point. Specified in X and Y with normalized values of 0..1 (top-left to bottom-right).
@@ -65,10 +63,10 @@ final class MercatorPoint {
         assert MathUtils.isBetween(mercX, 0.0, 1.0) : mercX;
         assert MathUtils.isBetween(mercY, 0.0, 1.0) : mercY;
 
-        final double geoX = (mercX - 0.5) * Lbs.WORLD_SIZE;
-        final double geoY = (mercY - 0.5) * -Lbs.WORLD_SIZE;
-        final double lat = ((Math.atan(Math.exp(geoY / Lbs.WORLD_RADIUS)) / Math.PI) * 360.0) - 90.0;
-        final double lon = ((geoX / Lbs.WORLD_RADIUS) / Math.PI) * 180.0;
+        final double geoX = (mercX - 0.5) * MapConst.WORLD_SIZE;
+        final double geoY = (mercY - 0.5) * -MapConst.WORLD_SIZE;
+        final double lat = ((Math.atan(Math.exp(geoY / MapConst.WORLD_RADIUS)) / Math.PI) * 360.0) - 90.0;
+        final double lon = ((geoX / MapConst.WORLD_RADIUS) / Math.PI) * 180.0;
         return new GeoPoint(lat, lon);
     }
 
@@ -86,12 +84,12 @@ final class MercatorPoint {
      */
     @Nonnull
     public static MercatorPoint latLonToMercs(@Nonnull final GeoPoint point) {
-        final double lat = MathUtils.limitTo(point.getLat(), Lbs.LATITUDE_MIN, Lbs.LATITUDE_MAX);
+        final double lat = MathUtils.limitTo(point.getLat(), MapConst.LATITUDE_MIN, MapConst.LATITUDE_MAX);
         final double lon = point.getLon();
-        final double geoX = Lbs.WORLD_RADIUS * ((lon * Math.PI) / 180.0);
-        final double geoY = Lbs.WORLD_RADIUS * Math.log(Math.tan(Math.PI * ((lat + 90.0) / 360.0)));
-        final double mercX = Math.max(0.0, (geoX / Lbs.WORLD_SIZE) + 0.5);
-        final double mercY = Math.max(0.0, 1.0 - ((geoY / Lbs.WORLD_SIZE) + 0.5));
+        final double geoX = MapConst.WORLD_RADIUS * ((lon * Math.PI) / 180.0);
+        final double geoY = MapConst.WORLD_RADIUS * Math.log(Math.tan(Math.PI * ((lat + 90.0) / 360.0)));
+        final double mercX = Math.max(0.0, (geoX / MapConst.WORLD_SIZE) + 0.5);
+        final double mercY = Math.max(0.0, 1.0 - ((geoY / MapConst.WORLD_SIZE) + 0.5));
         assert MathUtils.isBetween(mercX, 0.0, 1.0) : mercX + ", " + point;
         assert MathUtils.isBetween(mercY, 0.0, 1.0) : mercY + ", " + point;
         return new MercatorPoint(mercX, mercY);

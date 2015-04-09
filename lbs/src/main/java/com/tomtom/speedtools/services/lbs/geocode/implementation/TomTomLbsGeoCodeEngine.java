@@ -16,16 +16,20 @@
 
 package com.tomtom.speedtools.services.lbs.geocode.implementation;
 
+import com.tomtom.speedtools.geometry.GeoRectangle;
+import com.tomtom.speedtools.services.lbs.AuthorizationException;
+import com.tomtom.speedtools.services.lbs.LbsProperties;
+import com.tomtom.speedtools.services.lbs.geocode.GeoCodeEngine;
+import com.tomtom.speedtools.services.lbs.geocode.GeoCodeEngineResponse;
+import com.tomtom.speedtools.urls.UrlParameterBuilder;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.http.HttpStatus;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.inject.Inject;
 import javax.naming.ServiceUnavailableException;
 import javax.xml.bind.JAXBContext;
@@ -34,14 +38,6 @@ import javax.xml.bind.Unmarshaller;
 import java.io.IOException;
 import java.io.InputStream;
 
-import com.tomtom.speedtools.services.lbs.AuthorizationException;
-import com.tomtom.speedtools.services.lbs.Lbs;
-import com.tomtom.speedtools.services.lbs.LbsProperties;
-import com.tomtom.speedtools.services.lbs.geocode.GeoCodeEngine;
-import com.tomtom.speedtools.services.lbs.geocode.GeoCodeEngineResponse;
-import com.tomtom.speedtools.geometry.GeoRectangle;
-import com.tomtom.speedtools.urls.UrlParameterBuilder;
-
 
 /**
  * Implementation of a {@link GeoCodeEngine} using the TomTom LBS
@@ -49,6 +45,9 @@ import com.tomtom.speedtools.urls.UrlParameterBuilder;
  */
 public final class TomTomLbsGeoCodeEngine implements GeoCodeEngine {
     private static final Logger LOG = LoggerFactory.getLogger(TomTomLbsGeoCodeEngine.class);
+
+    // LBS host parameters.
+    private static final String LBS_GEOCODE_FORMAT = "xml";
 
     // LBS properties.
     @Nonnull
@@ -117,7 +116,7 @@ public final class TomTomLbsGeoCodeEngine implements GeoCodeEngine {
         assert query != null;
         return lbsProperties.getGeoCodeUrl1() + '/' +
                 UrlParameterBuilder.encode(query) + '/' +
-                Lbs.LBS_GEOCODE_FORMAT + '/' +
+                LBS_GEOCODE_FORMAT + '/' +
                 lbsProperties.getApiKey();
     }
 

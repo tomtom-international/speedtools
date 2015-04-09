@@ -18,6 +18,7 @@ package com.tomtom.speedtools.rest;
 
 import akka.dispatch.Futures;
 import akka.dispatch.OnComplete;
+import com.tomtom.speedtools.apivalidation.exceptions.ApiException;
 import org.jboss.resteasy.spi.AsynchronousResponse;
 import org.slf4j.Logger;
 import scala.concurrent.Future;
@@ -27,8 +28,6 @@ import javax.annotation.Nullable;
 import javax.inject.Inject;
 import javax.ws.rs.core.Response;
 import java.util.concurrent.Callable;
-
-import com.tomtom.speedtools.apivalidation.exceptions.ApiException;
 
 
 /**
@@ -109,6 +108,7 @@ public final class ResourceProcessor {
                                         *              for a handler to set a specific HTTP status code,
                                         *              other than this processor would.
                                         */
+                                       @SuppressWarnings("ParameterNameDiffersFromOverriddenParameter")
                                        @Override
                                        public void onComplete(
                                                @Nullable final Throwable failure,

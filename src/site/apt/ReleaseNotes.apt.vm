@@ -2,13 +2,17 @@ Release Notes (Version ${project.version})
 
 * 3.0.1
 
-    To be done.
+    * Moved to JDK 1.8 and Java 8 language level.
+
+    * Moved package 'map' and classes TileMap from package 'lbs' to package 'geo'.
+
+    * Fixed many inspection warnings.
 
     []
 
 * 3.0.0
 
-    First public release of TomTom SpeedTools under the Apache License 2.0.
+    * First public release of TomTom SpeedTools under the Apache License 2.0.
 
     []
 
@@ -16,13 +20,13 @@ Earlier Releases (Pre 3.0.0, Apache License 2.0)
 
 * 2.3.1
 
-    Updated dependency on TTMAIN connector in <<<speedtools-ttmain>>>.
+    * Updated dependency on TTMAIN connector in <<<speedtools-ttmain>>>.
 
     []
 
 * 2.3.0
 
-    Refactored TTBIN module out of standard SpeedTools library into <<<speedtools-ttbin>>> module.
+    * Refactored TTBIN module out of standard SpeedTools library into <<<speedtools-ttbin>>> module.
     Same Maven dependency required, but a different versioning scheme (starts with 1.8.0 for version 8 of the
     TTBIN specification.)
 
@@ -30,13 +34,13 @@ Earlier Releases (Pre 3.0.0, Apache License 2.0)
 
 * 2.2.17
 
-    Implemented TTBIN V8-alpha format. (Version 8 specification not complete yet.)
+    * Implemented TTBIN V8-alpha format. (Version 8 specification not complete yet.)
 
     []
 
 * 2.2.16
 
-    Remove TTMain dependency. Extracted to its own SpeedTools project.
+    * Remove TTMain dependency. Extracted to its own SpeedTools project.
 
     []
 

@@ -22,13 +22,14 @@ import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
-
-import javax.annotation.Nullable;
-
 import org.joda.time.DateTimeZone;
 
+import javax.annotation.Nullable;
 import java.io.IOException;
 
+/**
+ * Adapter class for serializing and deserializing time zones in XML/JSON.
+ */
 public class DateTimeZoneAdapter {
 
     public static class JsonDateTimeZoneSerializer extends JsonSerializer<DateTimeZone> {

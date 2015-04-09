@@ -14,14 +14,13 @@
  * limitations under the License.
  */
 
-package com.tomtom.speedtools.services.lbs.map;
+package com.tomtom.speedtools.tilemap;
 
 import com.google.common.base.Objects;
+import com.tomtom.speedtools.json.Json;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-
-import com.tomtom.speedtools.json.Json;
 
 /**
  * Point within a map tile, given a map tile key.
