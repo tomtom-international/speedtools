@@ -154,7 +154,7 @@ public abstract class ApiDataBinder extends JsonBased {
      *
      * @param callDone Tells method to call validator().done().
      */
-    protected void validate(final boolean callDone) {
+    public void validate(final boolean callDone) {
         final String name = this.getClass().getName();
         LOG.error("Validate method need to be implemented by subclass: {}", name);
         throw new AssertionError("Subclass " + name + " needs to provide an implementation of 'validate'");
