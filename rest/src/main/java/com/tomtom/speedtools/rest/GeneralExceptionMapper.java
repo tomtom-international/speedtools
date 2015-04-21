@@ -19,14 +19,13 @@ package com.tomtom.speedtools.rest;
 
 import akka.pattern.AskTimeoutException;
 import com.fasterxml.jackson.databind.JsonMappingException;
+import com.tomtom.speedtools.apivalidation.errors.ApiValidationError;
+import com.tomtom.speedtools.apivalidation.exceptions.*;
+import com.tomtom.speedtools.json.Json;
+import com.tomtom.speedtools.objects.Tuple;
+import com.tomtom.speedtools.time.UTCTime;
 import com.tomtom.speedtools.xmladapters.DateTimeAdapter.XMLAdapterWithSecondsResolution;
 import org.bson.BSONException;
-import org.jboss.resteasy.spi.BadRequestException;
-import org.jboss.resteasy.spi.MethodNotAllowedException;
-import org.jboss.resteasy.spi.NotAcceptableException;
-import org.jboss.resteasy.spi.NotFoundException;
-import org.jboss.resteasy.spi.UnauthorizedException;
-import org.jboss.resteasy.spi.UnsupportedMediaTypeException;
 import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -50,21 +49,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import com.tomtom.speedtools.apivalidation.errors.ApiValidationError;
-import com.tomtom.speedtools.apivalidation.exceptions.ApiBadRequestException;
-import com.tomtom.speedtools.apivalidation.exceptions.ApiConflictException;
-import com.tomtom.speedtools.apivalidation.exceptions.ApiForbiddenException;
-import com.tomtom.speedtools.apivalidation.exceptions.ApiInternalException;
-import com.tomtom.speedtools.apivalidation.exceptions.ApiNotFoundException;
-import com.tomtom.speedtools.apivalidation.exceptions.ApiNotImplementedException;
-import com.tomtom.speedtools.apivalidation.exceptions.ApiUnauthorizedException;
-import com.tomtom.speedtools.json.Json;
-import com.tomtom.speedtools.objects.Tuple;
-import com.tomtom.speedtools.time.UTCTime;
-
 import static com.tomtom.speedtools.utils.StringUtils.nullToEmpty;
 import static javax.ws.rs.core.Response.status;
 
+@SuppressWarnings("UnnecessaryFullyQualifiedName")
 @Provider
 public class GeneralExceptionMapper implements ExceptionMapper<Throwable> {
     private static final Logger LOG = LoggerFactory.getLogger(GeneralExceptionMapper.class);
@@ -105,13 +93,13 @@ public class GeneralExceptionMapper implements ExceptionMapper<Throwable> {
 
     @Nonnull
     @Override
-    public Response toResponse(@Nullable final Throwable exception) {
-        if (exception == null) {
+    public Response toResponse(@Nullable final Throwable e) {
+        if (e == null) {
 
             // Keep original media type output format.
             return status(Status.OK).build();
         } else {
-            return toResponse(LOG, exception);
+            return toResponse(LOG, e);
         }
     }
 
@@ -171,19 +159,37 @@ public class GeneralExceptionMapper implements ExceptionMapper<Throwable> {
         }
 
         /**
-         * Rest-easy exceptions.
+         * Rest-easy exceptions (deprecated).
          */
-        else if (exception instanceof BadRequestException) {
+        else if (exception instanceof org.jboss.resteasy.spi.BadRequestException) {
             return toResponseBadApiCall(log, Status.BAD_REQUEST, exception);
-        } else if (exception instanceof NotFoundException) {
+        } else if (exception instanceof org.jboss.resteasy.spi.NotFoundException) {
             return toResponseBadApiCall(log, Status.NOT_FOUND, exception);
-        } else if (exception instanceof NotAcceptableException) {
+        } else if (exception instanceof org.jboss.resteasy.spi.NotAcceptableException) {
             return toResponseBadApiCall(log, Status.NOT_ACCEPTABLE, exception);
-        } else if (exception instanceof MethodNotAllowedException) {
+        } else if (exception instanceof org.jboss.resteasy.spi.MethodNotAllowedException) {
             return toResponseBadApiCall(log, Status.FORBIDDEN, exception);
-        } else if (exception instanceof UnauthorizedException) {
+        } else if (exception instanceof org.jboss.resteasy.spi.UnauthorizedException) {
             return toResponseBadApiCall(log, Status.UNAUTHORIZED, exception);
-        } else if (exception instanceof UnsupportedMediaTypeException) {
+        } else if (exception instanceof org.jboss.resteasy.spi.UnsupportedMediaTypeException) {
+            return toResponseBadApiCall(log, Status.UNSUPPORTED_MEDIA_TYPE, exception);
+        }
+
+        /**
+         * Javax exceptions.
+         */
+        else if (exception instanceof javax.ws.rs.BadRequestException) {
+            return toResponseBadApiCall(log, Status.BAD_REQUEST, exception);
+        } else if (exception instanceof javax.ws.rs.NotFoundException) {
+            return toResponseBadApiCall(log, Status.NOT_FOUND, exception);
+        } else if (exception instanceof javax.ws.rs.NotAcceptableException) {
+            return toResponseBadApiCall(log, Status.NOT_ACCEPTABLE, exception);
+        } else if ((exception instanceof javax.ws.rs.NotAllowedException) ||
+                (exception instanceof javax.ws.rs.ForbiddenException)) {
+            return toResponseBadApiCall(log, Status.FORBIDDEN, exception);
+        } else if (exception instanceof javax.ws.rs.NotAuthorizedException) {
+            return toResponseBadApiCall(log, Status.UNAUTHORIZED, exception);
+        } else if (exception instanceof javax.ws.rs.NotSupportedException) {
             return toResponseBadApiCall(log, Status.UNSUPPORTED_MEDIA_TYPE, exception);
         }
 

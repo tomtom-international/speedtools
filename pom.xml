@@ -113,7 +113,7 @@
         <guava.version>18.0</guava.version>
         <guice.version>3.0</guice.version>
         <httpcore.version>4.4</httpcore.version>
-        <jackson.version>2.5.1</jackson.version>
+        <jackson.version>2.5.2</jackson.version>
         <javax.inject.version>1</javax.inject.version>
         <javax.mail.version>1.4.7</javax.mail.version>
         <javax.servlet-api.version>3.1.0</javax.servlet-api.version>
@@ -131,7 +131,7 @@
         <mongo-java-driver.version>2.13.0</mongo-java-driver.version>
         <org.objenesis.version>2.1</org.objenesis.version>
         <paranamer.version>2.7</paranamer.version>
-        <resteasy.version>3.0.10.Final</resteasy.version>
+        <resteasy.version>3.0.11.Final</resteasy.version>
         <slf4j.version>1.7.10</slf4j.version>
         <snakeyaml.version>1.14</snakeyaml.version>
         <testng.version>6.8.8</testng.version>
@@ -448,7 +448,7 @@
 
             <dependency>
                 <groupId>org.jboss.resteasy</groupId>
-                <artifactId>resteasy-jackson-provider</artifactId>
+                <artifactId>resteasy-jackson2-provider</artifactId>
                 <version>${resteasy.version}</version>
             </dependency>
 

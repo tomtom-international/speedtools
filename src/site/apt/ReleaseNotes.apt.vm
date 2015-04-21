@@ -2,7 +2,11 @@ Release Notes (Version ${project.version})
 
 * 3.0.3
 
-    Made ApiDataBInder.validate() public to allow validating different inherited binders easily.
+    * Made <<<ApiDataBInder.validate()>>> public to allow validating different inherited binders easily.
+
+    * Added <<<javax.ws.rs>>> exceptions to <<<GeneralExceptionMapper>>>.
+
+    * Moved to Jackson 2 for RestEasy.
 
     []
 
