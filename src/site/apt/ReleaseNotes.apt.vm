@@ -1,5 +1,11 @@
 Release Notes (Version ${project.version})
 
+* 3.0.4
+
+    * To do.
+
+    []
+
 * 3.0.3
 
     * Made <<<ApiDataBInder.validate()>>> public to allow validating different inherited binders easily.
