@@ -623,7 +623,7 @@
             </dependency>
 
             <dependency>
-                <groupId>com.google.android.gcm</groupId>
+                <groupId>com.ganyo</groupId>
                 <artifactId>gcm-server</artifactId>
                 <version>${gcm-server.version}</version>
             </dependency>
