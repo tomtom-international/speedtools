@@ -16,6 +16,7 @@
 
 package com.tomtom.speedtools.services.sms.implementation.messagebird;
 
+import com.tomtom.speedtools.services.sms.implementation.messagebird.dto.MessageBirdMessageResponse;
 import org.jboss.resteasy.annotations.ClientResponseType;
 import org.jboss.resteasy.client.ClientResponse;
 

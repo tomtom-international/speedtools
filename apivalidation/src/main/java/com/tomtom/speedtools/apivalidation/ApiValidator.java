@@ -145,7 +145,7 @@ public final class ApiValidator {
     public void checkNotNullAndValidate(
             final boolean required,
             @Nonnull final String name,
-            @Nullable final ApiDataBinder value) {
+            @Nullable final ApiDTO value) {
         assert name != null;
         checkNotNull(required, name, value);
         if (value != null) {
@@ -156,11 +156,11 @@ public final class ApiValidator {
     public void checkNotNullAndValidateAll(
             final boolean required,
             @Nonnull final String name,
-            @Nullable final Collection<? extends ApiDataBinder> value) {
+            @Nullable final Collection<? extends ApiDTO> value) {
         assert name != null;
         checkNotNull(required, name, value);
         if (value != null) {
-            for (final ApiDataBinder binder : value) {
+            for (final ApiDTO binder : value) {
                 checkNotNull(true, name, binder);
                 binder.validate();
             }

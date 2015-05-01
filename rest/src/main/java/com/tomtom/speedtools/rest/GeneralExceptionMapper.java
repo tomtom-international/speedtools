@@ -233,9 +233,9 @@ public class GeneralExceptionMapper implements ExceptionMapper<Throwable> {
         assert log != null;
         assert status != null;
         assert exception != null;
-        final ExceptionBinder exceptionBinder = new ExceptionBinder(exception, UTCTime.now());
-        log.info(createLogMessage("toResponse", exception, exceptionBinder, status));
-        return status(status).entity(exceptionBinder).
+        final ExceptionDTO exceptionDTO = new ExceptionDTO(exception, UTCTime.now());
+        log.info(createLogMessage("toResponse", exception, exceptionDTO, status));
+        return status(status).entity(exceptionDTO).
                 type(MediaType.APPLICATION_JSON_TYPE).
                 build();
     }
@@ -249,11 +249,11 @@ public class GeneralExceptionMapper implements ExceptionMapper<Throwable> {
         assert status != null;
         assert exception != null;
 
-        final ExceptionBinder exceptionBinder = new ExceptionBinder(exception, UTCTime.now());
-        log.info(createLogMessage("toResponseBadApiCall: Bad API call", exception, exceptionBinder, status));
+        final ExceptionDTO exceptionDTO = new ExceptionDTO(exception, UTCTime.now());
+        log.info(createLogMessage("toResponseBadApiCall: Bad API call", exception, exceptionDTO, status));
 
         // Explicitly set media type, to overwrite media content type.
-        return status(status).entity(exceptionBinder).
+        return status(status).entity(exceptionDTO).
                 type(MediaType.APPLICATION_JSON_TYPE).
                 build();
     }
@@ -265,9 +265,9 @@ public class GeneralExceptionMapper implements ExceptionMapper<Throwable> {
             @Nonnull final Throwable exception) {
         assert log != null;
         assert exception != null;
-        final ExceptionBinder exceptionBinder = new ExceptionBinder(exception, UTCTime.now());
-        log.info(createLogMessage("toResponseBadApiCall: Bad API call", exception, exceptionBinder, statusCode));
-        return status(statusCode).entity(exceptionBinder).
+        final ExceptionDTO exceptionDTO = new ExceptionDTO(exception, UTCTime.now());
+        log.info(createLogMessage("toResponseBadApiCall: Bad API call", exception, exceptionDTO, statusCode));
+        return status(statusCode).entity(exceptionDTO).
                 type(MediaType.APPLICATION_JSON_TYPE).
                 build();
     }
@@ -279,11 +279,11 @@ public class GeneralExceptionMapper implements ExceptionMapper<Throwable> {
         assert log != null;
         assert exception != null;
         final Status status = Status.BAD_REQUEST;
-        final ExceptionBinder exceptionBinder = new ExceptionBinder(
-                ExceptionBinder.API_ERROR_MESSAGE, UTCTime.now(), exception.getErrors());
+        final ExceptionDTO exceptionDTO = new ExceptionDTO(
+                ExceptionDTO.API_ERROR_MESSAGE, UTCTime.now(), exception.getErrors());
         log.info(
-                createLogMessage("toResponseApiValidationError: API validation error", exception, exceptionBinder, status));
-        return status(status).entity(exceptionBinder).
+                createLogMessage("toResponseApiValidationError: API validation error", exception, exceptionDTO, status));
+        return status(status).entity(exceptionDTO).
                 type(MediaType.APPLICATION_JSON_TYPE).
                 build();
     }
@@ -297,16 +297,16 @@ public class GeneralExceptionMapper implements ExceptionMapper<Throwable> {
         assert log != null;
         assert exception != null;
         final Status status = Status.INTERNAL_SERVER_ERROR;
-        final ExceptionBinder exceptionBinder = new ExceptionBinder(
-                ExceptionBinder.DEFAULT_MESSAGE, UTCTime.now());
+        final ExceptionDTO exceptionDTO = new ExceptionDTO(
+                ExceptionDTO.DEFAULT_MESSAGE, UTCTime.now());
         final String message =
-                createLogMessage("toResponseApiException: API exception", exception, exceptionBinder, status);
+                createLogMessage("toResponseApiException: API exception", exception, exceptionDTO, status);
         if (level == Level.WARN) {
             log.warn(message, exception);
         } else {
             log.error(message, exception);
         }
-        return status(status).entity(exceptionBinder).
+        return status(status).entity(exceptionDTO).
                 type(MediaType.APPLICATION_JSON_TYPE).
                 build();
     }
@@ -316,33 +316,33 @@ public class GeneralExceptionMapper implements ExceptionMapper<Throwable> {
     private static String createLogMessage(
             @Nonnull final String prefix,
             @Nonnull final Throwable exception,
-            @Nonnull final ExceptionBinder exceptionBinder,
+            @Nonnull final ExceptionDTO exceptionDTO,
             @Nonnull final StatusType status) {
         assert prefix != null;
         assert exception != null;
-        assert exceptionBinder != null;
+        assert exceptionDTO != null;
         assert status != null;
-        return String.format(LOG_MESSAGE_TEMPLATE, prefix, exceptionBinder.getReference(), status,
-                status.getStatusCode(), exception.getMessage(), exceptionBinder.getTime());
+        return String.format(LOG_MESSAGE_TEMPLATE, prefix, exceptionDTO.getReference(), status,
+                status.getStatusCode(), exception.getMessage(), exceptionDTO.getTime());
     }
 
     @Nonnull
     private static String createLogMessage(
             @Nonnull final String prefix,
             @Nonnull final Throwable exception,
-            @Nonnull final ExceptionBinder exceptionBinder,
+            @Nonnull final ExceptionDTO exceptionDTO,
             final int statusCode) {
         assert prefix != null;
         assert exception != null;
-        assert exceptionBinder != null;
-        return String.format(LOG_MESSAGE_TEMPLATE, prefix, exceptionBinder.getReference(), "status", statusCode,
-                exception.getMessage(), exceptionBinder.getTime());
+        assert exceptionDTO != null;
+        return String.format(LOG_MESSAGE_TEMPLATE, prefix, exceptionDTO.getReference(), "status", statusCode,
+                exception.getMessage(), exceptionDTO.getTime());
     }
 
     @SuppressWarnings("CallToSimpleSetterFromWithinClass")
     @XmlRootElement(name = "exception")
     @XmlAccessorType(XmlAccessType.PUBLIC_MEMBER)
-    private static class ExceptionBinder {
+    private static class ExceptionDTO {
         private static final String DEFAULT_MESSAGE = "Unexpected exception. " +
                 "When contacting system administration, please use the 'reference' field.";
 
@@ -358,7 +358,7 @@ public class GeneralExceptionMapper implements ExceptionMapper<Throwable> {
         @Nullable
         private List<ApiValidationError> errors;
 
-        private ExceptionBinder(
+        private ExceptionDTO(
                 @Nonnull final String message,
                 @Nonnull final DateTime time,
                 @Nullable final List<ApiValidationError> errors) {
@@ -371,13 +371,13 @@ public class GeneralExceptionMapper implements ExceptionMapper<Throwable> {
             setReference(generateReference());
         }
 
-        private ExceptionBinder(
+        private ExceptionDTO(
                 @Nonnull final String message,
                 @Nonnull final DateTime time) {
             this(message, time, null);
         }
 
-        private ExceptionBinder(
+        private ExceptionDTO(
                 @Nonnull final Throwable throwable,
                 @Nonnull final DateTime time) {
             assert throwable != null;
@@ -395,7 +395,7 @@ public class GeneralExceptionMapper implements ExceptionMapper<Throwable> {
             setReference(generateReference());
         }
 
-        private ExceptionBinder() {
+        private ExceptionDTO() {
             this(DEFAULT_MESSAGE, UTCTime.now(), null);
         }
 

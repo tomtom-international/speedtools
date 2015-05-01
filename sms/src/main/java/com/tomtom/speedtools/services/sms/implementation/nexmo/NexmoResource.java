@@ -16,6 +16,7 @@
 
 package com.tomtom.speedtools.services.sms.implementation.nexmo;
 
+import com.tomtom.speedtools.services.sms.implementation.nexmo.dto.NexmoMessageResponse;
 import org.jboss.resteasy.annotations.ClientResponseType;
 import org.jboss.resteasy.client.ClientResponse;
 

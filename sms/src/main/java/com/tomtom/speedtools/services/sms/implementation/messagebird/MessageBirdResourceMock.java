@@ -17,8 +17,9 @@
 package com.tomtom.speedtools.services.sms.implementation.messagebird;
 
 import com.tomtom.speedtools.services.sms.SMSDeliveryReportListener.DeliveryStatus;
-import com.tomtom.speedtools.services.sms.implementation.messagebird.MessageBirdMessageResponse.Item;
-import com.tomtom.speedtools.services.sms.implementation.messagebird.MessageBirdMessageResponse.ResponseCode;
+import com.tomtom.speedtools.services.sms.implementation.messagebird.dto.MessageBirdMessageResponse;
+import com.tomtom.speedtools.services.sms.implementation.messagebird.dto.MessageBirdMessageResponse.Item;
+import com.tomtom.speedtools.services.sms.implementation.messagebird.dto.MessageBirdMessageResponse.ResponseCode;
 import org.jboss.resteasy.client.ClientResponse;
 import org.jboss.resteasy.spi.Link;
 import org.jboss.resteasy.spi.LinkHeader;

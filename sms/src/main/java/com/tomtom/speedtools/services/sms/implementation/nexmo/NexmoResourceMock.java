@@ -17,7 +17,9 @@
 package com.tomtom.speedtools.services.sms.implementation.nexmo;
 
 import com.tomtom.speedtools.services.sms.SMSDeliveryReportListener.DeliveryStatus;
-import com.tomtom.speedtools.services.sms.implementation.nexmo.NexmoMessage.Status;
+import com.tomtom.speedtools.services.sms.implementation.nexmo.dto.NexmoMessage;
+import com.tomtom.speedtools.services.sms.implementation.nexmo.dto.NexmoMessage.Status;
+import com.tomtom.speedtools.services.sms.implementation.nexmo.dto.NexmoMessageResponse;
 import org.jboss.resteasy.client.ClientResponse;
 import org.jboss.resteasy.spi.Link;
 import org.jboss.resteasy.spi.LinkHeader;

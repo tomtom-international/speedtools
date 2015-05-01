@@ -14,23 +14,20 @@
  * limitations under the License.
  */
 
-package com.tomtom.speedtools.services.sms.implementation.nexmo;
+package com.tomtom.speedtools.services.sms.implementation.nexmo.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.tomtom.speedtools.apivalidation.ApiDTO;
+import com.tomtom.speedtools.objects.Immutables;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-
-import com.tomtom.speedtools.apivalidation.ApiDataBinder;
-
-import static com.tomtom.speedtools.objects.Immutables.listOf;
 
 /**
  * Response from the Nexmo REST API.
@@ -39,7 +36,7 @@ import static com.tomtom.speedtools.objects.Immutables.listOf;
 // Ignore unexpected properties because interface specification is not under our control.
 @JsonIgnoreProperties(ignoreUnknown = true)
 @XmlAccessorType(XmlAccessType.PUBLIC_MEMBER)
-public class NexmoMessageResponse extends ApiDataBinder {
+public class NexmoMessageResponse extends ApiDTO {
 
     @Nullable
     private Integer messageCount;
@@ -51,16 +48,16 @@ public class NexmoMessageResponse extends ApiDataBinder {
         assert messages != null;
 
         this.messageCount = messages.size();
-        this.messages = listOf(messages);
+        this.messages = Immutables.listOf(messages);
     }
 
-    protected NexmoMessageResponse() {
-        // Default constructor required by JAX-B.
+    // Normally unused (required for mock and JAX-B).
+    public NexmoMessageResponse() {
         super();
     }
 
     @Override
-    protected void validate() {
+    public void validate() {
         validator().start();
         validator().checkNotNull(true, "messageCount", messageCount);
         validator().checkNotNullAndValidateAll(true, "messages", messages);

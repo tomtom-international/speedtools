@@ -2,7 +2,9 @@ Release Notes (Version ${project.version})
 
 * 3.0.4
 
-    * Made <<<ApiDataBinder.validate()>>> public to validate polymorph objects.
+    * Rename <<<DataBinder>>> to more commonly used <<<DTO>>>.
+
+    * Made <<<ApiDTO.validate()>>> public to validate polymorph objects.
 
     []
 

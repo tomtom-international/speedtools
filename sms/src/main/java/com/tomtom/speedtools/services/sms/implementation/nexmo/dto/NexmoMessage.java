@@ -14,21 +14,14 @@
  * limitations under the License.
  */
 
-package com.tomtom.speedtools.services.sms.implementation.nexmo;
+package com.tomtom.speedtools.services.sms.implementation.nexmo.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.tomtom.speedtools.apivalidation.ApiDTO;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlEnum;
-import javax.xml.bind.annotation.XmlEnumValue;
-import javax.xml.bind.annotation.XmlRootElement;
-
-import com.tomtom.speedtools.apivalidation.ApiDataBinder;
+import javax.xml.bind.annotation.*;
 
 import static com.tomtom.speedtools.utils.StringUtils.trim;
 
@@ -36,7 +29,7 @@ import static com.tomtom.speedtools.utils.StringUtils.trim;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @XmlRootElement(name = "trip")
 @XmlAccessorType(XmlAccessType.PUBLIC_MEMBER)
-public class NexmoMessage extends ApiDataBinder {
+public class NexmoMessage extends ApiDTO {
 
     @XmlEnum
     public enum Status {
@@ -151,7 +144,7 @@ public class NexmoMessage extends ApiDataBinder {
     private String errorText;
 
     @Override
-    protected void validate() {
+    public void validate() {
         validator().start();
         validator().checkNotNull(true, "status", status);
         validator().checkNotNull(false, "message-id", messageId);

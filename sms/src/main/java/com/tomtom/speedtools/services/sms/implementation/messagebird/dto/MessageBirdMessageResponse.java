@@ -14,21 +14,14 @@
  * limitations under the License.
  */
 
-package com.tomtom.speedtools.services.sms.implementation.messagebird;
+package com.tomtom.speedtools.services.sms.implementation.messagebird.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.tomtom.speedtools.apivalidation.ApiDTO;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlEnum;
-import javax.xml.bind.annotation.XmlEnumValue;
-import javax.xml.bind.annotation.XmlRootElement;
-
-import com.tomtom.speedtools.apivalidation.ApiDataBinder;
+import javax.xml.bind.annotation.*;
 
 import static com.tomtom.speedtools.utils.StringUtils.trim;
 
@@ -39,18 +32,18 @@ import static com.tomtom.speedtools.utils.StringUtils.trim;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @XmlAccessorType(XmlAccessType.PUBLIC_MEMBER)
 @XmlRootElement(name = "response")
-public class MessageBirdMessageResponse extends ApiDataBinder {
+public class MessageBirdMessageResponse extends ApiDTO {
 
     @Nullable
     private Item item;
 
-    protected MessageBirdMessageResponse() {
-        // Default constructor required by JAX-B.
+    // Normally unused (required for mock and JAX-B).
+    public MessageBirdMessageResponse() {
         super();
     }
 
     @Override
-    protected void validate() {
+    public void validate() {
         validator().start();
         validator().checkNotNullAndValidate(true, "item", item);
         validator().done();
@@ -122,7 +115,7 @@ public class MessageBirdMessageResponse extends ApiDataBinder {
     }
 
     @XmlAccessorType(XmlAccessType.PUBLIC_MEMBER)
-    public static class Item extends ApiDataBinder {
+    public static class Item extends ApiDTO {
 
         @Nullable
         private ResponseCode responseCode;
@@ -131,13 +124,13 @@ public class MessageBirdMessageResponse extends ApiDataBinder {
         @Nullable
         private String credits;
 
-        protected Item() {
-            // Default constructor required by JAX-B.
+        // Normally unused (required for mock and JAX-B).
+        public Item() {
             super();
         }
 
         @Override
-        protected void validate() {
+        public void validate() {
             validator().start();
             validator().checkNotNull(true, "responseCode", responseCode);
             validator().checkNotNull(true, "responseMessage", responseMessage);

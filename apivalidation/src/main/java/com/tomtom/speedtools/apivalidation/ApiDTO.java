@@ -35,7 +35,7 @@ import javax.annotation.Nonnull;
  * The user of this class should make sure the JAX-B classes look something like this:
  *
  * <pre>
- *    public class MyDataBinder extends ApiDataBinder {
+ *    public class MyDTO extends ApiDTO {
  *
  *       public void validate() {
  *           validator().start();
@@ -74,10 +74,10 @@ import javax.annotation.Nonnull;
  * a user enters all sorts of details and a single validation call allows the client to mark
  * all offending fields.
  */
-public abstract class ApiDataBinder extends JsonBased {
+public abstract class ApiDTO extends JsonBased {
 
     @JsonIgnore
-    private static final Logger LOG = LoggerFactory.getLogger(ApiDataBinder.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ApiDTO.class);
 
     /**
      * Will get set once validated. May only be set once.

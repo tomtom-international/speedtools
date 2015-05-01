@@ -23,6 +23,8 @@ import com.tomtom.speedtools.services.sms.SMSDeliveryReportProcessor;
 import com.tomtom.speedtools.services.sms.SMSProviderConnector;
 import com.tomtom.speedtools.services.sms.implementation.ProviderNames;
 import com.tomtom.speedtools.services.sms.implementation.ProviderRanking;
+import com.tomtom.speedtools.services.sms.implementation.nexmo.dto.NexmoMessage;
+import com.tomtom.speedtools.services.sms.implementation.nexmo.dto.NexmoMessageResponse;
 import org.jboss.resteasy.client.ClientResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
