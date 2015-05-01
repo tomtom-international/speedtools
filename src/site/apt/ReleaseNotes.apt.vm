@@ -1,5 +1,11 @@
 Release Notes (Version ${project.version})
 
+* 3.0.5
+
+    * To do.
+
+    []
+
 * 3.0.4
 
     * Rename <<<DataBinder>>> to more commonly used <<<DTO>>>.
