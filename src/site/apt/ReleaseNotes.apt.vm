@@ -2,7 +2,7 @@ Release Notes (Version ${project.version})
 
 * 3.0.4
 
-    * To do.
+    * Made <<<ApiDataBinder.validate()>>> public to validate polymorph objects.
 
     []
 

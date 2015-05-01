@@ -146,7 +146,7 @@ public abstract class ApiDataBinder extends JsonBased {
     /**
      * Check contains the parameter checks in derived classes.
      */
-    protected abstract void validate();
+    public abstract void validate();
 
     /**
      * Check contains the parameter checks in derived classes. Useful for subclasses calling its super validate method
