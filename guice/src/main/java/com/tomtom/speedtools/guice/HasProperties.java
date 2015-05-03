@@ -21,5 +21,7 @@ package com.tomtom.speedtools.guice;
  * all configurable classes in a system.
  */
 public interface HasProperties {
-    // Empty tagging interface.
+
+    // Special property to identify empty strings. Properties with this value may be left empty.
+    public static String PROPERTIES_EMPTY_STRING = "Properties.emptyString";
 }

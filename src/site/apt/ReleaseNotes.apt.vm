@@ -2,7 +2,7 @@ Release Notes (Version ${project.version})
 
 * 3.0.5
 
-    * To do.
+    * Added propertie "Properties.emptyString". Properties with this value will passed as empty strings.
 
     []
 

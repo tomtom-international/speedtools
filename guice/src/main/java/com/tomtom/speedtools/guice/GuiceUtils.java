@@ -96,13 +96,27 @@ public final class GuiceUtils {
             }
         }
 
+        // Get specific empty string property.
+        final String emptyString = properties.getProperty(HasProperties.PROPERTIES_EMPTY_STRING);
+        if ((emptyString == null) || emptyString.trim().isEmpty()) {
+            final String msg = "Missing value for property " + HasProperties.PROPERTIES_EMPTY_STRING + '.';
+            LOG.error("{}", msg);
+            binder.addError(msg);
+        }
+
         // Check that all properties have been set.
         for (final String name : properties.stringPropertyNames()) {
             final String value = properties.getProperty(name);
             if ((value == null) || value.trim().isEmpty()) {
-                final String msg = "Missing value for property " + name + '.';
+                final String msg = "Missing value for property " + name + " (use '" + emptyString +
+                        "' for empty properties instead, defined by " +
+                        HasProperties.PROPERTIES_EMPTY_STRING + ')';
                 LOG.error("{}", msg);
                 binder.addError(msg);
+            } else if (value.equals(emptyString)) {
+                properties.setProperty(name, "");
+            } else {
+                // Leave as-is.
             }
         }
 
