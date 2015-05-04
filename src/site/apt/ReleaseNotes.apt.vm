@@ -1,5 +1,11 @@
 Release Notes (Version ${project.version})
 
+* 3.0.6
+
+    * Made <<<ViewportTile/TimeOffset>>> classes public (from package private).
+
+    []
+
 * 3.0.5
 
     * Added propertie "Properties.emptyString". Properties with this value will passed as empty strings.

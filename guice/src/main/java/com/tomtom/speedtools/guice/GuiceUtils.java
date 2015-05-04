@@ -99,10 +99,13 @@ public final class GuiceUtils {
         // Get specific empty string property.
         final String emptyString = properties.getProperty(HasProperties.PROPERTIES_EMPTY_STRING);
         if ((emptyString == null) || emptyString.trim().isEmpty()) {
-            final String msg = "Missing value for property " + HasProperties.PROPERTIES_EMPTY_STRING + '.';
+            final String msg = "Missing value for special 'empty string' property " +
+                    HasProperties.PROPERTIES_EMPTY_STRING + '.';
             LOG.error("{}", msg);
             binder.addError(msg);
         }
+        LOG.info("  (In the property files, empty strings were specified as '{}' by {}.)",
+                emptyString, HasProperties.PROPERTIES_EMPTY_STRING);
 
         // Check that all properties have been set.
         for (final String name : properties.stringPropertyNames()) {

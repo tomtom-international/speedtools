@@ -30,7 +30,7 @@ import java.util.Arrays;
  * Constructor: {@link #MercatorPoint}
  */
 @Immutable
-final class MercatorPoint {
+public final class MercatorPoint {
     public final double mercX;
     public final double mercY;
 

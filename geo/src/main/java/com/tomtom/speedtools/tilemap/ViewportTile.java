@@ -25,7 +25,7 @@ import javax.annotation.Nullable;
 /**
  * Class used to specify a plot position and crop area for images.
  */
-final class ViewportTile<T> {
+public final class ViewportTile<T> {
     public final int seqX;        // Sequence number X for image (0, 1, 2, ...), 0 = left.
     public final int seqY;        // Sequence number Y for image (0, 1, 2, ...), 0 = top.
     @Nonnull

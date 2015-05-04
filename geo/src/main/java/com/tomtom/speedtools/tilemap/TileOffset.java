@@ -25,11 +25,11 @@ import javax.annotation.Nullable;
 /**
  * Point within a map tile, given a map tile key.
  */
-final class TileOffset {
+public final class TileOffset {
     @Nonnull
     private final TileKey key;     // Tile index.
-    private final int offsetX; // Pixel offset right from south-west corner.
-    private final int offsetY; // Pixel offset up from south-west corner.
+    private final int offsetX;     // Pixel offset right from south-west corner.
+    private final int offsetY;     // Pixel offset up from south-west corner.
 
     /**
      * Create a map tile key with a zoomlevel and offset within the tile.
