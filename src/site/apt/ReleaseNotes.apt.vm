@@ -1,5 +1,11 @@
 Release Notes (Version ${project.version})
 
+* 3.0.7
+
+    * To be done.
+
+    []
+
 * 3.0.6
 
     * Made <<<ViewportTile/TimeOffset>>> classes public (from package private).
