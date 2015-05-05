@@ -96,9 +96,9 @@ public class CircularBuffer<T> {
     }
 
     /**
-     * Return newest element and move cursor.
+     * Return oldest element and move cursor.
      *
-     * @return Newest element.
+     * @return Oldest element.
      * @throws UnderflowException Thrown if buffer is empty.
      */
     @Nonnull
