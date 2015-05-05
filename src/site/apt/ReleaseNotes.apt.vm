@@ -1,5 +1,11 @@
 Release Notes (Version ${project.version})
 
+* 3.0.8
+
+    * To do.
+
+    []
+
 * 3.0.7
 
     * Fixed a bug in serializing/deserializng enums with redefined <<<toString()>>> methods.
