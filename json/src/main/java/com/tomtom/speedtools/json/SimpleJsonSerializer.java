@@ -39,7 +39,7 @@ import java.util.concurrent.ConcurrentHashMap;
 /**
  * Simple POJO (Plain Old Java Object, or 'regular Java object') to JSON object mapper. It is lenient, invalid values
  * may be discarded or an exception can be thrown (customizable).
- *
+ * <p>
  * For non JSON-type fields, the serializer returns a Java Map object that contains the JSON representation of the
  * supplied POJO. However, This mapper may be overridden to generate other forms of JSON map objects, such as a MongoDB
  * DBObject (which effectively is also a JSON map object). To do so, override the {@link #createJsonMappedObject()}
@@ -141,7 +141,7 @@ public class SimpleJsonSerializer {
     /**
      * Convert a POJO to JSON string object. Note that there is no method to read the JSON string representation and
      * deserialize it. It is primarily used for logging.
-     *
+     * <p>
      * Also note that the string representation includes additional tags for class/type names, unnamed values and such.
      * As such, it is not compatible with other JSON frameworks, such as Jackson, and is not suitable for use in JSON
      * web responses, for example.
@@ -474,7 +474,13 @@ public class SimpleJsonSerializer {
         }
         final Map<String, Object> jsonObject = createJsonMappedObject();
         jsonObject.put(CLASS_NAME_FIELD, type.getName());
-        jsonObject.put(WRAPPER_VALUE_FIELD, value.toString());
+        final String actualValue;
+        if (type.isEnum()) {
+            actualValue = ((Enum) value).name();
+        } else {
+            actualValue = value.toString();
+        }
+        jsonObject.put(WRAPPER_VALUE_FIELD, actualValue);
         return jsonObject;
     }
 

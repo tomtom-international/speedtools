@@ -1312,7 +1312,12 @@ public class SimpleJsonSerializerTest {
 
     public static enum Gender {
         MALE,
-        FEMALE
+        FEMALE;
+
+        @Override
+        public String toString() {
+            return name().toLowerCase();
+        }
     }
 
     @Test
