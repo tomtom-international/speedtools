@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (C) 2015. TomTom International BV (http://tomtom.com).
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~    http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- Use the speedtools shared pom. -->
+    <parent>
+        <groupId>com.tomtom.speedtools</groupId>
+        <artifactId>speedtools</artifactId>
+        <version>3.0.6-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>resources</artifactId>
+    <packaging>jar</packaging>
+
+    <name>SpeedTools Shared Resources</name>
+
+    <!--
+        Don't add a description if you want the project not to be picked up by the maven-mailinglist-plugin
+        (if the plugin is enabled).
+    -->
+    <description>
+        Resources for project SpeedTools.
+    </description>
+
+    <build>
+        <plugins>
+            <!-- Make shared resources. -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-remote-resources-plugin</artifactId>
+                <version>${maven-remote-resources-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>bundle</goal>
+                        </goals>
+                        <configuration>
+                            <includes>
+                                <include>**/*.properties</include>
+                                <include>**/*.xml</include>
+                            </includes>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+
+        <resources>
+            <resource>
+                <!-- Let Maven change these files, to enter POM version and such. -->
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+    </build>
+
+    <!-- Test profiles. -->
+    <profiles>
+        <profile>
+            <id>development</id>
+            <build>
+                <resources>
+                    <resource>
+                        <directory>src/main/external-resources</directory>
+                    </resource>
+                </resources>
+            </build>
+        </profile>
+    </profiles>
+</project>
