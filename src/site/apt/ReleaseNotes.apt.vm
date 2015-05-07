@@ -2,7 +2,8 @@ Release Notes (Version ${project.version})
 
 * 3.0.8
 
-    * To do.
+    * Added explanation in <<<MongoDBTraceFetcher>>> exception which would occur when using a non-capped
+      MongoDB collection for traces.
 
     []
 

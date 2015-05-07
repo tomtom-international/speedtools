@@ -33,7 +33,7 @@ import java.util.concurrent.atomic.AtomicReference;
 
 /**
  * This class implement a fetcher for events from a MongoDB database.
- *
+ * <p>
  * This class is package private.
  */
 @SuppressWarnings("ThisEscapedInObjectConstruction")
@@ -42,6 +42,7 @@ class MongoDBTraceFetcher implements Runnable {
 
     private static final String TAILABLE_QUERY_DUMMY_EVENT = "@skip";
     private static final int THREAD_SLEEP_MSECS = 250;
+    private static final int THREAD_SLEEP_AFTER_EXCEPTION_MSECS = 5000;
     private static final int FETCH_QUEUE_MAX_SIZE = 500;
 
     @Nonnull
@@ -230,11 +231,20 @@ class MongoDBTraceFetcher implements Runnable {
                         }
                         handled = true;
                     }
-                } catch (final Throwable ignored) {
+                } catch (final Throwable e) {
                     final DateTime now = UTCTime.now();
-                    LOG.error("run: MongoDB exception" +
-                            ". Last event time: " + lastEventTime + '(' + lastEventTime.toDate().getTime() + ')' +
-                            ". Moving head to: " + now + '(' + now.toDate().getTime() + ')');
+                    LOG.error("run: MongoDB exception. Are you using a capped collection for traces? " +
+                            "Last event time: " + lastEventTime + '(' + lastEventTime.toDate().getTime() + ')' +
+                            ". Moving head to: " + now + '(' + now.toDate().getTime() + ')' +
+                            "\nException: " + e);
+
+                    // Wait some time before trying again.
+                    try {
+                        //noinspection BusyWait
+                        Thread.sleep(THREAD_SLEEP_AFTER_EXCEPTION_MSECS);
+                    } catch (final InterruptedException ignored) {
+                        // Ignore.
+                    }
                     moveTo(now);
                 }
             }
