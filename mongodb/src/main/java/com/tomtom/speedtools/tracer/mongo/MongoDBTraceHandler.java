@@ -148,7 +148,7 @@ public class MongoDBTraceHandler implements GenericTraceHandler {
 
         final DB db = mongo.getDB(database);
         final DBObject options = new BasicDBObject();
-        options.put("capped", "true");
+        options.put("capped", true);
         options.put("size", sizeMB * MEGABYTE);
 
         final DBCollection collection;
