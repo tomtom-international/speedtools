@@ -128,7 +128,7 @@
         <log4j.version>1.2.17</log4j.version>
         <loremipsum.version>1.0</loremipsum.version>
         <mockito-core.version>1.10.19</mockito-core.version>
-        <mongo-java-driver.version>2.13.0</mongo-java-driver.version>
+        <mongo-java-driver.version>3.0.1</mongo-java-driver.version>
         <org.objenesis.version>2.1</org.objenesis.version>
         <paranamer.version>2.7</paranamer.version>
         <resteasy.version>3.0.11.Final</resteasy.version>

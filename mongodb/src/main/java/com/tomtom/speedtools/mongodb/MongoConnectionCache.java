@@ -87,7 +87,7 @@ public final class MongoConnectionCache {
                 final List<MongoCredential> credentials = new ArrayList<>();
                 if (!userName.isEmpty()) {
                     LOG.debug("getMongoDB: credentials provided (username/password)");
-                    final MongoCredential credential = MongoCredential.createPlainCredential(userName, database, password.toCharArray());
+                    final MongoCredential credential = MongoCredential.createCredential(userName, database, password.toCharArray());
                     credentials.add(credential);
                 }
                 return new MongoClient(replicaSetSeeds, credentials,
