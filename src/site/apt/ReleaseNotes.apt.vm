@@ -1,5 +1,11 @@
 Release Notes (Version ${project.version})
 
+* 3.0.9
+
+    * To do.
+
+    []
+
 * 3.0.8
 
     * Added explanation in <<<MongoDBTraceFetcher>>> exception which would occur when using a non-capped
