@@ -18,28 +18,16 @@ package com.tomtom.speedtools.mongodb;
 
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
+import com.tomtom.speedtools.geometry.GeoPoint;
+import com.tomtom.speedtools.geometry.GeoRectangle;
+import com.tomtom.speedtools.mongodb.mappers.*;
+import com.tomtom.speedtools.mongodb.mappers.EntityMapper.HasFieldName;
+import com.tomtom.speedtools.objects.Immutables;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
-
-import com.tomtom.speedtools.geometry.GeoPoint;
-import com.tomtom.speedtools.geometry.GeoRectangle;
-import com.tomtom.speedtools.mongodb.mappers.EntityMapper;
-import com.tomtom.speedtools.mongodb.mappers.EntityMapper.HasFieldName;
-import com.tomtom.speedtools.mongodb.mappers.GeoPointMapper;
-import com.tomtom.speedtools.mongodb.mappers.IdentityMapper;
-import com.tomtom.speedtools.mongodb.mappers.Mapper;
-import com.tomtom.speedtools.mongodb.mappers.MapperException;
-import com.tomtom.speedtools.mongodb.mappers.StringMapper;
-import com.tomtom.speedtools.objects.Immutables;
 
 import static com.tomtom.speedtools.mongodb.MongoDBUtils.MONGO_PATH_SEPARATOR;
 import static com.tomtom.speedtools.mongodb.MongoDBUtils.mongoPath;
@@ -192,7 +180,8 @@ public class MongoDBQuery {
     /**
      * Method returns a MongoDBQuery that would match attributes with value null or the absence of an attribute.
      *
-     * @param f0 Element in path to the Field.
+     * @param <T> Type.
+     * @param f0  Element in path to the Field.
      * @return MongoDBQuery that would match attributes with value null or the absence of an attribute.
      */
     @Nonnull
@@ -215,8 +204,9 @@ public class MongoDBQuery {
     /**
      * Method returns a MongoDBQuery that would match attributes with value null or the absence of an attribute.
      *
-     * @param f0 First element in path to the Field.
-     * @param f1 Second element in path to the Field.
+     * @param <T> Type.
+     * @param f0  First element in path to the Field.
+     * @param f1  Second element in path to the Field.
      * @return MongoDBQuery that would match attributes with value null or the absence of an attribute.
      */
     @Nonnull
@@ -240,9 +230,10 @@ public class MongoDBQuery {
     /**
      * Method returns a MongoDBQuery that would match attributes with value null or the absence of an attribute.
      *
-     * @param f0 First element in path to the Field.
-     * @param f1 Second element in path to the Field.
-     * @param f2 Third element in path to the Field.
+     * @param <T> Type.
+     * @param f0  First element in path to the Field.
+     * @param f1  Second element in path to the Field.
+     * @param f2  Third element in path to the Field.
      * @return MongoDBQuery that would match attributes with value null or the absence of an attribute.
      */
     @Nonnull

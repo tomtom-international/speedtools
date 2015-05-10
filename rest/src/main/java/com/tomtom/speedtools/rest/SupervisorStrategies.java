@@ -49,6 +49,7 @@ public class SupervisorStrategies implements HasProperties {
     /**
      * Akka supervisor properties.
      *
+     * @param injector            Injector.
      * @param maxNrOfRetries      Maximum number a child can be restarted within restartChildWithinTimeRangeSecs before
      *                            it dies. Must be &gt;= 0.
      * @param withinTimeRangeSecs If more than restartChildMaxNrOfRetries failures of a child occur within

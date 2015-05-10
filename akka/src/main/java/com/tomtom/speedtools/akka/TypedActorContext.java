@@ -16,19 +16,13 @@
 
 package com.tomtom.speedtools.akka;
 
-import akka.actor.ActorContext;
-import akka.actor.ActorRef;
-import akka.actor.ActorSystem;
-import akka.actor.Cancellable;
-import akka.actor.TypedActor;
-import akka.actor.TypedProps;
+import akka.actor.*;
 import akka.routing.RouterConfig;
-
-import javax.annotation.Nonnull;
-
 import org.joda.time.DateTime;
 import scala.concurrent.ExecutionContext;
 import scala.concurrent.duration.FiniteDuration;
+
+import javax.annotation.Nonnull;
 
 /**
  * Facade of the actor system to be used by typed actors. All Akka functionality to be used from an actor is exposed
@@ -111,6 +105,8 @@ public class TypedActorContext<T> {
      * explicitParameters. If the constructor has additional parameters and it has the Inject annotation, these
      * parameters will be injected.
      *
+     * @param <T>                 Interface.
+     * @param <Impl>              Implementation.
      * @param interfaceClass      Interface of the untyped actor to create.
      * @param implementationClass Class of the untyped actor to create.
      * @param explicitParameters  Parameters to be passed to the constructor.
@@ -132,6 +128,8 @@ public class TypedActorContext<T> {
      * that match given explicitParameters. If the constructor has additional parameters and it has the Inject
      * annotation, these parameters will be injected.
      *
+     * @param <T>                 Interface.
+     * @param <Impl>              Implementation.
      * @param name                Name of the created actor.
      * @param interfaceClass      Interface of the untyped actor to create.
      * @param implementationClass Class of the untyped actor to create.
@@ -154,9 +152,9 @@ public class TypedActorContext<T> {
     /**
      * Returns the typed actor with given path, proxied with given interface.
      *
+     * @param <T>            Type of the proxy interface.
      * @param name           Relative path to actor.
      * @param interfaceClass Type of the proxy interface.
-     * @param <T>            Type of the proxy interface.
      * @return Typed actor.
      */
     @Nonnull
@@ -174,9 +172,9 @@ public class TypedActorContext<T> {
     /**
      * Returns a typed router actor that will forward all messages using the routerConfig.
      *
+     * @param <T>            The type of the proxy interface.
      * @param interfaceClass The type of the proxy interface.
      * @param routerConfig   The router configuration to use.
-     * @param <T>            The type of the proxy interface.
      * @return Typed router actor.
      */
     @Nonnull
@@ -190,10 +188,10 @@ public class TypedActorContext<T> {
     /**
      * Returns a typed router actor that will forward all messages using the routerConfig.
      *
+     * @param <T>            The type of the proxy interface.
      * @param name           Actor name.
      * @param interfaceClass The type of the proxy interface.
      * @param routerConfig   The router configuration to use.
-     * @param <T>            The type of the proxy interface.
      * @return Typed router actor.
      */
     @Nonnull

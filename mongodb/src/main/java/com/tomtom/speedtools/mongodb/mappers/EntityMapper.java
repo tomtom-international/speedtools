@@ -18,6 +18,11 @@ package com.tomtom.speedtools.mongodb.mappers;
 
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
+import com.tomtom.speedtools.domain.Uid;
+import com.tomtom.speedtools.mongodb.MongoDBKeyNames;
+import com.tomtom.speedtools.objects.Tuple;
+import com.tomtom.speedtools.utils.MathUtils;
+import com.tomtom.speedtools.utils.SetUtils;
 import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 import org.slf4j.Logger;
@@ -29,25 +34,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Currency;
-import java.util.HashSet;
-import java.util.LinkedHashMap;
-import java.util.LinkedHashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-import java.util.Set;
-
-import com.tomtom.speedtools.domain.Uid;
-import com.tomtom.speedtools.mongodb.MongoDBKeyNames;
-import com.tomtom.speedtools.objects.Tuple;
-import com.tomtom.speedtools.utils.MathUtils;
-import com.tomtom.speedtools.utils.SetUtils;
+import java.util.*;
 
 public abstract class EntityMapper<T> extends Mapper<T> {
     private static final Logger LOG = LoggerFactory.getLogger(EntityMapper.class);
@@ -130,6 +117,7 @@ public abstract class EntityMapper<T> extends Mapper<T> {
      * Converts a database object to an entity. A null value can be returned, but will always cause an error to be added
      * to errors.  <p>Note that the corresponding mapperRegistry should be initialized first.
      *
+     * @param <T2>     Subtype.
      * @param dbObject Database object to convert to an entity.
      * @param errors   Container for errors that might occur.
      * @return Entity, possibly null.
@@ -187,6 +175,7 @@ public abstract class EntityMapper<T> extends Mapper<T> {
      * Merges a database object into an existing entity. Fields will be overwritten, collections will be replaced.
      * <p>Note that the corresponding mapperRegistry should be initialized first.
      *
+     * @param <T2>     Subtype.
      * @param entity   Entity to merge into.
      * @param dbObject Data object to read data from.
      * @param errors   Container for errors.
@@ -372,6 +361,7 @@ public abstract class EntityMapper<T> extends Mapper<T> {
     /**
      * Finds the most specific sub mapper based on the given entity type.
      *
+     * @param <T2>       Subtype.
      * @param entityType Entity type to find mapper for.
      * @return Most specific sub-mapper.
      */
@@ -456,6 +446,7 @@ public abstract class EntityMapper<T> extends Mapper<T> {
     /**
      * Creates a new reflective field.
      *
+     * @param <U>                Type.
      * @param fieldName          Name of the field.
      * @param mapper             Mapper for the field.
      * @param getter             Name of the get method, or NO_GETTER.
@@ -481,6 +472,7 @@ public abstract class EntityMapper<T> extends Mapper<T> {
     /**
      * /** Creates a new reflective field.
      *
+     * @param <U>                Type.
      * @param fieldName          Name of the field.
      * @param mapperType         Type of the field mapper.
      * @param getter             Name of the get method, or NO_GETTER.
@@ -746,6 +738,7 @@ public abstract class EntityMapper<T> extends Mapper<T> {
     /**
      * Creates a new reflective reference field.
      *
+     * @param <U>                Type.
      * @param fieldName          Field name.
      * @param getter             Name of the get method, or NO_GETTER.
      * @param setter             Name of the set method, or NO_SETTER or CONSTRUCTOR.
@@ -768,6 +761,7 @@ public abstract class EntityMapper<T> extends Mapper<T> {
     /**
      * Creates a new reflective collection field.
      *
+     * @param <U>                Type.
      * @param fieldName          Name of the field.
      * @param mapper             Mapper for the field.
      * @param getter             Name of the get method, or NO_GETTER.
@@ -808,6 +802,7 @@ public abstract class EntityMapper<T> extends Mapper<T> {
     /**
      * /** Creates a new reflective field.
      *
+     * @param <U>                Type.
      * @param fieldName          Name of the field.
      * @param mapperType         Type of the field mapper.
      * @param getter             Name of the get method, or NO_GETTER.
@@ -915,6 +910,7 @@ public abstract class EntityMapper<T> extends Mapper<T> {
     /**
      * Creates a new reflective reference field.
      *
+     * @param <U>                Type.
      * @param fieldName          Field name.
      * @param getter             Name of the get method, or NO_GETTER.
      * @param setter             Name of the set method, or NO_SETTER or CONSTRUCTOR.

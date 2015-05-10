@@ -136,7 +136,8 @@ public final class Uid<T> implements Serializable {
     /**
      * Instantiates a Uid with given id. Mainly used for deserialization. Opposite of {@link #toString()}.
      *
-     * @param id String representation of id.
+     * @param <T> Uid type.
+     * @param id  String representation of id.
      * @return Uid.
      * @throws IllegalArgumentException If name does not conform to the string representation as described in {@link
      *                                  UUID#toString}. Use {@link #isValid(String)} to make sure the string is valid.
@@ -150,7 +151,8 @@ public final class Uid<T> implements Serializable {
     /**
      * Instantiates a Uid with given id. Opposite of {@link #toHexString()}.
      *
-     * @param id Hex string representation of id, must be exactly 32 characters long.
+     * @param <T> Uid type.
+     * @param id  Hex string representation of id, must be exactly 32 characters long.
      * @return Uid.
      * @throws IllegalArgumentException If name does not conform to the string representation as described in {@link
      *                                  UUID#toString}. Use {@link #isValid(String)} to make sure the string is valid.

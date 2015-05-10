@@ -56,6 +56,7 @@ public interface NexmoResource {
      *                             Ex: text=Hello+World!
      * @param statusReportRequired Set to 1 if you want to receive a delivery report (DLR) for this request. Make sure
      * @param clientReference      Client reference number.
+     * @return Response.
      */
     @GET
     @ClientResponseType(entityType = NexmoMessageResponse.class)

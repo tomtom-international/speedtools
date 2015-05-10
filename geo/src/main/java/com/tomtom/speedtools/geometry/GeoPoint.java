@@ -16,11 +16,11 @@
 
 package com.tomtom.speedtools.geometry;
 
-import javax.annotation.concurrent.Immutable;
+import com.tomtom.speedtools.utils.MathUtils;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-
-import com.tomtom.speedtools.utils.MathUtils;
+import javax.annotation.concurrent.Immutable;
 
 /**
  * Geometric point. A geometric point is specified in latitude, longitude.
@@ -107,6 +107,9 @@ public final class GeoPoint extends GeoObject {
 
     /**
      * Setter for {@link #getLat()}.
+     *
+     * @param lat Latitude.
+     * @return New point.
      */
     @Nonnull
     public GeoPoint withLat(@Nonnull final Double lat) {
@@ -115,6 +118,9 @@ public final class GeoPoint extends GeoObject {
 
     /**
      * Setter for {@link #getLon()}.
+     *
+     * @param lon Longitude.
+     * @return New point.
      */
     @Nonnull
     public GeoPoint withLon(@Nonnull final Double lon) {

@@ -109,6 +109,9 @@ public final class GeoCircle extends Primitive {
 
     /**
      * Setter for {@link #getCenter()}.
+     *
+     * @param center Center.
+     * @return New circle.
      */
     @Nonnull
     public GeoCircle withCenter(@Nonnull final GeoPoint center) {
@@ -117,6 +120,9 @@ public final class GeoCircle extends Primitive {
 
     /**
      * Setter for {@link #getRadiusMeters()}.
+     *
+     * @param radiusMeters Radius.
+     * @return New circle.
      */
     @Nonnull
     public GeoCircle withRadiusMeters(@Nonnull final Double radiusMeters) {

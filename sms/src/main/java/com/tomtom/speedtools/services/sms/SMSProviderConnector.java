@@ -69,12 +69,15 @@ public interface SMSProviderConnector {
      * @param recipient       The telephone number to send to.
      * @param message         The message to send to the number.
      * @param referenceNumber An optional reference number. Used by asynchronous delivery reports.
+     * @return Status.
      */
     @Nonnull
     Status sendTextMessage(@Nonnull String recipient, @Nonnull String message, @Nullable Long referenceNumber);
 
     /**
      * Provider name. Unique across all providers.
+     *
+     * @return Name.
      */
     @Nonnull
     String getProviderName();
@@ -95,6 +98,7 @@ public interface SMSProviderConnector {
      * @param parameterMap The parameters from the delivery report request. For each parameter name, it provides an
      *                     array of values.
      * @return A processor that processes the given parameters.
+     * @throws SMSDeliveryReportParameterException If error.
      */
     @Nonnull
     SMSDeliveryReportProcessor getProcessor(@Nonnull Map<String, String[]> parameterMap) throws SMSDeliveryReportParameterException;

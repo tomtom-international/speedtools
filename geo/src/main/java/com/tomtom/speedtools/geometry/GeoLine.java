@@ -16,11 +16,11 @@
 
 package com.tomtom.speedtools.geometry;
 
+import com.tomtom.speedtools.utils.MathUtils;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
-
-import com.tomtom.speedtools.utils.MathUtils;
 
 /**
  * Geometric line between two points, from west to east (or, for vertical vectors east=west). If west &gt; east, the
@@ -117,6 +117,9 @@ public final class GeoLine extends GeoObject {
 
     /**
      * Setter for {@link #getSouthWest()}.
+     *
+     * @param southWest Location.
+     * @return New line.
      */
     @Nonnull
     public GeoLine withSouthWest(@Nonnull final GeoPoint southWest) {
@@ -125,6 +128,9 @@ public final class GeoLine extends GeoObject {
 
     /**
      * Setter for {@link #getNorthEast()}.
+     *
+     * @param northEast Location.
+     * @return New line.
      */
     @Nonnull
     public GeoLine withNorthEast(@Nonnull final GeoPoint northEast) {

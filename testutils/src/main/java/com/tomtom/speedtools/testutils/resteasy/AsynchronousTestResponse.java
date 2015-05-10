@@ -17,12 +17,10 @@
 package com.tomtom.speedtools.testutils.resteasy;
 
 import org.jboss.resteasy.spi.AsynchronousResponse;
+import org.joda.time.Duration;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-
-import org.joda.time.Duration;
-
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 import java.util.concurrent.BlockingQueue;
@@ -47,7 +45,7 @@ public final class AsynchronousTestResponse<T> implements AsynchronousResponse {
     /**
      * Creates a response instance.
      *
-     * @param <T> Entity type withing the response.
+     * @param <T> Entity type within the response.
      * @return New Response instance.
      */
     @Nonnull
@@ -67,7 +65,8 @@ public final class AsynchronousTestResponse<T> implements AsynchronousResponse {
      * to be 200 (OK).
      *
      * @param timeout Time out value.
-     * @return Entity of the response
+     * @return Entity of the response.
+     * @throws UnexpectedResponseException If error.
      */
     @Nonnull
     public T verifyEntity(@Nonnull final Duration timeout) throws UnexpectedResponseException {
@@ -80,7 +79,8 @@ public final class AsynchronousTestResponse<T> implements AsynchronousResponse {
      *
      * @param expectedStatus When set, the expected status code of the response.
      * @param timeout        Time out value.
-     * @return Entity of the response
+     * @return Entity of the response.
+     * @throws UnexpectedResponseException If error.
      */
     @Nonnull
     public T verifyEntity(@Nullable final Integer expectedStatus, @Nonnull final Duration timeout) throws UnexpectedResponseException {
@@ -93,7 +93,8 @@ public final class AsynchronousTestResponse<T> implements AsynchronousResponse {
      *
      * @param timeout Time out value.
      * @param unit    Unit of the time out value.
-     * @return Entity of the response
+     * @return Entity of the response.
+     * @throws UnexpectedResponseException If error.
      */
     @Nonnull
     public T verifyEntity(final long timeout, @Nonnull final TimeUnit unit) throws UnexpectedResponseException {
@@ -107,7 +108,8 @@ public final class AsynchronousTestResponse<T> implements AsynchronousResponse {
      * @param expectedStatus When set, the expected status code of the response.
      * @param timeout        Time out value.
      * @param unit           Unit of the time out value.
-     * @return Entity of the response
+     * @return Entity of the response.
+     * @throws UnexpectedResponseException If error.
      */
     @Nonnull
     public T verifyEntity(@Nullable final Integer expectedStatus, final long timeout, @Nonnull final TimeUnit unit) throws UnexpectedResponseException {

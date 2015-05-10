@@ -89,6 +89,7 @@ public abstract class GeoArea extends GeoObject {
      * surface.
      *
      * @param areas Collection of areas to union. The list must contain at least 1 area.
+     * @return New geo area.
      */
     @Nonnull
     public static GeoArea fromAreas(@Nonnull final Collection<? extends GeoArea> areas) {
@@ -126,6 +127,9 @@ public abstract class GeoArea extends GeoObject {
      * actually do not really overlap.
      *
      * Overlap is symmetric: a.overlap(b) == b.overlaps(a).
+     *
+     * @param area Area to check if overlaps.
+     * @return True if overlaps.
      */
     public abstract boolean overlaps(@Nonnull final GeoArea area);
 
@@ -134,6 +138,9 @@ public abstract class GeoArea extends GeoObject {
      * points that are contained in B are also contained in A.
      *
      * The following holds: a.contains(b) AND b.contains(a) iff a.equals(b)
+     *
+     * @param area Area to check if it is contained.
+     * @return True if contains.
      */
     public abstract boolean contains(@Nonnull final GeoArea area);
 

@@ -147,6 +147,7 @@ public final class MathUtils {
      *
      * @param min Minimum (inclusive). Must be &lt;= max.
      * @param max Maximum (inclusive).
+     * @return Random number in [min, max].
      */
     public static int random(final int min, final int max) {
         assert min <= max;

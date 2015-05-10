@@ -16,11 +16,10 @@
 
 package com.tomtom.speedtools.metrics;
 
-import javax.annotation.Nonnull;
-
+import com.tomtom.speedtools.time.UTCTime;
 import org.joda.time.DateTime;
 
-import com.tomtom.speedtools.time.UTCTime;
+import javax.annotation.Nonnull;
 
 /**
  * Convenience class that wraps multiple calculators with different intervals.
@@ -81,6 +80,9 @@ public class MultiMetricsCollector implements MultiMetricsData {
     /**
      * Return the total number of metric data items added to the collector with the given interval up until now since
      * the duration (approx) of this metric.
+     *
+     * @param interval Interval.
+     * @return Total.
      */
     public int getCount(@Nonnull final Period interval) {
         assert interval != null;
@@ -95,6 +97,7 @@ public class MultiMetricsCollector implements MultiMetricsData {
      * Return the sum of all metric data added to the collector with the given interval up until now since the duration
      * (approx) of this metric.
      *
+     * @param interval Interval.
      * @return Sum of metric data.
      */
     public float getSum(@Nonnull final Period interval) {
@@ -110,6 +113,7 @@ public class MultiMetricsCollector implements MultiMetricsData {
      * Return the average of all metric data added to the collector with the given interval up until now since the
      * duration (approx) of this metric.
      *
+     * @param interval Interval.
      * @return Average of metric data.
      */
     public float getAvg(@Nonnull final Period interval) {

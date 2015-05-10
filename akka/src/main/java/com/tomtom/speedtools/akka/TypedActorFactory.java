@@ -163,6 +163,8 @@ public class TypedActorFactory<T, Impl extends T> implements Creator<Impl> {
      * that match given explicitParameters. If the constructor has additional parameters and it has the Inject
      * annotation, these parameters will be injected.
      *
+     * @param <T>                 Interface.
+     * @param <Impl>              Instance.
      * @param name                Name of the created actor.
      * @param interfaceClass      Interface of the untyped actor to create.
      * @param implementationClass Class of the untyped actor to create.
@@ -187,6 +189,8 @@ public class TypedActorFactory<T, Impl extends T> implements Creator<Impl> {
      * explicitParameters. If the constructor has additional parameters and it has the Inject annotation, these
      * parameters will be injected.
      *
+     * @param <T>                 Interface.
+     * @param <Impl>              Instance.
      * @param interfaceClass      Interface of the untyped actor to create.
      * @param implementationClass Class of the untyped actor to create.
      * @param explicitParameters  Parameters to be passed to the constructor.
@@ -208,6 +212,8 @@ public class TypedActorFactory<T, Impl extends T> implements Creator<Impl> {
      * that match given explicitParameters. If the constructor has additional parameters and it has the Inject
      * annotation, these parameters will be injected.
      *
+     * @param <T>                 Interface.
+     * @param <Impl>              Instance.
      * @param context             Actor context.
      * @param name                Name of the created actor.
      * @param interfaceClass      Interface of the untyped actor to create.
@@ -242,6 +248,8 @@ public class TypedActorFactory<T, Impl extends T> implements Creator<Impl> {
      * explicitParameters. If the constructor has additional parameters and it has the Inject annotation, these
      * parameters will be injected.
      *
+     * @param <T>                 Interface.
+     * @param <Impl>              Instance.
      * @param context             Actor context.
      * @param interfaceClass      Interface of the untyped actor to create.
      * @param implementationClass Class of the untyped actor to create.
@@ -273,6 +281,8 @@ public class TypedActorFactory<T, Impl extends T> implements Creator<Impl> {
      * that match given explicitParameters. If the constructor has additional parameters and it has the Inject
      * annotation, these parameters will be injected.
      *
+     * @param <T>                 Interface.
+     * @param <Impl>              Instance.
      * @param system              Actor system.
      * @param name                Name of the created actor.
      * @param interfaceClass      Interface of the untyped actor to create.
@@ -305,6 +315,8 @@ public class TypedActorFactory<T, Impl extends T> implements Creator<Impl> {
      * that match given explicitParameters. If the constructor has additional parameters and it has the Inject
      * annotation, these parameters will be injected.
      *
+     * @param <T>                 Interface.
+     * @param <Impl>              Instance.
      * @param system              Actor system.
      * @param name                Name of the created actor.
      * @param dispatcher          The name of the dispatcher to use.
@@ -335,6 +347,8 @@ public class TypedActorFactory<T, Impl extends T> implements Creator<Impl> {
      * explicitParameters. If the constructor has additional parameters and it has the Inject annotation, these
      * parameters will be injected.
      *
+     * @param <T>                 Interface.
+     * @param <Impl>              Instance.
      * @param system              Actor system.
      * @param interfaceClass      Interface of the untyped actor to create.
      * @param implementationClass Class of the untyped actor to create.

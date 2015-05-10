@@ -58,7 +58,9 @@ public interface MessageBirdResource {
      * @param sender       The number of the sender. Since inbox is omitted, this field is compulsory.
      * @param destination  Recipient as MSISDN encoded number (i.e., without +, and 00).
      * @param body         Body of the text message (with a maximum length of 670 characters), UTF-8 encoded.
+     * @param responseType Response type.
      * @param replaceChars Replace characters with GSM7 equivalents.  Optional, default <b>true</b>.
+     * @return Response.
      */
     @GET
     @ClientResponseType(entityType = MessageBirdMessageResponse.class)

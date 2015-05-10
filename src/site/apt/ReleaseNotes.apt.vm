@@ -2,7 +2,9 @@ Release Notes (Version ${project.version})
 
 * 3.0.9
 
-    * To do.
+    * Correct JavaDoc errors.
+
+    * Added <<<ApiListDTO>>> type for top-level JSON lists.
 
     []
 

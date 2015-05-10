@@ -47,6 +47,7 @@ public final class Immutables {
      * Returns the immutable version of given collection. When given collection was already immutable, this collection
      * is simply returned.
      *
+     * @param <T>  Element type.
      * @param elts Elements for the list.
      * @return Immutable list.
      */
@@ -64,6 +65,7 @@ public final class Immutables {
      * Returns a collection containing elements from elts1, concatenated with elts2. When given collection was already
      * an immutable list, this collection is simply returned.
      *
+     * @param <T>   Element type.
      * @param elts1 Initial elements for the list.
      * @param elts2 Elements to be concatenated.
      * @return Concatenated collection.
@@ -88,6 +90,7 @@ public final class Immutables {
     /**
      * Return the empty immutable list.
      *
+     * @param <T> Element type.
      * @return Empty list.
      */
     @Nonnull
@@ -98,6 +101,7 @@ public final class Immutables {
     /**
      * Creates an immutable list containing a single element.
      *
+     * @param <T> Element type.
      * @param elt Element in the list.
      * @return Immutable list.
      */
@@ -110,6 +114,7 @@ public final class Immutables {
     /**
      * Creates an immutable list containing given elements.
      *
+     * @param <T>  Element type.
      * @param elts Elements for the list.
      * @return Immutable list.
      */
@@ -124,6 +129,7 @@ public final class Immutables {
      * Returns an immutable list containing elements from given collection. When given collection was already an
      * immutable list, this list is simply returned.
      *
+     * @param <T>    Element type.
      * @param values Elements for the list.
      * @return Immutable list.
      */
@@ -137,6 +143,7 @@ public final class Immutables {
      * Returns an immutable list containing elements from elts1, concatenated with elts2. When given collection was
      * already an immutable list, this list is simply returned.
      *
+     * @param <T>   Element type.
      * @param elts1 Initial elements for the list.
      * @param elts2 Elements to be concatenated.
      * @return Immutable list.
@@ -161,6 +168,8 @@ public final class Immutables {
     /**
      * Return the empty immutable map.
      *
+     * @param <K> Key type.
+     * @param <V> Value type.
      * @return Empty map.
      */
     @Nonnull
@@ -172,6 +181,8 @@ public final class Immutables {
      * Returns an immutable map containing elements from given map. When given map was already an
      * immutable map, this map is simply returned.
      *
+     * @param <K>    Key type.
+     * @param <V>    Value type.
      * @param values Elements for the map.
      * @return Immutable map.
      */
@@ -184,6 +195,7 @@ public final class Immutables {
     /**
      * Return the empty immutable set.
      *
+     * @param <T> Element type.
      * @return Empty set.
      */
     @Nonnull
@@ -195,6 +207,7 @@ public final class Immutables {
      * Creates an immutable set containing given elements. The order of the elements will be preserved (by means of a
      * {@link LinkedHashSet}.
      *
+     * @param <T>  Element type.
      * @param elts Elements for the set.
      * @return Immutable set.
      */
@@ -210,6 +223,7 @@ public final class Immutables {
      * (by means of a {@link LinkedHashSet}. When given collection was already an immutable set, this set is simply
      * returned.
      *
+     * @param <T>  Element type.
      * @param elts Elements for the set.
      * @return Immutable set.
      */
@@ -224,6 +238,7 @@ public final class Immutables {
      * be preserved (by means of a {@link LinkedHashSet}. When given collection was already an immutable set, this set
      * is simply returned.
      *
+     * @param <T>   Element type.
      * @param elts1 Initial elements for the set.
      * @param elts2 Elements to be concatenated.
      * @return Immutable set.
@@ -249,10 +264,10 @@ public final class Immutables {
      * Replace an element in a list with another. If the element did not exist in the list, no change is made and the
      * original list is returned.
      *
+     * @param <T>    Element type.
      * @param elts   Elements to replace element in.
      * @param oldElt Element to replace.
      * @param newElt Element to replace it with
-     * @param <T>    Type of the elements.
      * @return New List with oldElt replaced.
      */
     public static <T> List<T> replace(final List<T> elts, final T oldElt, final T newElt) {
@@ -270,10 +285,10 @@ public final class Immutables {
     /**
      * Replace an element in a list with another, or adds the element if the element did not exist in the list.
      *
+     * @param <T>    Element type.
      * @param elts   Elements to replace element in.
      * @param oldElt Element to replace.
      * @param newElt Element to replace it with
-     * @param <T>    Type of the elements.
      * @return New List with oldElt replaced.
      */
     public static <T> List<T> replaceOrAdd(final List<T> elts, final T oldElt, final T newElt) {

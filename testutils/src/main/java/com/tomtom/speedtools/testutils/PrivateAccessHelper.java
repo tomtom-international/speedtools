@@ -104,12 +104,12 @@ public final class PrivateAccessHelper {
      * Throwable}, which is chosen so that refactoring errors have the biggest chance of being detected as a failing
      * test (unless the test expects a {@link Throwable} itself).
      *
+     * @param <T>             The type of the class on which to invoke the method.
      * @param instance        The instance on which to invoke the method.
      * @param methodName      The name of the method to invoke.
      * @param argumentTypes   The types of the arguments the given method takes (in same order as in target method
      *                        signature).
      * @param argumentObjects The parameters to the method to invoke.
-     * @param <T>             The type of the class on which to invoke the method.
      * @return Returns the value of the invoked method.
      * @throws Throwable Throws any exception the invoked method threw, or a {@link PrivateAccessFailure
      *                   PrivateAccessFailure} in case the target method could not be invoked (method does not exist,
@@ -149,6 +149,8 @@ public final class PrivateAccessHelper {
      * Throwable}, which is chosen so that refactoring errors have the biggest chance of being detected as a failing
      * test (unless the test expects a {@link Throwable} itself).
      *
+     * @param <T>             Class.
+     * @param <U>             Instance class.
      * @param clazz           The class on which to lookup the method (must be of same type or super-type as {@code
      *                        instance}.
      * @param instance        The instance on which to invoke the method (must be of same type or sub-type as {@code

@@ -40,6 +40,7 @@ public interface SMSDeliveryReportProcessor {
      * the message. The back-end ensures that sms messages are uniquely numbered (&gt; 0).
      *
      * @return The reference number.
+     * @throws SMSDeliveryReportParameterException If error.
      */
     long getReferenceNumber() throws SMSDeliveryReportParameterException;
 
@@ -47,6 +48,7 @@ public interface SMSDeliveryReportProcessor {
      * Get the delivery status for the delivery report.
      *
      * @return The delivery status.
+     * @throws SMSDeliveryReportParameterException If error.
      */
     @Nonnull
     DeliveryStatus getDeliveryStatus() throws SMSDeliveryReportParameterException;

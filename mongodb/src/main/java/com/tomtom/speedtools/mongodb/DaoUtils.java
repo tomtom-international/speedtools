@@ -16,12 +16,12 @@
 
 package com.tomtom.speedtools.mongodb;
 
-import com.mongodb.DBCollection;
-import com.mongodb.DBCursor;
-import com.mongodb.DBObject;
-import com.mongodb.MongoException;
-import com.mongodb.WriteConcern;
-import com.mongodb.WriteResult;
+import com.mongodb.*;
+import com.tomtom.speedtools.json.Json;
+import com.tomtom.speedtools.mongodb.mappers.EntityMapper;
+import com.tomtom.speedtools.mongodb.mappers.MapperError;
+import com.tomtom.speedtools.mongodb.mappers.MapperException;
+import com.tomtom.speedtools.time.UTCTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -29,12 +29,6 @@ import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-
-import com.tomtom.speedtools.json.Json;
-import com.tomtom.speedtools.mongodb.mappers.EntityMapper;
-import com.tomtom.speedtools.mongodb.mappers.MapperError;
-import com.tomtom.speedtools.mongodb.mappers.MapperException;
-import com.tomtom.speedtools.time.UTCTime;
 
 /**
  * This class provides generic methods to operate on MongoDB Collections. Most methods are package private to make sure
@@ -115,6 +109,7 @@ public final class DaoUtils {
     /**
      * Finds entities that satisfy a specified query filter.
      *
+     * @param <T>                Element type.
      * @param collection         Collection to get the entity from.
      * @param mapper             Mapper to be used to reconstitute the object stored in the collection.
      * @param ignoreMapperErrors Ignore mapping exception, skip entities with mapping errors.
@@ -140,6 +135,7 @@ public final class DaoUtils {
     /**
      * Finds entities that satisfy a specified query filter.
      *
+     * @param <T>                Element type.
      * @param collection         Collection to get the entity from.
      * @param mapper             Mapper to be used to reconstitute the object stored in the collection.
      * @param ignoreMapperErrors Ignore mapping exception, skip entities with mapping errors.
@@ -194,10 +190,10 @@ public final class DaoUtils {
     /**
      * Store the given object in the given collections.
      *
+     * @param <T>        The type of the object to te stored.
      * @param collection Collection in which to store the object.
      * @param mapper     Mapper to be used to transform the object.
      * @param entity     The object to be stored.
-     * @param <T>        The type of the object to te stored.
      * @throws EntityStoreException Thrown if the object cannot be transformed. The error will have been logged.
      */
     public static <T> void storeEntity(
@@ -231,10 +227,10 @@ public final class DaoUtils {
      * Removes the given object from the given collection. The entity must fully match the database record to be
      * removed.
      *
+     * @param <T>        The type of the object to remove.
      * @param collection Collection from which to remove the object.
      * @param mapper     Mapper to be used to transform the object.
      * @param entity     The object to be removed.
-     * @param <T>        The type of the object to remove.
      * @throws EntityRemoveException Thrown if the object cannot be removed. The error will have been logged.
      */
     public static <T> void removeEntity(
@@ -259,6 +255,7 @@ public final class DaoUtils {
     /**
      * Removes the given object from the given collection.
      *
+     * @param <T>        Element type.
      * @param collection Collection from which to remove the object.
      * @param field      The field to match.
      * @param value      The value of the field.

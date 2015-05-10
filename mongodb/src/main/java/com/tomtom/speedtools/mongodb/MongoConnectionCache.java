@@ -65,7 +65,11 @@ public final class MongoConnectionCache {
      *      hostname:port[,hostname:port]*
      * </pre>
      *
-     * @param servers Server addresses, format see above.
+     * @param servers             Server addresses, format see above.
+     * @param connectTimeoutMsecs Timeout in seconds.
+     * @param userName            User name.
+     * @param database            Database.
+     * @param password            Password.
      * @return MongoDB instance.
      * @throws UnknownHostException If the MongoDB server cannot be found.
      */

@@ -98,6 +98,7 @@ public final class Objects {
     /**
      * Returns value when it's not null, and defaultValue otherwise.
      *
+     * @param <T>          Type.
      * @param value        Value to check.
      * @param defaultValue Value to return when value equals null.
      * @return Value or defaultValue.

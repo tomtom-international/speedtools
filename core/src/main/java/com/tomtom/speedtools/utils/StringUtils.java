@@ -229,6 +229,7 @@ public final class StringUtils {
     /**
      * Same as mkString but for an Array.
      *
+     * @param <T>       Element type.
      * @param separator The separator to use.
      * @param values    The values.
      * @return String with values, separated by separator.
@@ -242,6 +243,7 @@ public final class StringUtils {
     /**
      * Same as mkRevString but for an Array.
      *
+     * @param <T>       Element type.
      * @param separator The separator to use.
      * @param values    The values.
      * @return String with values, separated by separator.

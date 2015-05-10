@@ -16,14 +16,13 @@
 
 package com.tomtom.speedtools.geometry;
 
-import javax.annotation.concurrent.Immutable;
+import com.tomtom.speedtools.utils.MathUtils;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-
+import javax.annotation.concurrent.Immutable;
 import java.util.ArrayList;
 import java.util.Collection;
-
-import com.tomtom.speedtools.utils.MathUtils;
 
 /**
  * Represents a rectangle.
@@ -99,6 +98,9 @@ public final class GeoRectangle extends Primitive {
 
     /**
      * Setter for {@link #getSouthWest()}.
+     *
+     * @param southWest Location.
+     * @return New line.
      */
     @Nonnull
     public GeoRectangle withSouthWest(@Nonnull final GeoPoint southWest) {
@@ -107,6 +109,9 @@ public final class GeoRectangle extends Primitive {
 
     /**
      * Setter for {@link #getNorthEast()}.
+     *
+     * @param northEast Location.
+     * @return New line.
      */
     @Nonnull
     public GeoRectangle withNorthEast(@Nonnull final GeoPoint northEast) {

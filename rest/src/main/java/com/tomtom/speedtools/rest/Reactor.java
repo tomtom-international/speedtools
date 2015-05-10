@@ -57,6 +57,7 @@ public interface Reactor {
     /**
      * Create a top-level actor.
      *
+     * @param <T>                 Type.
      * @param interfaceClass      Actor interface.
      * @param implementationClass Actor implementation class.
      * @param explicitParameters  Non-injected parameters for the  actor constructor.

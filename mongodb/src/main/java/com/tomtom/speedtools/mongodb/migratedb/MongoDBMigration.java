@@ -19,6 +19,9 @@ package com.tomtom.speedtools.mongodb.migratedb;
 import com.google.common.collect.MapMaker;
 import com.mongodb.DBCollection;
 import com.mongodb.DBObject;
+import com.tomtom.speedtools.mongodb.MongoDB;
+import com.tomtom.speedtools.mongodb.MongoDBKeyNames;
+import com.tomtom.speedtools.objects.Objects;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -26,20 +29,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.NoSuchElementException;
-import java.util.PriorityQueue;
-import java.util.Set;
-
-import com.tomtom.speedtools.mongodb.MongoDB;
-import com.tomtom.speedtools.mongodb.MongoDBKeyNames;
-import com.tomtom.speedtools.objects.Objects;
+import java.util.*;
 
 /**
  * This class defines a MongoDB migration from 1 version to another. By default, its migration path is the identity
@@ -92,6 +82,7 @@ public class MongoDBMigration {
     /**
      * Used to modify top-level documents. Documents will be stored in the collection when modified.
      *
+     * @param db             Database.
      * @param collectionName Collection to iterate over.
      * @return Iterable to loop over all documents.
      */
@@ -180,6 +171,7 @@ public class MongoDBMigration {
     /**
      * Used to add top-level documents.
      *
+     * @param db             Database.
      * @param collectionName Collection to add to.
      * @param values         The values to add to the collection. Individual values must not be null.
      */

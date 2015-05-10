@@ -52,6 +52,9 @@ public class RateLimiter {
      *
      * Note that the implementation of the limiter does not guarantee that the frequency is reached (or that calls may
      * have been scheduled slightly faster than the frequency, even). On average, it does a pretty good job though.
+     *
+     * @param maxFreqHz   Max. frequency.
+     * @param burstFreqHz Burts frequency.
      */
     public RateLimiter(final int maxFreqHz, final int burstFreqHz) {
         assert maxFreqHz >= 0 : "maxFreqHz must be >= 0";

@@ -16,13 +16,13 @@
 
 package com.tomtom.speedtools.geometry;
 
-import javax.annotation.concurrent.Immutable;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import com.tomtom.speedtools.json.Json;
 import com.tomtom.speedtools.json.JsonRenderable;
 import com.tomtom.speedtools.objects.Objects;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import javax.annotation.concurrent.Immutable;
 
 /**
  * Abstract root class for all things geo.
@@ -60,12 +60,17 @@ public abstract class GeoObject implements JsonRenderable {
      * Translate a geo object with an Easting and Northing value.
      *
      * @param vector Translation vector.
+     * @return Translated object.
      */
     @Nonnull
     public abstract GeoObject translate(@Nonnull final GeoVector vector);
 
     /**
      * Translates a geo object in meters. The object's origin's latitude is used to transform meters to a GeoVector.
+     *
+     * @param northingMeters Meters to North.
+     * @param eastingMeters  Meters to East.
+     * @return Translated object.
      */
     @Nonnull
     public GeoObject translate(final double northingMeters, final double eastingMeters) {
@@ -80,6 +85,7 @@ public abstract class GeoObject implements JsonRenderable {
      * classes.
      *
      * @param origin New origin of object.
+     * @return Translated object.
      */
     @Nonnull
     public abstract GeoObject moveTo(final GeoPoint origin);

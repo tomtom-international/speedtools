@@ -161,6 +161,7 @@ abstract public class CheckDBBase {
     /**
      * Execute all checks.
      *
+     * @param checkAllCollections Used to check collection.
      * @return Problem report.
      */
     @Nonnull
