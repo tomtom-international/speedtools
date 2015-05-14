@@ -1,9 +1,9 @@
 Release Notes (Version ${project.version})
 
 * 3.0.10
-    
-    * To do.
-    
+
+    * Added compact/verbose mode to <<<GeneralExceptionMapper>>>.
+
     []
 
 * 3.0.9

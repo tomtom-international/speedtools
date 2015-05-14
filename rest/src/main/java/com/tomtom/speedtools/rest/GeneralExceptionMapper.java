@@ -56,7 +56,13 @@ import static javax.ws.rs.core.Response.status;
 @Provider
 public class GeneralExceptionMapper implements ExceptionMapper<Throwable> {
     private static final Logger LOG = LoggerFactory.getLogger(GeneralExceptionMapper.class);
-    private static final String LOG_MESSAGE_TEMPLATE = "%s: reference=%s, %s(%s): %s, time=%s";
+    private static final String LOG_MESSAGE_TEMPLATE_VERBOSE = "%s: reference=%s, %s(%s): %s, time=%s";
+    private static final String LOG_MESSAGE_TEMPLATE_COMPACT = "%s(%s): %s";
+
+    /**
+     * This boolean indicates whether verbose or compact messages are used.
+     */
+    private static boolean verboseMode = false;
 
     private enum Level {
         WARN,
@@ -66,6 +72,15 @@ public class GeneralExceptionMapper implements ExceptionMapper<Throwable> {
     @Nonnull
     private final static Map<Class<? extends Exception>, Tuple<Boolean, Status>> customExceptionsMap =
             new HashMap<>();
+
+    /**
+     * Set or unset verbose mode for exceptions in log files.
+     *
+     * @param verboseMode If true, user verbose mode and add a unique reference to error messages.
+     */
+    public static void setVerbodeMode(final boolean verboseMode) {
+        GeneralExceptionMapper.verboseMode = verboseMode;
+    }
 
     /**
      * Add a custom exception mapping. For example, when using MongoDB you might wish to add:
@@ -322,8 +337,12 @@ public class GeneralExceptionMapper implements ExceptionMapper<Throwable> {
         assert exception != null;
         assert exceptionDTO != null;
         assert status != null;
-        return String.format(LOG_MESSAGE_TEMPLATE, prefix, exceptionDTO.getReference(), status,
-                status.getStatusCode(), exception.getMessage(), exceptionDTO.getTime());
+        if (verboseMode) {
+            return String.format(LOG_MESSAGE_TEMPLATE_VERBOSE, prefix, exceptionDTO.getReference(), status,
+                    status.getStatusCode(), exception.getMessage(), exceptionDTO.getTime());
+        } else {
+            return String.format(LOG_MESSAGE_TEMPLATE_COMPACT, status, status.getStatusCode(), exception.getMessage());
+        }
     }
 
     @Nonnull
@@ -335,8 +354,12 @@ public class GeneralExceptionMapper implements ExceptionMapper<Throwable> {
         assert prefix != null;
         assert exception != null;
         assert exceptionDTO != null;
-        return String.format(LOG_MESSAGE_TEMPLATE, prefix, exceptionDTO.getReference(), "status", statusCode,
-                exception.getMessage(), exceptionDTO.getTime());
+        if (verboseMode) {
+            return String.format(LOG_MESSAGE_TEMPLATE_VERBOSE, prefix, exceptionDTO.getReference(), "status", statusCode,
+                    exception.getMessage(), exceptionDTO.getTime());
+        } else {
+            return String.format(LOG_MESSAGE_TEMPLATE_COMPACT, "status", statusCode, exception.getMessage());
+        }
     }
 
     @SuppressWarnings("CallToSimpleSetterFromWithinClass")
