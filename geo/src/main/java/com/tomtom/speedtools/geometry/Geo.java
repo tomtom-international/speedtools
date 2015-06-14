@@ -166,7 +166,6 @@ public final class Geo {
      * @param value Longitude, any range.
      * @return Mapped to [-180, 180).
      */
-
     public static double mapToLon(final double value) {
         double lon = (((((value >= 0) ? value : -value) + 180) % 360) - 180) * ((value >= 0) ? 1.0 : -1.0);
         if (Double.compare(lon, 180.0) == 0) {
