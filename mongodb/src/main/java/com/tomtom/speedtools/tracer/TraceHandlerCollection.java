@@ -16,21 +16,20 @@
 
 package com.tomtom.speedtools.tracer;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
+import com.tomtom.speedtools.objects.Triple;
+import com.tomtom.speedtools.objects.Tuple;
 import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.lang.reflect.Method;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
-
-import com.tomtom.speedtools.objects.Triple;
 
 /**
  * Implements adding and calling of event trace handlers.
@@ -43,8 +42,8 @@ public class TraceHandlerCollection {
     private final List<Traceable> handlers = new CopyOnWriteArrayList<>();
 
     @Nonnull
-    private final Map<Triple<Class<? extends Traceable>, String, String>, List<Method>> methods =
-            new ConcurrentHashMap<>();
+    private final Map<Triple<Class<? extends Traceable>, String, Tuple<String, Integer>>, List<Method>> methods =
+            new ConcurrentHashMap<>();  // Handler class, tracer and (method, number of arguments).
 
     // Public constructor.
     public TraceHandlerCollection() {
@@ -77,7 +76,7 @@ public class TraceHandlerCollection {
                  *  method and invoke.
                  */
                 final Method method =
-                        findMethod(handler.getClass(), trace.getTracer(), trace.getMethod());
+                        findMethod(handler.getClass(), trace.getTracer(), trace.getMethod(), trace.getArgs().length);
                 if (method != null) {
                     try {
                         method.invoke(handler, trace.getArgs());
@@ -152,19 +151,20 @@ public class TraceHandlerCollection {
 
     @Nullable
     private Method findMethod(@Nonnull final Class<? extends Traceable> handlerClass,
-                              @Nonnull final String tracer, @Nonnull final String method) {
+                              @Nonnull final String tracer, @Nonnull final String method, final int nrArgs) {
 
         assert handlerClass != null;
         assert tracer != null;
         assert method != null;
 
-        final Triple<Class<? extends Traceable>, String, String> key =
-                new Triple<Class<? extends Traceable>, String, String>(handlerClass, tracer, method);
+        final Triple<Class<? extends Traceable>, String, Tuple<String, Integer>> key =
+                new Triple<Class<? extends Traceable>, String, Tuple<String, Integer>>(handlerClass, tracer,
+                        new Tuple<String, Integer>(method, nrArgs));
         List<Method> result = methods.get(key);
 
         // This might happen multiple times concurrently, but this is fine since the result will always be the same.
         if (result == null) {
-            final Method theMethod = findMethodInClass(handlerClass, tracer, method);
+            final Method theMethod = findMethodInClass(handlerClass, tracer, method, nrArgs);
             if (theMethod != null) {
                 result = Collections.singletonList(theMethod);
                 methods.put(key, result);
@@ -177,18 +177,20 @@ public class TraceHandlerCollection {
 
     @Nullable
     private static Method findMethodInClass(@Nonnull final Class<?> c, @Nonnull final String tracer,
-                                            @Nonnull final String method) {
+                                            @Nonnull final String method, final int nrArgs) {
         assert c != null;
         assert tracer != null;
         assert method != null;
 
         for (final Method m : c.getDeclaredMethods()) {
-            if (m.getDeclaringClass().getName().equals(tracer) && m.getName().equals(method)) {
+            if (m.getDeclaringClass().getName().equals(tracer) &&
+                    m.getName().equals(method) &&
+                    (m.getParameterCount() == nrArgs)) {
                 return m;
             }
         }
         for (final Class<?> superClass : c.getInterfaces()) {
-            final Method m = findMethodInClass(superClass, tracer, method);
+            final Method m = findMethodInClass(superClass, tracer, method, nrArgs);
             if (m != null) {
                 return m;
             }

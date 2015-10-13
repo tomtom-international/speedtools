@@ -303,7 +303,6 @@ public abstract class TileMap<T> {
      */
     @Nonnull
     public Collection<ViewportTile<T>> collectViewportTiles(
-
             final int widthPixels, final int heightPixels,
             @Nonnull final GeoPoint mapCenter, final int zoomLevel) {
         assert widthPixels >= 0;
@@ -312,8 +311,7 @@ public abstract class TileMap<T> {
         assert MathUtils.isBetween(zoomLevel, 0, MapConst.MAXIMUM_ZOOM) : zoomLevel;
         assert MapConst.PIXELS_PER_TILE > 0;
 
-        final Collection<ViewportTile<T>> tiles =
-                new ArrayList<>();
+        final Collection<ViewportTile<T>> tiles = new ArrayList<>();
         processViewportTiles(widthPixels, heightPixels, mapCenter, zoomLevel, new ViewportTileProcessor<T>() {
 
             @Override
