@@ -33,13 +33,6 @@ import static org.junit.Assert.assertTrue;
 public class SimpleTileMapTest {
     private static final Logger LOG = LoggerFactory.getLogger(SimpleTileMapTest.class);
 
-    /**
-     * Insert your own developer key here. All tests using this key are set to Ignored by default.
-     */
-    private static final String DEFAULT_DEVELOPER_API_KEY = "0-0-0-0-0";
-
-    private static final String DEFAULT_TILEMAP_URL = "http://lbs.tomtom.com/lbs/map/1/basic";
-
     @Test
     public void testSimpleMapTiles() {
         LOG.info("testSimpleMapTiles");
@@ -54,19 +47,11 @@ public class SimpleTileMapTest {
                     @Override
                     public Bitmap load(@Nonnull final TileKey key) {
 
-                        // Construct a URL, or a disk path to fetch images from.
-                        final String url = DEFAULT_TILEMAP_URL + '/' +
-                                key.getZoomLevel() + '/' +
-                                key.getTileX() + '/' +
-                                key.getTileY() + '/' +
-                                DEFAULT_DEVELOPER_API_KEY;
-
                         /**
                          * Fake implementation of fetching the image and storing the result in the
                          * bitmap. Note that this implementation serializes the loading of map tiles.
                          * Look at the "advanced" test to overcome this.
                          */
-                        LOG.info("getMapTileFromLbs: HTTP GET {}", url);
                         return new Bitmap();
                     }
                 });
@@ -120,5 +105,4 @@ public class SimpleTileMapTest {
     private static class Bitmap {
         // Empty.
     }
-
 }

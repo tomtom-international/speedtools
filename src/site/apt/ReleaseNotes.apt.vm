@@ -1,5 +1,11 @@
 Release Notes (Version ${project.version})
 
+* 3.0.11
+
+    * Fixed <<<TileMap>>> bug, which showed wrong tiles on map at extreme coordinates.
+
+    []
+
 * 3.0.10
 
     * Fixed <<<TraceHandlerCollection>>> to consider trace methods with the right number of parameters only.

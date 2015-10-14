@@ -160,129 +160,127 @@ public abstract class TileMap<T> {
         final long nrTiles = (1L << zoomLevel);
 
         // Determine how many tiles top-left tile should shift to center the map.
-        final int shiftTileX = (widthPixels / MapConst.PIXELS_PER_TILE) / 2;
-        final int shiftTileY = (heightPixels / MapConst.PIXELS_PER_TILE) / 2;
+        int nrTilesX = widthPixels / MapConst.PIXELS_PER_TILE;
+        int nrTilesY = heightPixels / MapConst.PIXELS_PER_TILE;
+        final int shiftTileIndexX = nrTilesX / 2;
+        final int shiftTileIndexY = nrTilesY / 2;
 
         // Determine offset within tile when centering tiles.
-        final int centerX = widthPixels / 2;
-        final int centerY = heightPixels / 2;
-        final int offsetCenterX = centerX - (shiftTileX * MapConst.PIXELS_PER_TILE);
-        final int offsetCenterY = centerY - (shiftTileY * MapConst.PIXELS_PER_TILE);
-        assert MathUtils.isBetween(offsetCenterX, 0, MapConst.PIXELS_PER_TILE) : offsetCenterX;
-        assert MathUtils.isBetween(offsetCenterY, 0, MapConst.PIXELS_PER_TILE) : offsetCenterY;
+        final int centerPixelX = widthPixels / 2;
+        final int centerPixelY = heightPixels / 2;
+        final int offsetCenterPixelX = centerPixelX - (shiftTileIndexX * MapConst.PIXELS_PER_TILE);
+        final int offsetCenterPixelY = centerPixelY - (shiftTileIndexY * MapConst.PIXELS_PER_TILE);
+        assert MathUtils.isBetween(offsetCenterPixelX, 0, MapConst.PIXELS_PER_TILE) : offsetCenterPixelX;
+        assert MathUtils.isBetween(offsetCenterPixelY, 0, MapConst.PIXELS_PER_TILE) : offsetCenterPixelY;
 
         // Determine top-left tile.
-        final TileOffset centerTile =
-                convertLatLonToTileOffset(mapCenter, zoomLevel);
-        long tileX = Math.max(0, centerTile.getKey().getTileX() - shiftTileX);
-        long tileY = Math.max(0, centerTile.getKey().getTileY() - shiftTileY);
-        assert tileX >= 0 : tileX;
-        assert tileY >= 0 : tileY;
+        final TileOffset centerTile = convertLatLonToTileOffset(mapCenter, zoomLevel);
+
+        // If the tile was not quite in the center, there's actually one more tile per row/column.
+        if (centerTile.getOffsetX() != 0) {
+            ++nrTilesX;
+        }
+        if (centerTile.getOffsetY() != 0) {
+            ++nrTilesY;
+        }
+        long tileIndexX = (((centerTile.getKey().getTileX() - shiftTileIndexX) + nrTilesX) % nrTilesX);
+        long tileIndexY = (((centerTile.getKey().getTileY() - shiftTileIndexY) + nrTilesY) % nrTilesY);
+        assert (0 <= tileIndexX) && (tileIndexX < nrTilesX) : tileIndexX;
+        assert (0 <= tileIndexY) && (tileIndexY < nrTilesY) : tileIndexY;
 
         // Offset within tile may require an additional tile shift.
-        final int offsetTileX;
-        final int offsetTileY;
-        if (centerTile.getOffsetX() <= offsetCenterX) {
-            if (tileX > 0) {
-                offsetTileX = (MapConst.PIXELS_PER_TILE - 1) - (offsetCenterX - centerTile.getOffsetX());
-                --tileX;
-            } else {
-                offsetTileX = 0;
-            }
+        final int offsetTilePixelX;
+        final int offsetTilePixelY;
+        if (centerTile.getOffsetX() <= offsetCenterPixelX) {
+            offsetTilePixelX = (MapConst.PIXELS_PER_TILE - 1) - (offsetCenterPixelX - centerTile.getOffsetX());
+            tileIndexX = ((tileIndexX + nrTilesX) - 1) % nrTilesX;
         } else {
-            offsetTileX = centerTile.getOffsetX() - offsetCenterX;
+            offsetTilePixelX = centerTile.getOffsetX() - offsetCenterPixelX;
         }
-        assert MathUtils.isBetween(offsetTileX, 0, MapConst.PIXELS_PER_TILE) : offsetTileX;
+        assert MathUtils.isBetween(offsetTilePixelX, 0, MapConst.PIXELS_PER_TILE) : offsetTilePixelX;
 
-        if (centerTile.getOffsetY() <= offsetCenterY) {
-            if (tileY > 0) {
-                offsetTileY = (MapConst.PIXELS_PER_TILE - 1) - (offsetCenterY - centerTile.getOffsetY());
-                --tileY;
-            } else {
-                offsetTileY = 0;
-            }
+        if (centerTile.getOffsetY() <= offsetCenterPixelY) {
+            offsetTilePixelY = (MapConst.PIXELS_PER_TILE - 1) - (offsetCenterPixelY - centerTile.getOffsetY());
+            tileIndexY = ((tileIndexY + nrTilesY) - 1) % nrTilesY;
         } else {
-            offsetTileY = centerTile.getOffsetY() - offsetCenterY;
+            offsetTilePixelY = centerTile.getOffsetY() - offsetCenterPixelY;
         }
-        assert MathUtils.isBetween(offsetTileY, 0, MapConst.PIXELS_PER_TILE) : offsetTileY;
+        assert MathUtils.isBetween(offsetTilePixelY, 0, MapConst.PIXELS_PER_TILE) : offsetTilePixelY;
 
         // Constrain tile numbers for extreme coordinates.
-        final long startTileIndexX = Math.min(Math.max(tileX, 0), nrTiles);
-        final long startTileIndexY = Math.min(Math.max(tileY, 0), nrTiles);
+        final long startTileIndexX = tileIndexX;
+        final long startTileIndexY = tileIndexY;
 
         // Create top-left tile object.
-        final TileKey topLeftKey = new TileKey(tileX, tileY, zoomLevel);
-        final TileOffset topLeft =
-                new TileOffset(topLeftKey, offsetTileX, offsetTileY);
+        final TileKey topLeftKey = new TileKey(tileIndexX, tileIndexY, zoomLevel);
+        final TileOffset topLeft = new TileOffset(topLeftKey, offsetTilePixelX, offsetTilePixelY);
 
         // Set colors for grid and draw map.
-        tileY = startTileIndexY;
-        int seqY = 0;
-        int viewportX = 0;
-        int viewportY = 0;
-        int tileOffsetY = topLeft.getOffsetY();
-        while (viewportY < heightPixels) {
-            tileX = startTileIndexX;
-            int seqX = 0;
-            int tileOffsetX = topLeft.getOffsetX();
-            final int tileHeight = Math.min(MapConst.PIXELS_PER_TILE, heightPixels - viewportY) - tileOffsetY;
+        tileIndexY = startTileIndexY % nrTilesY;
+        int seqIndexY = 0;
+        int viewportPixelX = 0;
+        int viewportPixelY = 0;
+        int tileOffsetPixelY = topLeft.getOffsetY();
+        while (viewportPixelY < heightPixels) {
+            tileIndexX = startTileIndexX % nrTilesX;
+            int seqIndexX = 0;
+            int tileOffsetPixelX = topLeft.getOffsetX();
+            final int tilePixelHeight = Math.min(MapConst.PIXELS_PER_TILE, heightPixels - viewportPixelY) - tileOffsetPixelY;
 
-            while (viewportX < widthPixels) {
-                final int tileWidth = Math.min(MapConst.PIXELS_PER_TILE, widthPixels - viewportX) - tileOffsetX;
+            while (viewportPixelX < widthPixels) {
+                final int tilePixelWidth = Math.min(MapConst.PIXELS_PER_TILE, widthPixels - viewportPixelX) - tileOffsetPixelX;
 
                 // Create tile key.
-                tileX = tileX % nrTiles;
-                tileY = tileY % nrTiles;
-                final TileKey tileKey = new TileKey(tileX, tileY, zoomLevel);
+                final TileKey tileKey = new TileKey(tileIndexX, tileIndexY, zoomLevel);
 
                 // Get tile from cache (or load it now).
                 final T img = getTile(tileKey);
 
                 // Call "process()" method for tile.
-                processor.process(seqX, seqY, tileKey, img, viewportX, viewportY,
-                        tileOffsetX, tileOffsetY, tileWidth, tileHeight);
+                processor.process(seqIndexX, seqIndexY, tileKey, img, viewportPixelX, viewportPixelY,
+                        tileOffsetPixelX, tileOffsetPixelY, tilePixelWidth, tilePixelHeight);
 
-                tileOffsetX = 0;
-                viewportX = viewportX + tileWidth;
-                ++seqX;
-                ++tileX;
+                tileOffsetPixelX = 0;
+                viewportPixelX = viewportPixelX + tilePixelWidth;
+                ++seqIndexX;
+                tileIndexX = (tileIndexX + 1) % nrTiles;
             }
-            tileOffsetY = 0;
-            viewportX = 0;
-            viewportY = viewportY + tileHeight;
-            ++seqY;
-            ++tileY;
+            tileOffsetPixelY = 0;
+            viewportPixelX = 0;
+            viewportPixelY = viewportPixelY + tilePixelHeight;
+            ++seqIndexY;
+            tileIndexY = (tileIndexY + 1) % nrTilesY;
         }
 
         if (preCaching) {
-            final long bufferFromX = Math.max(0, startTileIndexX - bufferColumns);
-            final long bufferToX = Math.min(nrTiles, (tileX + bufferColumns) - 1);
-            final long bufferFromY = Math.max(0, startTileIndexY - bufferRows);
-            final long bufferToY = Math.min(nrTiles, (tileY + bufferRows) - 1);
+            final long bufferFromIndexX = Math.max(0, startTileIndexX - bufferColumns);
+            final long bufferToIndexX = Math.min(nrTiles, (tileIndexX + bufferColumns) - 1);
+            final long bufferFromIndexY = Math.max(0, startTileIndexY - bufferRows);
+            final long bufferToIndexY = Math.min(nrTiles, (tileIndexY + bufferRows) - 1);
 
             // Top.
-            for (long y = bufferFromY; y < startTileIndexY; ++y) {
-                for (long x = bufferFromX; x <= bufferToX; ++x) {
+            for (long y = bufferFromIndexY; y < startTileIndexY; ++y) {
+                for (long x = bufferFromIndexX; x <= bufferToIndexX; ++x) {
                     final TileKey key = new TileKey(x % nrTiles, y % nrTiles, zoomLevel);
                     cacheTile(key);
                 }
             }
 
             // Left/right.
-            for (long y = startTileIndexY; y < tileY; ++y) {
-                for (long x = bufferFromX; x < startTileIndexX; ++x) {
+            for (long y = startTileIndexY; y < tileIndexY; ++y) {
+                for (long x = bufferFromIndexX; x < startTileIndexX; ++x) {
                     final TileKey key = new TileKey(x % nrTiles, y % nrTiles, zoomLevel);
                     cacheTile(key);
                 }
-                for (long x = tileX; x <= bufferToX; ++x) {
+                for (long x = tileIndexX; x <= bufferToIndexX; ++x) {
                     final TileKey key = new TileKey(x % nrTiles, y % nrTiles, zoomLevel);
                     cacheTile(key);
                 }
             }
 
             // Bottom.
-            for (long y = tileY; y <= bufferToY; ++y) {
-                for (long x = bufferFromX; x <= bufferToX; ++x) {
+            for (long y = tileIndexY; y <= bufferToIndexY; ++y) {
+                for (long x = bufferFromIndexX; x <= bufferToIndexX; ++x) {
                     final TileKey key = new TileKey(x % nrTiles, y % nrTiles, zoomLevel);
                     cacheTile(key);
                 }
