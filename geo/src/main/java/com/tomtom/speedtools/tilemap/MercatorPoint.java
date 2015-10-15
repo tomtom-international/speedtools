@@ -17,6 +17,7 @@
 package com.tomtom.speedtools.tilemap;
 
 import com.tomtom.speedtools.geometry.GeoPoint;
+import com.tomtom.speedtools.json.Json;
 import com.tomtom.speedtools.utils.MathUtils;
 
 import javax.annotation.Nonnull;
@@ -31,8 +32,8 @@ import java.util.Arrays;
  */
 @Immutable
 public final class MercatorPoint {
-    public final double mercX;
-    public final double mercY;
+    private final double mercX;
+    private final double mercY;
 
     /**
      * Create a normalized Mercator pair.
@@ -48,6 +49,14 @@ public final class MercatorPoint {
         assert MathUtils.isBetween(mercY, 0.0, 1.0) : mercY;
         this.mercX = mercX;
         this.mercY = mercY;
+    }
+
+    public double getMercX() {
+        return mercX;
+    }
+
+    public double getMercY() {
+        return mercY;
     }
 
     /**
@@ -88,11 +97,16 @@ public final class MercatorPoint {
         final double lon = point.getLon();
         final double geoX = MapConst.WORLD_RADIUS * ((lon * Math.PI) / 180.0);
         final double geoY = MapConst.WORLD_RADIUS * Math.log(Math.tan(Math.PI * ((lat + 90.0) / 360.0)));
-        final double mercX = Math.max(0.0, (geoX / MapConst.WORLD_SIZE) + 0.5);
-        final double mercY = Math.max(0.0, 1.0 - ((geoY / MapConst.WORLD_SIZE) + 0.5));
+        final double mercX = Math.min(1.0, Math.max(0.0, (geoX / MapConst.WORLD_SIZE) + 0.5));
+        final double mercY = Math.min(1.0, Math.max(0.0, 1.0 - ((geoY / MapConst.WORLD_SIZE) + 0.5)));
         assert MathUtils.isBetween(mercX, 0.0, 1.0) : mercX + ", " + point;
         assert MathUtils.isBetween(mercY, 0.0, 1.0) : mercY + ", " + point;
         return new MercatorPoint(mercX, mercY);
+    }
+
+    @Nonnull
+    public static MercatorPoint latLonToMercs(final double lat, final double lon) {
+        return latLonToMercs(new GeoPoint(lat, lon));
     }
 
     public boolean canEqual(@Nonnull final Object obj) {
@@ -120,5 +134,10 @@ public final class MercatorPoint {
     @Override
     public int hashCode() {
         return Arrays.hashCode(new Double[]{mercX, mercY});
+    }
+
+    @Override
+    public String toString() {
+        return Json.toStringJson(this);
     }
 }

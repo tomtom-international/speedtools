@@ -160,10 +160,8 @@ public abstract class TileMap<T> {
         final long nrTiles = (1L << zoomLevel);
 
         // Determine how many tiles top-left tile should shift to center the map.
-        int nrTilesX = widthPixels / MapConst.PIXELS_PER_TILE;
-        int nrTilesY = heightPixels / MapConst.PIXELS_PER_TILE;
-        final int shiftTileIndexX = nrTilesX / 2;
-        final int shiftTileIndexY = nrTilesY / 2;
+        int shiftTileIndexX = widthPixels / MapConst.PIXELS_PER_TILE / 2;
+        int shiftTileIndexY = heightPixels / MapConst.PIXELS_PER_TILE / 2;
 
         // Determine offset within tile when centering tiles.
         final int centerPixelX = widthPixels / 2;
@@ -175,25 +173,17 @@ public abstract class TileMap<T> {
 
         // Determine top-left tile.
         final TileOffset centerTile = convertLatLonToTileOffset(mapCenter, zoomLevel);
-
-        // If the tile was not quite in the center, there's actually one more tile per row/column.
-        if (centerTile.getOffsetX() != 0) {
-            ++nrTilesX;
-        }
-        if (centerTile.getOffsetY() != 0) {
-            ++nrTilesY;
-        }
-        long tileIndexX = (((centerTile.getKey().getTileX() - shiftTileIndexX) + nrTilesX) % nrTilesX);
-        long tileIndexY = (((centerTile.getKey().getTileY() - shiftTileIndexY) + nrTilesY) % nrTilesY);
-        assert (0 <= tileIndexX) && (tileIndexX < nrTilesX) : tileIndexX;
-        assert (0 <= tileIndexY) && (tileIndexY < nrTilesY) : tileIndexY;
+        long tileIndexX = (((centerTile.getKey().getTileX() - shiftTileIndexX) + nrTiles) % nrTiles);
+        long tileIndexY = (((centerTile.getKey().getTileY() - shiftTileIndexY) + nrTiles) % nrTiles);
+        assert (0 <= tileIndexX) && (tileIndexX < nrTiles) : tileIndexX;
+        assert (0 <= tileIndexY) && (tileIndexY < nrTiles) : tileIndexY;
 
         // Offset within tile may require an additional tile shift.
         final int offsetTilePixelX;
         final int offsetTilePixelY;
         if (centerTile.getOffsetX() <= offsetCenterPixelX) {
             offsetTilePixelX = (MapConst.PIXELS_PER_TILE - 1) - (offsetCenterPixelX - centerTile.getOffsetX());
-            tileIndexX = ((tileIndexX + nrTilesX) - 1) % nrTilesX;
+            tileIndexX = ((tileIndexX + nrTiles) - 1) % nrTiles;
         } else {
             offsetTilePixelX = centerTile.getOffsetX() - offsetCenterPixelX;
         }
@@ -201,7 +191,7 @@ public abstract class TileMap<T> {
 
         if (centerTile.getOffsetY() <= offsetCenterPixelY) {
             offsetTilePixelY = (MapConst.PIXELS_PER_TILE - 1) - (offsetCenterPixelY - centerTile.getOffsetY());
-            tileIndexY = ((tileIndexY + nrTilesY) - 1) % nrTilesY;
+            tileIndexY = ((tileIndexY + nrTiles) - 1) % nrTiles;
         } else {
             offsetTilePixelY = centerTile.getOffsetY() - offsetCenterPixelY;
         }
@@ -216,13 +206,13 @@ public abstract class TileMap<T> {
         final TileOffset topLeft = new TileOffset(topLeftKey, offsetTilePixelX, offsetTilePixelY);
 
         // Set colors for grid and draw map.
-        tileIndexY = startTileIndexY % nrTilesY;
+        tileIndexY = startTileIndexY % nrTiles;
         int seqIndexY = 0;
         int viewportPixelX = 0;
         int viewportPixelY = 0;
         int tileOffsetPixelY = topLeft.getOffsetY();
         while (viewportPixelY < heightPixels) {
-            tileIndexX = startTileIndexX % nrTilesX;
+            tileIndexX = startTileIndexX % nrTiles;
             int seqIndexX = 0;
             int tileOffsetPixelX = topLeft.getOffsetX();
             final int tilePixelHeight = Math.min(MapConst.PIXELS_PER_TILE, heightPixels - viewportPixelY) - tileOffsetPixelY;
@@ -249,7 +239,7 @@ public abstract class TileMap<T> {
             viewportPixelX = 0;
             viewportPixelY = viewportPixelY + tilePixelHeight;
             ++seqIndexY;
-            tileIndexY = (tileIndexY + 1) % nrTilesY;
+            tileIndexY = (tileIndexY + 1) % nrTiles;
         }
 
         if (preCaching) {
@@ -345,19 +335,19 @@ public abstract class TileMap<T> {
         // Normalize lat/lon to 0..1.
         final MercatorPoint mercs = MercatorPoint.latLonToMercs(point);
         assert mercs != null;
-        assert MathUtils.isBetween(mercs.mercX, 0.0, 1.0) : mercs.mercX;
-        assert MathUtils.isBetween(mercs.mercY, 0.0, 1.0) : mercs.mercY;
+        assert MathUtils.isBetween(mercs.getMercX(), 0.0, 1.0) : mercs.getMercX();
+        assert MathUtils.isBetween(mercs.getMercY(), 0.0, 1.0) : mercs.getMercY();
 
         // Maximum number of tiles on this zoom level (same for X and Y).
         final double nrTiles = (1L << zoomLevel);
 
         // Determine tile X and Y.
-        final long tileX = Math.min((long) (nrTiles - 1), (long) Math.floor(mercs.mercX * nrTiles));
-        final long tileY = Math.min((long) (nrTiles - 1), (long) Math.floor(mercs.mercY * nrTiles));
+        final long tileX = Math.min((long) (nrTiles - 1), (long) Math.floor(mercs.getMercX() * nrTiles));
+        final long tileY = Math.min((long) (nrTiles - 1), (long) Math.floor(mercs.getMercY() * nrTiles));
         final TileKey key = new TileKey(tileX, tileY, zoomLevel);
 
-        final double deltaMercX = mercs.mercX - ((double) tileX / nrTiles);
-        final double deltaMercY = mercs.mercY - ((double) tileY / nrTiles);
+        final double deltaMercX = mercs.getMercX() - ((double) tileX / nrTiles);
+        final double deltaMercY = mercs.getMercY() - ((double) tileY / nrTiles);
         final long nrPixels = Math.round(nrTiles * MapConst.PIXELS_PER_TILE);
         final int offsetX = (int) Math.min(Math.round(deltaMercX * nrPixels), MapConst.PIXELS_PER_TILE);
         final int offsetY = (int) Math.min(Math.round(deltaMercY * nrPixels), MapConst.PIXELS_PER_TILE);
@@ -415,8 +405,8 @@ public abstract class TileMap<T> {
         final double totalSize = (1L << zoomLevel) * MapConst.PIXELS_PER_TILE;
 
         final MercatorPoint mercs = MercatorPoint.latLonToMercs(mapCenter);
-        final double mercX = MathUtils.limitTo(mercs.mercX + (deltaX / totalSize), 0.0, 1.0);
-        final double mercY = MathUtils.limitTo(mercs.mercY + (deltaY / totalSize), 0.0, 1.0);
+        final double mercX = MathUtils.limitTo(mercs.getMercX() + (deltaX / totalSize), 0.0, 1.0);
+        final double mercY = MathUtils.limitTo(mercs.getMercY() + (deltaY / totalSize), 0.0, 1.0);
         final GeoPoint point = MercatorPoint.mercsToLatLon(mercX, mercY);
         return point;
     }
@@ -449,8 +439,8 @@ public abstract class TileMap<T> {
         final MercatorPoint mercsCenter = MercatorPoint.latLonToMercs(mapCenter);
         final MercatorPoint mercsPoint = MercatorPoint.latLonToMercs(point);
 
-        final double deltaX = mercsCenter.mercX - mercsPoint.mercX;
-        final double deltaY = mercsCenter.mercY - mercsPoint.mercY;
+        final double deltaX = mercsCenter.getMercX() - mercsPoint.getMercX();
+        final double deltaY = mercsCenter.getMercY() - mercsPoint.getMercY();
 
         final double centerX = width / 2.0;
         final double centerY = height / 2.0;
@@ -545,8 +535,8 @@ public abstract class TileMap<T> {
         final double totalSize = (1L << zoomLevel) * MapConst.PIXELS_PER_TILE;
 
         final MercatorPoint mercs = MercatorPoint.latLonToMercs(mapCenter);
-        final double mercX = MathUtils.limitTo(mercs.mercX + (deltaX / totalSize), 0.0, 1.0);
-        final double mercY = MathUtils.limitTo(mercs.mercY + (deltaY / totalSize), 0.0, 1.0);
+        final double mercX = MathUtils.limitTo(mercs.getMercX() + (deltaX / totalSize), 0.0, 1.0);
+        final double mercY = MathUtils.limitTo(mercs.getMercY() + (deltaY / totalSize), 0.0, 1.0);
         final GeoPoint point = MercatorPoint.mercsToLatLon(mercX, mercY);
         return point;
     }

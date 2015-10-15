@@ -1,5 +1,11 @@
 Release Notes (Version ${project.version})
 
+* 3.0.12
+
+    * Fixed some more in <<<TileMap>>>> and <<<MercatorPoint>>>.
+
+    []
+
 * 3.0.11
 
     * Fixed <<<TileMap>>> bug, which showed wrong tiles on map at extreme coordinates.

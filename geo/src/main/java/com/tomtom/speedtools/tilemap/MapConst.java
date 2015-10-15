@@ -26,7 +26,7 @@ import com.tomtom.speedtools.geometry.GeoPoint;
 public final class MapConst {
 
     // Needed for Mercator projection.
-    public static final double WORLD_SIZE   = 20037508.342789 * 2.0;
+    public static final double WORLD_SIZE   = 20037508.34278913 * 2.0;
     public static final double WORLD_RADIUS = 6378137.0;
 
     /**

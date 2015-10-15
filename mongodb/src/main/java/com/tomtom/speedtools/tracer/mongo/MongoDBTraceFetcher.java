@@ -25,6 +25,7 @@ import org.slf4j.LoggerFactory;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.io.IOException;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
@@ -58,18 +59,27 @@ class MongoDBTraceFetcher implements Runnable {
     MongoDBTraceFetcher(@Nonnull final MongoDBTraceProperties properties) throws UnknownHostException {
         assert properties != null;
 
+        DBCollection collectionToUse;
         if (properties.getReadEnabled()) {
             LOG.debug("MongoDBTraceFetcher: reading traces enabled, getting traces collection and starting fetcher");
-            collection = MongoDBTraceHandler.getDBCollection(
-                    properties.getServers(), properties.getDatabase(),
-                    properties.getUserName(), properties.getPassword(),
-                    properties.getMaxDatabaseSizeMB(), properties.getConnectionTimeoutMsecs());
 
-            //noinspection CallToThreadStartDuringObjectConstruction
-            thread.start();
+            try {
+                collectionToUse = MongoDBTraceHandler.getDBCollection(
+                        properties.getServers(), properties.getDatabase(),
+                        properties.getUserName(), properties.getPassword(),
+                        properties.getMaxDatabaseSizeMB(), properties.getConnectionTimeoutMsecs());
+            } catch (final IOException | MongoException ignored) {
+                LOG.warn("MongoDBTraceFetcher: cannot resolve host, traces disabled, fetcher not started");
+                collectionToUse = null;
+            }
         } else {
             LOG.info("MongoDBTraceFetcher: reading traces disabled, fetcher not started");
-            collection = null;
+            collectionToUse = null;
+        }
+        collection = collectionToUse;
+        if (collection != null) {
+            //noinspection CallToThreadStartDuringObjectConstruction
+            thread.start();
         }
     }
 
@@ -85,7 +95,6 @@ class MongoDBTraceFetcher implements Runnable {
 
         // Bail-out if traces disabled.
         if (collection == null) {
-            LOG.debug("getTraces: reading traces disabled, cannot get traces");
             return traces;
         }
 
@@ -124,7 +133,7 @@ class MongoDBTraceFetcher implements Runnable {
 
         // Bail-out if traces disabled.
         if (collection == null) {
-            LOG.debug("getTraces: reading traces disabled, cannot move to {}", time);
+            LOG.trace("getTraces: reading traces disabled, cannot move to {}", time);
             return (time == null) ? UTCTime.now() : time;
         }
 

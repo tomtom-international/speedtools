@@ -16,6 +16,7 @@
 
 package com.tomtom.speedtools.tilemap;
 
+import com.tomtom.speedtools.geometry.Geo;
 import com.tomtom.speedtools.geometry.GeoPoint;
 import com.tomtom.speedtools.objects.Tuple;
 import org.junit.Assert;
@@ -23,22 +24,8 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.annotation.Nonnull;
-
 public class TileMapTest {
     private static final Logger LOG = LoggerFactory.getLogger(TileMapTest.class);
-
-    @Test
-    public void testMercator() {
-        LOG.info("testMercator");
-        Assert.assertTrue(doMercator(new GeoPoint(0.0, 0.0)));
-        Assert.assertTrue(doMercator(new GeoPoint(-85.0, -180.0)));
-        Assert.assertTrue(doMercator(new GeoPoint(85.0, -180.0)));
-        Assert.assertTrue(doMercator(new GeoPoint(-85.0, 180.0)));
-        Assert.assertTrue(doMercator(new GeoPoint(85.0, 180.0)));
-        Assert.assertTrue(doMercator(new GeoPoint(52.32461, 4.79905)));                     // Amsterdam.
-        Assert.assertTrue(doMercator(new GeoPoint(-51.790780289309, -59.478705147248)));    // Falklands.
-    }
 
     @Test
     public void testLatLonToViewportXY() {
@@ -59,12 +46,20 @@ public class TileMapTest {
         Assert.assertEquals(posY, (int) xy.getValue2());
     }
 
-    private static boolean doMercator(@Nonnull final GeoPoint ref) {
-        assert ref != null;
-        final double delta = 1.0E-7;
-        final MercatorPoint mercs1 = MercatorPoint.latLonToMercs(ref);
-        final GeoPoint calc = MercatorPoint.mercsToLatLon(mercs1.mercX, mercs1.mercY);
-        return (Math.abs(ref.getLat() - calc.getLat()) < delta) &&
-                (Math.abs(ref.getLon() - calc.getLon()) < delta);
+    @Test
+    public void testConvertLatLonToTileOffset() {
+        LOG.info("testConvertLatLonToTileOffset");
+        Assert.assertEquals(new TileOffset(new TileKey(2, 2, 2), 0, 0),
+                TileMap.convertLatLonToTileOffset(new GeoPoint(0.0, 0.0), 2));
+        Assert.assertEquals(new TileOffset(new TileKey(2, 0, 2), 0, 2),
+                TileMap.convertLatLonToTileOffset(new GeoPoint(90.0, 0.0), 2));
+        Assert.assertEquals(new TileOffset(new TileKey(3, 2, 2), MapConst.PIXELS_PER_TILE, 0),
+                TileMap.convertLatLonToTileOffset(new GeoPoint(0.0, Geo.LON180), 2));
+        Assert.assertEquals(new TileOffset(new TileKey(0, 2, 2), 0, 0),
+                TileMap.convertLatLonToTileOffset(new GeoPoint(0.0, 180.0), 2));
+        Assert.assertEquals(new TileOffset(new TileKey(0, 2, 2), 0, 0),
+                TileMap.convertLatLonToTileOffset(new GeoPoint(0.0, -180.0), 2));
+        Assert.assertEquals(new TileOffset(new TileKey(0, 2, 2), 0, 0),
+                TileMap.convertLatLonToTileOffset(new GeoPoint(0.0, -Geo.LON180), 2));
     }
 }
