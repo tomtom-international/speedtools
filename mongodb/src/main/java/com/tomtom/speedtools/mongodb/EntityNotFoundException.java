@@ -16,9 +16,9 @@
 
 package com.tomtom.speedtools.mongodb;
 
-import javax.annotation.Nonnull;
-
 import org.slf4j.Logger;
+
+import javax.annotation.Nonnull;
 
 /**
  * Thrown when an entity that is expected to exist could not be retrieved from the database.

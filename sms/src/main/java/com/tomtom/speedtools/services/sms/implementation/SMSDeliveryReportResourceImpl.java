@@ -16,27 +16,19 @@
 
 package com.tomtom.speedtools.services.sms.implementation;
 
+import com.tomtom.speedtools.apivalidation.exceptions.ApiParameterMissingException;
+import com.tomtom.speedtools.services.sms.*;
 import com.tomtom.speedtools.services.sms.SMSDeliveryReportListener.DeliveryStatus;
 import org.jboss.resteasy.spi.AsynchronousResponse;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.core.Response;
 import java.util.Set;
-
-import com.tomtom.speedtools.apivalidation.exceptions.ApiParameterMissingException;
-import com.tomtom.speedtools.services.sms.SMSDeliveryReportListener;
-import com.tomtom.speedtools.services.sms.SMSDeliveryReportListenerRegistry;
-import com.tomtom.speedtools.services.sms.SMSDeliveryReportParameterException;
-import com.tomtom.speedtools.services.sms.SMSDeliveryReportProcessor;
-import com.tomtom.speedtools.services.sms.SMSDeliveryReportResource;
-import com.tomtom.speedtools.services.sms.SMSProviderConnector;
 
 public class SMSDeliveryReportResourceImpl implements SMSDeliveryReportResource {
     private static final Logger LOG = LoggerFactory.getLogger(SMSDeliveryReportResourceImpl.class);

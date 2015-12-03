@@ -16,13 +16,13 @@
 
 package com.tomtom.speedtools.geometry;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.Immutable;
-
 import com.tomtom.speedtools.json.Json;
 import com.tomtom.speedtools.json.JsonRenderable;
 import com.tomtom.speedtools.objects.Objects;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import javax.annotation.concurrent.Immutable;
 
 @Immutable
 public class Position3D implements JsonRenderable {

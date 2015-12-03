@@ -19,7 +19,8 @@ package com.tomtom.speedtools.apivalidation.errors;
 import javax.annotation.Nonnull;
 
 public final class ApiResourceConflictError extends ApiValidationError {
-    @Nonnull private final String message;
+    @Nonnull
+    private final String message;
 
     public ApiResourceConflictError(@Nonnull final String message) {
         super(ErrorCode.RESOURCE_CONFLICT);

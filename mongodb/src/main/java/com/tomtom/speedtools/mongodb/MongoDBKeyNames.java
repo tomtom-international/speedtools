@@ -26,22 +26,26 @@ public final class MongoDBKeyNames {
     /**
      * Record ID.
      */
-    @Nonnull public static final String ID_KEY = "_id";
+    @Nonnull
+    public static final String ID_KEY = "_id";
 
     /**
      * Record version number.
      */
-    @Nonnull public static final String VERSION_KEY = "_ver";
+    @Nonnull
+    public static final String VERSION_KEY = "_ver";
 
     /**
      * Type discrimination field.
      */
-    @Nonnull public static final String DISCRIMINATOR_KEY = "_type";
+    @Nonnull
+    public static final String DISCRIMINATOR_KEY = "_type";
 
     /**
      * Last modification date/time stamp.
      */
-    @Nonnull public static final String LAST_MODIFIED_KEY = "_modified";
+    @Nonnull
+    public static final String LAST_MODIFIED_KEY = "_modified";
 
     private MongoDBKeyNames() {
         // Prevent instantiation.

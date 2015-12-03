@@ -30,9 +30,9 @@ public class Position3DTest {
     public void testEqualsVerifier() {
         LOG.info("testEqualsVerifier");
         EqualsVerifier.forClass(Position3D.class).
-            withRedefinedSuperclass().
-            allFieldsShouldBeUsed().
-            suppress(Warning.STRICT_INHERITANCE).
-            verify();
+                withRedefinedSuperclass().
+                allFieldsShouldBeUsed().
+                suppress(Warning.STRICT_INHERITANCE).
+                verify();
     }
 }

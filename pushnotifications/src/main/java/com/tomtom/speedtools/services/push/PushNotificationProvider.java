@@ -16,13 +16,12 @@
 
 package com.tomtom.speedtools.services.push;
 
-import javax.annotation.Nonnull;
-
-import java.util.Set;
-
 import com.tomtom.speedtools.services.push.domain.Notification;
 import com.tomtom.speedtools.services.push.domain.NotificationChannelType;
 import com.tomtom.speedtools.services.push.domain.PushToken;
+
+import javax.annotation.Nonnull;
+import java.util.Set;
 
 /**
  * Implementation of this interface can push notifications to an underlying push service.

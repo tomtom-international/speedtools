@@ -30,19 +30,19 @@ public class EnumerationMapperTest {
     }
 
     static class ColorMapper extends EnumerationMapper<Color> {
-        private final Value red    = value(Color.RED, "red");
-        private final Value blue   = value(Color.BLUE, "blue");
+        private final Value red = value(Color.RED, "red");
+        private final Value blue = value(Color.BLUE, "blue");
         private final Value yellow = value(Color.YELLOW, "yell");
     }
 
     static class IncompleteColorMapper extends EnumerationMapper<Color> {
-        private final Value red  = value(Color.RED, "red");
+        private final Value red = value(Color.RED, "red");
         private final Value blue = value(Color.BLUE, "blue");
     }
 
     static class NonUniqueColorMapper extends EnumerationMapper<Color> {
-        private final Value red    = value(Color.RED, "red");
-        private final Value blue   = value(Color.BLUE, "blue");
+        private final Value red = value(Color.RED, "red");
+        private final Value blue = value(Color.BLUE, "blue");
         private final Value yellow = value(Color.YELLOW, "blue");
     }
 

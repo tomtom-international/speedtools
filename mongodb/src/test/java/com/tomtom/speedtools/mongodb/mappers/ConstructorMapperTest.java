@@ -32,8 +32,8 @@ public class ConstructorMapperTest {
 
         //noinspection unchecked
         class IllegalMapper extends EntityMapper<NonAbstractEntity> {
-            public final EntityType    entityType = entityType(NonAbstractEntity.class);
-            public final Field<String> f          = stringField("bla", "getBla", CONSTRUCTOR);
+            public final EntityType entityType = entityType(NonAbstractEntity.class);
+            public final Field<String> f = stringField("bla", "getBla", CONSTRUCTOR);
         }
 
         final MapperRegistry registry = new MapperRegistry();

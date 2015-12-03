@@ -37,7 +37,7 @@ public final class MockUtil {
      * Get an argument captor for class <b>c</b>
      *
      * @param <T> Class.
-     * @param c The class to make a captor for.
+     * @param c   The class to make a captor for.
      * @return The captor
      */
     @SuppressWarnings("unchecked")
@@ -66,7 +66,7 @@ public final class MockUtil {
      * however not annotated Nullable to avoid all sorts of nullability warnings which are not relevant for those
      * verify() methods.
      *
-     * @param <T> Class.
+     * @param <T>   Class.
      * @param other The object to match the argument with.
      * @return Always null.
      */

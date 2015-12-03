@@ -26,7 +26,7 @@ import com.tomtom.speedtools.geometry.GeoPoint;
 public final class MapConst {
 
     // Needed for Mercator projection.
-    public static final double WORLD_SIZE   = 20037508.34278913 * 2.0;
+    public static final double WORLD_SIZE = 20037508.34278913 * 2.0;
     public static final double WORLD_RADIUS = 6378137.0;
 
     /**
@@ -124,8 +124,8 @@ public final class MapConst {
     /**
      * Some interesting geo locations (for example, for testing).
      */
-    public static final GeoPoint POS_LONDON    = new GeoPoint(51.506, -0.75);   // London.
-    public static final GeoPoint POS_PARIS     = new GeoPoint(48.861, 2.335);   // Paris.
+    public static final GeoPoint POS_LONDON = new GeoPoint(51.506, -0.75);   // London.
+    public static final GeoPoint POS_PARIS = new GeoPoint(48.861, 2.335);   // Paris.
     public static final GeoPoint POS_AMSTERDAM = new GeoPoint(52.3765, 4.908);  // Amsterdam.
 
     private MapConst() {

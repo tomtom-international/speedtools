@@ -17,7 +17,6 @@
 package com.tomtom.speedtools.checksums;
 
 import javax.annotation.Nonnull;
-
 import javax.xml.bind.DatatypeConverter;
 
 public final class BasicAuthenticationCredentials {

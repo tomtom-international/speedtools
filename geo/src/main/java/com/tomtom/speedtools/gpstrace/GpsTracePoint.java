@@ -16,15 +16,14 @@
 
 package com.tomtom.speedtools.gpstrace;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
-import org.joda.time.DateTime;
-
 import com.tomtom.speedtools.geometry.GeoPoint;
 import com.tomtom.speedtools.json.Json;
 import com.tomtom.speedtools.json.JsonRenderable;
 import com.tomtom.speedtools.objects.Objects;
+import org.joda.time.DateTime;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /**
  * TracePoint represents a position at a specific time and is used for tracking.

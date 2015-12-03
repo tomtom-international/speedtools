@@ -17,7 +17,6 @@
 package com.tomtom.speedtools.utils;
 
 import javax.annotation.Nonnull;
-
 import java.util.Random;
 
 @SuppressWarnings("OverloadedMethodsWithSameNumberOfParameters")

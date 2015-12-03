@@ -20,10 +20,11 @@ import javax.annotation.Nonnull;
 
 public final class ApiParameterMissingError extends ApiValidationError {
 
-    @Nonnull private final String parameter;
+    @Nonnull
+    private final String parameter;
 
     public ApiParameterMissingError(
-        @Nonnull final String parameter) {
+            @Nonnull final String parameter) {
         super(ErrorCode.PARAMETER_MISSING_ERROR);
         assert parameter != null;
         this.parameter = parameter;

@@ -16,14 +16,13 @@
 
 package com.tomtom.speedtools.services.push.domain;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
-import org.joda.time.Duration;
-
 import com.tomtom.speedtools.domain.Uid;
 import com.tomtom.speedtools.json.Json;
 import com.tomtom.speedtools.json.JsonRenderable;
+import org.joda.time.Duration;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /**
  * Notification contains information that is intended for a Party.

@@ -30,7 +30,7 @@ public class DoubleMapper extends Mapper<Double> {
             return ((Number) dbValue).doubleValue();
         }
         throw new MapperException("Number expected, " +
-            "got a value of type: " + dbValue.getClass().getCanonicalName());
+                "got a value of type: " + dbValue.getClass().getCanonicalName());
     }
 
     @Nullable

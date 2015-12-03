@@ -20,10 +20,11 @@ import javax.annotation.Nonnull;
 
 public class ApiInvalidParameterCombinationError extends ApiValidationError {
 
-    @Nonnull private final String message;
+    @Nonnull
+    private final String message;
 
     public ApiInvalidParameterCombinationError(
-        @Nonnull final String message) {
+            @Nonnull final String message) {
         super(ErrorCode.INVALID_PARAMETER_COMBINATION_ERROR);
         assert message != null;
         this.message = message;

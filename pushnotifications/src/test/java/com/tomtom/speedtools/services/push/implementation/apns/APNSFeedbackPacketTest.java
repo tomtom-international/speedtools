@@ -16,16 +16,15 @@
 
 package com.tomtom.speedtools.services.push.implementation.apns;
 
+import com.tomtom.speedtools.checksums.HexString;
+import com.tomtom.speedtools.time.UTCTime;
+import com.tomtom.speedtools.utils.ByteUtils;
 import org.junit.Assert;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.nio.ByteBuffer;
-
-import com.tomtom.speedtools.checksums.HexString;
-import com.tomtom.speedtools.time.UTCTime;
-import com.tomtom.speedtools.utils.ByteUtils;
 
 public class APNSFeedbackPacketTest {
     private static final Logger LOG = LoggerFactory.getLogger(APNSFeedbackPacketTest.class);

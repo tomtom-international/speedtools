@@ -19,8 +19,10 @@ package com.tomtom.speedtools.mongodb.migratedb;
 import javax.annotation.Nonnull;
 
 public class MongoDBMigrationProblem {
-    @Nonnull private final String problem;
-    @Nonnull private final String path;
+    @Nonnull
+    private final String problem;
+    @Nonnull
+    private final String path;
 
     public MongoDBMigrationProblem(@Nonnull final String problem, @Nonnull final String path) {
         assert problem != null;

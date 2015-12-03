@@ -16,12 +16,11 @@
 
 package com.tomtom.speedtools.geometry;
 
+import com.tomtom.speedtools.utils.MathUtils;
 import org.junit.Assert;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.tomtom.speedtools.utils.MathUtils;
 
 public class GeoHashTest {
     private static final Logger LOG = LoggerFactory.getLogger(GeoHashTest.class);

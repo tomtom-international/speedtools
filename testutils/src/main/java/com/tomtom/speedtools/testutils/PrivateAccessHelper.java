@@ -18,7 +18,6 @@ package com.tomtom.speedtools.testutils;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 

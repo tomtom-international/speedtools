@@ -17,7 +17,6 @@
 package com.tomtom.speedtools.testutils.resteasy;
 
 import javax.annotation.Nonnull;
-
 import javax.ws.rs.core.Response;
 
 /**

@@ -33,12 +33,12 @@ public class CustomHttpServlet30Dispatcher extends HttpServlet30Dispatcher {
 
     @Override
     protected HttpRequest createHttpRequest(
-        @Nonnull final String httpMethod,
-        @Nonnull final HttpServletRequest httpServletRequest,
-        @Nonnull final ResteasyHttpHeaders httpHeaders,
-        @Nonnull final ResteasyUriInfo uriInfo,
-        @Nonnull final HttpResponse httpResponse,
-        @Nonnull final HttpServletResponse httpServletResponse) {
+            @Nonnull final String httpMethod,
+            @Nonnull final HttpServletRequest httpServletRequest,
+            @Nonnull final ResteasyHttpHeaders httpHeaders,
+            @Nonnull final ResteasyUriInfo uriInfo,
+            @Nonnull final HttpResponse httpResponse,
+            @Nonnull final HttpServletResponse httpServletResponse) {
         assert httpMethod != null;
         assert httpServletRequest != null;
         assert httpHeaders != null;
@@ -47,6 +47,6 @@ public class CustomHttpServlet30Dispatcher extends HttpServlet30Dispatcher {
         assert httpServletResponse != null;
 
         return new CustomServlet3AsyncHttpRequest(httpServletRequest, httpServletResponse, null,
-            httpResponse, httpHeaders, uriInfo, httpMethod, (SynchronousDispatcher) getDispatcher());
+                httpResponse, httpHeaders, uriInfo, httpMethod, (SynchronousDispatcher) getDispatcher());
     }
 }

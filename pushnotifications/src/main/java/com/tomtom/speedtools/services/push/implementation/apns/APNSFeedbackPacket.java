@@ -16,15 +16,13 @@
 
 package com.tomtom.speedtools.services.push.implementation.apns;
 
-import javax.annotation.Nonnull;
-
+import com.tomtom.speedtools.checksums.HexString;
+import com.tomtom.speedtools.json.Json;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.annotation.Nonnull;
 import java.util.Arrays;
-
-import com.tomtom.speedtools.checksums.HexString;
-import com.tomtom.speedtools.json.Json;
 
 import static com.tomtom.speedtools.utils.ByteUtils.fromBytesToInt;
 

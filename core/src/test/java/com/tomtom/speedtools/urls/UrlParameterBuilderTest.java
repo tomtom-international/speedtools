@@ -83,8 +83,7 @@ public class UrlParameterBuilderTest {
         final UrlParameterBuilder builder = new UrlParameterBuilder();
         try {
             builder.addParameter("", "a value");
-        }
-        catch (final AssertionError ignored) {
+        } catch (final AssertionError ignored) {
             return;
         }
         Assert.fail("Wrong: empty key accepted!");
@@ -107,8 +106,7 @@ public class UrlParameterBuilderTest {
         try {
             //noinspection ConstantConditions
             builder.addParameter(null, "a value");
-        }
-        catch (final AssertionError | IllegalArgumentException ignored) {
+        } catch (final AssertionError | IllegalArgumentException ignored) {
             return;
         }
         Assert.fail("Wrong: null accepted by @Nonnull parameters!");

@@ -17,14 +17,13 @@
 package com.tomtom.speedtools.services.lbs.geocode;
 
 
+import com.tomtom.speedtools.geometry.GeoRectangle;
+import com.tomtom.speedtools.services.lbs.AuthorizationException;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-
 import javax.naming.ServiceUnavailableException;
 import java.io.IOException;
-
-import com.tomtom.speedtools.services.lbs.AuthorizationException;
-import com.tomtom.speedtools.geometry.GeoRectangle;
 
 
 /**

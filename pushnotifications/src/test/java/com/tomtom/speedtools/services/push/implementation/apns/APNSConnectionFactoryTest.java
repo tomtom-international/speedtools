@@ -33,9 +33,9 @@ public class APNSConnectionFactoryTest {
         LOG.info("testCreateConnectionInvalidP12Path");
 
         apnsConnectionFactory = new APNSConnectionFactory("gateway.sandbox.push.apple.com", 2195,
-            "feedback.sandbox.push.apple.com", 2196,
-            "/com/tomtom/speedtools/connectors/push/implementation/apns/place-your-certificate-here-for-apns-sandbox.p12-XYZ",
-            "<password>");
+                "feedback.sandbox.push.apple.com", 2196,
+                "/com/tomtom/speedtools/connectors/push/implementation/apns/place-your-certificate-here-for-apns-sandbox.p12-XYZ",
+                "<password>");
 
         apnsConnectionFactory.createPushConnection();
     }
@@ -46,9 +46,9 @@ public class APNSConnectionFactoryTest {
         LOG.info("testCreateConnectionInvalidP12Password");
 
         apnsConnectionFactory = new APNSConnectionFactory("gateway.sandbox.push.apple.com", 2195,
-            "feedback.sandbox.push.apple.com", 2196,
-            "/com/tomtom/speedtools/push/implementation/apns/place-your-certificate-here-for-apns-sandbox.p12",
-            "<wrong-password>");
+                "feedback.sandbox.push.apple.com", 2196,
+                "/com/tomtom/speedtools/push/implementation/apns/place-your-certificate-here-for-apns-sandbox.p12",
+                "<wrong-password>");
 
         apnsConnectionFactory.createPushConnection();
     }
@@ -59,9 +59,9 @@ public class APNSConnectionFactoryTest {
         LOG.info("testCreateConnection");
 
         apnsConnectionFactory = new APNSConnectionFactory("gateway.sandbox.push.apple.com", 2195,
-            "feedback.sandbox.push.apple.com", 2196,
-            "/com/tomtom/speedtools/push/implementation/apns/place-your-certificate-here-for-apns-sandbox.p12",
-            "<password>");
+                "feedback.sandbox.push.apple.com", 2196,
+                "/com/tomtom/speedtools/push/implementation/apns/place-your-certificate-here-for-apns-sandbox.p12",
+                "<password>");
 
         final APNSGatewayConnection connection = apnsConnectionFactory.createPushConnection();
         Assert.assertNotNull(connection);

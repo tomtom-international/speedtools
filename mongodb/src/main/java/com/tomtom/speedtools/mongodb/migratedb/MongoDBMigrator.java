@@ -19,19 +19,12 @@ package com.tomtom.speedtools.mongodb.migratedb;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;
 import com.mongodb.DBObject;
-
-import javax.annotation.Nonnull;
-
+import com.tomtom.speedtools.mongodb.MongoDB;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import com.tomtom.speedtools.mongodb.MongoDB;
+import javax.annotation.Nonnull;
+import java.util.*;
 
 /**
  * Class should have an application-specific subclass that registers concrete migrations. Call {@link #migrate(MongoDB,

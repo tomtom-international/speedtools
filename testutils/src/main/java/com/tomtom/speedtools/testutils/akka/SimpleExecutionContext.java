@@ -27,7 +27,8 @@ import javax.annotation.Nonnull;
  * for example, Akka onComplete() methods.
  */
 public class SimpleExecutionContext implements ExecutionContext {
-    @Nonnull private static final SimpleExecutionContext INSTANCE = new SimpleExecutionContext();
+    @Nonnull
+    private static final SimpleExecutionContext INSTANCE = new SimpleExecutionContext();
 
     // Always use getInstance().
     private SimpleExecutionContext() {

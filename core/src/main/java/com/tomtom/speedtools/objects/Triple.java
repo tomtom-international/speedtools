@@ -18,7 +18,6 @@ package com.tomtom.speedtools.objects;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-
 import java.io.Serializable;
 
 /**

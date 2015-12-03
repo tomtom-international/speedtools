@@ -16,13 +16,11 @@
 
 package com.tomtom.speedtools.mongodb.mappers;
 
-import javax.annotation.Nullable;
-
+import com.tomtom.speedtools.time.UTCTime;
 import org.joda.time.DateTime;
 
+import javax.annotation.Nullable;
 import java.util.Date;
-
-import com.tomtom.speedtools.time.UTCTime;
 
 public class DateTimeMapper extends Mapper<DateTime> {
 

@@ -36,24 +36,21 @@ public class CircularBufferTest {
         try {
             buffer.get();
             Assert.fail();
-        }
-        catch (final UnderflowException ignored) {
+        } catch (final UnderflowException ignored) {
             // Ok.
         }
 
         try {
             buffer.newest();
             Assert.fail();
-        }
-        catch (final UnderflowException ignored) {
+        } catch (final UnderflowException ignored) {
             // Ok.
         }
 
         try {
             buffer.oldest();
             Assert.fail();
-        }
-        catch (final UnderflowException ignored) {
+        } catch (final UnderflowException ignored) {
             // Ok.
         }
 
@@ -91,8 +88,7 @@ public class CircularBufferTest {
         try {
             buffer.get();
             Assert.fail();
-        }
-        catch (final UnderflowException ignored) {
+        } catch (final UnderflowException ignored) {
             // Ok.
         }
     }
@@ -143,24 +139,21 @@ public class CircularBufferTest {
         try {
             buffer.get();
             Assert.fail();
-        }
-        catch (final UnderflowException ignored) {
+        } catch (final UnderflowException ignored) {
             // Ok.
         }
 
         try {
             buffer.newest();
             Assert.fail();
-        }
-        catch (final UnderflowException ignored) {
+        } catch (final UnderflowException ignored) {
             // Ok.
         }
 
         try {
             buffer.oldest();
             Assert.fail();
-        }
-        catch (final UnderflowException ignored) {
+        } catch (final UnderflowException ignored) {
             // Ok.
         }
 
@@ -178,8 +171,7 @@ public class CircularBufferTest {
         try {
             buffer.add(5);
             Assert.fail();
-        }
-        catch (final OverflowException ignored) {
+        } catch (final OverflowException ignored) {
             // Ok.
         }
 
@@ -204,8 +196,7 @@ public class CircularBufferTest {
         try {
             buffer.get();
             Assert.fail();
-        }
-        catch (final UnderflowException ignored) {
+        } catch (final UnderflowException ignored) {
             // Ok.
         }
 

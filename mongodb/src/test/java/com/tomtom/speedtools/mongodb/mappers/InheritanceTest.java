@@ -16,11 +16,10 @@
 
 package com.tomtom.speedtools.mongodb.mappers;
 
-import org.junit.Assert;
-import org.junit.Test;
-
 import com.tomtom.speedtools.geometry.GeoArea;
 import com.tomtom.speedtools.geometry.GeoObject;
+import org.junit.Assert;
+import org.junit.Test;
 
 public class InheritanceTest {
 

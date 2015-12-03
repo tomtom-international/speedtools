@@ -16,11 +16,10 @@
 
 package com.tomtom.speedtools.tracer.mongo;
 
+import com.tomtom.speedtools.tracer.Trace;
 import org.joda.time.DateTime;
 
 import javax.annotation.Nonnull;
-
-import com.tomtom.speedtools.tracer.Trace;
 
 /**
  * POJO to store events in MongoDB.

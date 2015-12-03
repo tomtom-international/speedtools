@@ -16,6 +16,9 @@
 
 package com.tomtom.speedtools.gpstrace;
 
+import com.tomtom.speedtools.geometry.GeoPoint;
+import com.tomtom.speedtools.objects.Immutables;
+import com.tomtom.speedtools.testutils.TestUtils;
 import nl.jqno.equalsverifier.EqualsVerifier;
 import org.joda.time.DateTime;
 import org.joda.time.Duration;
@@ -27,10 +30,6 @@ import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.Collection;
-
-import com.tomtom.speedtools.testutils.TestUtils;
-import com.tomtom.speedtools.geometry.GeoPoint;
-import com.tomtom.speedtools.objects.Immutables;
 
 public class GpsTraceTest {
     private static final Logger LOG = LoggerFactory.getLogger(GpsTraceTest.class);

@@ -78,8 +78,7 @@ public final class AkkaUtils {
         final long millis = posOrNegDuration.getMillis();
         if (millis >= 0) {
             result = Duration.create(millis, TimeUnit.MILLISECONDS);
-        }
-        else {
+        } else {
             result = Duration.create(0, TimeUnit.MILLISECONDS);
         }
         return result;
@@ -152,8 +151,7 @@ public final class AkkaUtils {
 
         if (d1.timeLeft().gteq(d2.timeLeft())) {
             return d1;
-        }
-        else {
+        } else {
             return d2;
         }
     }

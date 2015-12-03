@@ -17,9 +17,9 @@
 package com.tomtom.speedtools.services.push.implementation.apns;
 
 
-import javax.annotation.Nonnull;
-
 import com.tomtom.speedtools.services.push.PushConnectionException;
+
+import javax.annotation.Nonnull;
 
 public class APNSGatewayConnectionException extends PushConnectionException {
 

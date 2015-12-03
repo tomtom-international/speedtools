@@ -21,14 +21,13 @@ import akka.actor.Scheduler;
 import com.google.inject.Binder;
 import com.google.inject.Module;
 import com.google.inject.Provides;
+import com.tomtom.speedtools.maven.MavenProperties;
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;
 import scala.concurrent.ExecutionContext;
 
 import javax.annotation.Nonnull;
 import javax.inject.Singleton;
-
-import com.tomtom.speedtools.maven.MavenProperties;
 
 /**
  * Guice module for services.

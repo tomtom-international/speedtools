@@ -16,13 +16,12 @@
 
 package com.tomtom.speedtools.testutils.constructorchecker;
 
+import com.tomtom.speedtools.testutils.ValidationFailException;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.List;
-
-import com.tomtom.speedtools.testutils.ValidationFailException;
 
 public class ConstructorCheckerTest {
     private static final Logger LOG = LoggerFactory.getLogger(ConstructorCheckerTest.class);

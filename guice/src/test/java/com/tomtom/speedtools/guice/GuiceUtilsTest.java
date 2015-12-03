@@ -41,7 +41,7 @@ public class GuiceUtilsTest {
     private static final Logger LOG = LoggerFactory.getLogger(GuiceUtilsTest.class);
 
     private static final String PROPERTY_FILE = GuiceUtilsTest.class.getPackage().getName().replaceAll("\\.",
-        "/") + "/guiceutilstest.properties";
+            "/") + "/guiceutilstest.properties";
 
     @BeforeClass
     public static void setUp() throws NamingException {
@@ -61,8 +61,7 @@ public class GuiceUtilsTest {
             //Define some properties without speedtools prefix.
             ctx.bind("java:comp/env/prop.1", "value");
             ctx.bind("java:comp/env/prop.2", "value");
-        }
-        finally {
+        } finally {
             ctx.close();
         }
     }
@@ -76,8 +75,7 @@ public class GuiceUtilsTest {
         try {
             GuiceUtils.loadUrl(props, "classpath:non-existing-test-config.properties");
             Assert.fail("Did not expect this");
-        }
-        catch (final IOException e) {
+        } catch (final IOException e) {
             // Expected exception.
         }
 
@@ -119,8 +117,7 @@ public class GuiceUtilsTest {
         try {
             GuiceUtils.loadUrl(props, "file:non/existing/path/but/if/it/exists/it/is/really/weird.txt");
             Assert.fail("Did not expect to find this");
-        }
-        catch (final FileNotFoundException e) {
+        } catch (final FileNotFoundException e) {
             // Expected exception.
         }
 
@@ -143,8 +140,7 @@ public class GuiceUtilsTest {
         try {
             GuiceUtils.loadUrl(props, "bla:non/existing/protocol");
             Assert.fail("Did not expect to find this");
-        }
-        catch (final MalformedURLException e) {
+        } catch (final MalformedURLException e) {
             // Expected exception.
         }
     }
@@ -159,7 +155,7 @@ public class GuiceUtilsTest {
         Mockito.when(binder.skipSources(Mockito.any(Class[].class))).thenReturn(binder);
 
         Mockito.when(binder.bind(Mockito.any(Key.class))).thenReturn(Mockito.mock
-            (LinkedBindingBuilder.class));
+                (LinkedBindingBuilder.class));
 
         final Module module = new GuiceConfigurationModule("classpath:" + PROPERTY_FILE);
         Assert.assertNotNull(module);

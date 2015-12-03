@@ -20,12 +20,14 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 public final class ApiDuplicateIdError extends ApiValidationError {
-    @Nonnull private final  String parameter;
-    @Nullable private final String actual;
+    @Nonnull
+    private final String parameter;
+    @Nullable
+    private final String actual;
 
     public ApiDuplicateIdError(
-        @Nonnull final String parameter,
-        @Nullable final String actual) {
+            @Nonnull final String parameter,
+            @Nullable final String actual) {
         super(ErrorCode.DUPLICATE_USER_NAME);
         assert parameter != null;
         this.parameter = parameter;

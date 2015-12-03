@@ -16,7 +16,9 @@
 
 package com.tomtom.speedtools.services.sms.implementation.messagebird;
 
+import com.tomtom.speedtools.services.sms.SMSDeliveryReportListener;
 import com.tomtom.speedtools.services.sms.SMSDeliveryReportListener.DeliveryStatus;
+import com.tomtom.speedtools.services.sms.SMSDeliveryReportListenerRegistry;
 import com.tomtom.speedtools.services.sms.implementation.messagebird.dto.MessageBirdMessageResponse;
 import com.tomtom.speedtools.services.sms.implementation.messagebird.dto.MessageBirdMessageResponse.Item;
 import com.tomtom.speedtools.services.sms.implementation.messagebird.dto.MessageBirdMessageResponse.ResponseCode;
@@ -41,9 +43,6 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
-
-import com.tomtom.speedtools.services.sms.SMSDeliveryReportListener;
-import com.tomtom.speedtools.services.sms.SMSDeliveryReportListenerRegistry;
 
 /**
  * Mock that always returns SENT when used to send a message.

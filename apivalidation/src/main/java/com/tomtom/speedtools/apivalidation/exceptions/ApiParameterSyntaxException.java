@@ -16,10 +16,10 @@
 
 package com.tomtom.speedtools.apivalidation.exceptions;
 
+import com.tomtom.speedtools.apivalidation.errors.ApiParameterSyntaxError;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-
-import com.tomtom.speedtools.apivalidation.errors.ApiParameterSyntaxError;
 
 public final class ApiParameterSyntaxException extends ApiBadRequestException {
 

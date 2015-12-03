@@ -21,23 +21,27 @@ import javax.annotation.Nullable;
 
 public final class ApiParameterSyntaxError extends ApiValidationError {
 
-    @Nonnull private final  String parameter;
-    @Nullable private final String actual;
-    @Nonnull private final  String format;
-    @Nullable private final String description;
+    @Nonnull
+    private final String parameter;
+    @Nullable
+    private final String actual;
+    @Nonnull
+    private final String format;
+    @Nullable
+    private final String description;
 
     public ApiParameterSyntaxError(
-        @Nonnull final String parameter,
-        @Nullable final String actual,
-        @Nonnull final String format) {
+            @Nonnull final String parameter,
+            @Nullable final String actual,
+            @Nonnull final String format) {
         this(parameter, actual, format, null);
     }
 
     public ApiParameterSyntaxError(
-        @Nonnull final String parameter,
-        @Nullable final String actual,
-        @Nonnull final String format,
-        @Nullable final String description) {
+            @Nonnull final String parameter,
+            @Nullable final String actual,
+            @Nonnull final String format,
+            @Nullable final String description) {
         super(ErrorCode.STRING_FORMAT_ERROR);
         assert parameter != null;
         assert format != null;

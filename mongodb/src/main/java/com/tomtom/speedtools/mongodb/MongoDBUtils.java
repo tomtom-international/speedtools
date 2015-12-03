@@ -17,15 +17,13 @@
 package com.tomtom.speedtools.mongodb;
 
 import com.mongodb.BasicDBObject;
-
-import javax.annotation.Nonnull;
-
 import com.tomtom.speedtools.geometry.GeoPoint;
 import com.tomtom.speedtools.geometry.GeoRectangle;
-import com.tomtom.speedtools.mongodb.mappers.EntityMapper;
 import com.tomtom.speedtools.mongodb.mappers.EntityMapper.HasFieldName;
 import com.tomtom.speedtools.mongodb.mappers.GeoPointMapper;
 import com.tomtom.speedtools.mongodb.mappers.MapperException;
+
+import javax.annotation.Nonnull;
 
 /**
  * This class provides generic methods to operate on Mongo Collections.

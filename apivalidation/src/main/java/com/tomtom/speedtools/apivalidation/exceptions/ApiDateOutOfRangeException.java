@@ -16,12 +16,11 @@
 
 package com.tomtom.speedtools.apivalidation.exceptions;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
+import com.tomtom.speedtools.apivalidation.errors.ApiDateOutOfRangeError;
 import org.joda.time.DateTime;
 
-import com.tomtom.speedtools.apivalidation.errors.ApiDateOutOfRangeError;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 public final class ApiDateOutOfRangeException extends ApiBadRequestException {
 

@@ -16,14 +16,7 @@
 
 package com.tomtom.speedtools.akka;
 
-import akka.actor.Actor;
-import akka.actor.ActorContext;
-import akka.actor.ActorRef;
-import akka.actor.ActorRefFactory;
-import akka.actor.ActorSystem;
-import akka.actor.Props;
-import akka.actor.UntypedActor;
-import akka.actor.UntypedActorFactory;
+import akka.actor.*;
 import com.google.common.collect.MapMaker;
 import com.google.inject.Injector;
 import com.google.inject.Key;

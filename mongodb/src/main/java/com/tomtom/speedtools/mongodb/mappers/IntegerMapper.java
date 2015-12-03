@@ -30,7 +30,7 @@ public class IntegerMapper extends Mapper<Integer> {
             return ((Number) dbValue).intValue();
         }
         throw new MapperException("Number expected, " +
-            "got a value of type: " + dbValue.getClass().getCanonicalName());
+                "got a value of type: " + dbValue.getClass().getCanonicalName());
     }
 
     @Nullable

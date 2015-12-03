@@ -16,10 +16,9 @@
 
 package com.tomtom.speedtools.mongodb.mappers;
 
-import javax.annotation.Nullable;
-
 import org.joda.time.LocalDate;
 
+import javax.annotation.Nullable;
 import java.util.Date;
 
 public class LocalDateMapper extends Mapper<LocalDate> {

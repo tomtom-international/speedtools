@@ -17,14 +17,12 @@
 package com.tomtom.speedtools.mongodb;
 
 import com.mongodb.BasicDBObject;
+import com.tomtom.speedtools.json.SimpleJsonSerializer;
 import org.bson.types.ObjectId;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-
 import java.util.Map;
-
-import com.tomtom.speedtools.json.SimpleJsonSerializer;
 
 /**
  * Simple POJO to MongoDB DBObject serializer/deserializer.

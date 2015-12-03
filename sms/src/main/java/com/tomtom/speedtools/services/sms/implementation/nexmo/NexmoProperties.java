@@ -16,14 +16,13 @@
 
 package com.tomtom.speedtools.services.sms.implementation.nexmo;
 
-import javax.annotation.Nonnull;
+import com.tomtom.speedtools.guice.InvalidPropertyValueException;
 
+import javax.annotation.Nonnull;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.net.MalformedURLException;
 import java.net.URL;
-
-import com.tomtom.speedtools.guice.InvalidPropertyValueException;
 
 /**
  * Configuration properties for the Nexmo SMS Provider.

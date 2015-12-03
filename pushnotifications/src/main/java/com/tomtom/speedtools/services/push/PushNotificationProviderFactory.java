@@ -16,9 +16,9 @@
 
 package com.tomtom.speedtools.services.push;
 
-import javax.annotation.Nonnull;
-
 import com.tomtom.speedtools.services.push.domain.NotificationChannelType;
+
+import javax.annotation.Nonnull;
 
 
 /**

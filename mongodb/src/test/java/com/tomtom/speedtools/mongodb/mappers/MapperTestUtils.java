@@ -16,13 +16,11 @@
 
 package com.tomtom.speedtools.mongodb.mappers;
 
-import javax.annotation.Nonnull;
-
+import com.tomtom.speedtools.objects.Objects;
 import org.joda.time.DateTime;
 
+import javax.annotation.Nonnull;
 import java.util.Collection;
-
-import com.tomtom.speedtools.objects.Objects;
 
 public class MapperTestUtils {
 

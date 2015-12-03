@@ -16,15 +16,13 @@
 
 package com.tomtom.speedtools.services.push.implementation.gcm;
 
-import javax.annotation.Nonnull;
-
+import com.tomtom.speedtools.services.push.PushNotificationProviderFactory;
+import com.tomtom.speedtools.services.push.domain.NotificationChannelType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.annotation.Nonnull;
 import javax.inject.Inject;
-
-import com.tomtom.speedtools.services.push.PushNotificationProviderFactory;
-import com.tomtom.speedtools.services.push.domain.NotificationChannelType;
 
 /**
  * Factory that can create {@link GCMConnector}s.

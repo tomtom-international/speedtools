@@ -32,16 +32,16 @@ import javax.servlet.http.HttpSession;
 public class CustomServlet3AsyncHttpRequest extends Servlet3AsyncHttpRequest {
 
     public CustomServlet3AsyncHttpRequest(
-        @Nonnull final HttpServletRequest httpServletRequest,
-        @Nonnull final HttpServletResponse response,
-        @Nullable final ServletContext servletContext,
-        @Nonnull final HttpResponse httpResponse,
-        @Nonnull final ResteasyHttpHeaders httpHeaders,
-        @Nonnull final ResteasyUriInfo uriInfo,
-        @Nonnull final String s,
-        @Nonnull final SynchronousDispatcher synchronousDispatcher) {
+            @Nonnull final HttpServletRequest httpServletRequest,
+            @Nonnull final HttpServletResponse response,
+            @Nullable final ServletContext servletContext,
+            @Nonnull final HttpResponse httpResponse,
+            @Nonnull final ResteasyHttpHeaders httpHeaders,
+            @Nonnull final ResteasyUriInfo uriInfo,
+            @Nonnull final String s,
+            @Nonnull final SynchronousDispatcher synchronousDispatcher) {
         super(httpServletRequest, response, servletContext, httpResponse, httpHeaders, uriInfo, s,
-            synchronousDispatcher);
+                synchronousDispatcher);
         assert httpServletRequest != null;
         assert response != null;
         assert httpResponse != null;

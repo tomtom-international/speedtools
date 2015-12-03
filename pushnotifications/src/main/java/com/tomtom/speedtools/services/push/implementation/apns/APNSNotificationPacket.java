@@ -16,19 +16,17 @@
 
 package com.tomtom.speedtools.services.push.implementation.apns;
 
-import javax.annotation.Nonnull;
-
+import com.tomtom.speedtools.checksums.HexString;
+import com.tomtom.speedtools.json.Json;
+import com.tomtom.speedtools.services.push.domain.PushToken;
+import com.tomtom.speedtools.time.UTCTime;
 import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.annotation.Nonnull;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-
-import com.tomtom.speedtools.checksums.HexString;
-import com.tomtom.speedtools.services.push.domain.PushToken;
-import com.tomtom.speedtools.json.Json;
-import com.tomtom.speedtools.time.UTCTime;
 
 import static com.tomtom.speedtools.utils.ByteUtils.intToByteArray;
 

@@ -17,12 +17,11 @@
 package com.tomtom.speedtools.services.push.implementation.apns;
 
 
-import javax.annotation.Nonnull;
+import com.tomtom.speedtools.guice.InvalidPropertyValueException;
 
+import javax.annotation.Nonnull;
 import javax.inject.Inject;
 import javax.inject.Named;
-
-import com.tomtom.speedtools.guice.InvalidPropertyValueException;
 
 /**
  * Class holds properties for connecting to Apple Push Notification Server.

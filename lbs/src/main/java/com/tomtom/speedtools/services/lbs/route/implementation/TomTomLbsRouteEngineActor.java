@@ -17,14 +17,13 @@
 package com.tomtom.speedtools.services.lbs.route.implementation;
 
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
+import com.tomtom.speedtools.geometry.GeoPoint;
+import com.tomtom.speedtools.services.lbs.route.RouteEngineResponse;
 import org.joda.time.DateTime;
 import scala.concurrent.Future;
 
-import com.tomtom.speedtools.services.lbs.route.RouteEngineResponse;
-import com.tomtom.speedtools.geometry.GeoPoint;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 
 /**

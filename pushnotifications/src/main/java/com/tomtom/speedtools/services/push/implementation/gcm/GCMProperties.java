@@ -17,13 +17,12 @@
 package com.tomtom.speedtools.services.push.implementation.gcm;
 
 
+import com.tomtom.speedtools.guice.InvalidPropertyValueException;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-
 import javax.inject.Inject;
 import javax.inject.Named;
-
-import com.tomtom.speedtools.guice.InvalidPropertyValueException;
 
 /**
  * Class holds properties for connecting to Google Cloud Messaging Server.

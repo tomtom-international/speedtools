@@ -17,18 +17,22 @@
 package com.tomtom.speedtools.services.lbs.route.implementation;
 
 import akka.dispatch.Futures;
+import com.tomtom.speedtools.geometry.GeoPoint;
+import com.tomtom.speedtools.services.lbs.AuthorizationException;
+import com.tomtom.speedtools.services.lbs.LbsProperties;
+import com.tomtom.speedtools.services.lbs.route.RouteEngineResponse;
+import com.tomtom.speedtools.time.UTCTime;
+import com.tomtom.speedtools.urls.UrlParameterBuilder;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.http.HttpStatus;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import scala.concurrent.Future;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.naming.ServiceUnavailableException;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -36,13 +40,6 @@ import javax.xml.bind.Unmarshaller;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.concurrent.TimeoutException;
-
-import com.tomtom.speedtools.geometry.GeoPoint;
-import com.tomtom.speedtools.services.lbs.AuthorizationException;
-import com.tomtom.speedtools.services.lbs.LbsProperties;
-import com.tomtom.speedtools.services.lbs.route.RouteEngineResponse;
-import com.tomtom.speedtools.time.UTCTime;
-import com.tomtom.speedtools.urls.UrlParameterBuilder;
 
 
 /**

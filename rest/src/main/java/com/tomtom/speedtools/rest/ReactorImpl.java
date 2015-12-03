@@ -18,18 +18,15 @@ package com.tomtom.speedtools.rest;
 
 import akka.actor.ActorSystem;
 import com.google.inject.Injector;
-
-import javax.annotation.Nonnull;
-
+import com.tomtom.speedtools.akka.ActorFactory;
+import com.tomtom.speedtools.akka.TypedActorFactory;
 import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import scala.concurrent.ExecutionContext;
 
+import javax.annotation.Nonnull;
 import javax.inject.Inject;
-
-import com.tomtom.speedtools.akka.ActorFactory;
-import com.tomtom.speedtools.akka.TypedActorFactory;
 
 public class ReactorImpl implements Reactor {
 

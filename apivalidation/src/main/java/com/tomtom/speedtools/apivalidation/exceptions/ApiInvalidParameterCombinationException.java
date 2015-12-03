@@ -16,9 +16,9 @@
 
 package com.tomtom.speedtools.apivalidation.exceptions;
 
-import javax.annotation.Nonnull;
-
 import com.tomtom.speedtools.apivalidation.errors.ApiInvalidParameterCombinationError;
+
+import javax.annotation.Nonnull;
 
 public class ApiInvalidParameterCombinationException extends ApiBadRequestException {
 

@@ -17,14 +17,12 @@
 package com.tomtom.speedtools.mongodb.mappers;
 
 import com.mongodb.DBObject;
-
-import javax.annotation.Nonnull;
-
-import java.util.Collection;
-import java.util.Set;
-
 import com.tomtom.speedtools.geometry.GeoArea;
 import com.tomtom.speedtools.geometry.GeoRectangle;
+
+import javax.annotation.Nonnull;
+import java.util.Collection;
+import java.util.Set;
 
 public class GeoAreaMapper extends EntityMapper<GeoArea> {
     public final EntityType entityType = entityType(GeoArea.class, "geoArea");

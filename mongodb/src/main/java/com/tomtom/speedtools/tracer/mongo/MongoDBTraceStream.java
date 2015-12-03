@@ -16,18 +16,16 @@
 
 package com.tomtom.speedtools.tracer.mongo;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
-import org.joda.time.DateTime;
-
-import javax.inject.Inject;
-import java.net.UnknownHostException;
-import java.util.List;
-
 import com.tomtom.speedtools.time.UTCTime;
 import com.tomtom.speedtools.tracer.TraceHandlerCollection;
 import com.tomtom.speedtools.tracer.TraceStream;
+import org.joda.time.DateTime;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import javax.inject.Inject;
+import java.net.UnknownHostException;
+import java.util.List;
 
 /**
  * Class that reads trace events from a MongoDB database.

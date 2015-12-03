@@ -21,14 +21,17 @@ import javax.annotation.Nullable;
 
 public final class ApiInvalidFormatError extends ApiValidationError {
 
-    @Nonnull private final  String parameter;
-    @Nullable private final String actual;
-    @Nullable private final String expected;
+    @Nonnull
+    private final String parameter;
+    @Nullable
+    private final String actual;
+    @Nullable
+    private final String expected;
 
     public ApiInvalidFormatError(
-        @Nonnull final String parameter,
-        @Nullable final String actual,
-        @Nullable final String expected) {
+            @Nonnull final String parameter,
+            @Nullable final String actual,
+            @Nullable final String expected) {
         super(ErrorCode.INVALID_FORMAT);
         assert parameter != null;
         this.parameter = parameter;

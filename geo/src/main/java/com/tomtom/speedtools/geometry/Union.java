@@ -16,9 +16,9 @@
 
 package com.tomtom.speedtools.geometry;
 
-import javax.annotation.concurrent.Immutable;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.annotation.concurrent.Immutable;
 
 /**
  * Binary expression: Union.

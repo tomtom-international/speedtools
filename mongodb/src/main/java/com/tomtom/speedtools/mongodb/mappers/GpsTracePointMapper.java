@@ -16,10 +16,9 @@
 
 package com.tomtom.speedtools.mongodb.mappers;
 
-import org.joda.time.DateTime;
-
 import com.tomtom.speedtools.geometry.GeoPoint;
 import com.tomtom.speedtools.gpstrace.GpsTracePoint;
+import org.joda.time.DateTime;
 
 public class GpsTracePointMapper extends EntityMapper<GpsTracePoint> {
     public final EntityType entityType = entityType(GpsTracePoint.class, "gpsTracePoint");

@@ -18,16 +18,13 @@ package com.tomtom.speedtools.rest;
 
 import akka.actor.OneForOneStrategy;
 import akka.actor.SupervisorStrategy;
-
-import javax.annotation.Nonnull;
-
 import akka.actor.TypedActor.Supervisor;
+import com.tomtom.speedtools.akka.TypedActorFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.annotation.Nonnull;
 import javax.inject.Inject;
-
-import com.tomtom.speedtools.akka.TypedActorFactory;
 
 /**
  * Actor that serves as the root of all singleton actors in the system. All actors created by {@link #create(Class,

@@ -61,7 +61,7 @@ public final class ColorConverter {
         // Cannot be longer than '#123456'.
         if (value.length() > COLOR_MAX_LENGTH) {
             throw new IllegalArgumentException(
-                "Length should be [" + COLOR_MIN_LENGTH + "src/main" + COLOR_MAX_LENGTH + ']');
+                    "Length should be [" + COLOR_MIN_LENGTH + "src/main" + COLOR_MAX_LENGTH + ']');
         }
 
         // Calculate RGB value.

@@ -16,13 +16,12 @@
 
 package com.tomtom.speedtools.tracer;
 
-import javax.annotation.Nonnull;
-
+import com.tomtom.speedtools.json.Json;
 import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.tomtom.speedtools.json.Json;
+import javax.annotation.Nonnull;
 
 /**
  * Class to store a single logging event. A Trace can contain any (serializable) object, or a class which extends

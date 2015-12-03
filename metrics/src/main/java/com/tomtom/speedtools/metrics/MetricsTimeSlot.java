@@ -16,14 +16,13 @@
 
 package com.tomtom.speedtools.metrics;
 
+import com.tomtom.speedtools.json.Json;
+import com.tomtom.speedtools.json.JsonRenderable;
+import com.tomtom.speedtools.objects.Objects;
 import org.joda.time.DateTime;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-
-import com.tomtom.speedtools.json.Json;
-import com.tomtom.speedtools.json.JsonRenderable;
-import com.tomtom.speedtools.objects.Objects;
 
 /**
  * Time-bucket that represents aggregated data for an amount of time for a specific metric. Storing metrics in

@@ -21,12 +21,14 @@ import javax.annotation.Nullable;
 
 public final class ApiIBANFormatError extends ApiValidationError {
 
-    @Nonnull private final  String parameter;
-    @Nullable private final String actual;
+    @Nonnull
+    private final String parameter;
+    @Nullable
+    private final String actual;
 
     public ApiIBANFormatError(
-        @Nonnull final String parameter,
-        @Nullable final String actual) {
+            @Nonnull final String parameter,
+            @Nullable final String actual) {
         super(ErrorCode.IBAN_FORMAT_ERROR);
         assert parameter != null;
         this.parameter = parameter;

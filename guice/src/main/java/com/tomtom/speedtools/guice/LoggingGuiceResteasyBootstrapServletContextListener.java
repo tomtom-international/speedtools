@@ -27,7 +27,7 @@ import javax.servlet.ServletContextEvent;
 
 public class LoggingGuiceResteasyBootstrapServletContextListener extends GuiceResteasyBootstrapServletContextListener {
     private static final Logger LOG =
-        LoggerFactory.getLogger(LoggingGuiceResteasyBootstrapServletContextListener.class);
+            LoggerFactory.getLogger(LoggingGuiceResteasyBootstrapServletContextListener.class);
 
     @Override
     public void contextInitialized(@Nonnull final ServletContextEvent event) {
@@ -35,16 +35,14 @@ public class LoggingGuiceResteasyBootstrapServletContextListener extends GuiceRe
 
         @Nullable final ServletContext servletContext = event.getServletContext();
         LOG.debug("contextInitialized: servlet={}", (servletContext == null) ? null :
-            servletContext.getServletContextName());
+                servletContext.getServletContextName());
         try {
             super.contextInitialized(event);
-        }
-        catch (final RuntimeException e) {
+        } catch (final RuntimeException e) {
             LOG.error("contextInitialized: Unexpected runtime exception, {}", e);
             //noinspection ProhibitedExceptionThrown
             throw e;
-        }
-        catch (final Throwable e) {
+        } catch (final Throwable e) {
             LOG.error("contextInitialized: Unexpected throwable exception, {}", e);
             //noinspection ProhibitedExceptionThrown
             throw new RuntimeException(e);
@@ -58,16 +56,14 @@ public class LoggingGuiceResteasyBootstrapServletContextListener extends GuiceRe
 
         @Nullable final ServletContext servletContext = event.getServletContext();
         LOG.debug("contextDestroyed: servlet={}", (servletContext == null) ? null :
-            servletContext.getServletContextName());
+                servletContext.getServletContextName());
         try {
             super.contextDestroyed(event);
-        }
-        catch (final RuntimeException e) {
+        } catch (final RuntimeException e) {
             LOG.error("contextDestroyed: Unexpected runtime exception, {}", e);
             //noinspection ProhibitedExceptionThrown
             throw e;
-        }
-        catch (final Throwable e) {
+        } catch (final Throwable e) {
             LOG.error("contextDestroyed: Unexpected throwable exception, {}", e);
             //noinspection ProhibitedExceptionThrown
             throw new RuntimeException(e);

@@ -30,7 +30,7 @@ public class InternalDaoException extends DaoException {
     }
 
     public InternalDaoException(@Nonnull final String message,
-        @Nonnull final Exception cause) {
+                                @Nonnull final Exception cause) {
         super(message, cause);
         assert message != null;
         assert cause != null;

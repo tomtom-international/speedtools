@@ -36,8 +36,7 @@ public final class Crypto {
     static {
         try {
             MessageDigest.getInstance("SHA-256");
-        }
-        catch (final NoSuchAlgorithmException e) {
+        } catch (final NoSuchAlgorithmException e) {
             LOG.error("Crypto: Cannot get SHA-256 message digest.", e);
         }
     }
@@ -69,8 +68,7 @@ public final class Crypto {
                 stringBuffer.append(Integer.toString((b & 0xff) + 0x100, 16).substring(1));
             }
             return stringBuffer.toString();
-        }
-        catch (final NoSuchAlgorithmException e) {
+        } catch (final NoSuchAlgorithmException e) {
             LOG.error("Crypto: Cannot get SHA-256 message digest.", e);
 
             //noinspection ProhibitedExceptionThrown

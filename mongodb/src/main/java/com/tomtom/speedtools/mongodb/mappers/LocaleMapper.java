@@ -16,11 +16,10 @@
 
 package com.tomtom.speedtools.mongodb.mappers;
 
-import javax.annotation.Nullable;
-
-import java.util.Locale;
-
 import com.tomtom.speedtools.locale.LocaleUtil;
+
+import javax.annotation.Nullable;
+import java.util.Locale;
 
 public class LocaleMapper extends Mapper<Locale> {
     @Nullable

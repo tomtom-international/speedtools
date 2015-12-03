@@ -22,8 +22,8 @@ import org.mockito.verification.VerificationMode;
 public class VerificationWithTimeoutImpl {
 
     private final VerificationMode delegate;
-    private final int              timeout;
-    private final int              treshhold;
+    private final int timeout;
+    private final int treshhold;
 
     public VerificationWithTimeoutImpl(final int treshhold, final int millis, final VerificationMode delegate) {
         this.treshhold = treshhold;
@@ -39,8 +39,7 @@ public class VerificationWithTimeoutImpl {
             try {
                 delegate.verify(data);
                 return;
-            }
-            catch (final AssertionError e) {
+            } catch (final AssertionError e) {
                 error = e;
                 soFar += treshhold;
                 sleep(treshhold);
@@ -54,8 +53,7 @@ public class VerificationWithTimeoutImpl {
     void sleep(final int sleep) {
         try {
             Thread.sleep(sleep);
-        }
-        catch (final InterruptedException ignored) {
+        } catch (final InterruptedException ignored) {
             // Oops, not much luck.
         }
     }

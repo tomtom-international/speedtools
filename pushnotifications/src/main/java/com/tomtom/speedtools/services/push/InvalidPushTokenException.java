@@ -16,9 +16,9 @@
 
 package com.tomtom.speedtools.services.push;
 
-import javax.annotation.Nonnull;
-
 import com.tomtom.speedtools.services.push.domain.PushToken;
+
+import javax.annotation.Nonnull;
 
 /**
  * In case a PushToken is considered invalid. Typically thrown by a PushNotificationProvider while pushing.

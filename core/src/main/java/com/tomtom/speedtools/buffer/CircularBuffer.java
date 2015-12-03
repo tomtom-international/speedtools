@@ -17,7 +17,6 @@
 package com.tomtom.speedtools.buffer;
 
 import javax.annotation.Nonnull;
-
 import java.util.Arrays;
 
 /**

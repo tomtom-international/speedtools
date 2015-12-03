@@ -16,10 +16,10 @@
 
 package com.tomtom.speedtools.services.lbs.route;
 
-import javax.annotation.Nonnull;
-
 import com.tomtom.speedtools.json.Json;
 import com.tomtom.speedtools.json.JsonRenderable;
+
+import javax.annotation.Nonnull;
 
 
 /**

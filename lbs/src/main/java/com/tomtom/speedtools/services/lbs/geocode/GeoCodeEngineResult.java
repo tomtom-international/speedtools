@@ -17,18 +17,16 @@
 package com.tomtom.speedtools.services.lbs.geocode;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-
 import com.tomtom.speedtools.geometry.Geo;
 import com.tomtom.speedtools.json.Json;
 import com.tomtom.speedtools.json.JsonRenderable;
 import com.tomtom.speedtools.utils.MathUtils;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
 
 import static com.tomtom.speedtools.utils.StringUtils.trim;
 

@@ -30,7 +30,7 @@ public class BooleanMapper extends Mapper<Boolean> {
             return (Boolean) dbValue;
         }
         throw new MapperException("Boolean expected, " +
-            "got a value of type: " + dbValue.getClass().getCanonicalName());
+                "got a value of type: " + dbValue.getClass().getCanonicalName());
     }
 
     @Nullable

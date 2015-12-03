@@ -18,15 +18,14 @@ package com.tomtom.speedtools.services;
 
 import com.google.inject.Binder;
 import com.google.inject.Module;
-
-import javax.annotation.Nonnull;
-import javax.inject.Singleton;
-
 import com.tomtom.speedtools.services.lbs.LbsProperties;
 import com.tomtom.speedtools.services.lbs.geocode.GeoCodeEngine;
 import com.tomtom.speedtools.services.lbs.geocode.implementation.TomTomLbsGeoCodeEngine;
 import com.tomtom.speedtools.services.lbs.route.RouteEngine;
 import com.tomtom.speedtools.services.lbs.route.implementation.TomTomLbsRouteEngine;
+
+import javax.annotation.Nonnull;
+import javax.inject.Singleton;
 
 /**
  * This is a Guice module to configure the modules for {@link com.tomtom.speedtools.services}.

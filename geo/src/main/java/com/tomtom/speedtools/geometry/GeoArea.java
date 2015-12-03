@@ -16,9 +16,8 @@
 
 package com.tomtom.speedtools.geometry;
 
-import javax.annotation.concurrent.Immutable;
 import javax.annotation.Nonnull;
-
+import javax.annotation.concurrent.Immutable;
 import java.util.Collection;
 
 /**

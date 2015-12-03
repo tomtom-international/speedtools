@@ -29,20 +29,20 @@ public final class ApiValidationConstants {
         assert false;
     }
 
-    public static final int API_BIC_MAX_LENGTH              = 11;
-    public static final int API_BIC_MIN_LENGTH              = 8;
-    public static final int API_COLOR_MIN_LENGTH            = ColorConverter.COLOR_MIN_LENGTH;
-    public static final int API_COLOR_MAX_LENGTH            = ColorConverter.COLOR_MAX_LENGTH;
-    public static final int API_CURRENCY_ISO3_MAX_LENGTH    = 3;
-    public static final int API_CURRENCY_ISO3_MIN_LENGTH    = 3;
-    public static final int API_COUNTRY_ISO2_MAX_LENGTH     = 2;
-    public static final int API_COUNTRY_ISO2_MIN_LENGTH     = 2;
-    public static final int API_EMAIL_ADDRESS_MAX_LENGTH    = 50;
-    public static final int API_EMAIL_ADDRESS_MIN_LENGTH    = 5;
-    public static final int API_IBAN_MAX_LENGTH             = 34;
-    public static final int API_IBAN_MIN_LENGTH             = 5;
+    public static final int API_BIC_MAX_LENGTH = 11;
+    public static final int API_BIC_MIN_LENGTH = 8;
+    public static final int API_COLOR_MIN_LENGTH = ColorConverter.COLOR_MIN_LENGTH;
+    public static final int API_COLOR_MAX_LENGTH = ColorConverter.COLOR_MAX_LENGTH;
+    public static final int API_CURRENCY_ISO3_MAX_LENGTH = 3;
+    public static final int API_CURRENCY_ISO3_MIN_LENGTH = 3;
+    public static final int API_COUNTRY_ISO2_MAX_LENGTH = 2;
+    public static final int API_COUNTRY_ISO2_MIN_LENGTH = 2;
+    public static final int API_EMAIL_ADDRESS_MAX_LENGTH = 50;
+    public static final int API_EMAIL_ADDRESS_MIN_LENGTH = 5;
+    public static final int API_IBAN_MAX_LENGTH = 34;
+    public static final int API_IBAN_MIN_LENGTH = 5;
     public static final int API_TELEPHONE_NUMBER_MAX_LENGTH = 20;
     public static final int API_TELEPHONE_NUMBER_MIN_LENGTH = 9;
-    public static final int API_TIME_ZONE_MAX_LENGTH        = 32;
-    public static final int API_TIME_ZONE_MIN_LENGTH        = 0;
+    public static final int API_TIME_ZONE_MAX_LENGTH = 32;
+    public static final int API_TIME_ZONE_MIN_LENGTH = 0;
 }

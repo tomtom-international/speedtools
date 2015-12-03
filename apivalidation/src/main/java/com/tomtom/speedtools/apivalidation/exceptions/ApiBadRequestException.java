@@ -16,13 +16,12 @@
 
 package com.tomtom.speedtools.apivalidation.exceptions;
 
-import javax.annotation.Nonnull;
+import com.tomtom.speedtools.apivalidation.errors.ApiValidationError;
+import com.tomtom.speedtools.utils.StringUtils;
 
+import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
-
-import com.tomtom.speedtools.utils.StringUtils;
-import com.tomtom.speedtools.apivalidation.errors.ApiValidationError;
 
 /**
  * This exception may contain 1 or more errors related to API parameter validation.

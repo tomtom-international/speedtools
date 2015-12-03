@@ -20,16 +20,17 @@ import javax.annotation.Nonnull;
 
 public final class ApiIntegerOutOfRangeError extends ApiValidationError {
 
-    @Nonnull private final String parameter;
-    private final          int    actual;
-    private final          int    minValue;
-    private final          int    maxValue;
+    @Nonnull
+    private final String parameter;
+    private final int actual;
+    private final int minValue;
+    private final int maxValue;
 
     public ApiIntegerOutOfRangeError(
-        @Nonnull final String parameter,
-        final int actual,
-        final int minValue,
-        final int maxValue) {
+            @Nonnull final String parameter,
+            final int actual,
+            final int minValue,
+            final int maxValue) {
         super(ErrorCode.INTEGER_OUT_OF_RANGE_ERROR);
         assert parameter != null;
         this.parameter = parameter;

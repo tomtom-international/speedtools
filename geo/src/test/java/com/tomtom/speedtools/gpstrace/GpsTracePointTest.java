@@ -16,6 +16,11 @@
 
 package com.tomtom.speedtools.gpstrace;
 
+import com.tomtom.speedtools.geometry.GeoPoint;
+import com.tomtom.speedtools.testutils.TestUtils;
+import com.tomtom.speedtools.testutils.ValidationFailException;
+import com.tomtom.speedtools.testutils.constructorchecker.ConstructorChecker;
+import com.tomtom.speedtools.time.UTCTime;
 import nl.jqno.equalsverifier.EqualsVerifier;
 import org.joda.time.DateTime;
 import org.junit.Assert;
@@ -23,12 +28,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.tomtom.speedtools.testutils.TestUtils;
-import com.tomtom.speedtools.testutils.ValidationFailException;
-import com.tomtom.speedtools.testutils.constructorchecker.ConstructorChecker;
-import com.tomtom.speedtools.geometry.GeoPoint;
-import com.tomtom.speedtools.time.UTCTime;
 
 public class GpsTracePointTest {
     private static final Logger LOG = LoggerFactory.getLogger(GpsTracePointTest.class);

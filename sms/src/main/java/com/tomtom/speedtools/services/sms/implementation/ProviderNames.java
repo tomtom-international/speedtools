@@ -33,7 +33,8 @@ public enum ProviderNames {
      */
     MESSAGE_BIRD("MESSAGE_BIRD");
 
-    @Nonnull private final String name;
+    @Nonnull
+    private final String name;
 
     private ProviderNames(@Nonnull final String name) {
         assert name != null;

@@ -16,9 +16,9 @@
 
 package com.tomtom.speedtools.apivalidation.errors;
 
-import javax.annotation.Nonnull;
-
 import com.tomtom.speedtools.json.JsonBased;
+
+import javax.annotation.Nonnull;
 
 /**
  * Common base class for API errors.

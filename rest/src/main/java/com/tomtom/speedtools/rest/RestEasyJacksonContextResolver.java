@@ -17,6 +17,7 @@
 package com.tomtom.speedtools.rest;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.tomtom.speedtools.json.Json;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -25,8 +26,6 @@ import javax.annotation.Nullable;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.ext.ContextResolver;
-
-import com.tomtom.speedtools.json.Json;
 
 /**
  * This class is the Jackson context resolver for RestEasy. You can extend this class and mark it @Provider to have it

@@ -16,12 +16,12 @@
 
 package com.tomtom.speedtools.geometry;
 
-import javax.annotation.concurrent.Immutable;
+import com.tomtom.speedtools.objects.Objects;
+import com.tomtom.speedtools.utils.MathUtils;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-
-import com.tomtom.speedtools.utils.MathUtils;
-import com.tomtom.speedtools.objects.Objects;
+import javax.annotation.concurrent.Immutable;
 
 /**
  * Geometric vector which contains an Northing and Easting component.

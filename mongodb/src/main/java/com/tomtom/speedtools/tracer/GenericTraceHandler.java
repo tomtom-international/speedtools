@@ -16,9 +16,9 @@
 
 package com.tomtom.speedtools.tracer;
 
-import javax.annotation.Nonnull;
-
 import org.joda.time.DateTime;
+
+import javax.annotation.Nonnull;
 
 /**
  * GenericTraceHandler is an interface to catch type-safe events from event loggers. See {@link TracerFactory} for an

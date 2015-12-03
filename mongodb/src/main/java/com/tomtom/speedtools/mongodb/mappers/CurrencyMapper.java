@@ -17,7 +17,6 @@
 package com.tomtom.speedtools.mongodb.mappers;
 
 import javax.annotation.Nullable;
-
 import java.util.Currency;
 
 public class CurrencyMapper extends Mapper<Currency> {

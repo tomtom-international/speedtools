@@ -16,12 +16,11 @@
 
 package com.tomtom.speedtools.mongodb.mappers;
 
-import javax.annotation.Nonnull;
+import com.tomtom.speedtools.utils.StringUtils;
 
+import javax.annotation.Nonnull;
 import java.util.Collections;
 import java.util.List;
-
-import com.tomtom.speedtools.utils.StringUtils;
 
 
 /**

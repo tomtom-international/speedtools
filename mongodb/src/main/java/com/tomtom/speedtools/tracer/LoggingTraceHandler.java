@@ -29,10 +29,12 @@ import javax.annotation.Nonnull;
  */
 @SuppressWarnings("ThisEscapedInObjectConstruction")
 public class LoggingTraceHandler implements GenericTraceHandler {
-    @Nonnull private static final Logger LOG = LoggerFactory.getLogger(LoggingTraceHandler.class);
+    @Nonnull
+    private static final Logger LOG = LoggerFactory.getLogger(LoggingTraceHandler.class);
 
     // A DateTimeFormatter is thread-safe, so it can safely be declared static here.
-    @Nonnull private static final DateTimeFormatter FORMATTER = DateTimeFormat.forPattern("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
+    @Nonnull
+    private static final DateTimeFormatter FORMATTER = DateTimeFormat.forPattern("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
 
     public LoggingTraceHandler() {
         TracerFactory.addTraceHandler(this);
@@ -40,11 +42,11 @@ public class LoggingTraceHandler implements GenericTraceHandler {
 
     @Override
     public void handle(
-        @Nonnull final DateTime time,
-        @Nonnull final String clazz,
-        @Nonnull final String tracer,
-        @Nonnull final String method,
-        @Nonnull final Object[] args) {
+            @Nonnull final DateTime time,
+            @Nonnull final String clazz,
+            @Nonnull final String tracer,
+            @Nonnull final String method,
+            @Nonnull final Object[] args) {
         assert time != null;
         assert clazz != null;
         assert tracer != null;
@@ -55,7 +57,7 @@ public class LoggingTraceHandler implements GenericTraceHandler {
         if (LOG.isTraceEnabled()) {
             final StringBuilder message = new StringBuilder();
             message.append(time.toString(FORMATTER)).append(": ").
-                append(clazz).append('.').append(method).append('(');
+                    append(clazz).append('.').append(method).append('(');
             for (int i = 0; i < args.length; i++) {
                 if (i > 0) {
                     message.append(", ");

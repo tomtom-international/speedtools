@@ -16,18 +16,16 @@
 
 package com.tomtom.speedtools.checksums;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
+import com.tomtom.speedtools.objects.Objects;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
-
-import com.tomtom.speedtools.objects.Objects;
 
 
 /**

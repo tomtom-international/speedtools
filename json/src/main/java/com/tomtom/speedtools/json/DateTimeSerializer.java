@@ -36,7 +36,8 @@ import java.io.IOException;
 public final class DateTimeSerializer {
 
     // A DateTimeFormatter is thread-safe, so it can safely be declared static here.
-    @Nonnull private static final DateTimeFormatter FORMATTER = DateTimeFormat.forPattern("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
+    @Nonnull
+    private static final DateTimeFormatter FORMATTER = DateTimeFormat.forPattern("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
 
     private DateTimeSerializer() {
         // Prevent instantiation.
@@ -63,10 +64,10 @@ public final class DateTimeSerializer {
 
         @Override
         public void serialize(
-            @Nonnull final DateTime value,
-            @Nonnull final JsonGenerator jgen,
-            @Nonnull final SerializerProvider provider)
-            throws IOException, JsonProcessingException {
+                @Nonnull final DateTime value,
+                @Nonnull final JsonGenerator jgen,
+                @Nonnull final SerializerProvider provider)
+                throws IOException, JsonProcessingException {
             assert value != null;
             assert jgen != null;
             assert provider != null;
@@ -80,10 +81,10 @@ public final class DateTimeSerializer {
 
         @Override
         public void serialize(
-            @Nonnull final DateTime value,
-            @Nonnull final JsonGenerator jgen,
-            @Nonnull final SerializerProvider provider)
-            throws IOException, JsonProcessingException {
+                @Nonnull final DateTime value,
+                @Nonnull final JsonGenerator jgen,
+                @Nonnull final SerializerProvider provider)
+                throws IOException, JsonProcessingException {
             assert value != null;
             assert jgen != null;
             assert provider != null;
@@ -96,9 +97,9 @@ public final class DateTimeSerializer {
         @Override
         @Nonnull
         public DateTime deserialize(
-            @Nonnull final JsonParser jp,
-            @Nonnull final DeserializationContext ctxt)
-            throws IOException, JsonProcessingException {
+                @Nonnull final JsonParser jp,
+                @Nonnull final DeserializationContext ctxt)
+                throws IOException, JsonProcessingException {
             assert jp != null;
             assert ctxt != null;
             final String text = jp.getText();
@@ -111,9 +112,9 @@ public final class DateTimeSerializer {
         @Override
         @Nonnull
         public DateTime deserialize(
-            @Nonnull final JsonParser jp,
-            @Nonnull final DeserializationContext ctxt)
-            throws IOException, JsonProcessingException {
+                @Nonnull final JsonParser jp,
+                @Nonnull final DeserializationContext ctxt)
+                throws IOException, JsonProcessingException {
             assert jp != null;
             assert ctxt != null;
             return new DateTime(jp.getLongValue()).withZone(DateTimeZone.UTC);

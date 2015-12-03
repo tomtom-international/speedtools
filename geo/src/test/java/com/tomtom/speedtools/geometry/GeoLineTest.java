@@ -16,16 +16,15 @@
 
 package com.tomtom.speedtools.geometry;
 
+import com.tomtom.speedtools.testutils.ValidationFailException;
+import com.tomtom.speedtools.testutils.constructorchecker.ConstructorChecker;
+import com.tomtom.speedtools.utils.MathUtils;
 import nl.jqno.equalsverifier.EqualsVerifier;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.tomtom.speedtools.testutils.ValidationFailException;
-import com.tomtom.speedtools.testutils.constructorchecker.ConstructorChecker;
-import com.tomtom.speedtools.utils.MathUtils;
 
 public class GeoLineTest {
     private static final Logger LOG = LoggerFactory.getLogger(GeoLineTest.class);

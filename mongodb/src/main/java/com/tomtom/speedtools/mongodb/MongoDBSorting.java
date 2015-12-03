@@ -19,10 +19,9 @@ package com.tomtom.speedtools.mongodb;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
+import com.tomtom.speedtools.mongodb.mappers.EntityMapper;
 
 import javax.annotation.Nonnull;
-
-import com.tomtom.speedtools.mongodb.mappers.EntityMapper;
 
 public class MongoDBSorting {
     public static final int ASC = 1;

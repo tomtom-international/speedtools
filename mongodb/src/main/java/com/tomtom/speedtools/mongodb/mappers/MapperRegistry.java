@@ -16,21 +16,13 @@
 
 package com.tomtom.speedtools.mongodb.mappers;
 
-import javax.annotation.Nonnull;
-
+import com.tomtom.speedtools.objects.Tuple;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import javax.annotation.Nonnull;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
-
-import com.tomtom.speedtools.objects.Tuple;
 
 public class MapperRegistry {
     private static final Logger LOG = LoggerFactory.getLogger(MapperRegistry.class);

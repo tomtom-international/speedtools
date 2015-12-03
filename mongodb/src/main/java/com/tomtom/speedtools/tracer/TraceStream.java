@@ -16,10 +16,10 @@
 
 package com.tomtom.speedtools.tracer;
 
+import org.joda.time.DateTime;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-
-import org.joda.time.DateTime;
 
 /**
  * Source for event traces. A processor represents a stream of events. It has a current position, and it can be asked to

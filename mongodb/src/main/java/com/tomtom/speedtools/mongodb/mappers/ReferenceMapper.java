@@ -16,9 +16,9 @@
 
 package com.tomtom.speedtools.mongodb.mappers;
 
-import javax.annotation.Nullable;
-
 import com.tomtom.speedtools.domain.Uid;
+
+import javax.annotation.Nullable;
 
 /**
  */

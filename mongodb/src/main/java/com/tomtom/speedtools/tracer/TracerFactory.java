@@ -17,6 +17,7 @@
 package com.tomtom.speedtools.tracer;
 
 
+import com.tomtom.speedtools.time.UTCTime;
 import org.joda.time.DateTime;
 import org.joda.time.Duration;
 import org.slf4j.Logger;
@@ -31,8 +32,6 @@ import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicLong;
-
-import com.tomtom.speedtools.time.UTCTime;
 
 /**
  * This factory creates Traceable tracers. Tracers are specific for a class/method and are used to throw events to

@@ -16,10 +16,10 @@
 
 package com.tomtom.speedtools.apivalidation.exceptions;
 
+import com.tomtom.speedtools.apivalidation.errors.ApiDuplicateIdError;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-
-import com.tomtom.speedtools.apivalidation.errors.ApiDuplicateIdError;
 
 public final class ApiDuplicateIdException extends ApiBadRequestException {
 

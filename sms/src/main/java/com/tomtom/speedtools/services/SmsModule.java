@@ -20,15 +20,6 @@ import com.google.inject.Binder;
 import com.google.inject.Module;
 import com.google.inject.Provides;
 import com.google.inject.multibindings.Multibinder;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.impl.conn.tsccm.ThreadSafeClientConnManager;
-import org.jboss.resteasy.client.ClientExecutor;
-import org.jboss.resteasy.client.ProxyFactory;
-import org.jboss.resteasy.client.core.executors.ApacheHttpClient4Executor;
-
-import javax.annotation.Nonnull;
-import javax.inject.Singleton;
-
 import com.tomtom.speedtools.services.sms.SMSDeliveryReportListenerRegistry;
 import com.tomtom.speedtools.services.sms.SMSDeliveryReportResource;
 import com.tomtom.speedtools.services.sms.SMSProviderConnector;
@@ -41,6 +32,14 @@ import com.tomtom.speedtools.services.sms.implementation.nexmo.Nexmo;
 import com.tomtom.speedtools.services.sms.implementation.nexmo.NexmoProperties;
 import com.tomtom.speedtools.services.sms.implementation.nexmo.NexmoResource;
 import com.tomtom.speedtools.services.sms.implementation.nexmo.NexmoResourceMock;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.impl.conn.tsccm.ThreadSafeClientConnManager;
+import org.jboss.resteasy.client.ClientExecutor;
+import org.jboss.resteasy.client.ProxyFactory;
+import org.jboss.resteasy.client.core.executors.ApacheHttpClient4Executor;
+
+import javax.annotation.Nonnull;
+import javax.inject.Singleton;
 
 
 /**

@@ -21,7 +21,6 @@ import org.jboss.resteasy.spi.AsynchronousResponse;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;

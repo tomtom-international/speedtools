@@ -21,16 +21,6 @@ import com.google.android.gcm.server.Message;
 import com.google.android.gcm.server.Message.Builder;
 import com.google.android.gcm.server.Result;
 import com.google.android.gcm.server.Sender;
-
-import javax.annotation.Nonnull;
-
-import org.joda.time.Duration;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import java.io.IOException;
-import java.util.Set;
-
 import com.tomtom.speedtools.json.JsonRenderable;
 import com.tomtom.speedtools.objects.Immutables;
 import com.tomtom.speedtools.services.push.InvalidPushTokenException;
@@ -39,6 +29,13 @@ import com.tomtom.speedtools.services.push.PushNotificationProvider;
 import com.tomtom.speedtools.services.push.domain.Notification;
 import com.tomtom.speedtools.services.push.domain.NotificationChannelType;
 import com.tomtom.speedtools.services.push.domain.PushToken;
+import org.joda.time.Duration;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import javax.annotation.Nonnull;
+import java.io.IOException;
+import java.util.Set;
 
 import static com.tomtom.speedtools.loghelper.LogHelper.logId;
 

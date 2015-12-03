@@ -103,8 +103,7 @@ public class DateAdapterTest {
             // Month and day switched.
             dateAdapter.unmarshal("2009-13-02T23:31:30Z");
             Assert.fail();
-        }
-        catch (final IllegalFieldValueException ignored) {
+        } catch (final IllegalFieldValueException ignored) {
             //ignored.
         }
 
@@ -112,8 +111,7 @@ public class DateAdapterTest {
             // Hour field too large.
             dateAdapter.unmarshal("2009-02-13T24:31:30.000Z");
             Assert.fail();
-        }
-        catch (final IllegalFieldValueException ignored) {
+        } catch (final IllegalFieldValueException ignored) {
             //ignored.
         }
 
@@ -121,8 +119,7 @@ public class DateAdapterTest {
             // No Time separator.
             dateAdapter.unmarshal("2009-02-1324:31:30.000Z");
             Assert.fail();
-        }
-        catch (final IllegalArgumentException ignored) {
+        } catch (final IllegalArgumentException ignored) {
             //ignored.
         }
 
@@ -130,8 +127,7 @@ public class DateAdapterTest {
             // Illegal Time separator.
             dateAdapter.unmarshal("2009-02-13t24:31:30.000Z");
             Assert.fail();
-        }
-        catch (final IllegalArgumentException ignored) {
+        } catch (final IllegalArgumentException ignored) {
             //ignored.
         }
     }

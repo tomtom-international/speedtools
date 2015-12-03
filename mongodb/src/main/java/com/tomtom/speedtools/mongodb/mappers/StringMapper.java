@@ -30,7 +30,7 @@ public class StringMapper extends Mapper<String> {
             return (String) dbValue;
         }
         throw new MapperException("String value expected, " +
-            "got a value of type: " + dbValue.getClass().getCanonicalName());
+                "got a value of type: " + dbValue.getClass().getCanonicalName());
     }
 
     @Nullable

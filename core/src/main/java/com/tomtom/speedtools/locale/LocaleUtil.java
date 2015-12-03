@@ -17,7 +17,6 @@
 package com.tomtom.speedtools.locale;
 
 import javax.annotation.Nonnull;
-
 import java.util.Locale;
 import java.util.Set;
 

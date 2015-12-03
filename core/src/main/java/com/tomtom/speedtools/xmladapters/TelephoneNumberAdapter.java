@@ -24,7 +24,6 @@ import com.google.i18n.phonenumbers.Phonenumber.PhoneNumber;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
 /**

@@ -16,10 +16,10 @@
 
 package com.tomtom.speedtools.apivalidation.exceptions;
 
+import com.tomtom.speedtools.apivalidation.errors.ApiInvalidFormatError;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-
-import com.tomtom.speedtools.apivalidation.errors.ApiInvalidFormatError;
 
 public final class ApiInvalidFormatException extends ApiBadRequestException {
 

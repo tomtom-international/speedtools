@@ -42,39 +42,39 @@ public class StringUtilsTest {
         LOG.info("testToCodePoints");
 
         final String[] strings = {
-            "",
-            "a",
-            "\uD801\uDC00",
-            "aa",
-            "\uD801\uDC00a",
-            "a\uD801\uDC00",
-            "\uD801\uDC00\uD801\uDC00",
-            "aaa",
-            "\uD801\uDC00aa",
-            "a\uD801\uDC00a",
-            "aa\uD801\uDC00",
-            "\uD801\uDC00\uD801\uDC00a",
-            "a\uD801\uDC00\uD801\uDC00",
-            "\uD801\uDC00a\uD801\uDC00",
-            "\uD801\uDC00\uD801\uDC00\uD801\uDC00"
+                "",
+                "a",
+                "\uD801\uDC00",
+                "aa",
+                "\uD801\uDC00a",
+                "a\uD801\uDC00",
+                "\uD801\uDC00\uD801\uDC00",
+                "aaa",
+                "\uD801\uDC00aa",
+                "a\uD801\uDC00a",
+                "aa\uD801\uDC00",
+                "\uD801\uDC00\uD801\uDC00a",
+                "a\uD801\uDC00\uD801\uDC00",
+                "\uD801\uDC00a\uD801\uDC00",
+                "\uD801\uDC00\uD801\uDC00\uD801\uDC00"
         };
 
         final int[][] codePoints = {
-            {},
-            {0x61},
-            {0x10400},
-            {0x61, 0x61},
-            {0x10400, 0x61},
-            {0x61, 0x10400},
-            {0x10400, 0x10400},
-            {0x61, 0x61, 0x61},
-            {0x10400, 0x61, 0x61},
-            {0x61, 0x10400, 0x61},
-            {0x61, 0x61, 0x10400},
-            {0x10400, 0x10400, 0x61},
-            {0x61, 0x10400, 0x10400},
-            {0x10400, 0x61, 0x10400},
-            {0x10400, 0x10400, 0x10400}
+                {},
+                {0x61},
+                {0x10400},
+                {0x61, 0x61},
+                {0x10400, 0x61},
+                {0x61, 0x10400},
+                {0x10400, 0x10400},
+                {0x61, 0x61, 0x61},
+                {0x10400, 0x61, 0x61},
+                {0x61, 0x10400, 0x61},
+                {0x61, 0x61, 0x10400},
+                {0x10400, 0x10400, 0x61},
+                {0x61, 0x10400, 0x10400},
+                {0x10400, 0x61, 0x10400},
+                {0x10400, 0x10400, 0x10400}
         };
 
         assert strings.length == codePoints.length;

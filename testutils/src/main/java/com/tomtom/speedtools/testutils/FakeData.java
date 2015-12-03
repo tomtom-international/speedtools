@@ -56,7 +56,7 @@ public final class FakeData {
         // Use a local decimal formatter (DecimalFormat is not thread-safe).
         final DecimalFormat decimalFormat = new DecimalFormat("00");
         return decimalFormat.format(cal.get(Calendar.HOUR_OF_DAY)) + ':' +
-            decimalFormat.format(cal.get(Calendar.MINUTE));
+                decimalFormat.format(cal.get(Calendar.MINUTE));
     }
 
     /**

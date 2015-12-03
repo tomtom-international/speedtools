@@ -22,7 +22,6 @@ import org.jboss.resteasy.client.ClientResponse;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;

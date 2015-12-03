@@ -19,7 +19,6 @@ package com.tomtom.speedtools.akka;
 import akka.actor.UntypedActor;
 
 import javax.annotation.Nonnull;
-
 import java.io.Serializable;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;

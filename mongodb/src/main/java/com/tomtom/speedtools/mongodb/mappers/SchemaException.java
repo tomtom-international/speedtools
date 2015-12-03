@@ -46,14 +46,14 @@ public class SchemaException extends Exception {
     }
 
     public SchemaException(@Nullable final EntityMapper<?> entityMapper, @Nullable final String fieldName, @Nonnull final String message,
-        @Nullable final Exception cause) {
+                           @Nullable final Exception cause) {
         super(createMessage(entityMapper, fieldName, message), cause);
         assert (fieldName == null) || !fieldName.trim().isEmpty();
         assert message != null;
     }
 
     private static String createMessage(@Nullable final EntityMapper<?> entityMapper, @Nullable final String fieldName,
-        @Nonnull final String message) {
+                                        @Nonnull final String message) {
         assert message != null;
         final StringBuilder builder = new StringBuilder();
         if ((entityMapper != null)) {

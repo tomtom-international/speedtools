@@ -17,14 +17,13 @@
 package com.tomtom.speedtools.mongodb.mappers;
 
 import com.mongodb.DBObject;
-
-import javax.annotation.Nonnull;
-
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import javax.annotation.Nonnull;
 
 
 public class ReflectiveFieldTest {

@@ -16,10 +16,10 @@
 
 package com.tomtom.speedtools.mongodb.mappers;
 
-import java.util.Collection;
-
 import com.tomtom.speedtools.gpstrace.GpsTrace;
 import com.tomtom.speedtools.gpstrace.GpsTracePoint;
+
+import java.util.Collection;
 
 
 public class GpsTraceMapper extends EntityMapper<GpsTrace> {

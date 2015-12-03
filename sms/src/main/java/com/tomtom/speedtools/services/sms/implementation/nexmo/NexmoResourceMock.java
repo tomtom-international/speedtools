@@ -16,7 +16,10 @@
 
 package com.tomtom.speedtools.services.sms.implementation.nexmo;
 
+import com.tomtom.speedtools.objects.Immutables;
+import com.tomtom.speedtools.services.sms.SMSDeliveryReportListener;
 import com.tomtom.speedtools.services.sms.SMSDeliveryReportListener.DeliveryStatus;
+import com.tomtom.speedtools.services.sms.SMSDeliveryReportListenerRegistry;
 import com.tomtom.speedtools.services.sms.implementation.nexmo.dto.NexmoMessage;
 import com.tomtom.speedtools.services.sms.implementation.nexmo.dto.NexmoMessage.Status;
 import com.tomtom.speedtools.services.sms.implementation.nexmo.dto.NexmoMessageResponse;
@@ -41,10 +44,6 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
-
-import com.tomtom.speedtools.objects.Immutables;
-import com.tomtom.speedtools.services.sms.SMSDeliveryReportListener;
-import com.tomtom.speedtools.services.sms.SMSDeliveryReportListenerRegistry;
 
 /**
  * Mock that always returns SENT when used to send a message.

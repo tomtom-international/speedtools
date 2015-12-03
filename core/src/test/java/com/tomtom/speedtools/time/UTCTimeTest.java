@@ -97,8 +97,7 @@ public class UTCTimeTest {
             final DateTime dt6 = UTCTime.MIN_TIMESTAMP_DATE.minusSeconds(1);
             UTCTime.dateTimeToUTCTimestamp(dt6);
             Assert.fail("Expected to fail because it is less than minimum allowed date");
-        }
-        catch (final IllegalArgumentException ignored) {
+        } catch (final IllegalArgumentException ignored) {
             // Expected.
         }
 
@@ -106,8 +105,7 @@ public class UTCTimeTest {
             final DateTime dt7 = UTCTime.MAX_TIMESTAMP_DATE.plusSeconds(1);
             UTCTime.dateTimeToUTCTimestamp(dt7);
             Assert.fail("Expected to fail because it is more than maximum allowed date");
-        }
-        catch (final IllegalArgumentException ignored) {
+        } catch (final IllegalArgumentException ignored) {
             // Expected.
         }
     }

@@ -16,9 +16,9 @@
 
 package com.tomtom.speedtools.mongodb.mappers;
 
-import java.util.Currency;
-
 import com.tomtom.speedtools.domain.Money;
+
+import java.util.Currency;
 
 public class MoneyMapper extends EntityMapper<Money> {
     public final EntityType entityType = entityType(Money.class);
