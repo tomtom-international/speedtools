@@ -49,6 +49,26 @@ public class MapperRegistry {
     private final ConcurrentHashMap<Tuple<Class<?>, Class<?>>, EntityMapper<?>>
             subMapperCache = new ConcurrentHashMap<>();
 
+    // Static initialization of other mappers.
+    {
+        try {
+            register(
+                    new GeoAreaMapper(),
+                    new GeoPointMapper(),
+                    new GeoRectangleMapper(),
+                    new GpsTraceMapper(),
+                    new GpsTracePointMapper(),
+                    new LocalDateMapper(),
+                    new LocaleMapper(),
+                    new LongMapper(),
+                    new MoneyMapper(),
+                    new URLMapper()
+            );
+        } catch (final SchemaException e) {
+            LOG.error("Exception during initialization of mappers: ", e);
+        }
+    }
+
     @SuppressWarnings("unchecked")
     public void register(@Nonnull final Mapper<?>... mappers) throws SchemaException {
         assert mappers != null;
