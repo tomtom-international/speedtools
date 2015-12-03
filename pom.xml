@@ -90,17 +90,17 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
         <!-- Plugin versions. -->
-        <maven-compiler-plugin.version>3.2</maven-compiler-plugin.version>
+        <maven-compiler-plugin.version>3.3</maven-compiler-plugin.version>
         <maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>
-        <maven-javadoc-plugin.version>2.10.1</maven-javadoc-plugin.version>
+        <maven-javadoc-plugin.version>2.10.3</maven-javadoc-plugin.version>
         <maven-jetty-plugin.version>8.1.9.v20130131</maven-jetty-plugin.version>
         <maven-remote-resources-plugin.version>1.5</maven-remote-resources-plugin.version>
         <maven-source-plugin.version>2.4</maven-source-plugin.version>
-        <nexus-staging-maven-plugin.version>1.6.5</nexus-staging-maven-plugin.version>
+        <nexus-staging-maven-plugin.version>1.6.6</nexus-staging-maven-plugin.version>
 
         <!-- Library versions. -->
         <activemq-core.version>5.7.0</activemq-core.version>
-        <akka.version>2.3.9</akka.version>
+        <akka.version>2.3.14</akka.version>
         <commons-codec.version>1.10</commons-codec.version>
         <commons-collections.version>3.2.1</commons-collections.version>
         <commons-httpclient.version>3.1</commons-httpclient.version>
@@ -111,16 +111,16 @@
         <gcm-server.version>1.0.2</gcm-server.version>
         <gson.version>2.3.1</gson.version>
         <guava.version>18.0</guava.version>
-        <guice.version>3.0</guice.version>
-        <httpcore.version>4.4</httpcore.version>
-        <jackson.version>2.5.2</jackson.version>
+        <guice.version>4.0</guice.version>
+        <httpcore.version>4.4.4</httpcore.version>
+        <jackson.version>2.6.3</jackson.version>
         <javax.inject.version>1</javax.inject.version>
         <javax.mail.version>1.4.7</javax.mail.version>
         <javax.servlet-api.version>3.1.0</javax.servlet-api.version>
         <jaxb-api.version>2.2.12</jaxb-api.version>
         <jms.version>1.1</jms.version>
-        <joda-time.version>2.7</joda-time.version>
-        <jolokia.version>1.2.3</jolokia.version>
+        <joda-time.version>2.9.1</joda-time.version>
+        <jolokia.version>1.3.2</jolokia.version>
         <jsr305.version>3.0.0</jsr305.version>
         <junit.version>4.12</junit.version>
         <libphonenumber.geocoder.version>2.19</libphonenumber.geocoder.version>
@@ -129,13 +129,13 @@
         <loremipsum.version>1.0</loremipsum.version>
         <mockito-core.version>1.10.19</mockito-core.version>
         <mongo-java-driver.version>3.1.1</mongo-java-driver.version>
-        <org.objenesis.version>2.1</org.objenesis.version>
-        <paranamer.version>2.7</paranamer.version>
-        <resteasy.version>3.0.11.Final</resteasy.version>
-        <slf4j.version>1.7.10</slf4j.version>
-        <snakeyaml.version>1.14</snakeyaml.version>
-        <testng.version>6.8.8</testng.version>
-        <typesafe-config.version>1.2.1</typesafe-config.version>
+        <org.objenesis.version>2.2</org.objenesis.version>
+        <paranamer.version>2.8</paranamer.version>
+        <resteasy.version>3.0.13.Final</resteasy.version>
+        <slf4j.version>1.7.13</slf4j.version>
+        <snakeyaml.version>1.16</snakeyaml.version>
+        <testng.version>6.9.9</testng.version>
+        <typesafe-config.version>1.3.0</typesafe-config.version>
     </properties>
 
     <distributionManagement>
