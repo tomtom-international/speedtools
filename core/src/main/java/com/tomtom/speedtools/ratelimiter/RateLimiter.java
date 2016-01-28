@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015. TomTom International BV (http://tomtom.com).
+ * Copyright (C) 2012-2016. TomTom International BV (http://tomtom.com).
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -35,7 +35,7 @@ import com.tomtom.speedtools.buffer.CircularBuffer;
  *  S here is how long to sleep before we invoke the next operation.  Solving for S:
  *      S = n / Rt - (timestamp - timestamp(0))
  * </pre>
- * Original author of Scala version: Eric Bowman (2012-05-16) Rewritten to Java by: Rijn Buve (2012-07-24)
+ * Original author of Scala version: Eric Bowman (2012-05-16) Rewritten to Java by: Rijn Buve (2012-07-24).
  */
 public class RateLimiter {
 

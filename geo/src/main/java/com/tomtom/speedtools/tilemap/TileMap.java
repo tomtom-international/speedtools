@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015. TomTom International BV (http://tomtom.com).
+ * Copyright (C) 2012-2016. TomTom International BV (http://tomtom.com).
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -421,7 +421,7 @@ public abstract class TileMap<T> {
      * @param zoomLevel Zoomlevel of viewport.
      * @param mapCenter Latitude and longitude of center of map.
      * @return Returns (x, y) position in viewport. 0 &lt;= x &lt; width and 0 &lt;= y &lt; height, or null if either of the values
-     * is out ofrange, if the lat or lon is not positioned within the viewport.
+     * is out of range, if the lat or lon is not positioned within the viewport.
      */
     @SuppressWarnings("NumericCastThatLosesPrecision")
     @Nullable

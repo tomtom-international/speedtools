@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015. TomTom International BV (http://tomtom.com).
+ * Copyright (C) 2012-2016. TomTom International BV (http://tomtom.com).
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -47,25 +47,25 @@ public class MockActorPath implements ActorPath {
 
     @Override
     @Nullable
-    public ActorPath $div(@Nullable final String s) {
+    public ActorPath $div(@Nullable final String child) {
         return null;
     }
 
     @Override
     @Nullable
-    public ActorPath child(@Nullable final String s) {
+    public ActorPath child(@Nullable final String child) {
         return null;
     }
 
     @Override
     @Nullable
-    public ActorPath $div(@Nullable final scala.collection.Iterable<String> iterable) {
+    public ActorPath $div(@Nullable final scala.collection.Iterable<String> child) {
         return null;
     }
 
     @Override
     @Nullable
-    public ActorPath descendant(@Nullable final Iterable<String> iterable) {
+    public ActorPath descendant(@Nullable final Iterable<String> names) {
         return null;
     }
 
@@ -118,7 +118,7 @@ public class MockActorPath implements ActorPath {
 
     @Override
     @Nullable
-    public ActorPath withUid(final int i) {
+    public ActorPath withUid(final int uid) {
         return null;
     }
 

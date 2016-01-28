@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015. TomTom International BV (http://tomtom.com).
+ * Copyright (C) 2012-2016. TomTom International BV (http://tomtom.com).
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,7 +25,7 @@ import java.util.*;
  * for example.
  *
  * The method {@link #validateOne(Object)} needs to be implemented to validate a single element.
- * The method {@link #validate()} is alreayd implemented to check all elements.
+ * The method {@link #validate()} is already implemented to check all elements.
  *
  * All methods which set, add or remove elements to the list automatically call {@link #beforeSet()}.
  * All methods which get elements from the list automatically call {@link #beforeGet()}.
@@ -96,28 +96,32 @@ public abstract class ApiListDTO<T> extends ApiDTO implements List<T> {
         return list.contains(o);
     }
 
+    @Nonnull
     @Override
     public Iterator<T> iterator() {
         beforeGet();
         return list.iterator();
     }
 
+    @Nonnull
     @Override
     public Object[] toArray() {
         beforeGet();
         return list.toArray();
     }
 
+    @Nonnull
     @Override
-    public <T1> T1[] toArray(T1[] a) {
+    public <T1> T1[] toArray(@Nonnull T1[] a) {
         beforeGet();
+        //noinspection SuspiciousToArrayCall
         return list.toArray(a);
     }
 
     @Override
-    public boolean add(T t) {
+    public boolean add(T e) {
         beforeSet();
-        return list.add(t);
+        return list.add(e);
     }
 
     @Override
@@ -127,30 +131,30 @@ public abstract class ApiListDTO<T> extends ApiDTO implements List<T> {
     }
 
     @Override
-    public boolean containsAll(Collection<?> c) {
+    public boolean containsAll(@Nonnull Collection<?> c) {
         return list.containsAll(c);
     }
 
     @Override
-    public boolean addAll(Collection<? extends T> c) {
+    public boolean addAll(@Nonnull Collection<? extends T> c) {
         beforeSet();
         return list.addAll(c);
     }
 
     @Override
-    public boolean addAll(int index, Collection<? extends T> c) {
+    public boolean addAll(int index, @Nonnull Collection<? extends T> c) {
         beforeSet();
         return list.addAll(index, c);
     }
 
     @Override
-    public boolean removeAll(Collection<?> c) {
+    public boolean removeAll(@Nonnull Collection<?> c) {
         beforeSet();
         return list.removeAll(c);
     }
 
     @Override
-    public boolean retainAll(Collection<?> c) {
+    public boolean retainAll(@Nonnull Collection<?> c) {
         beforeSet();
         return list.retainAll(c);
     }
@@ -195,18 +199,21 @@ public abstract class ApiListDTO<T> extends ApiDTO implements List<T> {
         return list.lastIndexOf(o);
     }
 
+    @Nonnull
     @Override
     public ListIterator<T> listIterator() {
         beforeGet();
         return list.listIterator();
     }
 
+    @Nonnull
     @Override
     public ListIterator<T> listIterator(int index) {
         beforeGet();
         return list.listIterator(index);
     }
 
+    @Nonnull
     @Override
     public List<T> subList(int fromIndex, int toIndex) {
         beforeGet();

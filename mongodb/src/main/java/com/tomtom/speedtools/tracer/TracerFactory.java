@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015. TomTom International BV (http://tomtom.com).
+ * Copyright (C) 2012-2016. TomTom International BV (http://tomtom.com).
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -76,6 +76,8 @@ public class TracerFactory implements InvocationHandler {
 
     @Nonnull
     private final Class<?> ownerClass;
+
+    @SuppressWarnings("StaticNonFinalField")
     @Nullable
     private static Thread thread = null;
 
@@ -84,8 +86,11 @@ public class TracerFactory implements InvocationHandler {
     private static final Duration LOST_EVENTS_LOG_INTERVAL = Duration.standardSeconds(1);
     @Nonnull
     private static final DateTime SERVER_START_TIME = UTCTime.now();
+
+    @SuppressWarnings("StaticNonFinalField")
     @Nonnull
     private static DateTime lastEventLostTime = UTCTime.now().minus(LOST_EVENTS_LOG_INTERVAL);
+
     private static final AtomicLong eventsLostSinceLastLog = new AtomicLong(0);
     private static final AtomicLong eventsLostTotal = new AtomicLong(0);
 

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015. TomTom International BV (http://tomtom.com).
+ * Copyright (C) 2012-2016. TomTom International BV (http://tomtom.com).
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,9 +32,9 @@ public final class TileOffset {
     private final int offsetY;     // Pixel offset up from south-west corner.
 
     /**
-     * Create a map tile key with a zoomlevel and offset within the tile.
+     * Create a map tile key with a zoom level and offset within the tile.
      *
-     * @param key     Map tile key (X/Y index and zoomlevel).
+     * @param key     Map tile key (X/Y index and zoom level).
      * @param offsetX Offset X within the tile.
      * @param offsetY Offset Y within the tile.
      */

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015. TomTom International BV (http://tomtom.com).
+ * Copyright (C) 2012-2016. TomTom International BV (http://tomtom.com).
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -64,15 +64,15 @@ public final class DateTimeSerializer {
 
         @Override
         public void serialize(
-                @Nonnull final DateTime value,
-                @Nonnull final JsonGenerator jgen,
-                @Nonnull final SerializerProvider provider)
+                @Nonnull final DateTime t,
+                @Nonnull final JsonGenerator jsonGenerator,
+                @Nonnull final SerializerProvider serializerProvider)
                 throws IOException, JsonProcessingException {
-            assert value != null;
-            assert jgen != null;
-            assert provider != null;
-            final String result = FORMATTER.print(value);
-            jgen.writeString(result);
+            assert t != null;
+            assert jsonGenerator != null;
+            assert serializerProvider != null;
+            final String result = FORMATTER.print(t);
+            jsonGenerator.writeString(result);
         }
     }
 
@@ -81,14 +81,14 @@ public final class DateTimeSerializer {
 
         @Override
         public void serialize(
-                @Nonnull final DateTime value,
-                @Nonnull final JsonGenerator jgen,
-                @Nonnull final SerializerProvider provider)
+                @Nonnull final DateTime t,
+                @Nonnull final JsonGenerator jsonGenerator,
+                @Nonnull final SerializerProvider serializerProvider)
                 throws IOException, JsonProcessingException {
-            assert value != null;
-            assert jgen != null;
-            assert provider != null;
-            jgen.writeNumber(value.getMillis());
+            assert t != null;
+            assert jsonGenerator != null;
+            assert serializerProvider != null;
+            jsonGenerator.writeNumber(t.getMillis());
         }
     }
 
@@ -97,12 +97,12 @@ public final class DateTimeSerializer {
         @Override
         @Nonnull
         public DateTime deserialize(
-                @Nonnull final JsonParser jp,
-                @Nonnull final DeserializationContext ctxt)
+                @Nonnull final JsonParser jsonParser,
+                @Nonnull final DeserializationContext deserializationContext)
                 throws IOException, JsonProcessingException {
-            assert jp != null;
-            assert ctxt != null;
-            final String text = jp.getText();
+            assert jsonParser != null;
+            assert deserializationContext != null;
+            final String text = jsonParser.getText();
             return FORMATTER.parseDateTime(text).withZone(DateTimeZone.UTC);
         }
     }
@@ -112,12 +112,12 @@ public final class DateTimeSerializer {
         @Override
         @Nonnull
         public DateTime deserialize(
-                @Nonnull final JsonParser jp,
-                @Nonnull final DeserializationContext ctxt)
+                @Nonnull final JsonParser jsonParser,
+                @Nonnull final DeserializationContext deserializationContext)
                 throws IOException, JsonProcessingException {
-            assert jp != null;
-            assert ctxt != null;
-            return new DateTime(jp.getLongValue()).withZone(DateTimeZone.UTC);
+            assert jsonParser != null;
+            assert deserializationContext != null;
+            return new DateTime(jsonParser.getLongValue()).withZone(DateTimeZone.UTC);
         }
     }
 }

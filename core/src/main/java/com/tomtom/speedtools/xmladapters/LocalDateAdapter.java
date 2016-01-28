@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015. TomTom International BV (http://tomtom.com).
+ * Copyright (C) 2012-2016. TomTom International BV (http://tomtom.com).
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -73,15 +73,15 @@ public final class LocalDateAdapter {
         @SuppressWarnings({"OverlyBroadThrowsClause", "SuppressionAnnotation"})
         @Override
         public void serialize(
-                @Nonnull final LocalDate value,
-                @Nonnull final JsonGenerator jgen,
-                @Nonnull final SerializerProvider provider)
+                @Nonnull final LocalDate t,
+                @Nonnull final JsonGenerator jsonGenerator,
+                @Nonnull final SerializerProvider serializerProvider)
                 throws IOException {
-            assert value != null;
-            assert jgen != null;
-            assert provider != null;
-            final String result = WRITE.print(value);
-            jgen.writeString(result);
+            assert t != null;
+            assert jsonGenerator != null;
+            assert serializerProvider != null;
+            final String result = WRITE.print(t);
+            jsonGenerator.writeString(result);
         }
     }
 
@@ -91,11 +91,11 @@ public final class LocalDateAdapter {
         @SuppressWarnings({"OverlyBroadThrowsClause", "SuppressionAnnotation"})
         @Override
         public LocalDate deserialize(
-                @Nonnull final JsonParser jp,
-                @Nonnull final DeserializationContext ctxt) throws IOException {
-            assert jp != null;
-            assert ctxt != null;
-            final String text = jp.getText();
+                @Nonnull final JsonParser jsonParser,
+                @Nonnull final DeserializationContext deserializationContext) throws IOException {
+            assert jsonParser != null;
+            assert deserializationContext != null;
+            final String text = jsonParser.getText();
             if (text == null) {
                 return null;
             }

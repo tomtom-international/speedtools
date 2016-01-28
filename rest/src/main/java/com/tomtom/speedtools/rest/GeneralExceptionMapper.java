@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015. TomTom International BV (http://tomtom.com).
+ * Copyright (C) 2012-2016. TomTom International BV (http://tomtom.com).
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -62,6 +62,7 @@ public class GeneralExceptionMapper implements ExceptionMapper<Throwable> {
     /**
      * This boolean indicates whether verbose or compact messages are used.
      */
+    @SuppressWarnings("StaticNonFinalField")
     private static boolean verboseMode = false;
 
     private enum Level {
@@ -125,6 +126,7 @@ public class GeneralExceptionMapper implements ExceptionMapper<Throwable> {
      * @param exception Exception to be processed.
      * @return Status response.
      */
+    @SuppressWarnings("deprecation")
     @Nonnull
     public static Response toResponse(
             @Nonnull final Logger log,

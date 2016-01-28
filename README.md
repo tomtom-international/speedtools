@@ -1,6 +1,6 @@
 # Read Me for TomTom SpeedTools Library
 
-Copyright (C) 2012-2015, TomTom International BV. All rights reserved.
+Copyright (C) 2012-2016, TomTom International BV. All rights reserved.
 ----
 
 SpeedTools is a collection of generic utilities, originally developed by Rijn Buve,
@@ -10,7 +10,7 @@ The library was created to develop highly scalable web services, using Typesafe 
 Google Guice and MongoDB, but many of the tools are usable in other contexts
 as well.
 
-For documentation on what this library offers, have a look at the `speedtools/src/site/apt` 
+For documentation on what this library offers, have a look at the `speedtools/src/site/apt`
 directory, which is the entry point for the site documentation. It contains a list of all
 modules and APIs.
 
@@ -19,7 +19,7 @@ were disclosed within TomTom only. From version 3.0.0 TomTom decided to contribu
 this library under the Apache License 2.0 to the open source community.
 
 There is an additional project `speedtools-examples` with real-life examples
-of how to use the SpeedTools library. Check it out at 
+of how to use the SpeedTools library. Check it out at
 `https://github.com/tomtom-international/speedtools-examples`.
 
 Happy coding!
@@ -64,7 +64,7 @@ If you're using IntelliJ IDEA, filter:
 If you're using Eclips, filter:
 `.classpath .project .settings .cache`
 
-If you're using NetBeans, filter: 
+If you're using NetBeans, filter:
 `nb-configuration.xml *.orig`
 
 The local `.gitignore` file in the Git repository itself to reflect those file only that are produced by executing
@@ -74,4 +74,4 @@ regular compile, build or release commands, such as:
 # Bug Reports and New Feature Requests
 
 If you encounter any problems with this library, don't hesitate to use the `Issues` session to file your issues.
-Normally, one of our developers should be able to comment on them and fix. 
+Normally, one of our developers should be able to comment on them and fix.

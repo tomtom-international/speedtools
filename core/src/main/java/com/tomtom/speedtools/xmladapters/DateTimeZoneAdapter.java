@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015. TomTom International BV (http://tomtom.com).
+ * Copyright (C) 2012-2016. TomTom International BV (http://tomtom.com).
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -36,8 +36,8 @@ public class DateTimeZoneAdapter {
 
         @SuppressWarnings({"OverlyBroadThrowsClause", "SuppressionAnnotation"})
         @Override
-        public void serialize(final DateTimeZone value, final JsonGenerator jgen, final SerializerProvider provider) throws IOException {
-            jgen.writeString(value.getID());
+        public void serialize(final DateTimeZone t, final JsonGenerator jsonGenerator, final SerializerProvider serializerProvider) throws IOException {
+            jsonGenerator.writeString(t.getID());
         }
     }
 
@@ -46,8 +46,8 @@ public class DateTimeZoneAdapter {
         @Nullable
         @SuppressWarnings({"OverlyBroadThrowsClause", "SuppressionAnnotation"})
         @Override
-        public DateTimeZone deserialize(final JsonParser jp, final DeserializationContext ctxt) throws IOException {
-            final String text = jp.getText();
+        public DateTimeZone deserialize(final JsonParser jsonParser, final DeserializationContext deserializationContext) throws IOException {
+            final String text = jsonParser.getText();
             if (text == null) {
                 return null;
             }

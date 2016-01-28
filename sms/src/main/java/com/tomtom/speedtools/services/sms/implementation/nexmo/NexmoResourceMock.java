@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015. TomTom International BV (http://tomtom.com).
+ * Copyright (C) 2012-2016. TomTom International BV (http://tomtom.com).
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -118,22 +118,22 @@ public class NexmoResourceMock implements NexmoResource {
             }
 
             @Override
-            public <T> T readEntity(final Class<T> tClass) {
+            public <T> T readEntity(final Class<T> aClass) {
                 throw new UnsupportedOperationException();
             }
 
             @Override
-            public <T> T readEntity(final javax.ws.rs.core.GenericType<T> tGenericType) {
+            public <T> T readEntity(final javax.ws.rs.core.GenericType<T> genericType) {
                 throw new UnsupportedOperationException();
             }
 
             @Override
-            public <T> T readEntity(final Class<T> tClass, final Annotation[] annotations) {
+            public <T> T readEntity(final Class<T> aClass, final Annotation[] annotations) {
                 throw new UnsupportedOperationException();
             }
 
             @Override
-            public <T> T readEntity(final javax.ws.rs.core.GenericType<T> tGenericType, final Annotation[] annotations) {
+            public <T> T readEntity(final javax.ws.rs.core.GenericType<T> genericType, final Annotation[] annotations) {
                 throw new UnsupportedOperationException();
             }
 

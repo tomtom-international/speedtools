@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015. TomTom International BV (http://tomtom.com).
+ * Copyright (C) 2012-2016. TomTom International BV (http://tomtom.com).
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -373,7 +373,7 @@ public abstract class EntityMapper<T> extends Mapper<T> {
         assert initialized;
 
         assert entityType != null;
-        final Tuple<Class<?>, Class<?>> key = new Tuple<Class<?>, Class<?>>(getClass(), entityType);
+        final Tuple<Class<?>, Class<?>> key = new Tuple<>(getClass(), entityType);
         EntityMapper<T2> subMapper = (EntityMapper<T2>) mapperRegistry.getSubMapperCache().get(key);
 
         // No sub-mapper cached, calculate.
@@ -511,7 +511,7 @@ public abstract class EntityMapper<T> extends Mapper<T> {
         assert getter != null;
         assert setter != null;
         assert versionConstraints != null;
-        return field(MongoDBKeyNames.ID_KEY, new ReferenceMapper<T>(), getter, setter, versionConstraints);
+        return field(MongoDBKeyNames.ID_KEY, new ReferenceMapper<>(), getter, setter, versionConstraints);
     }
 
     /**
@@ -755,7 +755,7 @@ public abstract class EntityMapper<T> extends Mapper<T> {
         assert getter != null;
         assert setter != null;
         assert versionConstraints != null;
-        return field(fieldName, new ReferenceMapper<U>(), getter, setter, versionConstraints);
+        return field(fieldName, new ReferenceMapper<>(), getter, setter, versionConstraints);
     }
 
     /**
@@ -927,7 +927,7 @@ public abstract class EntityMapper<T> extends Mapper<T> {
         assert getter != null;
         assert setter != null;
         assert versionConstraints != null;
-        return field(fieldName, CollectionMapper.create(new ReferenceMapper<U>()), getter, setter,
+        return field(fieldName, CollectionMapper.create(new ReferenceMapper<>()), getter, setter,
                 versionConstraints);
     }
 
@@ -1506,6 +1506,7 @@ public abstract class EntityMapper<T> extends Mapper<T> {
 
         // Loop over fields that are not excluded.
         final List<Field<?>> remainingFields = new ArrayList<>(fields);
+        //noinspection SuspiciousMethodCalls
         remainingFields.removeAll(initializedFields);
         for (final Field<?> field : remainingFields) {
 

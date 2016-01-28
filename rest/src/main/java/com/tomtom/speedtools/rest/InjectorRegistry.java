@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015. TomTom International BV (http://tomtom.com).
+ * Copyright (C) 2012-2016. TomTom International BV (http://tomtom.com).
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -34,6 +34,7 @@ import javax.inject.Inject;
 public final class InjectorRegistry {
     private static final Logger LOG = LoggerFactory.getLogger(InjectorRegistry.class);
 
+    @SuppressWarnings("StaticNonFinalField")
     @Nullable
     private static Injector injector = null;
 

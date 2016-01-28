@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015. TomTom International BV (http://tomtom.com).
+ * Copyright (C) 2012-2016. TomTom International BV (http://tomtom.com).
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -64,6 +64,7 @@ public final class LogHelper {
             expireAfterAccess(EXPIRE_AFTER_HOURS, TimeUnit.HOURS).build();
 
     // Enable or disabled the cache.
+    @SuppressWarnings("StaticNonFinalField")
     private static boolean enabled = false;
 
     // Enable/disabled the map.
@@ -76,7 +77,7 @@ public final class LogHelper {
     }
 
     /**
-     * Enable or disable the cache. Nornally, you would initialize the cache once with
+     * Enable or disable the cache. Normally, you would initialize the cache once with
      * LogHelper.enable(LOG.isDebugEnabled());
      *
      * @param enable True to enable.

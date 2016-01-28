@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015. TomTom International BV (http://tomtom.com).
+ * Copyright (C) 2012-2016. TomTom International BV (http://tomtom.com).
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -98,11 +98,11 @@ abstract public class CheckDBBase {
     protected final MapperRegistry mapperRegistry;
 
     @Nonnull
-    protected final List<String> internalErrors = Collections.synchronizedList(new ArrayList<String>());
+    protected final List<String> internalErrors = Collections.synchronizedList(new ArrayList<>());
     @Nonnull
-    protected final List<Error> errors = Collections.synchronizedList(new ArrayList<Error>());
+    protected final List<Error> errors = Collections.synchronizedList(new ArrayList<>());
     @Nonnull
-    protected final List<Error> warnings = Collections.synchronizedList(new ArrayList<Error>());
+    protected final List<Error> warnings = Collections.synchronizedList(new ArrayList<>());
     @Nonnull
     protected final AtomicLong nrTotalChecks = new AtomicLong(0);
 
@@ -124,6 +124,8 @@ abstract public class CheckDBBase {
     // For progress updates only.
     @Nonnull
     protected static final DateTime firstUpdate = UTCTime.now();
+
+    @SuppressWarnings("StaticNonFinalField")
     @Nonnull
     protected static DateTime lastUpdate = UTCTime.now();
 
@@ -131,7 +133,7 @@ abstract public class CheckDBBase {
     protected static final int MAX_QUEUE_SIZE = 10000;
 
     // The thread pool to execute record checker in.
-    @Nonnull
+    @Nullable
     protected WorkQueue workQueue;
 
     // Dummy ID.
@@ -409,7 +411,7 @@ abstract public class CheckDBBase {
          */
         @Nonnull
         protected final Set<Field> allFields =
-                Collections.synchronizedSet(new HashSet<Field>());
+                Collections.synchronizedSet(new HashSet<>());
 
         protected long nrRecordsInCollection = 0;
         protected int count = 0;
@@ -482,7 +484,7 @@ abstract public class CheckDBBase {
                 @SuppressWarnings("unchecked")
                 final T entity = (T) mapper.fromDb(record);
                 if (entity != null) {
-                    return new Tuple<Uid<?>, T>(recordId, entity);
+                    return new Tuple<>(recordId, entity);
                 } else {
                     if (!isEmpty) {
                         error(recordId, "Mapped entity is null", null, null);
@@ -567,7 +569,7 @@ abstract public class CheckDBBase {
          * added to the {@code UniquenessChecker}.
          *
          * @param logAsErrors True if violations are logged as errors, false if logged as warnings.
-         * @param fieldPath   The fieldpath within the collection that needs to be unique over all the elements of the
+         * @param fieldPath   The field path within the collection that needs to be unique over all the elements of the
          *                    collection.
          * @param <T>         The type of the values to check for uniqueness
          * @return Returns a new {@code UniquenessChecker}.
@@ -600,7 +602,7 @@ abstract public class CheckDBBase {
          * @param collectionChecker The {@link CollectionChecker} for the collection that contains the values that
          *                          should be checked for uniqueness.
          * @param logAsErrors       True if violations are logged as errors, false if logged as warnings.
-         * @param fieldPath         The fieldpath within the collection that needs to be unique over all the elements of
+         * @param fieldPath         The field path within the collection that needs to be unique over all the elements of
          *                          the collection.
          */
         public UniquenessChecker(
@@ -627,7 +629,7 @@ abstract public class CheckDBBase {
                 @Nullable final T value) {
             assert recordId != null;
 
-            valueTuples.add(new Tuple<Uid<?>, T>(recordId, value));
+            valueTuples.add(new Tuple<>(recordId, value));
             return true;
         }
 
@@ -647,7 +649,7 @@ abstract public class CheckDBBase {
             assert valueCollection != null;
 
             for (final T value : valueCollection) {
-                valueTuples.add(new Tuple<Uid<?>, T>(recordId, value));
+                valueTuples.add(new Tuple<>(recordId, value));
             }
             return true;
         }

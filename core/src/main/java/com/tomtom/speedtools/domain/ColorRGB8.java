@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015. TomTom International BV (http://tomtom.com).
+ * Copyright (C) 2012-2016. TomTom International BV (http://tomtom.com).
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -160,6 +160,7 @@ public final class ColorRGB8 {
 
     @Override
     public int hashCode() {
+        //noinspection RedundantArrayCreation
         return Objects.hashCode(new Object[]{r, g, b});
     }
 

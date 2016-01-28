@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015. TomTom International BV (http://tomtom.com).
+ * Copyright (C) 2012-2016. TomTom International BV (http://tomtom.com).
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,9 +27,9 @@ import javax.annotation.Nonnull;
 public interface PushNotificationProviderFactory {
 
     /**
-     * Method returns supported {@link com.tomtom.speedtools.services.push.domain.NotificationChannelType}.
+     * Method returns supported {@link NotificationChannelType}.
      *
-     * @return The {@link com.tomtom.speedtools.services.push.domain.NotificationChannelType} that this instance supports.
+     * @return The {@link NotificationChannelType} that this instance supports.
      */
     @Nonnull
     NotificationChannelType getSupportedNotificationChannelType();

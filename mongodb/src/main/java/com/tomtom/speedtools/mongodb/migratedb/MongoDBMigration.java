@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015. TomTom International BV (http://tomtom.com).
+ * Copyright (C) 2012-2016. TomTom International BV (http://tomtom.com).
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -349,7 +349,7 @@ public class MongoDBMigration {
         final Context parentContext = contextMap.get(object);
         final Context context = parentContext.createChild(null, parentContext.path);
 
-        final List<Value> values = getValues(new ArrayList<Value>(), object, parentContext.path, NO_DEFAULT, true,
+        final List<Value> values = getValues(new ArrayList<>(), object, parentContext.path, NO_DEFAULT, true,
                 fieldPaths);
         return new IterableDelegate<Value, DBObject>(values) {
             private int index = 0;
@@ -436,7 +436,7 @@ public class MongoDBMigration {
 
         final Context parentContext = contextMap.get(object);
 
-        final List<Value> values = getValues(new ArrayList<Value>(), object, parentContext.path, NO_DEFAULT, false,
+        final List<Value> values = getValues(new ArrayList<>(), object, parentContext.path, NO_DEFAULT, false,
                 fieldPaths);
         return new IterableDelegate<Value, T>(values) {
 
@@ -474,7 +474,7 @@ public class MongoDBMigration {
 
         final Context parentContext = contextMap.get(object);
         final Context context = parentContext.createChild(null, parentContext.path);
-        final List<Value> values = getValues(new ArrayList<Value>(), object, parentContext.path, NO_DEFAULT, false,
+        final List<Value> values = getValues(new ArrayList<>(), object, parentContext.path, NO_DEFAULT, false,
                 fieldPaths);
 
         return new IterableDelegate<Value, Replaceable<T, U>>(values) {
@@ -558,7 +558,7 @@ public class MongoDBMigration {
         assert fieldPath != null;
         assert newFieldName != null;
         final Context parentContext = contextMap.get(object);
-        for (final Value value : getValues(new ArrayList<Value>(), object, parentContext.path, null, false,
+        for (final Value value : getValues(new ArrayList<>(), object, parentContext.path, null, false,
                 fieldPath)) {
             if (value.index == 0) {
                 final Object v = value.parent.removeField(value.fieldName);
@@ -581,7 +581,7 @@ public class MongoDBMigration {
         assert fieldPath != null;
         assert !fieldPath.isEmpty();
         final Context parentContext = contextMap.get(object);
-        for (final Value value : getValues(new ArrayList<Value>(), object, parentContext.path, null, false,
+        for (final Value value : getValues(new ArrayList<>(), object, parentContext.path, null, false,
                 fieldPath)) {
             if (value.index == 0) {
                 value.parent.removeField(value.fieldName);
@@ -654,7 +654,7 @@ public class MongoDBMigration {
         assert converter != null;
 
         final Context parentContext = contextMap.get(object);
-        final List<Value> values = getValues(new ArrayList<Value>(), object, parentContext.path,
+        final List<Value> values = getValues(new ArrayList<>(), object, parentContext.path,
                 converter.defaultValue(), false,
                 fieldPath);
         for (final Value value : values) {

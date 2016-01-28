@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015. TomTom International BV (http://tomtom.com).
+ * Copyright (C) 2012-2016. TomTom International BV (http://tomtom.com).
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -74,17 +74,17 @@ public final class MockUtil {
         return Mockito.argThat(new ArgumentMatcher<T>() {       // Returns null be definition.
 
             @Override
-            public boolean matches(@Nullable final Object argument) {
+            public boolean matches(@Nullable final Object o) {
                 try {
                     // Get Id method.
-                    if (argument == null) {
+                    if (o == null) {
                         return false;
                     }
 
-                    final Method getIdMethod = argument.getClass().getMethod("getId");
+                    final Method getIdMethod = o.getClass().getMethod("getId");
 
                     // Get ids of both argument and other.
-                    final Object argumentId = getIdMethod.invoke(argument);
+                    final Object argumentId = getIdMethod.invoke(o);
                     final Object otherId = getIdMethod.invoke(other);
 
                     // Compare ids.

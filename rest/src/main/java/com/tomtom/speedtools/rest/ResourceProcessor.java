@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015. TomTom International BV (http://tomtom.com).
+ * Copyright (C) 2012-2016. TomTom International BV (http://tomtom.com).
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -95,6 +95,7 @@ public final class ResourceProcessor {
                          * which passes the result of the {@link Future} into the {@link AsynchronousResponse} object,
                          * which will be passed bac to the caller of the resource.
                          */
+                        //noinspection unchecked
                         future.onComplete(new OnComplete<Object>() {
 
                             /**
@@ -139,6 +140,8 @@ public final class ResourceProcessor {
                         }
                         response.setResponse(GeneralExceptionMapper.toResponse(log, e));
                     }
+
+                    //noinspection ConstantConditions
                     return null;
                 },
 

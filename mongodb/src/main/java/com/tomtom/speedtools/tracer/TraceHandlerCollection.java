@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015. TomTom International BV (http://tomtom.com).
+ * Copyright (C) 2012-2016. TomTom International BV (http://tomtom.com).
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -158,8 +158,8 @@ public class TraceHandlerCollection {
         assert method != null;
 
         final Triple<Class<? extends Traceable>, String, Tuple<String, Integer>> key =
-                new Triple<Class<? extends Traceable>, String, Tuple<String, Integer>>(handlerClass, tracer,
-                        new Tuple<String, Integer>(method, nrArgs));
+                new Triple<>(handlerClass, tracer,
+                        new Tuple<>(method, nrArgs));
         List<Method> result = methods.get(key);
 
         // This might happen multiple times concurrently, but this is fine since the result will always be the same.

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015. TomTom International BV (http://tomtom.com).
+ * Copyright (C) 2012-2016. TomTom International BV (http://tomtom.com).
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,21 +29,21 @@ import java.util.Set;
 public interface PushNotificationProvider {
 
     /**
-     * Method pushes {@link com.tomtom.speedtools.services.push.domain.Notification} to given channel id.
+     * Method pushes {@link Notification} to given channel id.
      *
-     * @param notification The {@link com.tomtom.speedtools.services.push.domain.Notification} to push.
-     * @param pushToken    The {@link com.tomtom.speedtools.services.push.domain.PushToken} to push to.
-     * @return The {@link com.tomtom.speedtools.services.push.domain.PushToken} the provider is using for the registration. This could have been updated.
+     * @param notification The {@link Notification} to push.
+     * @param pushToken    The {@link PushToken} to push to.
+     * @return The {@link PushToken} the provider is using for the registration. This could have been updated.
      * @throws PushConnectionException   Thrown in case a connection could not me made to push service.
-     * @throws InvalidPushTokenException Thrown in case the provider has marked the {@link com.tomtom.speedtools.services.push.domain.PushToken} invalid. This
-     *                                   {@link com.tomtom.speedtools.services.push.domain.PushToken} should not be used anymore.
+     * @throws InvalidPushTokenException Thrown in case the provider has marked the {@link PushToken} invalid. This
+     *                                   {@link PushToken} should not be used anymore.
      */
     PushToken push(@Nonnull Notification notification, @Nonnull final PushToken pushToken) throws PushConnectionException, InvalidPushTokenException;
 
     /**
-     * Method returns supported {@link com.tomtom.speedtools.services.push.domain.NotificationChannelType}.
+     * Method returns supported {@link NotificationChannelType}.
      *
-     * @return The {@link com.tomtom.speedtools.services.push.domain.NotificationChannelType} that this instance supports.
+     * @return The {@link NotificationChannelType} that this instance supports.
      */
     @Nonnull
     NotificationChannelType getSupportedNotificationChannelType();

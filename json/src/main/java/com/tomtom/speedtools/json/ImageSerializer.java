@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015. TomTom International BV (http://tomtom.com).
+ * Copyright (C) 2012-2016. TomTom International BV (http://tomtom.com).
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -58,15 +58,15 @@ public final class ImageSerializer {
 
         @Override
         public void serialize(
-                @Nonnull final Image value,
-                @Nonnull final JsonGenerator jgen,
-                @Nonnull final SerializerProvider provider)
+                @Nonnull final Image t,
+                @Nonnull final JsonGenerator jsonGenerator,
+                @Nonnull final SerializerProvider serializerProvider)
                 throws IOException {
-            assert value != null;
-            assert jgen != null;
-            assert provider != null;
-            final byte[] b64 = writeAsBytes(value);
-            jgen.writeBinary(b64);
+            assert t != null;
+            assert jsonGenerator != null;
+            assert serializerProvider != null;
+            final byte[] b64 = writeAsBytes(t);
+            jsonGenerator.writeBinary(b64);
         }
     }
 
@@ -76,12 +76,12 @@ public final class ImageSerializer {
         @Override
         @Nullable
         public Image deserialize(
-                @Nonnull final JsonParser jp,
-                @Nonnull final DeserializationContext ctxt)
+                @Nonnull final JsonParser jsonParser,
+                @Nonnull final DeserializationContext deserializationContext)
                 throws IOException {
-            assert jp != null;
-            assert ctxt != null;
-            final byte[] bytes = jp.getBinaryValue();
+            assert jsonParser != null;
+            assert deserializationContext != null;
+            final byte[] bytes = jsonParser.getBinaryValue();
             final BufferedImage image = readFromBytes(bytes);
             return image;
         }
@@ -93,12 +93,12 @@ public final class ImageSerializer {
         @Override
         @Nullable
         public BufferedImage deserialize(
-                @Nonnull final JsonParser jp,
-                @Nonnull final DeserializationContext ctxt)
+                @Nonnull final JsonParser jsonParser,
+                @Nonnull final DeserializationContext deserializationContext)
                 throws IOException {
-            assert jp != null;
-            assert ctxt != null;
-            final byte[] bytes = jp.getBinaryValue();
+            assert jsonParser != null;
+            assert deserializationContext != null;
+            final byte[] bytes = jsonParser.getBinaryValue();
             final BufferedImage image = readFromBytes(bytes);
             return image;
         }

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015. TomTom International BV (http://tomtom.com).
+ * Copyright (C) 2012-2016. TomTom International BV (http://tomtom.com).
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -40,6 +40,7 @@ public final class DaoUtils {
     private static final boolean NO_UPSERT = false;     // Indicates 'no upsert' in case of missing record.
     private static final boolean NO_MULTI = false;     // Indicates 'no multi' for queries.
 
+    @SuppressWarnings("StaticNonFinalField")
     private static WriteConcern writeConcern = WriteConcern.SAFE;
 
     private DaoUtils() {

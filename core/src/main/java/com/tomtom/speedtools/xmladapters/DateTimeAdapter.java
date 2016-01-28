@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015. TomTom International BV (http://tomtom.com).
+ * Copyright (C) 2012-2016. TomTom International BV (http://tomtom.com).
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -115,9 +115,9 @@ public final class DateTimeAdapter {
 
         @SuppressWarnings({"OverlyBroadThrowsClause", "SuppressionAnnotation"})
         @Override
-        public void serialize(@Nonnull final DateTime value, @Nonnull final JsonGenerator jgen, @Nullable final SerializerProvider provider) throws IOException {
-            final String result = WRITE_WITH_SECONDS_RESOLUTION.print(value);
-            jgen.writeString(result);
+        public void serialize(@Nonnull final DateTime t, @Nonnull final JsonGenerator jsonGenerator, @Nullable final SerializerProvider serializerProvider) throws IOException {
+            final String result = WRITE_WITH_SECONDS_RESOLUTION.print(t);
+            jsonGenerator.writeString(result);
         }
     }
 
@@ -125,9 +125,9 @@ public final class DateTimeAdapter {
 
         @SuppressWarnings({"OverlyBroadThrowsClause", "SuppressionAnnotation"})
         @Override
-        public void serialize(@Nonnull final DateTime value, @Nonnull final JsonGenerator jgen, @Nullable final SerializerProvider provider) throws IOException {
-            final String result = WRITE_WITH_MILLIS_RESOLUTION.print(value);
-            jgen.writeString(result);
+        public void serialize(@Nonnull final DateTime t, @Nonnull final JsonGenerator jsonGenerator, @Nullable final SerializerProvider serializerProvider) throws IOException {
+            final String result = WRITE_WITH_MILLIS_RESOLUTION.print(t);
+            jsonGenerator.writeString(result);
         }
     }
 
@@ -136,8 +136,8 @@ public final class DateTimeAdapter {
         @Nullable
         @SuppressWarnings({"OverlyBroadThrowsClause", "SuppressionAnnotation"})
         @Override
-        public DateTime deserialize(@Nonnull final JsonParser jp, @Nullable final DeserializationContext ctxt) throws IOException {
-            final String text = jp.getText();
+        public DateTime deserialize(@Nonnull final JsonParser jsonParser, @Nullable final DeserializationContext deserializationContext) throws IOException {
+            final String text = jsonParser.getText();
             if (text == null) {
                 return null;
             }

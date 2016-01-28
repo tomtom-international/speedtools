@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015. TomTom International BV (http://tomtom.com).
+ * Copyright (C) 2012-2016. TomTom International BV (http://tomtom.com).
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -98,8 +98,8 @@ public final class DateAdapter {
     public static class JsonDateSerializer extends JsonSerializer<Date> {
 
         @Override
-        public void serialize(@Nonnull final Date value, @Nonnull final JsonGenerator jgen, @Nullable final SerializerProvider provider) throws IOException {
-            JSON_DATE_TIME_SERIALIZER.serialize(new DateTime(value), jgen, provider);
+        public void serialize(@Nonnull final Date t, @Nonnull final JsonGenerator jsonGenerator, @Nullable final SerializerProvider serializerProvider) throws IOException {
+            JSON_DATE_TIME_SERIALIZER.serialize(new DateTime(t), jsonGenerator, serializerProvider);
         }
     }
 
@@ -107,8 +107,8 @@ public final class DateAdapter {
 
         @Nullable
         @Override
-        public Date deserialize(@Nonnull final JsonParser jp, @Nullable final DeserializationContext ctxt) throws IOException {
-            final DateTime dateTime = JSON_DATE_TIME_DESERIALIZER.deserialize(jp, ctxt);
+        public Date deserialize(@Nonnull final JsonParser jsonParser, @Nullable final DeserializationContext deserializationContext) throws IOException {
+            final DateTime dateTime = JSON_DATE_TIME_DESERIALIZER.deserialize(jsonParser, deserializationContext);
             if (dateTime == null) {
                 return null;
             }

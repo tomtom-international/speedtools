@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015. TomTom International BV (http://tomtom.com).
+ * Copyright (C) 2012-2016. TomTom International BV (http://tomtom.com).
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -112,7 +112,7 @@ public class MapperRegistry {
         for (final Mapper<?> mapper : mappers) {
             if (!initializedMappers.contains(mapper) &&
                     (mapper instanceof EntityMapper)) {
-                checkSuperMappers((EntityMapper<?>) mapper, new HashSet<EntityMapper<?>>());
+                checkSuperMappers((EntityMapper<?>) mapper, new HashSet<>());
             }
         }
 

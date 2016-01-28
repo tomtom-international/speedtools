@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015. TomTom International BV (http://tomtom.com).
+ * Copyright (C) 2012-2016. TomTom International BV (http://tomtom.com).
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -36,11 +36,6 @@ public class MessageBirdMessageResponse extends ApiDTO {
 
     @Nullable
     private Item item;
-
-    // Normally unused (required for mock and JAX-B).
-    public MessageBirdMessageResponse() {
-        super();
-    }
 
     @Override
     public void validate() {
@@ -123,11 +118,6 @@ public class MessageBirdMessageResponse extends ApiDTO {
         private String responseMessage;
         @Nullable
         private String credits;
-
-        // Normally unused (required for mock and JAX-B).
-        public Item() {
-            super();
-        }
 
         @Override
         public void validate() {

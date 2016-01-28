@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015. TomTom International BV (http://tomtom.com).
+ * Copyright (C) 2012-2016. TomTom International BV (http://tomtom.com).
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -75,9 +75,9 @@ public final class TileKey {
     }
 
     /**
-     * Get zoomlevel.
+     * Get zoom level.
      *
-     * @return zoomlevel.
+     * @return zoom level.
      */
     public int getZoomLevel() {
         return zoomLevel;

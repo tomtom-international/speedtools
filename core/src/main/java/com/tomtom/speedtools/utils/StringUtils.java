@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015. TomTom International BV (http://tomtom.com).
+ * Copyright (C) 2012-2016. TomTom International BV (http://tomtom.com).
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -77,7 +77,7 @@ public final class StringUtils {
         if (sList == null) {
             return null;
         }
-        return trim(Immutables.listOf(sList), new ArrayList<String>(sList.size()));
+        return trim(Immutables.listOf(sList), new ArrayList<>(sList.size()));
     }
 
     /**
@@ -91,7 +91,7 @@ public final class StringUtils {
         if (sSet == null) {
             return null;
         }
-        return trim(sSet, new HashSet<String>());
+        return trim(sSet, new HashSet<>());
     }
 
     /**
