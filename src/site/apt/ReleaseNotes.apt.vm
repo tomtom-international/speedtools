@@ -1,5 +1,11 @@
 Release Notes (Version ${project.version})
 
+* 3.0.14
+
+    * To do.
+
+    []
+
 * 3.0.13
 
     * Minor fixes.
@@ -8,7 +14,7 @@ Release Notes (Version ${project.version})
 
 * 3.0.12
 
-    * Fixed some more in <<<TileMap>>>> and <<<MercatorPoint>>>.
+    * Fixed some more in <<<TileMap>>> and <<<MercatorPoint>>>.
 
     []
 
