@@ -384,14 +384,34 @@ Building a New Release of SpeedTools
 
 ----
 cd <SPEEDTOOLS-HOME>
-mvn clean
-mvn release:prepare
+mvn clean install
 ----
 
-    * And if all went right, perform the release and build the Maven site as well:
+    * Correct any errors and commit to GitHub. Then:
 
 ----
-mvn release:perform
+mvn clean site:site
+----
+
+    * Again, correct any errors and commit to GitHub. Then:
+
+----
+mvn clean versions:set -DnewVersion=x.y.z
+git commit -a -m "Updated POM version for release"
+git tag "vx.y.z"
+git push origin master --tags
+----
+
+    * And deploy:
+
+----
+mvn clean deploy
+----
+
+    * And release to Maven (use `drop` instead of `release` to abort):
+
+----
+mvn nexus-staging:release
 ----
 
     * Don't forget to update the <<<ReleaseNotes.apt.vm>>> file for the next version
