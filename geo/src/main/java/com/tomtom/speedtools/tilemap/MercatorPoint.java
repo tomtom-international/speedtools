@@ -75,7 +75,7 @@ public final class MercatorPoint {
         final double geoX = (mercX - 0.5) * MapConst.WORLD_SIZE;
         final double geoY = (mercY - 0.5) * -MapConst.WORLD_SIZE;
         final double lat = ((Math.atan(Math.exp(geoY / MapConst.WORLD_RADIUS)) / Math.PI) * 360.0) - 90.0;
-        final double lon = ((geoX / MapConst.WORLD_RADIUS) / Math.PI) * 180.0;
+        final double lon = Math.toDegrees(geoX / MapConst.WORLD_RADIUS);
         return new GeoPoint(lat, lon);
     }
 
@@ -95,7 +95,7 @@ public final class MercatorPoint {
     public static MercatorPoint latLonToMercs(@Nonnull final GeoPoint point) {
         final double lat = MathUtils.limitTo(point.getLat(), MapConst.LATITUDE_MIN, MapConst.LATITUDE_MAX);
         final double lon = point.getLon();
-        final double geoX = MapConst.WORLD_RADIUS * ((lon * Math.PI) / 180.0);
+        final double geoX = Math.toRadians(MapConst.WORLD_RADIUS * lon);
         final double geoY = MapConst.WORLD_RADIUS * Math.log(Math.tan(Math.PI * ((lat + 90.0) / 360.0)));
         final double mercX = Math.min(1.0, Math.max(0.0, (geoX / MapConst.WORLD_SIZE) + 0.5));
         final double mercY = Math.min(1.0, Math.max(0.0, 1.0 - ((geoY / MapConst.WORLD_SIZE) + 0.5)));
