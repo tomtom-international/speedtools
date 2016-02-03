@@ -96,7 +96,7 @@ public final class MercatorPoint {
         final double lat = MathUtils.limitTo(point.getLat(), MapConst.LATITUDE_MIN, MapConst.LATITUDE_MAX);
         final double lon = point.getLon();
         final double geoX = Math.toRadians(MapConst.WORLD_RADIUS * lon);
-        final double geoY = MapConst.WORLD_RADIUS * Math.log(Math.tan(Math.PI * ((lat + 90.0) / 360.0)));
+        final double geoY = MapConst.WORLD_RADIUS * Math.log(Math.tan(Math.toRadians(lat + 90.0) / 2.0));
         final double mercX = Math.min(1.0, Math.max(0.0, (geoX / MapConst.WORLD_SIZE) + 0.5));
         final double mercY = Math.min(1.0, Math.max(0.0, 1.0 - ((geoY / MapConst.WORLD_SIZE) + 0.5)));
         assert MathUtils.isBetween(mercX, 0.0, 1.0) : mercX + ", " + point;
