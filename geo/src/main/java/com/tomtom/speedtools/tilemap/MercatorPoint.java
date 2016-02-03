@@ -74,7 +74,7 @@ public final class MercatorPoint {
 
         final double geoX = (mercX - 0.5) * MapConst.WORLD_SIZE;
         final double geoY = (mercY - 0.5) * -MapConst.WORLD_SIZE;
-        final double lat = Math.toDegrees(Math.atan(Math.exp(geoY / MapConst.WORLD_RADIUS)) * 2.0) - 90.0;
+        final double lat = (Math.toDegrees(Math.atan(Math.exp(geoY / MapConst.WORLD_RADIUS))) * 2.0) - 90.0;
         final double lon = Math.toDegrees(geoX / MapConst.WORLD_RADIUS);
         return new GeoPoint(lat, lon);
     }
