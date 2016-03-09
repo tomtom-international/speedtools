@@ -1,5 +1,11 @@
 Release Notes (Version ${project.version})
 
+* 3.0.15
+
+    * To do.
+
+    []
+
 * 3.0.14
 
     * Fixed Apache Commons version dependency to 3.2.2.
