@@ -43,6 +43,8 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.awt.image.BufferedImage;
 import java.util.Date;
+import java.util.EnumMap;
+import java.util.Map;
 import java.util.TimeZone;
 
 @SuppressWarnings({"deprecation", "OverlyBroadThrowsClause", "ProhibitedExceptionDeclared"})
@@ -52,6 +54,30 @@ public class JsonTest {
     private static final String RECT_JSON =
             "{\"southWest\":{\"lat\":1.0,\"lon\":2.0},\"northEast\":{\"lat\":3.0,\"lon\":4.0}}";
     private static final String INT_JSON = "1";
+
+    public enum MyEnumType {
+        A, B, C, D;
+
+        private int a;
+        private int b;
+    };
+
+    @Test
+    public void testJsonEnumMap() throws Exception {
+        LOG.info("testJsonEnumMap");
+
+        final Map<MyEnumType, Integer> x = new EnumMap<>(MyEnumType.class);
+        x.put(MyEnumType.A, 100);
+        x.put(MyEnumType.B, 200);
+        x.put(MyEnumType.C, 300);
+        x.put(MyEnumType.D, 400);
+
+        final String s = Json.toJson(x);
+        LOG.info("x.toJson = {}", s);
+        Assert.assertEquals(
+                "{\"A\":100,\"B\":200,\"C\":300,\"D\":400}",
+                s);
+    }
 
     @Test
     public void testJsonJaxbAwareAbstract() throws Exception {
