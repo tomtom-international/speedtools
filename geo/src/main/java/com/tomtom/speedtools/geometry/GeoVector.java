@@ -39,8 +39,8 @@ public final class GeoVector {
     /**
      * Create a vector.
      *
-     * @param northing Northing, must be in range [0, 180].
-     * @param easting  Easting, any value.
+     * @param northing Northing, must be in range [-180, 180].
+     * @param easting  Easting, in range [-360, 360].
      */
     public GeoVector(
             @Nonnull final Double northing,
@@ -49,7 +49,7 @@ public final class GeoVector {
         assert northing != null;
         assert easting != null;
         assert MathUtils.isBetween(northing, -180.0, 180.0) : "Northing not in [-180, 180]: " + northing;
-        assert MathUtils.isBetween(easting, -360.0, 360.0) : "Eastingnot in [-360, 360]: " + easting;
+        assert MathUtils.isBetween(easting, -360.0, 360.0) : "Easting not in [-360, 360]: " + easting;
         this.northing = northing;
         this.easting = easting;
     }

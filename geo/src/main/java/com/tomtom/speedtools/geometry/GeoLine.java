@@ -195,7 +195,7 @@ public final class GeoLine extends GeoObject {
      * @return True if wrapped around long side, false if wrapped along short side.
      */
     public boolean isWrappedOnLongSide() {
-        return southWest.getLon() > northEast.getLon();
+        return getEasting() >= 180.0;
     }
 
     /**

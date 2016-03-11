@@ -184,12 +184,23 @@ public class GeoLineTest {
     }
 
     @Test
-    public void testIsWrappedOnLongSide() {
-        LOG.info("testIsWrappedOnLongSide");
-
+    public void testIsWrappedOnLongSide1() {
+        LOG.info("testIsWrappedOnLongSide1");
 
         final GeoPoint a = new GeoPoint(0.0, 0.0);
         final GeoPoint b = new GeoPoint(1.0, 1.0);
+        final GeoLine shortLine = new GeoLine(a, b);
+        final GeoLine longLine = new GeoLine(b, a);
+        Assert.assertFalse(shortLine.isWrappedOnLongSide());
+        Assert.assertTrue(longLine.isWrappedOnLongSide());
+    }
+
+    @Test
+    public void testIsWrappedOnLongSide2() {
+        LOG.info("testIsWrappedOnLongSide2");
+
+        final GeoPoint a = new GeoPoint(0.0, 179.0);
+        final GeoPoint b = new GeoPoint(0.0, -179.0);
         final GeoLine shortLine = new GeoLine(a, b);
         final GeoLine longLine = new GeoLine(b, a);
         Assert.assertFalse(shortLine.isWrappedOnLongSide());
