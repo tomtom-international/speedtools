@@ -106,7 +106,7 @@ public final class GeoPolyLine extends GeoObject {
     /**
      * Get number of points in polyline.
      *
-     * @return Number of points, always >= 2.
+     * @return Number of points, always &gt; 2.
      */
     public int size() {
         return points.size();
