@@ -120,7 +120,7 @@ public final class GeoPolyLine extends GeoObject {
      */
     @Nonnull
     public GeoPoint get(final int i) {
-        assert (0 <= i) && (i <= points.size() - 1);
+        assert (0 <= i) && (i <= (points.size() - 1));
         return points.get(i);
     }
 
