@@ -138,7 +138,7 @@ public final class GeoPolyLine extends GeoObject {
             lines.add(new GeoLine(from, to));
             from = to;
         }
-        assert lines.size() == points.size() - 1;
+        assert lines.size() == (points.size() - 1);
         return lines;
     }
 
@@ -150,7 +150,7 @@ public final class GeoPolyLine extends GeoObject {
      */
     @Nonnull
     public GeoLine getLine(final int i) {
-        assert (0 <= i) && (i <= points.size() - 2);
+        assert (0 <= i) && (i <= (points.size() - 2));
         return new GeoLine(points.get(i), points.get(i + 1));
     }
 
