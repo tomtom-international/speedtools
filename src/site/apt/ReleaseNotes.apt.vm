@@ -1,5 +1,11 @@
 Release Notes (Version ${project.version})
 
+* 3.0.16
+    
+    * Improved error message if startup fails in servlet.
+
+    []
+
 * 3.0.15
 
     * Include <<<GeoPolyLine>>> to specify lines consisting of multiple segments.
