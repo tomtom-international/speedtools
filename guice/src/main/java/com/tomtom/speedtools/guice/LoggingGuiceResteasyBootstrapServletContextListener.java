@@ -39,11 +39,11 @@ public class LoggingGuiceResteasyBootstrapServletContextListener extends GuiceRe
         try {
             super.contextInitialized(event);
         } catch (final RuntimeException e) {
-            LOG.error("contextInitialized: Unexpected runtime exception, {}", e);
+            LOG.error("contextInitialized: Unexpected runtime exception: {}", e.getMessage());
             //noinspection ProhibitedExceptionThrown
             throw e;
         } catch (final Throwable e) {
-            LOG.error("contextInitialized: Unexpected throwable exception, {}", e);
+            LOG.error("contextInitialized: Unexpected throwable exception: {}", e.getMessage());
             //noinspection ProhibitedExceptionThrown
             throw new RuntimeException(e);
         }
@@ -60,11 +60,11 @@ public class LoggingGuiceResteasyBootstrapServletContextListener extends GuiceRe
         try {
             super.contextDestroyed(event);
         } catch (final RuntimeException e) {
-            LOG.error("contextDestroyed: Unexpected runtime exception, {}", e);
+            LOG.error("contextDestroyed: Unexpected runtime exception: {}", e.getMessage());
             //noinspection ProhibitedExceptionThrown
             throw e;
         } catch (final Throwable e) {
-            LOG.error("contextDestroyed: Unexpected throwable exception, {}", e);
+            LOG.error("contextDestroyed: Unexpected throwable exception: {}", e.getMessage());
             //noinspection ProhibitedExceptionThrown
             throw new RuntimeException(e);
         }
