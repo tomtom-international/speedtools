@@ -1,7 +1,13 @@
 Release Notes (Version ${project.version})
 
+* 3.0.17
+
+    * Added <<<CheckNull>>>, <<CheckTrue>>> and <<<CheckFalseull>>> to API validations.
+
+    []
+
 * 3.0.16
-    
+
     * Improved error message if startup fails in servlet.
 
     []

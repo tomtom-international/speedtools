@@ -35,6 +35,53 @@ public class ApiValidatorTest {
     }
 
     @Test
+    public void testCheckNullOK() {
+        LOG.info("testCheckNullOk");
+
+        validator.checkNull(false, "name", "some");
+        validator.checkNull(true, "name", null);
+        validator.done();
+        Assert.assertTrue(true);
+    }
+
+    @Test
+    public void testCheckNullFail() {
+        LOG.info("testCheckNotNullFail");
+
+        validator.checkNull(true, "name", "some");
+        try {
+            validator.done();
+            Assert.fail();
+        } catch (final ApiBadRequestException e) {
+            Assert.assertEquals(1, e.getErrors().size());
+        }
+    }
+
+    @Test
+    public void testCheckTrueFalseOK() {
+        LOG.info("testCheckTrueFalseOk");
+
+        validator.checkTrue("name", true);
+        validator.checkFalse("name", false);
+        validator.done();
+        Assert.assertTrue(true);
+    }
+
+    @Test
+    public void testCheckTrueFalseFail() {
+        LOG.info("testCheckTrueFalseFail");
+
+        validator.checkTrue("name", false);
+        validator.checkFalse("name", true);
+        try {
+            validator.done();
+            Assert.fail();
+        } catch (final ApiBadRequestException e) {
+            Assert.assertEquals(2, e.getErrors().size());
+        }
+    }
+
+    @Test
     public void testCheckIntegerOk() {
         LOG.info("testCheckIntegerOk");
 

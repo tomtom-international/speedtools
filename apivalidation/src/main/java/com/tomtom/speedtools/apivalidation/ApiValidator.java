@@ -131,6 +131,37 @@ public final class ApiValidator {
         }
     }
 
+    public void checkTrue(
+            @Nonnull final String name,
+            final boolean value) {
+        assert name != null;
+        assertNotFinished();
+        if (!value) {
+            errors.add(new ApiParameterSyntaxError(name, Boolean.FALSE.toString(), Boolean.TRUE.toString()));
+        }
+    }
+
+    public void checkFalse(
+            @Nonnull final String name,
+            final boolean value) {
+        assert name != null;
+        assertNotFinished();
+        if (value) {
+            errors.add(new ApiParameterSyntaxError(name, Boolean.TRUE.toString(), Boolean.FALSE.toString()));
+        }
+    }
+
+    public void checkNull(
+            final boolean required,
+            @Nonnull final String name,
+            @Nullable final Object value) {
+        assert name != null;
+        assertNotFinished();
+        if ((value != null) && required) {
+            errors.add(new ApiParameterSyntaxError(name, value.toString(), "null"));
+        }
+    }
+
     public void checkNotNull(
             final boolean required,
             @Nonnull final String name,
