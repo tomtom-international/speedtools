@@ -1,5 +1,11 @@
 Release Notes (Version ${project.version})
 
+* 3.0.18
+
+    * Added <<<ApiValidator.reset()>>>.
+
+    * Updated POM dependencies.
+
 * 3.0.17
 
     * Added <<<CheckNull>>>, <<CheckTrue>>> and <<<CheckFalseull>>> to API validations.

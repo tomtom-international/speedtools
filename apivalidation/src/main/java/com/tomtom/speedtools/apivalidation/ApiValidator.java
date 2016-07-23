@@ -55,13 +55,29 @@ public final class ApiValidator {
     private final List<ApiValidationError> errors = new ArrayList<>();
     private Status status = Status.NOT_STARTED;
 
+    /**
+     * Indicate start of validation.
+     */
     public void start() {
         status = Status.IN_PROGRESS;
     }
 
+    /**
+     * Indicate end of validation.
+     */
     public void done() throws ApiBadRequestException {
         status = Status.FINISHED;
         throwIfExceptions();
+    }
+
+    /**
+     * Reset the validator. This should only be used if you must use a setter on an object
+     * after the validation has run, e.g. to modify your DTO element after reading it.
+     * You should manually called validate() after setting the attributes.
+     */
+    public void reset() {
+        errors.clear();
+        status = Status.NOT_STARTED;
     }
 
     public void checkInteger(
@@ -553,21 +569,21 @@ public final class ApiValidator {
         }
     }
 
-    public void assertFinished() {
+    void assertFinished() {
         if (status != Status.FINISHED) {
             LOG.error("assertFinished: Validation framework error. Validation was not finished properly.");
             assert false;
         }
     }
 
-    public void assertNotStarted() {
+    void assertNotStarted() {
         if (status != Status.NOT_STARTED) {
             LOG.error("assertNotStarted: Validation framework error. Validation was called before setter.");
             assert false;
         }
     }
 
-    public void assertNotFinished() {
+    void assertNotFinished() {
         if (status == Status.FINISHED) {
             LOG.error("assertNotFinished: Validation framework error. Validation was unexpectedly finished.");
             assert false;

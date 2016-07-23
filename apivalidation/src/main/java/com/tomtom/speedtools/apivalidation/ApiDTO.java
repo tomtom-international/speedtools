@@ -116,7 +116,9 @@ public abstract class ApiDTO extends JsonBased {
     }
 
     /**
-     * This method must be called by all setters.
+     * This method must be called by all setters. If you need to set an attribute after
+     * the validator finished, you can call ApiValidator.reset(), but you should call
+     * validate() manually in that case.
      */
     public void beforeSet() {
 
@@ -136,6 +138,14 @@ public abstract class ApiDTO extends JsonBased {
             LOG.error("beforeSet: {}", msg);
             throw new ApiInternalException();
         }
+    }
+
+    /**
+     * Reset the validator. Only needed of you need to use setters after validation.
+     */
+    public void resetValidator() {
+        validated = false;
+        validator.reset();
     }
 
     @Nonnull
