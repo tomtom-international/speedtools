@@ -322,12 +322,14 @@ public final class ApiValidator {
                     final Currency currency = Currency.getInstance(locale);
                     currencies.add(currency);
                     String iso3Country = "___";
+                    //noinspection NestedTryStatement
                     try {
                         iso3Country = locale.getISO3Country();
                     } catch (final MissingResourceException ignored) {
                         // Ignore.
                     }
                     String iso3Language = "___";
+                    //noinspection NestedTryStatement
                     try {
                         iso3Language = locale.getISO3Language();
                     } catch (final MissingResourceException ignored) {

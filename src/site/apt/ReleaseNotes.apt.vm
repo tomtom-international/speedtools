@@ -1,8 +1,16 @@
 Release Notes (Version ${project.version})
 
+* 3.0.19
+
+    * Removed <<<ApiValidator.resetValidator()>>> and replaced with an indication
+      of whether the object is immutable or not. Immutable objects get additional
+      checks and are automatically validated when a getter is executed.
+
+    * Fixed JSON ignore attribute in <<<ApiDTO>>>.
+
 * 3.0.18
 
-    * Added <<<ApiValidator.reset()>>>.
+    * Added <<<ApiValidator.resetValidator()>>>.
 
     * Updated POM dependencies.
 

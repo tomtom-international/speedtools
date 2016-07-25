@@ -88,12 +88,45 @@ public abstract class ApiDTO extends JsonBased {
     @JsonIgnore
     private final ApiValidator validator = new ApiValidator();
 
+    @JsonIgnore
     private final Object lockThisObjectInstance = new Object();
+
+    /**
+     * Indicates whether the object is to be considered immutable or not.
+     * Immutable objects are auto-validated whenever a getter is called.
+     */
+    @JsonIgnore
+    private final boolean immutable;
+
+    /**
+     * The default constructor creates an immutable object.
+     */
+    public ApiDTO() {
+        this(true);
+    }
+
+    /**
+     * Construct a DTO object.
+     *
+     * @param immutable If true, the framework automatically executes validate() when a getter is
+     *                  executed (using beforeGet()). Also, no setters are allowed after any getter
+     *                  has been executed. For mutable objects (immutable is false), no such checks
+     *                  are performed and the caller is responsible for executing validate() at the
+     *                  appropriate time.
+     */
+    public ApiDTO(final boolean immutable) {
+        this.immutable = immutable;
+    }
 
     /**
      * This method must be called by all getters.
      */
     public void beforeGet() {
+
+        // No checks if the objects is considered mutable.
+        if (!immutable) {
+            return;
+        }
 
         /**
          * Do not allow simultaneous invocations of validate() on same object without
@@ -122,6 +155,11 @@ public abstract class ApiDTO extends JsonBased {
      */
     public void beforeSet() {
 
+        // No checks if the objects is considered mutable.
+        if (!immutable) {
+            return;
+        }
+
         /**
          * This method needs to acquire the lock as well, because the value of 'validated' may be
          * changed by another thread.
@@ -138,14 +176,6 @@ public abstract class ApiDTO extends JsonBased {
             LOG.error("beforeSet: {}", msg);
             throw new ApiInternalException();
         }
-    }
-
-    /**
-     * Reset the validator. Only needed of you need to use setters after validation.
-     */
-    public void resetValidator() {
-        validated = false;
-        validator.reset();
     }
 
     @Nonnull
