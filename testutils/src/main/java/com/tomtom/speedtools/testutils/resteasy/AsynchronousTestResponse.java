@@ -33,8 +33,10 @@ import java.util.concurrent.atomic.AtomicReference;
  * asynchronous resource when testing the resource. After the resource has been 'invoked', the test can verify that the
  * application has responded with a correct response by using <pre>verifyEntity</pre> or <pre>verifyStatus</pre>.
  *
+ * @deprecated No longer supported. It's much easier to use the Tiny Java Web Server (TJWS) from RESTEasy these days.
  * @param <T> Type of the entity within the response.
  */
+@Deprecated
 public final class AsynchronousTestResponse<T> implements AsynchronousResponse {
 
     @Nonnull

@@ -19,7 +19,6 @@ package com.tomtom.speedtools.services.sms.implementation;
 import com.tomtom.speedtools.apivalidation.exceptions.ApiParameterMissingException;
 import com.tomtom.speedtools.services.sms.*;
 import com.tomtom.speedtools.services.sms.SMSDeliveryReportListener.DeliveryStatus;
-import org.jboss.resteasy.spi.AsynchronousResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -27,6 +26,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
+import javax.ws.rs.container.AsyncResponse;
 import javax.ws.rs.core.Response;
 import java.util.Set;
 
@@ -59,7 +59,7 @@ public class SMSDeliveryReportResourceImpl implements SMSDeliveryReportResource 
     public void deliverReport(
             @Nullable final String provider,
             @Nonnull final HttpServletRequest request,
-            @Nonnull final AsynchronousResponse response) {
+            @Nonnull final AsyncResponse response) {
 
         LOG.debug("deliverReport: provider={}, uri={}, query string={}.",
                 provider, request.getRequestURI(), request.getQueryString());
@@ -102,6 +102,6 @@ public class SMSDeliveryReportResourceImpl implements SMSDeliveryReportResource 
         }
 
         // Can only reply success.
-        response.setResponse(Response.ok().build());
+        response.resume(Response.ok().build());
     }
 }

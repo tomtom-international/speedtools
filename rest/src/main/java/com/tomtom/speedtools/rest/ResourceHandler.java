@@ -32,7 +32,7 @@ public interface ResourceHandler {
      * Note that actual implementations of resource handlers should specify the &gt;?&lt; type parameter of the
      * Future to match the specific response type.
      *
-     * @return Future with {@link org.jboss.resteasy.spi.AsynchronousResponse} object.
+     * @return Future with {@link javax.ws.rs.container.AsyncResponse} object.
      * @throws Exception When something went wrong. Will be translated to a "Internal Server Error" response (500).
      */
     @SuppressWarnings("ProhibitedExceptionDeclared")

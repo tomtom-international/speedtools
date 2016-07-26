@@ -1,6 +1,12 @@
 Release Notes
 ----
 
+### 3.0.21
+
+* Updated `com.tomtom.speedtools.rest.ResourceProcessor` to use the new RESTEasy `AsyncResponse` 
+and `@Suspended` interfaces. The old interfaces `AsynchronousResponse` and `@Suspend` are still 
+supported, but have been marked `@Deprecated` and support will be removed at some point.
+
 ### 3.0.20
 
 * Changed from APT to Markdown format for all documentation.

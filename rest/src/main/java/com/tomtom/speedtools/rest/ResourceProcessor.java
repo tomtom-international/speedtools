@@ -26,6 +26,7 @@ import scala.concurrent.Future;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.inject.Inject;
+import javax.ws.rs.container.AsyncResponse;
 import javax.ws.rs.core.Response;
 
 
@@ -62,7 +63,7 @@ public final class ResourceProcessor {
     public void process(
             @Nonnull final String name,
             @Nonnull final Logger log,
-            @Nonnull final AsynchronousResponse response,
+            @Nonnull final AsyncResponse response,
             @Nonnull final ResourceHandler handler) {
         assert response != null;
         assert log != null;
@@ -115,9 +116,9 @@ public final class ResourceProcessor {
 
                                 if (failure != null) {
                                     log.info("process: resource exception, handler=" + name, failure);
-                                    response.setResponse(GeneralExceptionMapper.toResponse(log, failure));
+                                    response.resume(GeneralExceptionMapper.toResponse(log, failure));
                                 } else if (success != null) {
-                                    response.setResponse(Response.ok(success).build());
+                                    response.resume(Response.ok(success).build());
                                 } else {
 
                                     /**
@@ -138,7 +139,7 @@ public final class ResourceProcessor {
                             log.info("process: exception encountered, handler={}, exception={}",
                                     name, e.getMessage());
                         }
-                        response.setResponse(GeneralExceptionMapper.toResponse(log, e));
+                        response.resume(GeneralExceptionMapper.toResponse(log, e));
                     }
 
                     //noinspection ConstantConditions
@@ -148,6 +149,61 @@ public final class ResourceProcessor {
                 /**
                  * Execute Future in reactor context.
                  */
+                reactor.getExecutionContext());
+    }
+
+    /**
+     * @deprecated Replaced by {@link #process(String, Logger, AsyncResponse, ResourceHandler)}.
+     */
+    @Deprecated
+    @SuppressWarnings("InstanceofCatchParameter")
+    public void process(
+            @Nonnull final String name,
+            @Nonnull final Logger log,
+            @Nonnull final AsynchronousResponse response,
+            @Nonnull final ResourceHandler handler) {
+        assert response != null;
+        assert log != null;
+        assert handler != null;
+
+        log.debug("[DEPRECATED] process (WEB): handler={}", name);
+        Futures.future(() -> {
+                    try {
+                        @SuppressWarnings("unchecked")
+                        final Future<Object> future = (Future<Object>) handler.process();
+                        //noinspection unchecked
+                        future.onComplete(new OnComplete<Object>() {
+                            @SuppressWarnings("ParameterNameDiffersFromOverriddenParameter")
+                            @Override
+                            public void onComplete(
+                                    @Nullable final Throwable failure,
+                                    @Nullable final Object success) {
+
+                                if (failure != null) {
+                                    log.info("[DEPRECATED] process: resource exception, handler=" + name, failure);
+                                    response.setResponse(GeneralExceptionMapper.toResponse(log, failure));
+                                } else if (success != null) {
+                                    response.setResponse(Response.ok(success).build());
+                                } else {
+                                    assert true;
+                                }
+                            }
+                        }, reactor.getExecutionContext());
+                    } catch (final Throwable e) {
+                        if (((e instanceof RuntimeException) || (e instanceof Error)) &&
+                                !(e instanceof ApiException)) {
+                            // Something went wrong, probably a bug in the code.
+                            log.error("[DEPRECATED] process: exception encountered, handler={}", name, e);
+                        } else {
+                            // Some-one is firing requests that cause errors.
+                            log.info("[DEPRECATED] process: exception encountered, handler={}, exception={}",
+                                    name, e.getMessage());
+                        }
+                        response.setResponse(GeneralExceptionMapper.toResponse(log, e));
+                    }
+                    //noinspection ConstantConditions
+                    return null;
+                },
                 reactor.getExecutionContext());
     }
 }

@@ -16,15 +16,14 @@
 
 package com.tomtom.speedtools.services.sms;
 
-import org.jboss.resteasy.annotations.Suspend;
-import org.jboss.resteasy.spi.AsynchronousResponse;
-
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
+import javax.ws.rs.container.AsyncResponse;
+import javax.ws.rs.container.Suspended;
 import javax.ws.rs.core.Context;
 
 
@@ -45,12 +44,12 @@ public interface SMSDeliveryReportResource {
      *
      * @param provider The provider that this report pertains to.
      * @param request  Injected HttpServletRequest.
-     * @param response {@link AsynchronousResponse} which is empty.
+     * @param response {@link AsyncResponse} which is empty.
      */
     @GET
     @Path('{' + PARAM_PROVIDER + '}')
     void deliverReport(
             @Nullable @PathParam(PARAM_PROVIDER) String provider,
             @Nonnull @Context HttpServletRequest request,
-            @Nonnull @Suspend(SUSPEND_TIMEOUT) AsynchronousResponse response);
+            @Nonnull @Suspended AsyncResponse response);
 }
