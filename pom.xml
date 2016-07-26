@@ -44,14 +44,12 @@
             <id>rijnb</id>
             <name>Rijn Buve</name>
             <email>rijn@buve.nl</email>
-            <organization>TomTom International</organization>
         </developer>
 
         <developer>
             <id>vandijk</id>
             <name>Daan van Dijk</name>
             <email>daan.vandijk@tomtom.com</email>
-            <organization>TomTom International</organization>
         </developer>
 
         <developer>
@@ -95,6 +93,7 @@
         <maven-javadoc-plugin.version>2.10.3</maven-javadoc-plugin.version>
         <maven-jetty-plugin.version>8.1.9.v20130131</maven-jetty-plugin.version>
         <maven-remote-resources-plugin.version>1.5</maven-remote-resources-plugin.version>
+        <maven-site-plugin.version>3.5.1</maven-site-plugin.version>
         <maven-source-plugin.version>2.4</maven-source-plugin.version>
         <nexus-staging-maven-plugin.version>1.6.6</nexus-staging-maven-plugin.version>
 
@@ -130,7 +129,7 @@
         <mongo-java-driver.version>3.3.0</mongo-java-driver.version>
         <org.objenesis.version>2.2</org.objenesis.version>
         <paranamer.version>2.8</paranamer.version>
-        <resteasy.version>3.0.12.Final</resteasy.version>
+        <resteasy.version>3.0.18.Final</resteasy.version>
         <slf4j.version>1.7.13</slf4j.version>
         <snakeyaml.version>1.16</snakeyaml.version>
         <testng.version>6.9.9</testng.version>
@@ -163,6 +162,12 @@
 
     <build>
         <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-site-plugin</artifactId>
+                <version>${maven-site-plugin.version}</version>
+            </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
@@ -485,12 +490,6 @@
                 <groupId>javax.xml.bind</groupId>
                 <artifactId>jaxb-api</artifactId>
                 <version>${jaxb-api.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.jboss.resteasy</groupId>
-                <artifactId>jaxrs-api</artifactId>
-                <version>${resteasy.version}</version>
             </dependency>
 
             <dependency>

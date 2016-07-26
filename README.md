@@ -10,7 +10,7 @@ The library was created to develop highly scalable web services, using Typesafe 
 Google Guice and MongoDB, but many of the tools are usable in other contexts
 as well.
 
-For documentation on what this library offers, have a look at the `speedtools/src/site/apt`
+For documentation on what this library offers, have a look at the `speedtools/src/site/md`
 directory, which is the entry point for the site documentation. It contains a list of all
 modules and APIs.
 
