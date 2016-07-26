@@ -14,11 +14,11 @@ For documentation on what this library offers, have a look at the `speedtools/sr
 directory, which is the entry point for the site documentation. It contains a list of all
 modules and APIs.
 
-You can view it here:
+You can view the *general documentation* here:
 
 **http://tomtom-international.github.io/speedtools/**
 
-Or have a look at the JavaDoc API documentation at:
+Or have a look at the *JavaDoc API documentation* at:
 
 **http://tomtom-international.github.io/speedtools/apidocs/index.html**
 
