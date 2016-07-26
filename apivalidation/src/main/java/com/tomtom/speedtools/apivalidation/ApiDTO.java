@@ -27,10 +27,25 @@ import javax.annotation.Nonnull;
 /**
  * This class provides an abstract base class for JAX-B data binder classes.
  *
- * The idea is that the JAX-B classes provide a validate() function, which is called for the 1st getters that is being
- * used by the class.
+ * The idea is that you can use JAX-B (DTO) classes that can be treated as immutable
+ * which means:
  *
- * The setters should not be called after any getters has been called.
+ * * first a DTO must be created with a constructor (for JAXB, that will be the default
+ * constructor;
+ *
+ * * then you can use setters to set the values of all attributes;
+ *
+ * * then the validate() method is called, which validates if the object is indeed
+ * valid (this must be done both for incoming DTOs as well as outgoing DTOs);
+ *
+ * * and finally, you can use getters on the object.
+ *
+ * This order is mandatory and the framework checks if it is not violated (or you
+ * will get runtime exceptions).
+ *
+ * If you do not want to treat your DTOs as immutable objects, then you should use
+ * the non-default constructor for ApiDTO to indicate so. This will no longer enforce
+ * these rules.
  *
  * The user of this class should make sure the JAX-B classes look something like this:
  *
@@ -102,6 +117,11 @@ public abstract class ApiDTO extends JsonBased {
      * The default constructor creates an immutable object.
      */
     public ApiDTO() {
+
+        /**
+         * By default, consider ApiDTO objects immutable, which means you cannot access setters
+         * after a getter, for example.
+         */
         this(true);
     }
 
