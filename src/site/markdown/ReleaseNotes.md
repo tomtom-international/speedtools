@@ -1,6 +1,10 @@
 Release Notes
 ----
 
+### 3.0.22
+
+* To do.
+
 ### 3.0.21
 
 * Updated `com.tomtom.speedtools.rest.ResourceProcessor` to use the new RESTEasy `AsyncResponse` 
