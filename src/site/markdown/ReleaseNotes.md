@@ -5,7 +5,7 @@ Release Notes
 
 * Changed from APT to Markdown format for all documentation.
 
-* Updated dependencies of JBoss RESTEasy and Maven site plugin.
+* Updated dependencies of JBoss RESTEasy and Maven plugins.
 
 ### 3.0.19
 
