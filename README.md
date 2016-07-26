@@ -10,9 +10,17 @@ The library was created to develop highly scalable web services, using Typesafe 
 Google Guice and MongoDB, but many of the tools are usable in other contexts
 as well.
 
-For documentation on what this library offers, have a look at the `speedtools/src/site/md`
+For documentation on what this library offers, have a look at the `speedtools/src/site/markdown`
 directory, which is the entry point for the site documentation. It contains a list of all
 modules and APIs.
+
+You can view it here:
+
+**http://tomtom-international.github.io/speedtools/**
+
+Or have a look at the JavaDoc API documentation at:
+
+**http://tomtom-international.github.io/speedtools/apidocs/index.html**
 
 The versioning scheme of the library starts at 3.0.0, because earlier releases exist
 were disclosed within TomTom only. From version 3.0.0 TomTom decided to contribute
