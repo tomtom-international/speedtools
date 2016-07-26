@@ -26,10 +26,11 @@
     <body>
         <menu name="SpeedTools Project">
             <item name="Home" href="/index.html"/>
+            <item name="API Documentation" href="/apidocs/index.html"/>
             <item name="Release Notes" href="/ReleaseNotes.html"/>
             <item name="Property Files" href="/Properties.html"/>
         </menu>
 
-        ${reports}
+        <menu ref="reports"/>
     </body>
 </project>

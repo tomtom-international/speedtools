@@ -37,7 +37,7 @@
         (if the plugin is enabled).
     -->
     <description>
-        Generic utility classes for tests in project SpeedTools.
+        Contains utilities, like mocks, which make it easier to create Java unit tests.
     </description>
 
     <dependencies>

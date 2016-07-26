@@ -7,6 +7,8 @@ Release Notes
 
 * Updated dependencies of JBoss RESTEasy and Maven plugins.
 
+* Enabled JavaDoc for all modules in Maven site.
+
 ### 3.0.19
 
 * Removed **ApiValidator.resetValidator()** and replaced with an indication

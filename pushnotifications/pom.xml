@@ -37,7 +37,8 @@
         (if the plugin is enabled).
     -->
     <description>
-        Connectors to web services.
+        Provides generic interfaces for the iOS APNS and Android GCM push
+        notification services to send notifications to mobile phones.
     </description>
 
     <dependencies>

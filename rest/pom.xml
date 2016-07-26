@@ -37,7 +37,8 @@
         (if the plugin is enabled).
     -->
     <description>
-        REST tools for project SpeedTools.
+        Consists of utilities to create reliable, scalable RestEasy REST APIs using the
+        Akka framework to process incoming requests.
     </description>
 
     <dependencies>

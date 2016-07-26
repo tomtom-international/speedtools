@@ -37,7 +37,8 @@
         (if the plugin is enabled).
     -->
     <description>
-        Generic utility classes for project SpeedTools.
+        JSON reading/writing support, as well as a standard implementation for
+        `toString()` which produces parseable log output.
     </description>
 
     <dependencies>

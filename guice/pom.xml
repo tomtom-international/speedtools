@@ -37,7 +37,7 @@
         (if the plugin is enabled).
     -->
     <description>
-        Generic utility classes for project SpeedTools.
+        Extended support for Google Guice and property file handling.
     </description>
 
     <dependencies>

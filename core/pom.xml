@@ -37,7 +37,8 @@
         (if the plugin is enabled).
     -->
     <description>
-        Generic utility classes for project SpeedTools.
+        Consists of a lot of handy classes and utilities for your main Java application, like
+        buffers, checksum calculations, locale handling, time conversion and more.
     </description>
 
     <dependencies>

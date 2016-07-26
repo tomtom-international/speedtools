@@ -37,7 +37,8 @@
         (if the plugin is enabled).
     -->
     <description>
-        Generic utility classes for project SpeedTools.
+        Support for DTOs (data transfer objects ) in your API with support for specific
+        API parameter validation (if you don't wish to use the JSR one).
     </description>
 
     <dependencies>

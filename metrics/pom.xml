@@ -37,7 +37,8 @@
         (if the plugin is enabled).
     -->
     <description>
-        Generic utility classes for project SpeedTools.
+        Provides easy interfaces for external LBS services, like mapping,
+        geocoding and routing.
     </description>
 
     <dependencies>

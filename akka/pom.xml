@@ -37,7 +37,7 @@
         (if the plugin is enabled).
     -->
     <description>
-        Generic utility classes for project SpeedTools.
+        Supports the use of Akka `TypedActor` more easily in Java.
     </description>
 
     <dependencies>

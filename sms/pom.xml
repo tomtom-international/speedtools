@@ -37,7 +37,8 @@
         (if the plugin is enabled).
     -->
     <description>
-        Connectors to web services.
+        Provides interfaces for SMS services, with implementations for MessageBird and Nexmo,
+        to send text messages to mobile phones.
     </description>
 
     <dependencies>

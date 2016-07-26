@@ -37,7 +37,8 @@
         (if the plugin is enabled).
     -->
     <description>
-        Generic utility classes for project SpeedTools.
+        Contains a set of geometry (and geographical) classes, which work with any latitude and
+        longitude, without glitches around the poles or Fiji.
     </description>
 
     <dependencies>

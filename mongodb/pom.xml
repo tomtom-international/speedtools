@@ -37,7 +37,8 @@
         (if the plugin is enabled).
     -->
     <description>
-        Generic utility classes for project SpeedTools.
+        Contains MongoDB specific classes that will handle schema migration in
+        MongoDB databases and a superfast "event tracer" system, based on MongoDB.
     </description>
 
     <dependencies>
