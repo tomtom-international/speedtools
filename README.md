@@ -30,6 +30,11 @@ The versioning scheme of the library starts at 3.0.0, because earlier releases e
 were disclosed within TomTom only. From version 3.0.0 TomTom decided to contribute
 this library under the Apache License 2.0 to the open source community.
 
+The **test coverage** of the project is unevenly distributed. Some of the modules have excellent
+test coverage in units tests, others lag behind, or cannot be run without running, for example,
+a local MongoDB instance, or having access to secret API keys. Such unit tests have been marked
+as `@Ignore` in the source tree, which brings the test coverage down.
+
 There is an additional project `speedtools-examples` with real-life examples
 of how to use the SpeedTools library. Check it out at
 `https://github.com/tomtom-international/speedtools-examples`.
