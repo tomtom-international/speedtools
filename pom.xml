@@ -180,7 +180,10 @@
                     </instrumentation>
                     <check>
                     </check>
-                    <format>xml</format>
+                    <formats>
+                        <format>xml</format>
+                        <format>html</format>
+                    </formats>
                     <maxmem>256m</maxmem>
                     <aggregate>true</aggregate>
                 </configuration>
