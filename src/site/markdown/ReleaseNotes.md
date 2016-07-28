@@ -3,7 +3,8 @@ Release Notes
 
 ### 3.0.22
 
-* To do.
+* Introduced Travis CI and Coveralls in POM and root directory for fully
+automated CI and test coverage and added badges to `README.md`.
 
 ### 3.0.21
 
