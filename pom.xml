@@ -87,8 +87,13 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
+        <!-- Repo token for Coveralls. -->
+        <coveralls-maven-plugin.repoToken>RLwZjbGmKFYBnpizVNbcqYxTQsxpZVe2i</coveralls-maven-plugin.repoToken>
+
         <!-- Plugin versions. -->
         <maven-compiler-plugin.version>3.5.1</maven-compiler-plugin.version>
+        <cobertura-maven-plugin.version>2.7</cobertura-maven-plugin.version>
+        <coveralls-maven-plugin.version>4.2.0</coveralls-maven-plugin.version>
         <maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>
         <maven-javadoc-plugin.version>2.10.4</maven-javadoc-plugin.version>
         <maven-jetty-plugin.version>8.1.9.v20130131</maven-jetty-plugin.version>
@@ -163,6 +168,26 @@
 
     <build>
         <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>cobertura-maven-plugin</artifactId>
+                <version>${cobertura-maven-plugin.version}</version>
+                <configuration>
+                    <format>xml</format>
+                    <maxmem>256m</maxmem>
+                    <aggregate>true</aggregate>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.eluder.coveralls</groupId>
+                <artifactId>coveralls-maven-plugin</artifactId>
+                <version>${coveralls-maven-plugin.version}</version>
+                <configuration>
+                    <repoToken>${coveralls-maven-plugin.repoToken}</repoToken>
+                </configuration>
+            </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-project-info-reports-plugin</artifactId>

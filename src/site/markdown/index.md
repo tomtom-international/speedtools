@@ -4,7 +4,7 @@ SpeedTools Java Library
 # Introduction
 
 **SpeedTools** is a collection of generic Java utilities which are specifically coded to be high-performance
-and very reliable. Most of the code has been 100% code reviewed and has great test coverage.
+and very reliable. Most of the code has been 100% code reviewed.
 
 The code was originally developed by Rijn Buve, Daan van Dijk and Ruud Diterwich for a commercial TomTom
 service and ran for with zero-downtime for months in a data center, serving hundreds of thousands of requests.

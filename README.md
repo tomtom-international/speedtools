@@ -1,5 +1,5 @@
 # Read Me for TomTom SpeedTools Library
-----
+
 [![Build Status](https://img.shields.io/travis/tomtom-international/speedtools.svg)](https://travis-ci.org/tomtom-international/speedtools)
 [![Coverage Status](https://img.shields.io/coveralls/tomtom-international/speedtools.svg)](https://coveralls.io/r/tomtom-international/speedtools)
 [![Release](https://img.shields.io/github/release/tomtom-international/speedtools.svg)](https://github.com/tomtom-international/speedtools/releases)
