@@ -1,11 +1,11 @@
 # Read Me for TomTom SpeedTools Library
-
-Copyright (C) 2012-2016, TomTom International BV. All rights reserved.
 ----
 [![Build Status](https://img.shields.io/travis/tomtom-international/speedtools.svg)](https://travis-ci.org/tomtom-international/speedtools)
 [![Coverage Status](https://img.shields.io/coveralls/tomtom-international/speedtools.svg)](https://coveralls.io/r/tomtom-international/speedtools)
 [![Release](https://img.shields.io/github/release/tomtom-international/speedtools.svg)](https://github.com/tomtom-international/speedtools/releases)
 [![Maven Central](https://img.shields.io/maven-central/v/com.tomtom.speedtools/speedtools.svg)](https://maven-badges.herokuapp.com/maven-central/com.tomtom.speedtools/speedtools)
+
+**Copyright (C) 2012-2016, TomTom International BV. All rights reserved.**
 
 SpeedTools is a collection of generic utilities, originally developed by Rijn Buve,
 Ruud Diterwich, Daan van Dijk and Andreas Wuest for a large commercial project.
