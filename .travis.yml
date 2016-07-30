@@ -11,7 +11,7 @@ script:
     - mvn clean verify -Dgpg.skip
 
 after_success:
-    - mvn clean cobertura:cobertura coveralls:report -Dgpg.skip
+    - mvn clean coveralls:report -Dgpg.skip
 
 cache:
   directories:
