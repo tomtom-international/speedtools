@@ -8,10 +8,10 @@ jdk:
 install: mvn install -DskipTests -Dgpg.skip
 
 script:
-    - mvn clean verify -Dgpg.skip
+    - mvn verify -Dgpg.skip
 
 after_success:
-    - mvn clean coveralls:report -Dgpg.skip
+    - mvn coveralls:report -Dgpg.skip
 
 cache:
   directories:
