@@ -1,7 +1,7 @@
 # Read Me for TomTom SpeedTools Library
 
 [![Build Status](https://img.shields.io/travis/tomtom-international/speedtools.svg)](https://travis-ci.org/tomtom-international/speedtools)
-[![Coverage Status](https://coveralls.io/repos/github/tomtom-international/speedtools/badge.svg)](https://coveralls.io/github/tomtom-international/speedtools)
+[![Coverage Status](https://coveralls.io/repos/github/tomtom-international/speedtools/badge.svg?branch=master)](https://coveralls.io/github/tomtom-international/speedtools?branch=master)
 [![Release](https://img.shields.io/github/release/tomtom-international/speedtools.svg)](https://github.com/tomtom-international/speedtools/releases)
 [![Maven Central](https://img.shields.io/maven-central/v/com.tomtom.speedtools/speedtools.svg)](https://maven-badges.herokuapp.com/maven-central/com.tomtom.speedtools/speedtools)
 
