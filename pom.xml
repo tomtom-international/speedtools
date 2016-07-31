@@ -114,7 +114,6 @@
         <commons-logging.version>1.1.1</commons-logging.version>
         <equalsverifier.version>1.6</equalsverifier.version>
         <gcm-server.version>1.0.2</gcm-server.version>
-        <gson.version>2.7</gson.version>
         <guava.version>19.0</guava.version>
         <guice.version>4.1.0</guice.version>
         <httpcore.version>4.4.5</httpcore.version>

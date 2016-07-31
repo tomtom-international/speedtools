@@ -2,8 +2,9 @@
 
 [![Build Status](https://img.shields.io/travis/tomtom-international/speedtools.svg)](https://travis-ci.org/tomtom-international/speedtools)
 [![Coverage Status](https://coveralls.io/repos/github/tomtom-international/speedtools/badge.svg?branch=master)](https://coveralls.io/github/tomtom-international/speedtools?branch=master)
-[![Release](https://img.shields.io/github/release/tomtom-international/speedtools.svg)](https://github.com/tomtom-international/speedtools/releases)
-[![Maven Central](https://img.shields.io/maven-central/v/com.tomtom.speedtools/speedtools.svg)](https://maven-badges.herokuapp.com/maven-central/com.tomtom.speedtools/speedtools)
+[![License](https://img.shields.io/github/license/mashape/apistatus.svg?maxAge=2592000)]()
+[![Release](https://img.shields.io/github/release/tomtom-international/speedtools.svg?maxAge=2592000)](https://github.com/tomtom-international/speedtools/releases)
+[![Maven Central](https://img.shields.io/maven-central/v/com.tomtom.speedtools/speedtools.svg?maxAge=2592000)](https://maven-badges.herokuapp.com/maven-central/com.tomtom.speedtools/speedtools)
 
 **Copyright (C) 2012-2016, TomTom International BV. All rights reserved.**
 
