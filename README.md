@@ -31,9 +31,11 @@ were disclosed within TomTom only. From version 3.0.0 TomTom decided to contribu
 this library under the Apache License 2.0 to the open source community.
 
 The **test coverage** of the project is unevenly distributed. Some of the modules have excellent
-test coverage in units tests, others lag behind, or cannot be run without running, for example,
+test coverage in units tests, others lag a bit behind, or cannot be run without running, for example,
 a local MongoDB instance, or having access to secret API keys. Such unit tests have been marked
-as `@Ignore` in the source tree, which brings the test coverage down.
+as `@Ignore` in the source tree, which brings the test coverage down. We welcome initiatives to
+increase the test coverage further. Most of the original code was suspect to strict code
+reviews.
 
 There is an additional project `speedtools-examples` with real-life examples
 of how to use the SpeedTools library. Check it out at
