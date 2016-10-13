@@ -57,7 +57,6 @@ public class MoneyTest {
         LOG.info("testEqualsVerifier");
         EqualsVerifier.forClass(Money.class).
                 withPrefabValues(Currency.class, Currency.getInstance("EUR"), Currency.getInstance("USD")).
-                allFieldsShouldBeUsed().
                 verify();
     }
 

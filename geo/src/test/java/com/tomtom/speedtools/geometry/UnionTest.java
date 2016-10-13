@@ -30,7 +30,6 @@ public class UnionTest {
         LOG.info("testEqualsVerifier");
         EqualsVerifier.forClass(Union.class).
                 withRedefinedSuperclass().
-                allFieldsShouldBeUsed().
                 verify();
     }
 

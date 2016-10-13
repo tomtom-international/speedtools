@@ -48,7 +48,6 @@ public class GeoPolyLineTest {
         LOG.info("testEqualsVerifier");
         EqualsVerifier.forClass(GeoPolyLine.class).
                 withRedefinedSuperclass().
-                allFieldsShouldBeUsed().
                 verify();
     }
 

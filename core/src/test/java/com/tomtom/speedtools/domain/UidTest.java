@@ -48,7 +48,6 @@ public class UidTest {
         EqualsVerifier.forClass(Uid.class).
                 withPrefabValues(UUID.class, new UUID(1L, 2L), new UUID(3L, 4L)).
                 verify();
-        // Do not add: allFieldsShouldBeUsed()
     }
 
     @Test

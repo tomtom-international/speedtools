@@ -49,7 +49,6 @@ public class GeoRectangleTest {
         LOG.info("testEqualsVerifier");
         EqualsVerifier.forClass(GeoRectangle.class).
                 withRedefinedSuperclass().
-                allFieldsShouldBeUsed().
                 verify();
     }
 

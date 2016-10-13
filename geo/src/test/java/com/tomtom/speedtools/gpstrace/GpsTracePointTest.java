@@ -55,7 +55,6 @@ public class GpsTracePointTest {
         EqualsVerifier.forClass(GpsTracePoint.class).
                 withPrefabValues(DateTime.class, new DateTime(0), new DateTime(1)).
                 withRedefinedSuperclass().
-                allFieldsShouldBeUsed().
                 verify();
     }
 

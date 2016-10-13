@@ -55,7 +55,6 @@ public class TripleTest {
         EqualsVerifier.forClass(Triple.class).
                 withRedefinedSuperclass().
                 verify();
-        // Do not add: allFieldsShouldBeUsed()
     }
 
     @Test

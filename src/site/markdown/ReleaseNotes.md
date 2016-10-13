@@ -1,6 +1,10 @@
 Release Notes
 ----
 
+### 3.0.23
+
+* Updated dependencies of Maven POM to latest versions.
+
 ### 3.0.22
 
 * Introduced Travis CI and Coveralls in POM and root directory for fully

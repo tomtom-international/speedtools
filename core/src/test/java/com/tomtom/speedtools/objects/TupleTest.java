@@ -50,7 +50,6 @@ public class TupleTest {
         EqualsVerifier.forClass(Tuple.class).
                 withRedefinedSuperclass().
                 verify();
-        // Do not add: allFieldsShouldBeUsed()
     }
 
     @Test

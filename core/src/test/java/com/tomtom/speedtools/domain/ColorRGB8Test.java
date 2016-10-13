@@ -53,7 +53,6 @@ public class ColorRGB8Test {
     public void testEqualsVerifier() {
         LOG.info("testEqualsVerifier");
         EqualsVerifier.forClass(ColorRGB8.class).
-                allFieldsShouldBeUsed().
                 verify();
     }
 

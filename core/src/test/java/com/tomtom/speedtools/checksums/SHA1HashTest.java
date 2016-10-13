@@ -31,7 +31,6 @@ public class SHA1HashTest {
         LOG.info("testEqualsVerifier");
         EqualsVerifier.forClass(SHA1Hash.class).
                 verify();
-        // Do not add: allFieldsShouldBeUsed()
     }
 
     @Test

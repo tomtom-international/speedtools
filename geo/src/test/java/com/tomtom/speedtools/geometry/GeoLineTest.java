@@ -49,7 +49,6 @@ public class GeoLineTest {
         LOG.info("testEqualsVerifier");
         EqualsVerifier.forClass(GeoLine.class).
                 withRedefinedSuperclass().
-                allFieldsShouldBeUsed().
                 verify();
     }
 

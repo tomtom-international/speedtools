@@ -17,6 +17,7 @@
 package com.tomtom.speedtools.services.push.implementation.gcm;
 
 import com.google.android.gcm.server.Constants;
+import com.google.android.gcm.server.Endpoint;
 import com.google.android.gcm.server.Sender;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,7 +28,7 @@ import java.io.IOException;
 import java.net.HttpURLConnection;
 
 /**
- * This class can be used to override the use of {@link Constants#GCM_SEND_ENDPOINT}.
+ * This class can be used to override the use of the standard endpoint.
  */
 public class GCMSender extends Sender {
     private static final Logger LOG = LoggerFactory.getLogger(GCMSender.class);
@@ -36,9 +37,9 @@ public class GCMSender extends Sender {
     private final String endpoint;
 
     public GCMSender(@Nullable final String endpoint, @Nonnull final String key) {
-        super(key);
+        super(key, Endpoint.GCM);
         assert key != null;
-        this.endpoint = (endpoint == null) ? Constants.GCM_SEND_ENDPOINT : endpoint;
+        this.endpoint = (endpoint == null) ? Endpoint.GCM.toString() : endpoint;
 
         LOG.debug("GCMSender using endpoint={}", endpoint);
     }

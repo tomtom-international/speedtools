@@ -31,7 +31,6 @@ public class Position3DTest {
         LOG.info("testEqualsVerifier");
         EqualsVerifier.forClass(Position3D.class).
                 withRedefinedSuperclass().
-                allFieldsShouldBeUsed().
                 suppress(Warning.STRICT_INHERITANCE).
                 verify();
     }

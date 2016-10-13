@@ -49,7 +49,6 @@ public class GeoCircleTest {
         LOG.info("testEqualsVerifier");
         EqualsVerifier.forClass(GeoCircle.class).
                 withRedefinedSuperclass().
-                allFieldsShouldBeUsed().
                 verify();
     }
 

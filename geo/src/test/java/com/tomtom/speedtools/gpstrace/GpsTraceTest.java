@@ -52,7 +52,6 @@ public class GpsTraceTest {
         LOG.info("testEqualsVerifier");
         EqualsVerifier.forClass(GpsTrace.class).
                 withRedefinedSuperclass().
-                allFieldsShouldBeUsed().
                 verify();
     }
 

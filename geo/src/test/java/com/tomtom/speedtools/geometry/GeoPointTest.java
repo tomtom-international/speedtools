@@ -56,7 +56,6 @@ public class GeoPointTest {
         LOG.info("testEqualsVerifier");
         EqualsVerifier.forClass(GeoPoint.class).
                 withRedefinedSuperclass().
-                allFieldsShouldBeUsed().
                 verify();
     }
 

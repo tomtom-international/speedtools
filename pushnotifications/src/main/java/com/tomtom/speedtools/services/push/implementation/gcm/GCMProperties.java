@@ -41,7 +41,7 @@ public class GCMProperties {
 
     /**
      * @param endpoint     The GCM endpoint. If not specified the default should be used {@link
-     *                     com.google.android.gcm.server.Constants#GCM_SEND_ENDPOINT}.
+     *                     com.google.android.gcm.server.Endpoint#GCM}.
      * @param apiKey       The api key for this application.
      * @param retries      The number of retries to send a message.
      * @param maxInstances The number of maximum instances of GCM connection that should be used simultaneously. This
@@ -80,7 +80,7 @@ public class GCMProperties {
 
     /**
      * Method returns the end point in case or null when it is not specified. In case null the default should be used
-     * {@link com.google.android.gcm.server.Constants#GCM_SEND_ENDPOINT}.
+     * {@link com.google.android.gcm.server.Endpoint#GCM}.
      *
      * @return The end point in case or null when it is not specified.
      */
