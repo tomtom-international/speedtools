@@ -153,6 +153,14 @@ public final class ResourceProcessor {
     }
 
     /**
+     * Deprecated resource processor. Supported for legacy clients only.
+     *
+     * @param name     Name of processor; used for logging purposes.
+     * @param log      Logger of caller, so log message appear to come from the caller, which makes more sense than from
+     *                 this generic class.
+     * @param response Asynchronous rest response object.
+     * @param handler  Handler that actually calculates the REST response. If the handler returns a non-null value in
+     *                 the future success, it will be wrapped in an "200 OK" response.
      * @deprecated Replaced by {@link #process(String, Logger, AsyncResponse, ResourceHandler)}.
      */
     @Deprecated
