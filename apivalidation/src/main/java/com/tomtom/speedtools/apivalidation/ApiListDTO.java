@@ -47,16 +47,26 @@ public abstract class ApiListDTO<T> extends ApiDTO implements List<T> {
 
     private final ArrayList<T> list;
 
-    protected ApiListDTO() {
-        list = new ArrayList<>();
-    }
-
-    protected ApiListDTO(final int initialCapacity) {
+    protected ApiListDTO(final boolean immutable, final int initialCapacity) {
+        super(immutable);
         list = new ArrayList<>(initialCapacity);
     }
 
-    protected ApiListDTO(Collection<? extends T> c) {
+    protected ApiListDTO(final boolean immutable) {
+        this(immutable, 0);
+    }
+
+    protected ApiListDTO() {
+        this(true);
+    }
+
+    protected ApiListDTO(final boolean immutable, Collection<? extends T> c) {
+        super(immutable);
         list = new ArrayList<>(c);
+    }
+
+    protected ApiListDTO(Collection<? extends T> c) {
+        this(true, c);
     }
 
     /**
