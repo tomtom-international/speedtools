@@ -21,6 +21,7 @@ import com.google.inject.Binder;
 import com.google.inject.Key;
 import com.google.inject.Module;
 import com.google.inject.binder.LinkedBindingBuilder;
+import com.google.inject.name.Names;
 import org.eclipse.jetty.jndi.InitialContextFactory;
 import org.junit.Assert;
 import org.junit.BeforeClass;
@@ -80,7 +81,7 @@ public class GuiceUtilsTest {
         }
 
         GuiceUtils.loadUrl(props, "classpath:" + PROPERTY_FILE);
-        Assert.assertEquals(2, props.size());
+        Assert.assertEquals(3, props.size());
     }
 
     @Test
@@ -128,7 +129,7 @@ public class GuiceUtilsTest {
 
         GuiceUtils.loadUrl(props, "file:" + fileLocation);
 
-        Assert.assertEquals(2, props.size());
+        Assert.assertEquals(3, props.size());
     }
 
     @Test
@@ -152,10 +153,9 @@ public class GuiceUtilsTest {
         final Binder binder = Mockito.mock(Binder.class);
 
         // Bind mock methods. Only the ones that are called in the process are required.
-        Mockito.when(binder.skipSources(Mockito.any(Class[].class))).thenReturn(binder);
+        Mockito.when(binder.skipSources(Names.class)).thenReturn(binder);
 
-        Mockito.when(binder.bind(Mockito.any(Key.class))).thenReturn(Mockito.mock
-                (LinkedBindingBuilder.class));
+        Mockito.when(binder.bind(Mockito.any(Key.class))).thenReturn(Mockito.mock(LinkedBindingBuilder.class));
 
         final Module module = new GuiceConfigurationModule("classpath:" + PROPERTY_FILE);
         Assert.assertNotNull(module);
