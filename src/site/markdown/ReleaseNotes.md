@@ -1,6 +1,12 @@
 Release Notes
 ----
 
+### 3.0.24
+
+* Fixed issue with Guice test.
+
+* Added ability to create immutable `ApiListDTO` collection.
+
 ### 3.0.23
 
 * Updated dependencies of Maven POM to latest versions.
