@@ -25,7 +25,7 @@
     <artifactId>speedtools</artifactId>
 
     <packaging>pom</packaging>
-    <version>3.0.24</version>
+    <version>3.0.25-SNAPSHOT</version>
 
     <name>SpeedTools</name>
 
@@ -86,9 +86,6 @@
         <jdk.version>1.8</jdk.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-
-        <!-- Repo token for Coveralls. -->
-        <coveralls-maven-plugin.repoToken>RLwZjbGmKFYBnpizVNbcqYxTQsxpZVe2i</coveralls-maven-plugin.repoToken>
 
         <!-- Plugin versions. -->
         <coveralls-maven-plugin.version>4.2.0</coveralls-maven-plugin.version>
@@ -195,9 +192,6 @@
                 <groupId>org.eluder.coveralls</groupId>
                 <artifactId>coveralls-maven-plugin</artifactId>
                 <version>${coveralls-maven-plugin.version}</version>
-                <configuration>
-                    <repoToken>${coveralls-maven-plugin.repoToken}</repoToken>
-                </configuration>
             </plugin>
 
             <plugin>
