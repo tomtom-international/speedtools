@@ -1,6 +1,10 @@
 Release Notes
 ----
 
+### 3.0.25
+
+* Removed secret token from POM.
+
 ### 3.0.24
 
 * Fixed issue with Guice test.
