@@ -271,10 +271,12 @@ public class MessageBirdResourceMock implements MessageBirdResource {
 
             @Override
             public void resetStream() {
+                // Left empty.
             }
 
             @Override
             public void releaseConnection() {
+                // Left empty.
             }
 
             @Override

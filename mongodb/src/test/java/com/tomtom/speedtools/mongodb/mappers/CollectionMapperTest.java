@@ -34,7 +34,7 @@ public class CollectionMapperTest {
     private MapperRegistry registry;
 
     @Before
-    public void setup() throws SchemaException {
+    public void setUp() throws SchemaException {
         registry = new MapperRegistry();
         registry.register(CollectionMapper.create(StringMapper.class));
         //noinspection unchecked

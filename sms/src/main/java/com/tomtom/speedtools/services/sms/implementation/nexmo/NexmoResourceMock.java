@@ -270,10 +270,12 @@ public class NexmoResourceMock implements NexmoResource {
 
             @Override
             public void resetStream() {
+                // Left empty.
             }
 
             @Override
             public void releaseConnection() {
+                // Left empty.
             }
 
             @Override

@@ -35,12 +35,10 @@ public class GeoPolyLineTest {
     private final GeoPolyLine x = new GeoPolyLine(x1);
 
     private List<GeoPoint> y1 = null;
-    private GeoPolyLine y = null;
 
     @Before
     public void setUp() {
         y1 = Lists.asList(new GeoPoint(-3.0, -4.0), new GeoPoint[]{new GeoPoint(5.0, 6.0)});
-        y = new GeoPolyLine(y1);
     }
 
     @Test

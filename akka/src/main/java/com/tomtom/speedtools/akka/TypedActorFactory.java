@@ -32,7 +32,7 @@ import javax.annotation.Nullable;
  * convenience methods can be used when no {@link TypedProps#withDispatcher(String)} or other Props specifics
  * are necessary.
  */
-public class TypedActorFactory<T, Impl extends T> implements Creator<Impl> {
+public class TypedActorFactory<T, I extends T> implements Creator<I> {
     @Nonnull
     private static final Logger LOG = LoggerFactory.getLogger(TypedActorFactory.class);
 
@@ -41,7 +41,7 @@ public class TypedActorFactory<T, Impl extends T> implements Creator<Impl> {
     @Nonnull
     private final Class<T> interfaceClass;
     @Nonnull
-    private final Class<Impl> implementationClass;
+    private final Class<I> implementationClass;
     @Nonnull
     private final Object[] explicitParameters;
 
@@ -164,7 +164,7 @@ public class TypedActorFactory<T, Impl extends T> implements Creator<Impl> {
      * annotation, these parameters will be injected.
      *
      * @param <T>                 Interface.
-     * @param <Impl>              Instance.
+     * @param <I>                 Instance.
      * @param name                Name of the created actor.
      * @param interfaceClass      Interface of the untyped actor to create.
      * @param implementationClass Class of the untyped actor to create.
@@ -172,10 +172,10 @@ public class TypedActorFactory<T, Impl extends T> implements Creator<Impl> {
      * @return Actor reference.
      */
     @Nonnull
-    public static <T, Impl extends T> T actorOf(
+    public static <T, I extends T> T actorOf(
             @Nonnull final String name,
             @Nonnull final Class<T> interfaceClass,
-            @Nonnull final Class<Impl> implementationClass,
+            @Nonnull final Class<I> implementationClass,
             @Nonnull final Object... explicitParameters) {
         assert name != null;
         assert interfaceClass != null;
@@ -190,16 +190,16 @@ public class TypedActorFactory<T, Impl extends T> implements Creator<Impl> {
      * parameters will be injected.
      *
      * @param <T>                 Interface.
-     * @param <Impl>              Instance.
+     * @param <I>                 Instance.
      * @param interfaceClass      Interface of the untyped actor to create.
      * @param implementationClass Class of the untyped actor to create.
      * @param explicitParameters  Parameters to be passed to the constructor.
      * @return Actor reference.
      */
     @Nonnull
-    public static <T, Impl extends T> T actorOf(
+    public static <T, I extends T> T actorOf(
             @Nonnull final Class<T> interfaceClass,
-            @Nonnull final Class<Impl> implementationClass,
+            @Nonnull final Class<I> implementationClass,
             @Nonnull final Object... explicitParameters) {
         assert interfaceClass != null;
         assert implementationClass != null;
@@ -213,7 +213,7 @@ public class TypedActorFactory<T, Impl extends T> implements Creator<Impl> {
      * annotation, these parameters will be injected.
      *
      * @param <T>                 Interface.
-     * @param <Impl>              Instance.
+     * @param <I>                 Instance.
      * @param context             Actor context.
      * @param name                Name of the created actor.
      * @param interfaceClass      Interface of the untyped actor to create.
@@ -222,11 +222,11 @@ public class TypedActorFactory<T, Impl extends T> implements Creator<Impl> {
      * @return Actor reference.
      */
     @Nonnull
-    public static <T, Impl extends T> T actorOf(
+    public static <T, I extends T> T actorOf(
             @Nonnull final ActorContext context,
             @Nonnull final String name,
             @Nonnull final Class<T> interfaceClass,
-            @Nonnull final Class<Impl> implementationClass,
+            @Nonnull final Class<I> implementationClass,
             @Nonnull final Object... explicitParameters) {
         assert context != null;
         assert name != null;
@@ -249,7 +249,7 @@ public class TypedActorFactory<T, Impl extends T> implements Creator<Impl> {
      * parameters will be injected.
      *
      * @param <T>                 Interface.
-     * @param <Impl>              Instance.
+     * @param <I>                 Instance.
      * @param context             Actor context.
      * @param interfaceClass      Interface of the untyped actor to create.
      * @param implementationClass Class of the untyped actor to create.
@@ -257,10 +257,10 @@ public class TypedActorFactory<T, Impl extends T> implements Creator<Impl> {
      * @return Actor reference.
      */
     @Nonnull
-    public static <T, Impl extends T> T actorOf(
+    public static <T, I extends T> T actorOf(
             @Nonnull final ActorContext context,
             @Nonnull final Class<T> interfaceClass,
-            @Nonnull final Class<Impl> implementationClass,
+            @Nonnull final Class<I> implementationClass,
             @Nonnull final Object... explicitParameters) {
         assert context != null;
         assert interfaceClass != null;
@@ -282,7 +282,7 @@ public class TypedActorFactory<T, Impl extends T> implements Creator<Impl> {
      * annotation, these parameters will be injected.
      *
      * @param <T>                 Interface.
-     * @param <Impl>              Instance.
+     * @param <I>                 Instance.
      * @param system              Actor system.
      * @param name                Name of the created actor.
      * @param interfaceClass      Interface of the untyped actor to create.
@@ -291,11 +291,11 @@ public class TypedActorFactory<T, Impl extends T> implements Creator<Impl> {
      * @return Actor reference.
      */
     @Nonnull
-    public static <T, Impl extends T> T actorOf(
+    public static <T, I extends T> T actorOf(
             @Nonnull final ActorSystem system,
             @Nonnull final String name,
             @Nonnull final Class<T> interfaceClass,
-            @Nonnull final Class<Impl> implementationClass,
+            @Nonnull final Class<I> implementationClass,
             @Nonnull final Object... explicitParameters) {
         assert name != null;
         assert interfaceClass != null;
@@ -316,7 +316,7 @@ public class TypedActorFactory<T, Impl extends T> implements Creator<Impl> {
      * annotation, these parameters will be injected.
      *
      * @param <T>                 Interface.
-     * @param <Impl>              Instance.
+     * @param <I>                 Instance.
      * @param system              Actor system.
      * @param name                Name of the created actor.
      * @param dispatcher          The name of the dispatcher to use.
@@ -326,12 +326,12 @@ public class TypedActorFactory<T, Impl extends T> implements Creator<Impl> {
      * @return Actor reference.
      */
     @Nonnull
-    public static <T, Impl extends T> T actorOf(
+    public static <T, I extends T> T actorOf(
             @Nonnull final ActorSystem system,
             @Nonnull final String name,
             @Nonnull final String dispatcher,
             @Nonnull final Class<T> interfaceClass,
-            @Nonnull final Class<Impl> implementationClass,
+            @Nonnull final Class<I> implementationClass,
             @Nonnull final Object... explicitParameters) {
         assert name != null;
         assert dispatcher != null;
@@ -348,7 +348,7 @@ public class TypedActorFactory<T, Impl extends T> implements Creator<Impl> {
      * parameters will be injected.
      *
      * @param <T>                 Interface.
-     * @param <Impl>              Instance.
+     * @param <I>                 Instance.
      * @param system              Actor system.
      * @param interfaceClass      Interface of the untyped actor to create.
      * @param implementationClass Class of the untyped actor to create.
@@ -356,10 +356,10 @@ public class TypedActorFactory<T, Impl extends T> implements Creator<Impl> {
      * @return Actor reference.
      */
     @Nonnull
-    public static <T, Impl extends T> T actorOf(
+    public static <T, I extends T> T actorOf(
             @Nonnull final ActorSystem system,
             @Nonnull final Class<T> interfaceClass,
-            @Nonnull final Class<Impl> implementationClass,
+            @Nonnull final Class<I> implementationClass,
             @Nonnull final Object... explicitParameters) {
         assert interfaceClass != null;
         assert implementationClass != null;
@@ -374,11 +374,11 @@ public class TypedActorFactory<T, Impl extends T> implements Creator<Impl> {
     }
 
     @Nonnull
-    public static <T, Impl extends T> T actorOf(
+    public static <T, I extends T> T actorOf(
             @Nonnull final String name,
             @Nonnull final ActorSystem system,
             @Nonnull final Class<T> interfaceClass,
-            @Nonnull final Class<Impl> implementationClass,
+            @Nonnull final Class<I> implementationClass,
             @Nonnull final Object... explicitParameters) {
         assert name != null;
         assert interfaceClass != null;
@@ -394,13 +394,13 @@ public class TypedActorFactory<T, Impl extends T> implements Creator<Impl> {
     }
 
     @Nonnull
-    private static <T, Impl extends T> T actorOf(
+    private static <T, I extends T> T actorOf(
             @Nullable final String name,
             @Nullable final String dispatcher,
             @Nonnull final ActorSystem system,
             @Nonnull final akka.actor.TypedActorFactory factory,
             @Nonnull final Class<T> interfaceClass,
-            @Nonnull final Class<Impl> implementationClass,
+            @Nonnull final Class<I> implementationClass,
             @Nonnull final Object... explicitParameters) {
         assert system != null;
         assert factory != null;
@@ -409,11 +409,11 @@ public class TypedActorFactory<T, Impl extends T> implements Creator<Impl> {
         assert explicitParameters != null;
 
         // Actor factory registers context and self as side-effect.
-        final TypedActorFactory<T, Impl> actorFactory =
+        final TypedActorFactory<T, I> actorFactory =
                 new TypedActorFactory<>(system, interfaceClass, implementationClass, explicitParameters);
 
         // Props.
-        final TypedProps<Impl> props;
+        final TypedProps<I> props;
         if (dispatcher != null) {
             props = new TypedProps<>(interfaceClass, actorFactory).withDispatcher(dispatcher);
         } else {
@@ -422,7 +422,7 @@ public class TypedActorFactory<T, Impl extends T> implements Creator<Impl> {
 
         // Construct the actor.
         try {
-            final Impl actor;
+            final I actor;
             if (name != null) {
                 actor = factory.typedActorOf(props, name);
             } else {
@@ -463,7 +463,7 @@ public class TypedActorFactory<T, Impl extends T> implements Creator<Impl> {
     public TypedActorFactory(
             @Nonnull final ActorSystem system,
             @Nonnull final Class<T> interfaceClass,
-            @Nonnull final Class<Impl> implementationClass,
+            @Nonnull final Class<I> implementationClass,
             @Nonnull final Object... explicitParameters) {
         assert system != null;
         assert interfaceClass != null;
@@ -477,7 +477,7 @@ public class TypedActorFactory<T, Impl extends T> implements Creator<Impl> {
 
     @Nonnull
     @Override
-    public Impl create() {
+    public I create() {
 
         // At this point, the actor context is set, so we can construct a context.
         final TypedActorContext<T> context = new TypedActorContext<>(system, TypedActor.context(), interfaceClass);

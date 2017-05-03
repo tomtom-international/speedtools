@@ -30,7 +30,7 @@ public class ApiValidatorTest {
     private ApiValidator validator;
 
     @Before
-    public void setup() {
+    public void setUp() {
         validator = new ApiValidator();
     }
 

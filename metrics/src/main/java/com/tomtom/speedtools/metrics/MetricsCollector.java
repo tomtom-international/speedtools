@@ -71,8 +71,11 @@ public class MetricsCollector implements MetricsData {
 
             case LAST_MINUTE:
                 return new MetricsCollector(Duration.standardMinutes(1), 30);
+
+            default:
+                assert false;
+                break;
         }
-        assert false;
         throw new IllegalStateException();
     }
 
@@ -109,9 +112,9 @@ public class MetricsCollector implements MetricsData {
         this.sumSquares = 0.0f;
         for (final MetricsTimeSlot slot : slots) {
             this.values.add(slot);
-            this.sum += slot.sum;
-            this.count += slot.count;
-            this.sumSquares += slot.sumSquares;
+            this.sum += slot.getSum();
+            this.count += slot.getCount();
+            this.sumSquares += slot.getSumSquares();
         }
     }
 
@@ -149,7 +152,7 @@ public class MetricsCollector implements MetricsData {
             values.add(new MetricsTimeSlot(now, value, value * value, value, value, 1));
         } else {
             // Add to new or existing slot.
-            DateTime slotTime = values.getLast().startTime;
+            DateTime slotTime = values.getLast().getStartTime();
             DateTime slotEndTime = slotTime.plus(timeSlotDuration);
 
             // Skip values that are too old for last slot.
@@ -280,11 +283,11 @@ public class MetricsCollector implements MetricsData {
     private void prune(@Nonnull final DateTime now) {
         assert now != null;
         final DateTime earliest = now.minus(totalMetricDuration);
-        while (!values.isEmpty() && values.getFirst().startTime.isBefore(earliest)) {
+        while (!values.isEmpty() && values.getFirst().getStartTime().isBefore(earliest)) {
             final MetricsTimeSlot slot = values.removeFirst();
-            this.sum -= slot.sum;
-            this.count -= slot.count;
-            this.sumSquares -= slot.sumSquares;
+            this.sum -= slot.getSum();
+            this.count -= slot.getCount();
+            this.sumSquares -= slot.getSumSquares();
         }
     }
 }

@@ -32,12 +32,12 @@ import javax.annotation.Nullable;
 @SuppressWarnings("PackageVisibleField")
 public final class MetricsTimeSlot implements JsonRenderable {
     @Nonnull
-    final DateTime startTime;
-    final float sum;
-    final float sumSquares;
-    final float max;
-    final float min;
-    final int count;
+    private final DateTime startTime;
+    private final float sum;
+    private final float sumSquares;
+    private final float max;
+    private final float min;
+    private final int count;
 
     public MetricsTimeSlot(@Nonnull final DateTime startTime, final float sum, final float sumSquares, final float max, final float min, final int count) {
         assert startTime != null;
