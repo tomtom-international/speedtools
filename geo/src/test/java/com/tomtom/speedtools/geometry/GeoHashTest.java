@@ -65,8 +65,8 @@ public class GeoHashTest {
 
         // Should always throw an IllegalArgumentException.
         try {
-            //noinspection UnusedDeclaration,UnusedAssignment
-            final GeoHash hahash = new GeoHash("frikandel"); // Has several invalid characters.
+            //noinspection ResultOfObjectAllocationIgnored
+            new GeoHash("frikandel"); // Has several invalid characters.
             Assert.fail("Invalid value should not be accepted.");
         } catch (final IllegalArgumentException ok) {
             // OK.
@@ -74,8 +74,8 @@ public class GeoHashTest {
 
         // Should always throw an IllegalArgumentException.
         try {
-            //noinspection UnusedDeclaration,UnusedAssignment
-            final GeoHash hahash = new GeoHash(""); // Has several invalid characters.
+            //noinspection ResultOfObjectAllocationIgnored
+            new GeoHash(""); // Has several invalid characters.
             Assert.fail("Empty value should not be accepted.");
         } catch (final IllegalArgumentException ok) {
             // OK.

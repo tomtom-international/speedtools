@@ -125,8 +125,8 @@ public final class Uid<T> implements Serializable {
             return false;
         }
         try {
-            @SuppressWarnings("UnusedAssignment")
-            final Uid<?> uid = new Uid(id);
+            //noinspection ResultOfObjectAllocationIgnored
+            new Uid(id);
             return true;
         } catch (final IllegalArgumentException ignored) {
             return false;
