@@ -243,21 +243,6 @@ public class GeneralExceptionMapper implements ExceptionMapper<Throwable> {
     }
 
     @Nonnull
-    private static Response toResponse(
-            @Nonnull final Logger log,
-            @Nonnull final StatusType status,
-            @Nonnull final Throwable exception) {
-        assert log != null;
-        assert status != null;
-        assert exception != null;
-        final ExceptionDTO exceptionDTO = new ExceptionDTO(exception, UTCTime.now());
-        log.info(createLogMessage("toResponse", exception, exceptionDTO, status));
-        return status(status).entity(exceptionDTO).
-                type(MediaType.APPLICATION_JSON_TYPE).
-                build();
-    }
-
-    @Nonnull
     private static Response toResponseBadApiCall(
             @Nonnull final Logger log,
             @Nonnull final StatusType status,

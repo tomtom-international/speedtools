@@ -56,19 +56,30 @@ public class EnumerationMapperTest {
         Assert.assertEquals("red", mapper.red.getDbValue());
         Assert.assertEquals(Color.RED, mapper.fromDb("red"));
         Assert.assertEquals("red", mapper.toDb(Color.RED));
+        Assert.assertEquals("blue", mapper.blue.getDbValue());
+        Assert.assertEquals(Color.BLUE, mapper.fromDb("blue"));
+        Assert.assertEquals("blue", mapper.toDb(Color.BLUE));
+        assert mapper.yellow != null;
     }
 
     @Test(expected = SchemaException.class)
     public void testIncompleteEnumerationMapper() throws SchemaException {
         LOG.info("testIncompleteEnumerationMapper");
         final MapperRegistry registry = new MapperRegistry();
-        registry.register(new IncompleteColorMapper());
+        final IncompleteColorMapper incompleteColorMapper = new IncompleteColorMapper();
+        registry.register(incompleteColorMapper);
+        assert incompleteColorMapper.red != null;
+        assert incompleteColorMapper.blue != null;
     }
 
     @Test(expected = SchemaException.class)
     public void testNonUniqueEnumerationMapper() throws SchemaException {
         LOG.info("testNonUniqueEnumerationMapper");
         final MapperRegistry registry = new MapperRegistry();
-        registry.register(new NonUniqueColorMapper());
+        final NonUniqueColorMapper nonUniqueColorMapper = new NonUniqueColorMapper();
+        registry.register(nonUniqueColorMapper);
+        assert nonUniqueColorMapper.red != null;
+        assert nonUniqueColorMapper.blue != null;
+        assert nonUniqueColorMapper.yellow != null;
     }
 }

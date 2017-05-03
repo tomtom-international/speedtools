@@ -327,6 +327,7 @@ public class JsonTest {
         protected MixInGeoPoint(
                 @JsonProperty("lat") final Double lat,
                 @JsonProperty("lon") final Double lon) {
+            LOG.debug("lat={}, lon={}", lat, lon);
         }
     }
 
@@ -336,6 +337,7 @@ public class JsonTest {
         protected MixInGeoRectangle(
                 @JsonProperty("southWest") final GeoPoint southWest,
                 @JsonProperty("northEast") final GeoPoint northEast) {
+            LOG.debug("southWest={}, northEast={}", southWest, northEast);
         }
     }
 

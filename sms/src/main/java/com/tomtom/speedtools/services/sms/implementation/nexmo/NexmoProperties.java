@@ -63,8 +63,8 @@ public class NexmoProperties {
 
         // Check baseUrl.
         try {
-            //noinspection UnusedDeclaration,UnusedAssignment
-            final URL url = new URL(baseUrl);
+            //noinspection ResultOfObjectAllocationIgnored
+            new URL(baseUrl);
         } catch (final MalformedURLException ignored) {
             throw new InvalidPropertyValueException("SMSProvider.Nexmo.baseUrl is not a valid URL.");
         }

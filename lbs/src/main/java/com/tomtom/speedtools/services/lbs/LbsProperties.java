@@ -72,29 +72,29 @@ public final class LbsProperties implements HasProperties {
         }
 
         try {
-            @SuppressWarnings({"UnusedDeclaration", "UnusedAssignment"})
-            final URL url = new URL(geoCodeUrl1);
+            //noinspection ResultOfObjectAllocationIgnored
+            new URL(geoCodeUrl1);
         } catch (final MalformedURLException ignored) {
             throw new InvalidPropertyValueException("LBS.geoCodeUrl1 is not a valid URL.");
         }
 
         try {
-            @SuppressWarnings({"UnusedDeclaration", "UnusedAssignment"})
-            final URL url = new URL(geoCodeUrl2);
+            //noinspection ResultOfObjectAllocationIgnored
+            new URL(geoCodeUrl2);
         } catch (final MalformedURLException ignored) {
             throw new InvalidPropertyValueException("LBS.geoCodeUrl2 is not a valid URL.");
         }
 
         try {
-            @SuppressWarnings({"UnusedDeclaration", "UnusedAssignment"})
-            final URL url = new URL(tileMapUrl);
+            //noinspection ResultOfObjectAllocationIgnored
+            new URL(tileMapUrl);
         } catch (final MalformedURLException ignored) {
             throw new InvalidPropertyValueException("LBS.tileMapUrl is not a valid URL.");
         }
 
         try {
-            @SuppressWarnings({"UnusedDeclaration", "UnusedAssignment"})
-            final URL url = new URL(routeUrl1);
+            //noinspection ResultOfObjectAllocationIgnored
+            new URL(routeUrl1);
         } catch (final MalformedURLException ignored) {
             throw new InvalidPropertyValueException("LBS.routeUrl1 is not a valid URL.");
         }

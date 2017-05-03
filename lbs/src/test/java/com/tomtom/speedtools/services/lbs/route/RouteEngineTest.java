@@ -77,7 +77,6 @@ public final class RouteEngineTest {
      * might want to use them in different test scenarios.
      */
     private static final GeoPoint POS_TEST_THIS_RIVERSIDE = new GeoPoint(52.378555, 4.8940997);
-    private static final GeoPoint POS_TEST_THIS_RIVERSIDE_NEAR = POS_TEST_THIS_RIVERSIDE.translate(200.0, 300.0);
     private static final GeoPoint POS_TEST_THIS_RIVERSIDE_FAR = new GeoPoint(52.36693, 4.93947); // Real: 4.2km, 9min.
     private static final GeoPoint POS_TEST_OTHER_RIVERSIDE = new GeoPoint(52.38353, 4.9023); //  Real: 6.4km, 17min.
 
