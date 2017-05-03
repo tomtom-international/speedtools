@@ -5,6 +5,10 @@ Release Notes
 
 * Removed secret token from POM.
 
+* Fixed issues from code review with Codacy.
+
+* Fixed copyright messages for 2017.
+
 ### 3.0.24
 
 * Fixed issue with Guice test.
