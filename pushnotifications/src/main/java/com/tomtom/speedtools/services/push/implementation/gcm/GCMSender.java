@@ -16,7 +16,6 @@
 
 package com.tomtom.speedtools.services.push.implementation.gcm;
 
-import com.google.android.gcm.server.Constants;
 import com.google.android.gcm.server.Endpoint;
 import com.google.android.gcm.server.Sender;
 import org.slf4j.Logger;
