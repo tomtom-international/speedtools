@@ -36,7 +36,7 @@ public class TokenBucketImplTest {
     private TokenAcceptor mockAcceptor;
 
     @Before
-    public void setup() {
+    public void setUp() {
 
         MockitoAnnotations.initMocks(this);
 

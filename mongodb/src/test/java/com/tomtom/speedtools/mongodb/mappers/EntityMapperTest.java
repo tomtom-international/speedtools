@@ -41,7 +41,7 @@ public class EntityMapperTest {
     private static final MapperRegistry registry = new MapperRegistry();
 
     @BeforeClass
-    public static void setup() throws SchemaException {
+    public static void setUp() throws SchemaException {
         registry.register(new BoxMapper());
         registry.register(new ContainerMapper());
         mapper = registry.getMapper(ContainerMapper.class);
