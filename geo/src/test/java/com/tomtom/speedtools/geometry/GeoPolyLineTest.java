@@ -65,7 +65,6 @@ public class GeoPolyLineTest {
         final GeoPoint o = new GeoPoint(-0.5, 10.0); // Note that the values are chosen symmetrically around lat=0!
         final GeoPoint x1 = new GeoPoint(0.5, 10.0);
         final GeoPoint x2 = new GeoPoint(1.5, 10.0);
-        final GeoPoint y = new GeoPoint(0.5, 11.0);
         final GeoPolyLine poly = new GeoPolyLine(Lists.asList(o, x1, new GeoPoint[]{x2}));
 
         final List<GeoLine> lines = poly.asLines();
