@@ -150,6 +150,7 @@ public class MessageBirdResourceMock implements MessageBirdResource {
 
             @Override
             public void close() {
+                // Left empty.
             }
 
             @Override

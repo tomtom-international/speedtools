@@ -450,8 +450,8 @@ public final class ApiValidator {
         if (value != null) {
             boolean ok = false;
             try {
-                //noinspection UnusedDeclaration,UnusedAssignment
                 final URL url = new URL(value);
+                assert url != null;
                 ok = true;
             } catch (final MalformedURLException ignored) {
 

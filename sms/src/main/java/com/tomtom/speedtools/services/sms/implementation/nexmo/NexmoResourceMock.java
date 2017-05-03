@@ -149,6 +149,7 @@ public class NexmoResourceMock implements NexmoResource {
 
             @Override
             public void close() {
+                // Left empty.
             }
 
             @Override

@@ -21,7 +21,6 @@ import com.tomtom.speedtools.testutils.ValidationFailException;
 import com.tomtom.speedtools.testutils.constructorchecker.ConstructorChecker;
 import nl.jqno.equalsverifier.EqualsVerifier;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,16 +29,6 @@ import java.util.List;
 
 public class GeoPolyLineTest {
     private static final Logger LOG = LoggerFactory.getLogger(GeoPolyLineTest.class);
-
-    private final List<GeoPoint> x1 = Lists.asList(new GeoPoint(1.0, 2.0), new GeoPoint[]{new GeoPoint(3.0, 4.0)});
-    private final GeoPolyLine x = new GeoPolyLine(x1);
-
-    private List<GeoPoint> y1 = null;
-
-    @Before
-    public void setUp() {
-        y1 = Lists.asList(new GeoPoint(-3.0, -4.0), new GeoPoint[]{new GeoPoint(5.0, 6.0)});
-    }
 
     @Test
     public void testEqualsVerifier() {
@@ -53,7 +42,8 @@ public class GeoPolyLineTest {
     @Test
     public void testNew() throws ValidationFailException {
         LOG.info("testNew");
-        ConstructorChecker.validateConstructor(GeoPolyLine.class, new int[]{}, y1);
+        ConstructorChecker.validateConstructor(GeoPolyLine.class, new int[]{},
+                Lists.asList(new GeoPoint(-3.0, -4.0), new GeoPoint[]{new GeoPoint(5.0, 6.0)}));
     }
 
     @Test

@@ -61,6 +61,7 @@ public class SupervisorStrategies implements HasProperties {
             @Named("SupervisorStrategies.RestartChild.maxNrOfRetries") final int maxNrOfRetries,
             @Named("SupervisorStrategies.RestartChild.withinTimeRangeSecs") final int withinTimeRangeSecs)
             throws InvalidPropertyValueException {
+        assert injector != null;
 
         if (!MathUtils.isBetween(maxNrOfRetries, 0, MAX_RETRIES)) {
             throw new InvalidPropertyValueException("RestartChildStragy.maxNrOfRetries should be in range [0, " +
