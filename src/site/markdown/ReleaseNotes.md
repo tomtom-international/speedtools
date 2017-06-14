@@ -1,6 +1,10 @@
 Release Notes
 ----
 
+### 3.0.26
+
+* Updated POM dependencies.
+
 ### 3.0.25
 
 * Removed secret token from POM.
