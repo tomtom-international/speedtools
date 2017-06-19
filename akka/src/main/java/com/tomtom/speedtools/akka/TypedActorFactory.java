@@ -64,7 +64,7 @@ public class TypedActorFactory<T, I extends T> implements Creator<I> {
         assert interfaceClass != null;
 
         final ActorRef actorRef = system.actorFor(path);
-        return TypedActor.get(system).typedActorOf(new TypedProps<>(interfaceClass), actorRef);
+        return TypedActor.get(system).typedActorOf(new TypedProps<T>(interfaceClass), actorRef);
     }
 
     /**
@@ -86,7 +86,7 @@ public class TypedActorFactory<T, I extends T> implements Creator<I> {
         assert interfaceClass != null;
 
         @Nonnull final ActorRef actorRef = context.actorFor(path);
-        return TypedActor.get(context).typedActorOf(new TypedProps<>(interfaceClass), actorRef);
+        return TypedActor.get(context).typedActorOf(new TypedProps<T>(interfaceClass), actorRef);
     }
 
     /**
@@ -106,7 +106,7 @@ public class TypedActorFactory<T, I extends T> implements Creator<I> {
 
         final ActorContext context = TypedActor.context();
         final ActorRef actorRef = context.actorFor(context.self().path().child(name));
-        return TypedActor.get(context).typedActorOf(new TypedProps<>(interfaceClass), actorRef);
+        return TypedActor.get(context).typedActorOf(new TypedProps<T>(interfaceClass), actorRef);
     }
 
     /**
@@ -137,7 +137,7 @@ public class TypedActorFactory<T, I extends T> implements Creator<I> {
         }
 
         // Wrap actor with interfaceClass.
-        final TypedProps<T> props = new TypedProps<>(interfaceClass);
+        final TypedProps<T> props = new TypedProps<T>(interfaceClass);
         return TypedActor.get(context).typedActorOf(props, routerActor);
     }
 
@@ -415,9 +415,9 @@ public class TypedActorFactory<T, I extends T> implements Creator<I> {
         // Props.
         final TypedProps<I> props;
         if (dispatcher != null) {
-            props = new TypedProps<>(interfaceClass, actorFactory).withDispatcher(dispatcher);
+            props = new TypedProps<T>(interfaceClass, actorFactory).withDispatcher(dispatcher);
         } else {
-            props = new TypedProps<>(interfaceClass, actorFactory);
+            props = new TypedProps<T>(interfaceClass, actorFactory);
         }
 
         // Construct the actor.
