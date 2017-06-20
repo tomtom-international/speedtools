@@ -1,7 +1,7 @@
 # Read Me for TomTom SpeedTools Library
 
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/3ce697b78d8742b89613dc02ef9021d5)](https://www.codacy.com/app/rijnb/speedtools?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=tomtom-international/speedtools&amp;utm_campaign=Badge_Grade)
-[![Build Status](https://img.shields.io/travis/tomtom-international/speedtools.svg?maxAge=3600)](https://travis-ci.org/tomtom-international/speedtools)
+[![Build Status](https://img.shields.io/travis/tomtom-international/speedtools.svg?maxAge=3600&branch=master)](https://travis-ci.org/tomtom-international/speedtools)
 [![License](http://img.shields.io/badge/license-APACHE2-blue.svg)]()
 [![Release](https://img.shields.io/github/release/tomtom-international/speedtools.svg?maxAge=3600)](https://github.com/tomtom-international/speedtools/releases)
 [![Maven Central](https://img.shields.io/maven-central/v/com.tomtom.speedtools/speedtools.svg?maxAge=3600)](https://maven-badges.herokuapp.com/maven-central/com.tomtom.speedtools/speedtools)
