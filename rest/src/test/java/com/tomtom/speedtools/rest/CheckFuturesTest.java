@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.tomtom.speedtools.akka;
+package com.tomtom.speedtools.rest;
 
 import akka.actor.ActorSystem;
 import akka.dispatch.Futures;
@@ -29,8 +29,8 @@ import scala.concurrent.Future;
 
 import javax.annotation.Nullable;
 
-public class AkkaUtilsTest {
-    private static final Logger LOG = LoggerFactory.getLogger(AkkaUtilsTest.class);
+public class CheckFuturesTest {
+    private static final Logger LOG = LoggerFactory.getLogger(CheckFuturesTest.class);
 
     // Create an Akka system.
     private ActorSystem system = null;
@@ -42,7 +42,7 @@ public class AkkaUtilsTest {
 
     @After
     public void after() {
-        system.shutdown();
+        system.terminate();
     }
 
     public Future<Void> waitAndReturn() {
@@ -77,44 +77,5 @@ public class AkkaUtilsTest {
         LOG.info(("testAssertInFuture: after onComplete"));
         Thread.sleep(1000);
         Assert.assertTrue(true);
-    }
-
-    @Test
-    public void testFromString() {
-        LOG.info("testFromString");
-        Assert.assertEquals("pre-123", AkkaUtils.actorName("pre", "123"));
-        Assert.assertEquals("pre-123-456", AkkaUtils.actorName("pre", "123", "456"));
-        Assert.assertEquals("pre-123-456", AkkaUtils.actorName("pre", "456", "123"));
-        Assert.assertEquals("01234567890123456789012345678901-123",
-                AkkaUtils.actorName("01234567890123456789012345678901", "123"));
-
-    }
-
-    @Test
-    @SuppressWarnings("ErrorNotRethrown")
-    public void testFromStringError() {
-        LOG.info("testFromStringError");
-
-        try {
-            Assert.assertEquals("", AkkaUtils.actorName("123"));
-        } catch (final AssertionError | IllegalArgumentException ignored) {
-            return;
-        }
-
-        Assert.fail("Expected exception here!");
-
-        try {
-            Assert.assertEquals("", AkkaUtils.actorName(null, "123"));
-        } catch (final AssertionError | IllegalArgumentException ignored) {
-            return;
-        }
-        Assert.fail("Expected exception here!");
-
-        try {
-            Assert.assertEquals("", AkkaUtils.actorName("012345678901234567890123456789012", "123"));
-        } catch (final AssertionError | IllegalArgumentException ignored) {
-            return;
-        }
-        Assert.fail("Expected exception here!");
     }
 }
