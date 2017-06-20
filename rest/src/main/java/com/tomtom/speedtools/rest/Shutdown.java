@@ -33,11 +33,14 @@ import javax.servlet.annotation.WebListener;
 public class Shutdown implements ServletContextListener {
     private static final Logger LOG = LoggerFactory.getLogger(Shutdown.class);
 
+    private static final long WAIT_TIMEOUT_MS = 10000;
+
     @Override
     public void contextInitialized(@Nullable final ServletContextEvent sce) {
         LOG.info("contextInitialized: context initialized");
     }
 
+    @SuppressWarnings("WaitNotInLoop")
     @Override
     public void contextDestroyed(@Nullable final ServletContextEvent sce) {
         LOG.info("contextDestroyed: context destroyed");
@@ -49,9 +52,11 @@ public class Shutdown implements ServletContextListener {
             // Stop Akka.
             LOG.info("contextDestroyed: shutting down Akka");
             final ActorSystem actorSystem = injector.getInstance(ActorSystem.class);
-            actorSystem.shutdown();
-            actorSystem.awaitTermination();
-            LOG.info("contextDestroyed: Akka terminated: {}", actorSystem.isTerminated());
+            try {
+                actorSystem.terminate().wait(WAIT_TIMEOUT_MS);
+            } catch (final InterruptedException e) {
+                LOG.info("contextDestroyed: interrupted execution, exception={}", e);
+            }
 
             // Clear injector.
             InjectorRegistry.clear();
