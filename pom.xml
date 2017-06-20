@@ -25,7 +25,7 @@
     <artifactId>speedtools</artifactId>
 
     <packaging>pom</packaging>
-    <version>3.0.27-SNAPSHOT</version>
+    <version>3.1.0</version>
 
     <name>SpeedTools</name>
 
@@ -103,7 +103,7 @@
 
         <!-- Library versions. -->
         <activemq-core.version>5.7.0</activemq-core.version>
-        <akka.version>2.5.2</akka.version>
+        <akka.version>2.5.3</akka.version>
         <async-http-servlet-3.0.version>3.0.19.Final</async-http-servlet-3.0.version>
         <commons-codec.version>1.10</commons-codec.version>
         <commons-collections.version>3.2.2</commons-collections.version>
@@ -322,12 +322,6 @@
 
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>akka</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>${project.groupId}</groupId>
                 <artifactId>apivalidation</artifactId>
                 <version>${project.version}</version>
             </dependency>
@@ -467,18 +461,6 @@
             <dependency>
                 <groupId>com.typesafe.akka</groupId>
                 <artifactId>akka-actor_2.11</artifactId>
-                <version>${akka.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>com.typesafe.akka</groupId>
-                <artifactId>akka-kernel_2.11</artifactId>
-                <version>${akka.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>com.typesafe.akka</groupId>
-                <artifactId>akka-remote_2.11</artifactId>
                 <version>${akka.version}</version>
             </dependency>
 

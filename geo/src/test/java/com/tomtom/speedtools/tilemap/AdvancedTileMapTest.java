@@ -23,6 +23,8 @@ import com.tomtom.speedtools.geometry.GeoPoint;
 import com.tomtom.speedtools.time.UTCTime;
 import org.joda.time.DateTime;
 import org.joda.time.Duration;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -51,7 +53,19 @@ public class AdvancedTileMapTest {
     private static DateTime networkFailureTime = UTCTime.MIN_TIMESTAMP_DATE;
 
     // Akka actor system for futures.
-    private static final ActorSystem AKKA_SYSTEM = ActorSystem.create("Map");
+    private ActorSystem system;
+
+    @Before
+    public void before() {
+        LOG.info("before: create system");
+        system = ActorSystem.create();
+    }
+
+    @After
+    public void after() throws InterruptedException {
+        LOG.info("after: terminate system");
+        system.terminate();
+    }
 
     @Test
     public void testAdvancedSmoothAsyncMapTiles() {
@@ -209,7 +223,7 @@ public class AdvancedTileMapTest {
      * Dummy implementation of a bitmap buffer. Does nothing. The 'defined' value is just to show
      * in the test output that tiles may or may not be loaded yet asynchronously.
      */
-    private static class Bitmap {
+    private class Bitmap {
         private final boolean isDefined;
 
         public Bitmap() {
@@ -232,7 +246,7 @@ public class AdvancedTileMapTest {
      * @return {@link Future} to tile image.
      */
     @Nonnull
-    private static Future<Bitmap> getMapTileFromLbs(@Nonnull final TileKey key) {
+    private Future<Bitmap> getMapTileFromLbs(@Nonnull final TileKey key) {
 
         // Create a URL to fetch a bitmap from the TomTom LBS system. This is an actual working URL!
         final String url = DEFAULT_TILEMAP_URL + '/' +
@@ -283,7 +297,7 @@ public class AdvancedTileMapTest {
             } else {
                 throw new IOException("Image could not be loaded (not even tried), url=" + url);
             }
-        }, AKKA_SYSTEM.dispatcher());
+        }, system.dispatcher());
         return promise;
     }
 }

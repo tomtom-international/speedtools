@@ -6,7 +6,7 @@ Release Notes
 * This release is not fully compatible with previous releases due to an Akka upgrade, 
 which has deprecated the use of typed actors.
 
-* Updated Akka dependencies to 2.5.2.
+* Updated Akka dependencies to 2.5.3.
  
 * Remove module `akka`, which has become superfluous. Move the `Duration` utilities from 
 `AkkaUtils` to `core/time`.
