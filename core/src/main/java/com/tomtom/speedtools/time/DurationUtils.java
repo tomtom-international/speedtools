@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.tomtom.speedtools.akka;
+package com.tomtom.speedtools.time;
 
 import org.joda.time.DateTime;
 import scala.concurrent.duration.Deadline;
@@ -23,19 +23,17 @@ import scala.concurrent.duration.FiniteDuration;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.concurrent.TimeUnit;
 
 /**
  * Utility class for Akka related functions.
  */
-public final class AkkaUtils {
+public final class DurationUtils {
 
     public final static int ACTOR_NAME_PREFIX_MAX_LEN = 32;
 
     // Private ctor for utility class.
-    private AkkaUtils() {
+    private DurationUtils() {
         super();
         assert false;
     }
@@ -79,54 +77,6 @@ public final class AkkaUtils {
             result = Duration.create(millis, TimeUnit.MILLISECONDS);
         } else {
             result = Duration.create(0, TimeUnit.MILLISECONDS);
-        }
-        return result;
-    }
-
-    /**
-     * Create a valid actor name, given a number of strings and an optional prefix.
-     *
-     * @param prefix Prefix for actor name. Maximum of ACTOR_NAME_PREFIX_MAX_LEN characters. (This limit is imposed to
-     *               prevent inadvertent use of UUIDs as prefixes.)
-     * @param names  One or more strings, used for the name of the actor.
-     * @return Actor name.
-     */
-    @Nonnull
-    public static String actorName(@Nonnull final String prefix, @Nonnull final String... names) {
-        assert prefix != null;
-        assert prefix.length() <= ACTOR_NAME_PREFIX_MAX_LEN;
-        assert names != null;
-        assert names.length > 0;
-
-        // Add all names to list.
-        final ArrayList<String> list = new ArrayList<>(names.length);
-        Collections.addAll(list, names);
-
-        // Sort list to keep same name for same strings.
-        Collections.sort(list);
-
-        // Create one big name.
-        final StringBuilder builder = new StringBuilder();
-        boolean first = true;
-
-        // Add prefix if needed.
-        if (!prefix.isEmpty()) {
-            builder.append(prefix);
-            first = false;
-        }
-        for (final String name : list) {
-            if (!first) {
-                builder.append('-');
-                first = false;
-            }
-            builder.append(name);
-        }
-        final String result = builder.toString();
-        if (result.startsWith("$")) {
-            return '_' + result.substring(1);
-        }
-        if (result.isEmpty()) {
-            return "_";
         }
         return result;
     }
