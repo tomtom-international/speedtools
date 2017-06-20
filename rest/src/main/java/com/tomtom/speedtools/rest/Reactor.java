@@ -53,19 +53,4 @@ public interface Reactor {
      */
     @Nonnull
     DateTime getSystemStartupTime();
-
-    /**
-     * Create a top-level actor.
-     *
-     * @param <T>                 Type.
-     * @param interfaceClass      Actor interface.
-     * @param implementationClass Actor implementation class.
-     * @param explicitParameters  Non-injected parameters for the  actor constructor.
-     * @return New top-level actor.
-     */
-    @Nonnull
-    <T> T createTopLevelActor(
-            @Nonnull Class<T> interfaceClass,
-            @Nonnull Class<? extends T> implementationClass,
-            @Nonnull Object... explicitParameters);
 }
