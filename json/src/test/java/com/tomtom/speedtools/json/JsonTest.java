@@ -294,9 +294,10 @@ public class JsonTest {
         Assert.assertEquals(time1.toDate(), time2.toDate());
     }
 
-    /**
-     * Mix-in annotations for Jackson.
-     */
+    //
+    // Mix-in annotations for Jackson.
+    //
+    //
     @Test
     public void testImageMixIn() throws Exception {
         LOG.info("testImageMixIn");

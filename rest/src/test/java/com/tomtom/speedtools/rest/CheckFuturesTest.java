@@ -41,7 +41,7 @@ public class CheckFuturesTest {
     }
 
     @After
-    public void after() {
+    public void after() throws InterruptedException {
         system.terminate();
     }
 
