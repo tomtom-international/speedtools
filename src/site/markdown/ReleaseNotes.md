@@ -1,6 +1,24 @@
 Release Notes
 ----
 
+### 3.1.0
+
+* This release is not fully compatible with previous releases due to an Akka upgrade, 
+which has deprecated the use of typed actors.
+
+* Updated Akka dependencies to 2.5.2.
+ 
+* Remove module `akka`, which has become superfluous. Move the `Duration` utilities from 
+`AkkaUtils` to `core/time`.
+
+* Removed `TokenBucket` class entirely. This was more of a utility class.
+
+* Removed all classes for typed actors, like `ActorFactory`, `TypedActorContext`.
+
+* Removed `RootActor` class. 
+
+* Sorted dependencies in POMs.
+
 ### 3.0.26
 
 * Updated POM dependencies.
