@@ -89,7 +89,7 @@ public final class RouteEngineTest {
 
     @After
     public void after() {
-        system.shutdown();
+        system.terminate();
     }
 
     @Ignore
