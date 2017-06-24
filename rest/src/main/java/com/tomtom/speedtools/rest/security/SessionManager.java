@@ -146,6 +146,7 @@ public class SessionManager {
         try {
             httpSession.invalidate();
         } catch (final IllegalStateException e) {
+
             // To be expected, since multiple racing HTTP requests may terminate the same session.
             LOG.info("terminateSession: session has already been terminated", e);
         }
@@ -306,9 +307,7 @@ public class SessionManager {
          * request.
          */
         @Nonnull final HttpSession httpSession = httpServletRequest.getSession();
-        assert httpSession !=
-                null; // Check explicitly since {@link HttpSession#getSession()} has no codified post-conditions.
-
+        assert httpSession != null; // Check explicitly since {@link HttpSession#getSession()} has no codified post-conditions.
         return httpSession;
     }
 
