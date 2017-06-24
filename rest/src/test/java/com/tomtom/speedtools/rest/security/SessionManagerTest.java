@@ -51,7 +51,7 @@ public class SessionManagerTest {
     private static final String REFERENCE_PERSON_ID = Uid.fromString("1-2-3-4-5").toString();
 
     @Nonnull
-    private static final String SESSION_DATA_KEY = "com.tomtom.texas.connectors.security.SESSIONDATA";
+    private static final String SESSION_DATA_KEY = "com.tomtom.speedtools.rest.security.SESSIONDATA";
 
     @Mock
     private HttpServletRequest httpServletRequest;
