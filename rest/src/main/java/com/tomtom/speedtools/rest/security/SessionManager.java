@@ -47,7 +47,7 @@ public class SessionManager {
      * name-spaced to prevent collisions with e.g. container attributes or attributes set by other frameworks.
      */
     @Nonnull
-    private static final String SESSION_DATA_KEY = "com.tomtom.speedtools.security.SESSIONDATA";
+    private static final String SESSION_DATA_KEY = "com.tomtom.speedtools.rest.security.SESSIONDATA";
 
     /**
      * The current servlet request.
