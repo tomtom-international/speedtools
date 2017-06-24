@@ -88,8 +88,7 @@ public final class ResourceProcessor {
                          * which is scheduled asynchronously for execution. The {@link Future} will hold a specific response.
                          * As this is a generic resource processor, the response is passed as an {@link Object} here.
                          */
-                        @SuppressWarnings("unchecked")
-                        final Future<Object> future = (Future<Object>) handler.process();
+                        @SuppressWarnings("unchecked") final Future<Object> future = (Future<Object>) handler.process();
 
                         /**
                          * If the {@link Future} completes, the {@link OnComplete}.onComplete is called,
@@ -177,8 +176,7 @@ public final class ResourceProcessor {
         log.debug("[DEPRECATED] process (WEB): handler={}", name);
         Futures.future(() -> {
                     try {
-                        @SuppressWarnings("unchecked")
-                        final Future<Object> future = (Future<Object>) handler.process();
+                        @SuppressWarnings("unchecked") final Future<Object> future = (Future<Object>) handler.process();
                         //noinspection unchecked
                         future.onComplete(new OnComplete<Object>() {
                             @SuppressWarnings("ParameterNameDiffersFromOverriddenParameter")
