@@ -34,8 +34,8 @@ import javax.annotation.Nullable;
 public interface AuthenticationService {
 
     /**
-     * Tries to authenticate a userName using the provided {@link Password} using TTMain. Looks up the {@link Identity} in
-     * the system. If it does not exist, a new {@link Identity} is created using the account information from TTMain.
+     * Tries to authenticate a userName using the provided {@link Password}. Looks up the {@link Identity} in
+     * the system.
      *
      * @param userName The (unique) username of the {@link Identity} that needs to be authenticated. Username is
      *                 case-insensitive.

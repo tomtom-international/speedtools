@@ -15,7 +15,6 @@
  */
 package com.tomtom.speedtools.rest.security;
 
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -146,7 +145,7 @@ public class SessionManager {
 
         try {
             httpSession.invalidate();
-        } catch (IllegalStateException e) {
+        } catch (final IllegalStateException e) {
             // To be expected, since multiple racing HTTP requests may terminate the same session.
             LOG.info("terminateSession: session has already been terminated", e);
         }
@@ -161,6 +160,7 @@ public class SessionManager {
      */
     @Nullable
     public String getCurrentSessionId() {
+
         // Get the current session. Return {@code null} if there is no ongoing session.
         @Nullable final HttpSession httpSession = getCurrentSession();
         if (httpSession == null) {
@@ -242,19 +242,16 @@ public class SessionManager {
         assert authenticationScheme != null;
 
         @Nonnull final HttpSession httpSession = createNewSession();
-
         try {
             // Set authenticated user ID and authentication scheme on session. Throws an {@link IllegalStateException}
             // in case the session has been concurrently invalidated before the session data could be set.
             @Nonnull final String userId = setSessionData(httpSession, identity, authenticationScheme);
-
             @Nonnull final String sessionId = getSessionId(httpSession);
-
-            LOG.debug("startSession: created new session for user with TTMain account ID {}. Session ID is {}", userId,
-                    sessionId);
+            LOG.debug("startSession: created new session for user with ID {}. Session ID is {}", userId, sessionId);
 
             return sessionId;
-        } catch (IllegalStateException e) {
+        } catch (final IllegalStateException e) {
+
             // To be expected, since a racing HTTP request may have terminated this session before we were able to set
             // the session data.
             LOG.info("startSession: session has already been terminated", e);
@@ -280,6 +277,7 @@ public class SessionManager {
      */
     @Nullable
     private HttpSession getCurrentSession() {
+
         // Get the current session. {@link HttpServletRequest#getSession(boolean) getSession(false)} returns
         // {@code null} if there is no ongoing session.
         return httpServletRequest.getSession(false);
@@ -296,6 +294,7 @@ public class SessionManager {
      */
     @Nonnull
     private HttpSession createNewSession() {
+
         // Terminate any existing session first to prevent session fixation attacks.
         terminateSession();
 
@@ -323,7 +322,6 @@ public class SessionManager {
     private static String getSessionId(@Nonnull final HttpSession httpSession) {
         @Nonnull final String sessionId = httpSession.getId();
         assert sessionId != null; // Check explicitly since {@link HttpSession#getId()} has no codified post-conditions.
-
         return sessionId;
     }
 
@@ -351,7 +349,6 @@ public class SessionManager {
         assert authenticationScheme != null;
 
         @Nonnull final String userId = identity.getId().toString();
-
         final SessionData sessionData = new SessionData(userId, authenticationScheme);
 
         /**
@@ -361,7 +358,6 @@ public class SessionManager {
          * able to.
          */
         httpSession.setAttribute(SESSION_DATA_KEY, sessionData);
-
         return userId;
     }
 
@@ -383,7 +379,7 @@ public class SessionManager {
         @Nullable SessionData sessionData;
         try {
             sessionData = (SessionData) httpSession.getAttribute(SESSION_DATA_KEY);
-        } catch (IllegalStateException e) {
+        } catch (final IllegalStateException e) {
             // To be expected, since a racing HTTP request may have terminated this session before we got here.
             LOG.info("getSessionData: session has already been terminated", e);
             sessionData = null;
@@ -404,7 +400,7 @@ public class SessionManager {
 
         try {
             httpSession.removeAttribute(SESSION_DATA_KEY);
-        } catch (IllegalStateException e) {
+        } catch (final IllegalStateException e) {
             // To be expected, since a racing HTTP request may have terminated this session before we got here. We
             // carry on as if nothing had happened, because the goal was to remove the session data, and an invalidated
             // session will not hold the session data, hence we have achieved that goal.

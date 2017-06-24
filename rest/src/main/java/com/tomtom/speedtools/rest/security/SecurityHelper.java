@@ -26,7 +26,7 @@ import java.security.Principal;
  * This class is a utility class, which provides simple functions to get the principal name from a security, or throw an
  * "ApiUnauthorizedException" otherwise.
  *
- * The "principal name" in this project, is the same as the TTMain ID of the logged in user.
+ * The "principal name" in this project, is the same as the ID of the logged in user.
  */
 public class SecurityHelper {
 
@@ -46,13 +46,13 @@ public class SecurityHelper {
         assert securityContext != null;
 
         // If the user was not authenticated, the principal name will be null.
-        final String callerTTMainId;
+        final String callerId;
         if (securityContext.getUserPrincipal() == null) {
-            callerTTMainId = null;
+            callerId = null;
         } else {
-            callerTTMainId = securityContext.getUserPrincipal().getName();
+            callerId = securityContext.getUserPrincipal().getName();
         }
-        return callerTTMainId;
+        return callerId;
     }
 
     /**
@@ -65,7 +65,7 @@ public class SecurityHelper {
     public static String getPrincipalNameOrThrow(@Nonnull final SecurityContext securityContext) {
         assert securityContext != null;
 
-        // If the user was not authenticated, the TTMainId will be null.
+        // If the user was not authenticated, the ID will be null.
         if (securityContext.getUserPrincipal() == null) {
             throw new ApiUnauthorizedException("User must be logged in.");
         }
