@@ -22,6 +22,7 @@ import com.google.inject.Binder;
 import com.google.inject.Module;
 import com.google.inject.Provides;
 import com.tomtom.speedtools.maven.MavenProperties;
+import com.tomtom.speedtools.rest.security.SecurityInterceptor;
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;
 import scala.concurrent.ExecutionContext;
@@ -44,6 +45,12 @@ public class ServicesModule implements Module {
         // Reactor.
         binder.bind(Reactor.class).to(ReactorImpl.class).in(Singleton.class);
         binder.bind(SupervisorStrategies.class);
+
+        // Web services security interceptor.
+        binder.bind(SecurityInterceptor.class).in(Singleton.class);
+
+        // Web services authentication service; needs to be provided by application:
+        // binder.bind(AuthenticationService.class).to(AuthenticationServiceImpl.class).in(Singleton.class);
 
         // API related bindings.
         binder.bind(MavenProperties.class).in(Singleton.class);
