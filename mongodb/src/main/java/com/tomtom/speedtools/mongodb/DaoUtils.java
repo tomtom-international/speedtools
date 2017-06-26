@@ -36,12 +36,12 @@ import java.util.List;
  */
 public final class DaoUtils {
     private static final Logger LOG = LoggerFactory.getLogger(DaoUtils.class);
-    private static final boolean UPSERT = true;      // Indicates 'upsert' in case of missing record.
+    private static final boolean UPSERT = true;         // Indicates 'upsert' in case of missing record.
     private static final boolean NO_UPSERT = false;     // Indicates 'no upsert' in case of missing record.
-    private static final boolean NO_MULTI = false;     // Indicates 'no multi' for queries.
+    private static final boolean NO_MULTI = false;      // Indicates 'no multi' for queries.
 
     @SuppressWarnings("StaticNonFinalField")
-    private static WriteConcern writeConcern = WriteConcern.SAFE;
+    private static WriteConcern writeConcern = WriteConcern.ACKNOWLEDGED;
 
     private DaoUtils() {
         // Prevent instantiation.

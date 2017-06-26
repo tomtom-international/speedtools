@@ -42,6 +42,7 @@ public interface SMSDeliveryReportProcessor {
      * @return The reference number.
      * @throws SMSDeliveryReportParameterException If error.
      */
+    @SuppressWarnings("RedundantThrows")
     long getReferenceNumber() throws SMSDeliveryReportParameterException;
 
     /**
@@ -50,6 +51,7 @@ public interface SMSDeliveryReportProcessor {
      * @return The delivery status.
      * @throws SMSDeliveryReportParameterException If error.
      */
+    @SuppressWarnings("RedundantThrows")
     @Nonnull
     DeliveryStatus getDeliveryStatus() throws SMSDeliveryReportParameterException;
 }

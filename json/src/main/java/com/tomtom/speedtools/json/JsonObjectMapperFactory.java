@@ -82,7 +82,6 @@ public final class JsonObjectMapperFactory {
                 .configure(SerializationFeature.WRITE_DATE_KEYS_AS_TIMESTAMPS, false)
                 .configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false)
                 .configure(SerializationFeature.WRITE_ENUMS_USING_TO_STRING, false)
-                .configure(SerializationFeature.WRITE_EMPTY_JSON_ARRAYS, true)
                 .configure(SerializationFeature.WRITE_ENUMS_USING_TO_STRING, false);
 
         // The annotation inspectors and additional mappers should be set by the caller.

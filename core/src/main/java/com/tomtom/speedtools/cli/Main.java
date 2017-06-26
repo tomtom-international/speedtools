@@ -66,11 +66,9 @@ public final class Main {
                 }
             }
         }
-        final URLClassLoader newClassLoader = new URLClassLoader(newUrls.toArray(new URL[newUrls.size()]));
-
-        final Class<?> mainClass = newClassLoader.loadClass(mainClassName);
-        final Method method = mainClass.getMethod(mainClassMethod, String[].class);
-        try {
+        try (final URLClassLoader newClassLoader = new URLClassLoader(newUrls.toArray(new URL[newUrls.size()]))) {
+            final Class<?> mainClass = newClassLoader.loadClass(mainClassName);
+            final Method method = mainClass.getMethod(mainClassMethod, String[].class);
             method.invoke(null, (Object) otherArgs);
         } catch (final InvocationTargetException e) {
             throw new IllegalStateException("The program failed. An exception was thrown during execution.",

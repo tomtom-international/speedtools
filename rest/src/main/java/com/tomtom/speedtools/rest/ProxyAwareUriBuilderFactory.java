@@ -97,7 +97,7 @@ public class ProxyAwareUriBuilderFactory {
 
     /**
      * Error message used by {@link #newInstance()}, to prevent duplication in multiple catch clauses. Placeholder is to
-     * be substituted with {@link javax.ws.rs.core.UriInfo#getRequestUri()}.
+     * be substituted with {@link UriInfo#getRequestUri()}.
      *
      * Once we are using Java 7, those catch clauses should be collapsed into a single clause using a multi-type
      * condition, and then this utility member is not needed anymore.
@@ -179,17 +179,8 @@ public class ProxyAwareUriBuilderFactory {
                 for (final String segment : pathPrefix) {
                     uriBuilder.path(segment);
                 }
-            } catch (HeaderMissingException e) {
+            } catch (final HeaderMissingException | InvalidHeaderValueException | URISyntaxException e) {
                 LOG.error(NEW_INSTANCE_ERROR_MESSAGE, uriInfo.getRequestUri(), e);
-
-                uriBuilder = UriBuilder.fromUri(uriInfo.getBaseUri());
-            } catch (InvalidHeaderValueException e) {
-                LOG.error(NEW_INSTANCE_ERROR_MESSAGE, uriInfo.getRequestUri(), e);
-
-                uriBuilder = UriBuilder.fromUri(uriInfo.getBaseUri());
-            } catch (URISyntaxException e) {
-                LOG.error(NEW_INSTANCE_ERROR_MESSAGE, uriInfo.getRequestUri(), e);
-
                 uriBuilder = UriBuilder.fromUri(uriInfo.getBaseUri());
             }
 
@@ -259,7 +250,7 @@ public class ProxyAwareUriBuilderFactory {
         try {
             @Nonnull final URI proxyHostUri = new URI(proxyHost);
             proxyHostUri.parseServerAuthority();
-        } catch (URISyntaxException e) {
+        } catch (final URISyntaxException e) {
             LOG.error(
                     "getAuthority: host \"" + proxyHost + "\" in header " + HEADER_NAME_X_FORWARDED_HOST + " is invalid.",
                     e);
@@ -291,7 +282,7 @@ public class ProxyAwareUriBuilderFactory {
         @Nonnull final String[] externalPathSegments;
         try {
             externalPathSegments = (new URI(xOriginalURIHeaderValue)).getPath().split("/");
-        } catch (URISyntaxException e) {
+        } catch (final URISyntaxException e) {
             LOG.error("getPathPrefix: path \"" + xOriginalURIHeaderValue + "\" is not a valid path in header " +
                     HEADER_NAME_X_ORIGINAL_URI + '.', e);
             throw new InvalidHeaderValueException(HEADER_NAME_X_ORIGINAL_URI,

@@ -160,8 +160,8 @@ public abstract class TileMap<T> {
         final long nrTiles = (1L << zoomLevel);
 
         // Determine how many tiles top-left tile should shift to center the map.
-        int shiftTileIndexX = widthPixels / MapConst.PIXELS_PER_TILE / 2;
-        int shiftTileIndexY = heightPixels / MapConst.PIXELS_PER_TILE / 2;
+        final int shiftTileIndexX = widthPixels / MapConst.PIXELS_PER_TILE / 2;
+        final int shiftTileIndexY = heightPixels / MapConst.PIXELS_PER_TILE / 2;
 
         // Determine offset within tile when centering tiles.
         final int centerPixelX = widthPixels / 2;

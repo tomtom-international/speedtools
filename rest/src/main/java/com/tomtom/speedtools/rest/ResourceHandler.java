@@ -35,7 +35,7 @@ public interface ResourceHandler {
      * @return Future with {@link javax.ws.rs.container.AsyncResponse} object.
      * @throws Exception When something went wrong. Will be translated to a "Internal Server Error" response (500).
      */
-    @SuppressWarnings("ProhibitedExceptionDeclared")
+    @SuppressWarnings({"ProhibitedExceptionDeclared", "RedundantThrows"})
     @Nonnull
     public Future<?> process() throws Exception;
 }

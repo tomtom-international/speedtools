@@ -60,12 +60,12 @@ public abstract class ApiListDTO<T> extends ApiDTO implements List<T> {
         this(true);
     }
 
-    protected ApiListDTO(final boolean immutable, Collection<? extends T> c) {
+    protected ApiListDTO(final boolean immutable, final Collection<? extends T> c) {
         super(immutable);
         list = new ArrayList<>(c);
     }
 
-    protected ApiListDTO(Collection<? extends T> c) {
+    protected ApiListDTO(final Collection<? extends T> c) {
         this(true, c);
     }
 
@@ -102,7 +102,7 @@ public abstract class ApiListDTO<T> extends ApiDTO implements List<T> {
     }
 
     @Override
-    public boolean contains(Object o) {
+    public boolean contains(final Object o) {
         return list.contains(o);
     }
 
@@ -122,49 +122,49 @@ public abstract class ApiListDTO<T> extends ApiDTO implements List<T> {
 
     @Nonnull
     @Override
-    public <T1> T1[] toArray(@Nonnull T1[] a) {
+    public <T1> T1[] toArray(@Nonnull final T1[] a) {
         beforeGet();
         //noinspection SuspiciousToArrayCall
         return list.toArray(a);
     }
 
     @Override
-    public boolean add(T e) {
+    public boolean add(final T e) {
         beforeSet();
         return list.add(e);
     }
 
     @Override
-    public boolean remove(Object o) {
+    public boolean remove(final Object o) {
         beforeSet();
         return list.remove(o);
     }
 
     @Override
-    public boolean containsAll(@Nonnull Collection<?> c) {
+    public boolean containsAll(@Nonnull final Collection<?> c) {
         return list.containsAll(c);
     }
 
     @Override
-    public boolean addAll(@Nonnull Collection<? extends T> c) {
+    public boolean addAll(@Nonnull final Collection<? extends T> c) {
         beforeSet();
         return list.addAll(c);
     }
 
     @Override
-    public boolean addAll(int index, @Nonnull Collection<? extends T> c) {
+    public boolean addAll(final int index, @Nonnull final Collection<? extends T> c) {
         beforeSet();
         return list.addAll(index, c);
     }
 
     @Override
-    public boolean removeAll(@Nonnull Collection<?> c) {
+    public boolean removeAll(@Nonnull final Collection<?> c) {
         beforeSet();
         return list.removeAll(c);
     }
 
     @Override
-    public boolean retainAll(@Nonnull Collection<?> c) {
+    public boolean retainAll(@Nonnull final Collection<?> c) {
         beforeSet();
         return list.retainAll(c);
     }
@@ -176,36 +176,36 @@ public abstract class ApiListDTO<T> extends ApiDTO implements List<T> {
     }
 
     @Override
-    public T get(int index) {
+    public T get(final int index) {
         beforeGet();
         return list.get(index);
     }
 
     @Override
-    public T set(int index, T element) {
+    public T set(final int index, final T element) {
         beforeSet();
         return list.set(index, element);
     }
 
     @Override
-    public void add(int index, T element) {
+    public void add(final int index, final T element) {
         beforeSet();
         list.add(index, element);
     }
 
     @Override
-    public T remove(int index) {
+    public T remove(final int index) {
         beforeSet();
         return list.remove(index);
     }
 
     @Override
-    public int indexOf(Object o) {
+    public int indexOf(final Object o) {
         return list.indexOf(o);
     }
 
     @Override
-    public int lastIndexOf(Object o) {
+    public int lastIndexOf(final Object o) {
         return list.lastIndexOf(o);
     }
 
@@ -218,14 +218,14 @@ public abstract class ApiListDTO<T> extends ApiDTO implements List<T> {
 
     @Nonnull
     @Override
-    public ListIterator<T> listIterator(int index) {
+    public ListIterator<T> listIterator(final int index) {
         beforeGet();
         return list.listIterator(index);
     }
 
     @Nonnull
     @Override
-    public List<T> subList(int fromIndex, int toIndex) {
+    public List<T> subList(final int fromIndex, final int toIndex) {
         beforeGet();
         return list.subList(fromIndex, toIndex);
     }

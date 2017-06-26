@@ -92,7 +92,7 @@ public final class ResourceProcessor {
 
                         /**
                          * If the {@link Future} completes, the {@link OnComplete}.onComplete is called,
-                         * which passes the result of the {@link Future} into the {@link AsynchronousResponse} object,
+                         * which passes the result of the {@link Future} into the {@link AsyncResponse} object,
                          * which will be passed bac to the caller of the resource.
                          */
                         //noinspection unchecked

@@ -96,11 +96,7 @@ final class TomTomLbsRouteEngineRouteEngineActorImpl implements TomTomLbsRouteEn
                 LOG.debug("route: {} Too busy, from={}, to={}, {}", name, from, to, message);
                 return Futures.failed(new TimeoutException(message));
             }
-        } catch (final AuthorizationException e) {
-            return Futures.failed(e);
-        } catch (final ServiceUnavailableException e) {
-            return Futures.failed(e);
-        } catch (final IOException e) {
+        } catch (final AuthorizationException | ServiceUnavailableException | IOException e) {
             return Futures.failed(e);
         } catch (final Throwable e) {
 

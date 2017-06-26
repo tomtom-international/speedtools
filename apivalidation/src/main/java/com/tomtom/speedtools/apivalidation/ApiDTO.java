@@ -192,7 +192,7 @@ public abstract class ApiDTO extends JsonBased {
             isAlreadyValidated = validated;
         }
         if (isAlreadyValidated) {
-            final String msg = "Class cannot be modified after validation: " + this.getClass().toString();
+            final String msg = "Class cannot be modified after validation: " + this.getClass();
             LOG.error("beforeSet: {}", msg);
             throw new ApiInternalException();
         }

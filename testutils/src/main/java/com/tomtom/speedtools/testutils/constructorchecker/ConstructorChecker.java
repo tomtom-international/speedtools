@@ -155,9 +155,9 @@ public final class ConstructorChecker {
              *             wrapped in a wrapper object of the appropriate type (e.g. a <tt>float</tt> in a {@link
              *             Float Float})
              * @return Return value, or null if void.
-             * @throws IllegalAccessException
-             * @throws IllegalArgumentException
-             * @throws InvocationTargetException
+             * @throws IllegalAccessException Illegal access.
+             * @throws IllegalArgumentException Illegal argument.
+             * @throws InvocationTargetException Can't invoke target.
              */
             @Override
             @Nullable
@@ -265,9 +265,9 @@ public final class ConstructorChecker {
              *             wrapped in a wrapper object of the appropriate type (e.g. a <tt>float</tt> in a {@link
              *             Float Float})
              * @return Return value or null if void.
-             * @throws IllegalAccessException
-             * @throws IllegalArgumentException
-             * @throws InvocationTargetException
+             * @throws IllegalAccessException Illegal access.
+             * @throws IllegalArgumentException Illegal argument.
+             * @throws InvocationTargetException Can't invoke target.
              */
             @Override
             @Nullable
@@ -367,9 +367,7 @@ public final class ConstructorChecker {
                 //noinspection ProhibitedExceptionThrown,ThrowCaughtLocally
                 throw e.getTargetException();
             }
-        } catch (final IllegalArgumentException ignored) {
-            return true;
-        } catch (final AssertionError ignored) {
+        } catch (final IllegalArgumentException | AssertionError ignored) {
             return true;
         } catch (final Throwable e) {
             LOG.error("Exception: {}", e.getMessage());

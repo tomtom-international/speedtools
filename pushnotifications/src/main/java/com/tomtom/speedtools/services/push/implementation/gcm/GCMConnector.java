@@ -106,7 +106,7 @@ public class GCMConnector implements PushNotificationProvider {
         final Result result;
         try {
             result = sender.send(message, pushToken.getToken(), gcmProperties.getRetries());
-            LOG.debug("push: notification sent, message={}", message.toString());
+            LOG.debug("push: notification sent, message={}", message);
         } catch (final IOException e) {
             LOG.error("push: unable to send message, pushToken={}", logId(pushToken.getToken()), e);
             throw new PushConnectionException(e);

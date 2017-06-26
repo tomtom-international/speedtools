@@ -41,7 +41,7 @@ public class ContextHelper {
     }
 
     /**
-     * Returns contextual objects from RestEasy using {@link org.jboss.resteasy.spi.ResteasyProviderFactory#getContextData(Class)}.
+     * Returns contextual objects from RestEasy using {@link ResteasyProviderFactory#getContextData(Class)}.
      * This method will only work if invoked on the thread that RestEasy uses to call the resource method, because it
      * accesses the contextual objects via thread locals.
      *

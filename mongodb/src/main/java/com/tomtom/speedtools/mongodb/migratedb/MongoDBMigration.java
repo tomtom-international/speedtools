@@ -904,6 +904,7 @@ public class MongoDBMigration {
      * @throws MigrationException Never thrown by this class, but potentially by derived classes, if the migration
      *                            fails.
      */
+    @SuppressWarnings("RedundantThrows")
     protected void migrate(@Nonnull final MongoDB db) throws MigrationException {
         assert db != null;
 

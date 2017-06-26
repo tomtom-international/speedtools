@@ -232,7 +232,7 @@ public class SecurityInterceptor implements PreProcessInterceptor, AcceptedByMet
                 // In case not logged in, send 401 response.
                 final ServerResponse response = new ServerResponse();
                 response.setStatus(HttpResponseCodes.SC_UNAUTHORIZED);
-                final MultivaluedMap<String, Object> headers = new Headers<Object>();
+                final MultivaluedMap<String, Object> headers = new Headers<>();
                 headers.add("Content-Type", "text/plain");
                 response.setMetadata(headers);
                 response.setEntity("Error 401 Unauthorized: " + request.getUri().getPath());

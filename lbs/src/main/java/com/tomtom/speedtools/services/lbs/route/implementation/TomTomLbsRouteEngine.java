@@ -61,6 +61,8 @@ public final class TomTomLbsRouteEngine implements RouteEngine {
         routeActorList = new ConcurrentLinkedQueue<>();
         for (int i = 0; i < lbsProperties.getNumberOfRouteActors(); ++i) {
             final String name = "route-" + Integer.toString(i + 1);
+
+            @SuppressWarnings("unchecked")
             final TypedProps<TomTomLbsRouteEngineActor> typedProps =
                     new TypedProps<>(TomTomLbsRouteEngineActor.class, () -> {
                         final TomTomLbsRouteEngineRouteEngineActorImpl actor =

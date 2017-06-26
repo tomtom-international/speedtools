@@ -71,7 +71,7 @@ public class LoggingTraceHandler implements GenericTraceHandler {
                 message.append((args[i] == null) ? "null" : Trace.toStringJsonSafe(args[i]));
             }
             message.append(')');
-            LOG.trace("{}", message.toString());
+            LOG.trace("{}", message);
         }
     }
 }

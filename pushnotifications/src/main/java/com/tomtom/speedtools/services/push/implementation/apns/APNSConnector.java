@@ -181,7 +181,7 @@ public class APNSConnector implements PushNotificationProvider {
                 pushPayload.append(",\"payload\":").append(notificationPayload.toJson());
             }
             pushPayload.append('}');
-            LOG.debug("sendPush: payload={}", pushPayload.toString());
+            LOG.debug("sendPush: payload={}", pushPayload);
 
             // TODO ST-4: Send enhanced packet with expire date.
             // Create Simple Notification.

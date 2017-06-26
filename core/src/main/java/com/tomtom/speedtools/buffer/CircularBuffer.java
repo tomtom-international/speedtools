@@ -183,7 +183,7 @@ public class CircularBuffer<T> {
             }
 
             sb.append('"');
-            sb.append(buffer[index].toString());
+            sb.append(buffer[index]);
             sb.append('"');
 
             // Next entry, clip if needed.
