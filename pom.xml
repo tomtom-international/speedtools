@@ -25,7 +25,7 @@
     <artifactId>speedtools</artifactId>
 
     <packaging>pom</packaging>
-    <version>3.1.1</version>
+    <version>3.2.0</version>
 
     <name>SpeedTools</name>
 
@@ -162,6 +162,7 @@
         <module>rest</module>
         <module>sms</module>
         <module>testutils</module>
+        <module>tracer</module>
     </modules>
 
     <build>
@@ -379,6 +380,12 @@
                 <artifactId>testutils</artifactId>
                 <version>${project.version}</version>
                 <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>tracer</artifactId>
+                <version>${project.version}</version>
             </dependency>
 
             <!-- External dependencies. -->

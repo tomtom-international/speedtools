@@ -1,7 +1,16 @@
 Release Notes
 ----
 
-### 3.1.0
+### 3.2.0
+
+* This release is not fully compatible with previous releases: the `Tracer` 
+interfaces have changed.
+
+* The `tracer` module has been places at top-level, rather than under `mongodb`. This
+means you need to include the `tracer` separately in your POMs, and the package names
+have changed to `com.tomtom.speedtools.tracer`.
+
+### 3.1.0 - 3.1.1
 
 * This release is not fully compatible with previous releases due to an Akka upgrade, 
 which has deprecated the use of typed actors.

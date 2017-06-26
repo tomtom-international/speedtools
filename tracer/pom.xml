@@ -27,17 +27,18 @@
         <version>3.2.0</version>
     </parent>
 
-    <artifactId>lbs</artifactId>
+    <artifactId>tracer</artifactId>
     <packaging>jar</packaging>
 
-    <name>SpeedTools LBS Services</name>
+    <name>SpeedTools Tracer Utilities</name>
 
     <!--
         Don't add a description if you want the project not to be picked up by the maven-mailinglist-plugin
         (if the plugin is enabled).
     -->
     <description>
-        Connectors to web services.
+        Contains utilities to allow tracing (recording) application events asynchronously 
+        to a database. An implementation for MongoDB as a backing store is provided.
     </description>
 
     <dependencies>
@@ -65,14 +66,29 @@
 
         <dependency>
             <groupId>${project.groupId}</groupId>
+            <artifactId>mongodb</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>${project.groupId}</groupId>
             <artifactId>testutils</artifactId>
         </dependency>
 
         <!-- External dependencies. -->
 
         <dependency>
-            <groupId>com.google.inject</groupId>
-            <artifactId>guice</artifactId>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
         </dependency>
 
         <dependency>
@@ -81,13 +97,8 @@
         </dependency>
 
         <dependency>
-            <groupId>com.typesafe.akka</groupId>
-            <artifactId>akka-actor_2.11</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>commons-httpclient</groupId>
-            <artifactId>commons-httpclient</artifactId>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
         </dependency>
 
         <dependency>
@@ -106,14 +117,8 @@
         </dependency>
 
         <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-annotations</artifactId>
-        </dependency>
-
-
-        <dependency>
-            <groupId>org.scala-lang</groupId>
-            <artifactId>scala-library</artifactId>
+            <groupId>org.mongodb</groupId>
+            <artifactId>mongo-java-driver</artifactId>
         </dependency>
 
         <dependency>

@@ -97,7 +97,7 @@ geocoding and routing;
 by tools like Jolokia;
 
 * **mongodb** which contains MongoDB specific classes that will handle schema migration in
-MongoDB databases and a superfast "event tracer" system, based on MongoDB;
+MongoDB databases;
 
 * **pushnotifications** which provides generic interfaces for the iOS APNS and Android GCM push
 notification services to send notifications to mobile phones;
@@ -108,7 +108,9 @@ Akka framework to process incoming requests;
 * **sms** which provides interfaces for SMS services, with implementations for MessageBird and Nexmo,
 to send text messages to mobile phones;
 
-* **testutils** which contains utilities, like mocks, which make it easier to create Java unit tests.
+* **testutils** which contains utilities, like mocks, which make it easier to create Java unit tests;
+
+* **tracer** which contains superfast "event tracer" system, plus an implementation based on MongoDB.
 
 You can find the JavaDoc documentation for **SpeedTools** on Github, at 
 
@@ -245,24 +247,6 @@ You can find the JavaDoc documentation for **SpeedTools** on Github, at
     find this package extremely handy. It provides a simple and efficient way to describe
     MongoDB "schema" transformations in a small Java DSL.
 
-* `com.tomtom.speedtools.tracer`
-
-    This package provides a way to generate "trace events"
-    from a system, which are asynchronously and rate-limited sent to a remote MongoDB database.
-    These trace events can then be read from that database and serve as input for monitoring,
-    reporting or real-time visualization.
-
-    The trace event system is set up in such a way that is can never interfere with the actual main
-    system. So, if the trace database is down, or the link does not work, or too many traces
-    occur, the trace event system will not take too many resources from you system, ever.
-    The nice thing about these trace events is that they are fully type safe, because they are
-    implemented as Java interfaces (instead of, for example, log strings). The interface calls
-    are serialized (by our own JSON/MongoDB serializer) and sent to a MongoDB trace database.
-
-    The trace event consuming party only needs to implement the interface methods in order to
-    automatically "receive" the traces when they occur. The trace event system on the consumer
-    side will call the registered trace interface implemnentation real-time.
-
 ### **SpeedTools REST** - REST API and web services utilities and framework
 
 * `com.tomtom.speedtools.rest`
@@ -294,7 +278,27 @@ You can find the JavaDoc documentation for **SpeedTools** on Github, at
 
     This package provides an generic interfaces to SMS servers from MessageBird and Nexmo.
 
-##Using SpeedTools with Maven Projects
+### **SpeedTools Tracer** - Application event tracing
+
+* `com.tomtom.speedtools.tracer`
+
+    This package provides a way to generate "trace events"
+    from a system, which are asynchronously and rate-limited sent to a remote MongoDB database.
+    These trace events can then be read from that database and serve as input for monitoring,
+    reporting or real-time visualization.
+
+    The trace event system is set up in such a way that is can never interfere with the actual main
+    system. So, if the trace database is down, or the link does not work, or too many traces
+    occur, the trace event system will not take too many resources from you system, ever.
+    The nice thing about these trace events is that they are fully type safe, because they are
+    implemented as Java interfaces (instead of, for example, log strings). The interface calls
+    are serialized (by our own JSON/MongoDB serializer) and sent to a MongoDB trace database.
+
+    The trace event consuming party only needs to implement the interface methods in order to
+    automatically "receive" the traces when they occur. The trace event system on the consumer
+    side will call the registered trace interface implemnentation real-time.
+
+## Using SpeedTools with Maven Projects
 
 In order to use SpeedTools in a Maven project include the following dependencies:
 
@@ -304,55 +308,70 @@ In order to use SpeedTools in a Maven project include the following dependencies
     <artifactId>core</artifactId>
     <version>${project.version}</version>
 </dependency>
-
+```
+```xml
 <!-- If you need to build REST APIs: -->
 <dependency>
     <groupId>com.tomtom.speedtools</groupId>
     <artifactId>rest</artifactId>
     <version>${project.version}</version>
 </dependency>
-
+```
+```xml
 <!--  If you need to use Akka: -->
 <dependency>
     <groupId>com.tomtom.speedtools</groupId>
     <artifactId>akka</artifactId>
     <version>${project.version}</version>
 </dependency>
-
-<!--  If you need MongoDB or the Tracer: -->
+```
+```xml
+<!--  If you need MongoDB: -->
 <dependency>
     <groupId>com.tomtom.speedtools</groupId>
     <artifactId>mongodb</artifactId>
     <version>${project.version}</version>
 </dependency>
-
+```
+```xml
 <!--  If you need LBS services: -->
 <dependency>
     <groupId>com.tomtom.speedtools</groupId>
     <artifactId>lbs</artifactId>
     <version>${project.version}</version>
 </dependency>
-
+```
+```xml
 <!--  If you need Push Notification services: -->
 <dependency>
     <groupId>com.tomtom.speedtools</groupId>
     <artifactId>pushnotifications</artifactId>
     <version>${project.version}</version>
 </dependency>
-
+```
+```xml
 <!--  If you need SMS services: -->
 <dependency>
     <groupId>com.tomtom.speedtools</groupId>
     <artifactId>sms</artifactId>
     <version>${project.version}</version>
 </dependency>
-
+```
+```xml
 <!--  Add this one to include a log4j.xml during unit tests (scope is only test): -->
 <dependency>
     <groupId>com.tomtom.speedtools</groupId>
     <artifactId>testutils</artifactId>
     <version>${project.version}</version>
     <scope>test</scope>
+</dependency>
+```
+```xml
+<!--  If you need the Tracer: -->
+<dependency>
+    <groupId>com.tomtom.speedtools</groupId>
+    <artifactId>tracer</artifactId>
+    <version>${project.version}</version>
 </dependency>
 ```
 
