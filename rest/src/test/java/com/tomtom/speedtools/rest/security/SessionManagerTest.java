@@ -345,6 +345,9 @@ public class SessionManagerTest {
     /**
      * {@link SessionManager.SessionData} must be serializable so that session state can be replicated amongst multiple
      * application container nodes.
+     *
+     * @throws IOException            Some IO error.
+     * @throws ClassNotFoundException Can't serialize data.
      */
     @SuppressWarnings("JUnitTestMethodWithNoAssertions")
     @Test
@@ -357,6 +360,9 @@ public class SessionManagerTest {
     /**
      * {@link SessionManager.SessionData} must be serializable so that session state can be replicated amongst multiple
      * application container nodes.
+     *
+     * @throws IOException            Some IO error.
+     * @throws ClassNotFoundException Can't serialize data.
      */
     @SuppressWarnings("JUnitTestMethodWithNoAssertions")
     @Test
