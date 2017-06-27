@@ -24,7 +24,7 @@
     <parent>
         <groupId>com.tomtom.speedtools</groupId>
         <artifactId>speedtools</artifactId>
-        <version>3.2.0</version>
+        <version>3.2.1</version>
     </parent>
 
     <artifactId>rest</artifactId>
@@ -109,11 +109,6 @@
         <dependency>
             <groupId>joda-time</groupId>
             <artifactId>joda-time</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.jboss.resteasy</groupId>
-            <artifactId>async-http-servlet-3.0</artifactId>
         </dependency>
 
         <dependency>

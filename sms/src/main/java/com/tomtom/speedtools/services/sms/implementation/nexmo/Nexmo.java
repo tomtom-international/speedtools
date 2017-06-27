@@ -25,7 +25,9 @@ import com.tomtom.speedtools.services.sms.implementation.ProviderNames;
 import com.tomtom.speedtools.services.sms.implementation.ProviderRanking;
 import com.tomtom.speedtools.services.sms.implementation.nexmo.dto.NexmoMessage;
 import com.tomtom.speedtools.services.sms.implementation.nexmo.dto.NexmoMessageResponse;
-import org.jboss.resteasy.client.ClientResponse;
+import org.jboss.resteasy.client.jaxrs.ResteasyClient;
+import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
+import org.jboss.resteasy.client.jaxrs.ResteasyWebTarget;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -53,29 +55,27 @@ public class Nexmo implements SMSProviderConnector {
     private static final String TYPE = "text";
 
     @Nonnull
-    private final NexmoResource nexmoResource;
-    @Nonnull
     private final String userName;
     @Nonnull
     private final String password;
     @Nonnull
     private final String sender;
+    @Nonnull
+    private final String baseUrl;
 
     /**
      * Constructor.
      *
-     * @param nexmoResource   The Resteasy resource to do REST calls to Nexmo.
      * @param nexmoProperties Properties for Nexmo.
      */
     @Inject
-    public Nexmo(@Nonnull final NexmoResource nexmoResource, @Nonnull final NexmoProperties nexmoProperties) {
-        assert nexmoResource != null;
+    public Nexmo(@Nonnull final NexmoProperties nexmoProperties) {
         assert nexmoProperties != null;
 
-        this.nexmoResource = nexmoResource;
         userName = nexmoProperties.getUserName();
         password = nexmoProperties.getPassword();
         sender = nexmoProperties.getSender();
+        baseUrl = nexmoProperties.getBaseUrl();
     }
 
     @Nonnull
@@ -87,20 +87,22 @@ public class Nexmo implements SMSProviderConnector {
         assert recipient != null;
         assert message != null;
 
-        ClientResponse<NexmoMessageResponse> response = null;
+        final ResteasyClient client = new ResteasyClientBuilder().build();
+        final ResteasyWebTarget target = client.target(baseUrl);
+        final NexmoResource proxy = target.proxy(NexmoResource.class);
+        Response response = null;
         try {
 
             // Send the message.
             LOG.debug("sendTextMessage: recipient={}, ref={}, message: {}",
                     recipient, referenceNumber, message);
-            response =
-                    nexmoResource.sendMessage(userName, password, sender, recipient, TYPE, message, STATUS_REPORT_REQUIRED,
-                            referenceNumber);
+            response = proxy.sendMessage(userName, password, sender, recipient, TYPE, message, STATUS_REPORT_REQUIRED,
+                    referenceNumber);
+            LOG.debug("sendTextMessage: response={}", Json.toStringJson(response));
 
             // Process the response.
-            if (response.getResponseStatus() == Response.Status.OK) {
-
-                final NexmoMessageResponse nexmoMessageResponse = response.getEntity();
+            if (response.getStatus() == Response.Status.OK.getStatusCode()) {
+                final NexmoMessageResponse nexmoMessageResponse = (NexmoMessageResponse) response.getEntity();
 
                 // Process messages in the response. Nexmo supports splitting into multiple messages, but we do not.
                 for (final NexmoMessage nexmoMessage : nexmoMessageResponse.getMessages()) {
@@ -196,7 +198,7 @@ public class Nexmo implements SMSProviderConnector {
         } finally {
             if (response != null) {
                 // Always release the connection.
-                response.releaseConnection();
+                response.close();
             }
         }
 

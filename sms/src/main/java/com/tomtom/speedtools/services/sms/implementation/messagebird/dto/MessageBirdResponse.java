@@ -32,7 +32,7 @@ import static com.tomtom.speedtools.utils.StringUtils.trim;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @XmlAccessorType(XmlAccessType.PUBLIC_MEMBER)
 @XmlRootElement(name = "response")
-public class MessageBirdMessageResponse extends ApiDTO {
+public class MessageBirdResponse extends ApiDTO {
 
     @Nullable
     private Item item;

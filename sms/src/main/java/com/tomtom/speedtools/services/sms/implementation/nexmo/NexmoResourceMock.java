@@ -23,22 +23,14 @@ import com.tomtom.speedtools.services.sms.SMSDeliveryReportListenerRegistry;
 import com.tomtom.speedtools.services.sms.implementation.nexmo.dto.NexmoMessage;
 import com.tomtom.speedtools.services.sms.implementation.nexmo.dto.NexmoMessage.Status;
 import com.tomtom.speedtools.services.sms.implementation.nexmo.dto.NexmoMessageResponse;
-import org.jboss.resteasy.client.ClientResponse;
-import org.jboss.resteasy.spi.Link;
-import org.jboss.resteasy.spi.LinkHeader;
-import org.jboss.resteasy.util.GenericType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import javax.ws.rs.core.EntityTag;
+import javax.ws.rs.core.*;
 import javax.ws.rs.core.Link.Builder;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.MultivaluedMap;
-import javax.ws.rs.core.NewCookie;
 import java.lang.annotation.Annotation;
-import java.lang.reflect.Type;
 import java.net.URI;
 import java.util.Date;
 import java.util.Locale;
@@ -61,7 +53,7 @@ public class NexmoResourceMock implements NexmoResource {
     }
 
     @Override
-    public ClientResponse<NexmoMessageResponse> sendMessage(
+    public Response sendMessage(
             @Nonnull final String userName,
             @Nonnull final String password,
             @Nonnull final String from,
@@ -81,11 +73,11 @@ public class NexmoResourceMock implements NexmoResource {
                         "statusReportRequired={}, clientReference={}",
                 status, userName, password, from, to, text, statusReportRequired, clientReference);
 
-        final NexmoMessageResponse nexmoMessageResponse = new NexmoMessageResponse();
+        final NexmoMessageResponse response = new NexmoMessageResponse();
         final NexmoMessage message = new NexmoMessage();
-        nexmoMessageResponse.setMessages(Immutables.listOf(message));
+        response.setMessages(Immutables.listOf(message));
 
-        nexmoMessageResponse.setMessageCount(1);
+        response.setMessageCount(1);
         message.setStatus(status);
         if (clientReference != null) {
             message.setClientRef(clientReference.toString());
@@ -98,23 +90,12 @@ public class NexmoResourceMock implements NexmoResource {
             listener.messageDeliveryReport(clientReference, DeliveryStatus.DELIVERED);
         }
 
-        return new ClientResponse<NexmoMessageResponse>() {
-
-            @Override
-            public MultivaluedMap<String, String> getResponseHeaders() {
-                throw new UnsupportedOperationException();
-            }
-
-            @Override
-            @Nonnull
-            public Status getResponseStatus() {
-                return Status.OK;
-            }
+        return new Response() {
 
             @Override
             @Nullable
             public NexmoMessageResponse getEntity() {
-                return nexmoMessageResponse;
+                return response;
             }
 
             @Override
@@ -218,76 +199,8 @@ public class NexmoResourceMock implements NexmoResource {
             }
 
             @Override
-            @Nullable
-            public <T2> T2 getEntity(@Nonnull final Class<T2> type) {
-                throw new UnsupportedOperationException();
-            }
-
-            @Override
-            @Nullable
-            public <T2> T2 getEntity(
-                    @Nonnull final Class<T2> type,
-                    @Nonnull final Type genericType) {
-                throw new UnsupportedOperationException();
-            }
-
-            @Override
-            @Nullable
-            public <T2> T2 getEntity(
-                    @Nonnull final Class<T2> type,
-                    @Nonnull final Type genericType,
-                    @Nonnull final Annotation[] annotations) {
-                throw new UnsupportedOperationException();
-            }
-
-            @Override
-            @Nullable
-            public <T2> T2 getEntity(@Nonnull final GenericType<T2> type) {
-                throw new UnsupportedOperationException();
-            }
-
-            @Override
-            @Nullable
-            public <T2> T2 getEntity(@Nonnull final GenericType<T2> type, @Nonnull final Annotation[] annotations) {
-                throw new UnsupportedOperationException();
-            }
-
-            @Override
-            @Nonnull
-            public LinkHeader getLinkHeader() {
-                throw new UnsupportedOperationException();
-            }
-
-            @Override
-            public Link getLocationLink() {
-                throw new UnsupportedOperationException();
-            }
-
-            @Override
-            @Nonnull
-            public Link getHeaderAsLink(final String headerName) {
-                throw new UnsupportedOperationException();
-            }
-
-            @Override
-            public void resetStream() {
-                // Left empty.
-            }
-
-            @Override
-            public void releaseConnection() {
-                // Left empty.
-            }
-
-            @Override
-            @Nonnull
-            public Map<String, Object> getAttributes() {
-                throw new UnsupportedOperationException();
-            }
-
-            @Override
             public int getStatus() {
-                return getResponseStatus().getStatusCode();
+                return Response.Status.OK.getStatusCode();
             }
 
             @Override

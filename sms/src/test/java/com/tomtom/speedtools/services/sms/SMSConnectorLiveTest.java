@@ -21,16 +21,9 @@ import com.tomtom.speedtools.rest.RestEasyJacksonContextResolver;
 import com.tomtom.speedtools.services.sms.SMSProviderConnector.Status;
 import com.tomtom.speedtools.services.sms.implementation.messagebird.MessageBird;
 import com.tomtom.speedtools.services.sms.implementation.messagebird.MessageBirdProperties;
-import com.tomtom.speedtools.services.sms.implementation.messagebird.MessageBirdResource;
 import com.tomtom.speedtools.services.sms.implementation.nexmo.Nexmo;
 import com.tomtom.speedtools.services.sms.implementation.nexmo.NexmoProperties;
-import com.tomtom.speedtools.services.sms.implementation.nexmo.NexmoResource;
 import com.tomtom.speedtools.time.UTCTime;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.impl.conn.tsccm.ThreadSafeClientConnManager;
-import org.jboss.resteasy.client.ClientExecutor;
-import org.jboss.resteasy.client.ProxyFactory;
-import org.jboss.resteasy.client.core.executors.ApacheHttpClient4Executor;
 import org.jboss.resteasy.spi.ResteasyProviderFactory;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -44,6 +37,41 @@ import javax.annotation.Nonnull;
 public class SMSConnectorLiveTest {
     @Nonnull
     private static final Logger LOG = LoggerFactory.getLogger(SMSConnectorLiveTest.class);
+
+    /**
+     * This test is explicitly DISABLED to avoid sending test message (which cost money!) every time a unit test is
+     * run.
+     */
+    @Ignore
+    @Test
+    public void testMessageBird() {
+        LOG.info("testMessageBird");
+
+        final ResteasyProviderFactory factory = new ResteasyProviderFactory() {
+            {
+                this.addContextResolver(new RestEasyJacksonContextResolver());
+            }
+        };
+        ResteasyProviderFactory.setInstance(factory);
+
+        /**
+         * Do not use these credentials for real applications purposes. They are here for demonstration
+         * purposes only!
+         */
+        final MessageBirdProperties messageBirdProperties =
+                new MessageBirdProperties("http://api.messagebird.com", "username", "password", "SpeedTools", false);
+        final SMSProviderConnector connector = new MessageBird(messageBirdProperties);
+
+        /**
+         * The telephone number has been crossed out on purpose. Fill it with your test phone number
+         * if needed.
+         */
+        final Status status =
+                connector.sendTextMessage("+31650431247", "This is a test message, using MessageBird, please ignore.", 33333L);
+        // connector.sendTextMessage("<telephoneNumber>", "Please ignore. This is a test message using MessageBird. Sent at " + Json.toJson(UTCTime.now()), 33333L);
+
+        LOG.info("testMessageBird: status={}", status);
+    }
 
     /**
      * This test is explicitly DISABLED to avoid sending test message (which cost money!) every time a unit test is
@@ -67,68 +95,15 @@ public class SMSConnectorLiveTest {
          */
         final NexmoProperties nexmoProperties =
                 new NexmoProperties("http://rest.nexmo.com", "<username>", "<password>", "SpeedTools", false);
-
-        final ClientExecutor clientExecutor =
-                new ApacheHttpClient4Executor(new DefaultHttpClient(new ThreadSafeClientConnManager()));
-
-        // Return a new NexmoResource proxy instance.
-        final NexmoResource nexmoResource =
-                ProxyFactory.create(NexmoResource.class, nexmoProperties.getBaseUrl(), clientExecutor);
-
-        final SMSProviderConnector connector = new Nexmo(nexmoResource, nexmoProperties);
+        final SMSProviderConnector connector = new Nexmo(nexmoProperties);
 
         /**
          * The telephone number has been crossed out on purpose. Fill it with your test phone number
          * if needed.
          */
         final Status status =
-                connector.sendTextMessage("<telephoneNumber>", "Please ignore. This is a test message using Nexmo. " +
-                        "Sent at " + Json.toJson(UTCTime.now()), 33333L);
+                connector.sendTextMessage("+31650431247", "Please ignore. This is a test message using Nexmo. Sent at " + Json.toJson(UTCTime.now()), 33333L);
 
         LOG.info("testNexmo: status={}", status);
-    }
-
-    /**
-     * This test is explicitly DISABLED to avoid sending test message (which cost money!) every time a unit test is
-     * run.
-     */
-    @Ignore
-    @Test
-    public void testMessageBird() {
-        LOG.info("testMessageBird");
-
-        final ResteasyProviderFactory factory = new ResteasyProviderFactory() {
-            {
-                this.addContextResolver(new RestEasyJacksonContextResolver());
-            }
-        };
-        ResteasyProviderFactory.setInstance(factory);
-
-        /**
-         * Do not use these credentials for real applications purposes. They are here for demonstration
-         * purposes only!
-         */
-        final MessageBirdProperties messageBirdProperties =
-                new MessageBirdProperties("http://api.messagebird.com", "username", "password", "SpeedTools",
-                        false);
-
-        final ClientExecutor clientExecutor =
-                new ApacheHttpClient4Executor(new DefaultHttpClient(new ThreadSafeClientConnManager()));
-
-        // Return a new OrderBox proxy instance.
-        final MessageBirdResource messageBirdResource =
-                ProxyFactory.create(MessageBirdResource.class, messageBirdProperties.getBaseUrl(), clientExecutor);
-
-        final SMSProviderConnector connector = new MessageBird(messageBirdResource, messageBirdProperties);
-
-        /**
-         * The telephone number has been crossed out on purpose. Fill it with your test phone number
-         * if needed.
-         */
-        final Status status =
-                connector.sendTextMessage("<telephoneNumber>", "Please ignore. This is a test message using MessageBird. " +
-                        "Sent at " + Json.toJson(UTCTime.now()), 33333L);
-
-        LOG.info("testMessageBird: status={}", status);
     }
 }

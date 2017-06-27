@@ -16,14 +16,11 @@
 
 package com.tomtom.speedtools.services.sms.implementation.messagebird;
 
-import com.tomtom.speedtools.services.sms.implementation.messagebird.dto.MessageBirdMessageResponse;
-import org.jboss.resteasy.annotations.ClientResponseType;
-import org.jboss.resteasy.client.ClientResponse;
-
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 import javax.xml.bind.annotation.XmlEnum;
 import javax.xml.bind.annotation.XmlEnumValue;
 
@@ -58,9 +55,8 @@ public interface MessageBirdResource {
      * @return Response.
      */
     @GET
-    @ClientResponseType(entityType = MessageBirdMessageResponse.class)
-    ClientResponse<MessageBirdMessageResponse> sendMessage(
-            // NotNulls allowed because resource is used as client!
+    Response sendMessage(
+            // NotNuls allowed because resource is used as client!
             @Nonnull @QueryParam("username") String userName,
             @Nonnull @QueryParam("password") String password,
             @Nullable @QueryParam("reference") Long reference,

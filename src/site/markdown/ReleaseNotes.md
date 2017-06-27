@@ -1,6 +1,16 @@
 Release Notes
 ----
 
+### 3.2.1
+
+* Removed automatic binding of `SecurityInterceptor`. Needs to be done explicitly by
+caller now in a Guice module: `binder.bind(SecurityInterceptor.class).in(Singleton.class)`, 
+where `binder` is an injected Guice binder. If the bidnding is nor performed, no authentication 
+is enforced; otherwise it is by default enforced on all URLs.
+
+* Important: The SMS module has been rewritten to use the Resteasy 3.x client interface, but
+the APIs seems to be broken. Need to be fixed. 
+
 ### 3.2.0
 
 * This release is not fully compatible with previous releases: the `Tracer` 

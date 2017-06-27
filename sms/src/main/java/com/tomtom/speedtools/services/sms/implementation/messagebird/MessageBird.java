@@ -27,9 +27,11 @@ import com.tomtom.speedtools.services.sms.SMSProviderConnector;
 import com.tomtom.speedtools.services.sms.implementation.ProviderNames;
 import com.tomtom.speedtools.services.sms.implementation.ProviderRanking;
 import com.tomtom.speedtools.services.sms.implementation.messagebird.MessageBirdResource.ResponseType;
-import com.tomtom.speedtools.services.sms.implementation.messagebird.dto.MessageBirdMessageResponse;
-import com.tomtom.speedtools.services.sms.implementation.messagebird.dto.MessageBirdMessageResponse.Item;
-import org.jboss.resteasy.client.ClientResponse;
+import com.tomtom.speedtools.services.sms.implementation.messagebird.dto.MessageBirdResponse;
+import com.tomtom.speedtools.services.sms.implementation.messagebird.dto.MessageBirdResponse.Item;
+import org.jboss.resteasy.client.jaxrs.ResteasyClient;
+import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
+import org.jboss.resteasy.client.jaxrs.ResteasyWebTarget;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -60,31 +62,27 @@ public class MessageBird implements SMSProviderConnector {
     private static final String REPLACE_CHARS = "true"; // Attempt to send as GSM-7 by replacing chars.
 
     @Nonnull
-    private final MessageBirdResource messageBirdResource;
-    @Nonnull
     private final String userName;
     @Nonnull
     private final String password;
     @Nonnull
     private final String sender;
+    @Nonnull
+    private final String baseUrl;
 
     /**
      * Constructor.
      *
-     * @param messageBirdResource   The Resteasy resource to do REST calls to MessageBird.
      * @param messageBirdProperties The properties for MessageBird.
      */
     @Inject
-    public MessageBird(
-            @Nonnull final MessageBirdResource messageBirdResource,
-            @Nonnull final MessageBirdProperties messageBirdProperties) {
-        assert messageBirdResource != null;
+    public MessageBird(@Nonnull final MessageBirdProperties messageBirdProperties) {
         assert messageBirdProperties != null;
 
-        this.messageBirdResource = messageBirdResource;
         userName = messageBirdProperties.getUserName();
         password = messageBirdProperties.getPassword();
         sender = messageBirdProperties.getSender();
+        baseUrl = messageBirdProperties.getBaseUrl();
     }
 
     @Nonnull
@@ -96,7 +94,10 @@ public class MessageBird implements SMSProviderConnector {
         assert recipient != null;
         assert message != null;
 
-        ClientResponse<MessageBirdMessageResponse> response = null;
+        final ResteasyClient client = new ResteasyClientBuilder().build();
+        final ResteasyWebTarget target = client.target(baseUrl);
+        final MessageBirdResource proxy = target.proxy(MessageBirdResource.class);
+        Response response = null;
         try {
 
             // Format phone number.
@@ -109,19 +110,18 @@ public class MessageBird implements SMSProviderConnector {
             // Send the message.
             LOG.debug("sendTextMessage: sender={}, recipient={}, ref={}, message={}",
                     sender, recipient, referenceNumber, message);
-            response =
-                    messageBirdResource.sendMessage(userName, password, referenceNumber, sender, destination, message,
-                            ResponseType.XML, REPLACE_CHARS);
+            response = proxy.sendMessage(userName, password, referenceNumber, sender, destination, message,
+                    ResponseType.XML, REPLACE_CHARS);
+            LOG.debug("sendTextMessage: response={}", Json.toStringJson(response));
 
             // Process the result.
-            if (response.getResponseStatus() == Response.Status.OK) {
+            if (response.getStatus() == Response.Status.OK.getStatusCode()) {
 
                 // MessageBird incorrectly sets 'text/html' as the content type. Therefore, we override it here.
                 response.getHeaders().putSingle(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_XML);
+                final MessageBirdResponse messageBirdResponse = (MessageBirdResponse) response.getEntity();
 
-                final MessageBirdMessageResponse messageBirdMessageResponse = response.getEntity();
-
-                final Item item = messageBirdMessageResponse.getItem();
+                final Item item = messageBirdResponse.getItem();
                 switch (item.getResponseCode()) {
 
                     case REQUEST_SUCCESSFUL:
@@ -200,7 +200,7 @@ public class MessageBird implements SMSProviderConnector {
         } finally {
             if (response != null) {
                 // Always release connection.
-                response.releaseConnection();
+                response.close();
             }
         }
 

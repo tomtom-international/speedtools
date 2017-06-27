@@ -16,10 +16,6 @@
 
 package com.tomtom.speedtools.services.sms.implementation.nexmo;
 
-import com.tomtom.speedtools.services.sms.implementation.nexmo.dto.NexmoMessageResponse;
-import org.jboss.resteasy.annotations.ClientResponseType;
-import org.jboss.resteasy.client.ClientResponse;
-
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.ws.rs.GET;
@@ -27,6 +23,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 /**
  * Resteasy resource to call the Nexmo REST api.  Currently only supports sending simple text messages.  Parameters for
@@ -58,8 +55,7 @@ public interface NexmoResource {
      * @return Response.
      */
     @GET
-    @ClientResponseType(entityType = NexmoMessageResponse.class)
-    ClientResponse<NexmoMessageResponse> sendMessage(
+    Response sendMessage(
             // NotNulls allowed because resource is used as client!
             @Nonnull @QueryParam("username") String userName,
             @Nonnull @QueryParam("password") String password,
