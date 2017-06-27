@@ -6,7 +6,7 @@
 [![Release](https://img.shields.io/github/release/tomtom-international/speedtools.svg?maxAge=3600)](https://github.com/tomtom-international/speedtools/releases)
 [![Maven Central](https://img.shields.io/maven-central/v/com.tomtom.speedtools/speedtools.svg?maxAge=3600)](https://maven-badges.herokuapp.com/maven-central/com.tomtom.speedtools/speedtools)
 
-**Copyright (C) 2012-2016, TomTom International BV. All rights reserved.**
+**Copyright (C) 2012-2017, TomTom International BV. All rights reserved.**
 
 SpeedTools is a collection of generic utilities, originally developed by Rijn Buve,
 Ruud Diterwich, Daan van Dijk and Andreas Wuest for a large commercial project.
