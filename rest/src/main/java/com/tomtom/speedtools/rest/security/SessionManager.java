@@ -193,7 +193,7 @@ public class SessionManager {
      * null} otherwise.
      */
     @Nullable
-    static SecurityContext createSecurityContextForSession(@Nonnull final HttpServletRequest httpServletRequest) {
+    public static SecurityContext createSecurityContextForSession(@Nonnull final HttpServletRequest httpServletRequest) {
         assert httpServletRequest != null;
 
         // Get the current session. {@link HttpServletRequest#getSession(boolean) getSession(false)} returns
