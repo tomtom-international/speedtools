@@ -1,6 +1,15 @@
 Release Notes
 ----
 
+### 3.2.2.
+
+* Added `SecurityHelper` methods to get `Principal` name for authenticated sessions, for convenience.
+ 
+* Made `SessionManager.createSecurityContext` public, because it's needed by a security manager implementation.
+
+* Removed `AuthenticationScheme` enum and replaced it with a generic `String` implementation to
+be extensible to include one-time-passwords, OAuth, etc.
+
 ### 3.2.1
 
 * Removed automatic binding of `SecurityInterceptor`. Needs to be done explicitly by
