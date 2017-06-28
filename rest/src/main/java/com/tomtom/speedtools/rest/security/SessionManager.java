@@ -24,6 +24,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.ws.rs.core.SecurityContext;
 import java.io.Serializable;
+import java.security.Principal;
 
 /**
  * The session manager is the central place to start and terminate sessions, and create a {@link SecurityContext} for
@@ -79,7 +80,7 @@ public class SessionManager {
     }
 
     /**
-     * Starts a new web session for the given {@code identity} in the current {@code httpServletRequest}. A potentially
+     * Starts a new web session for the given {@code principal} in the current {@code httpServletRequest}. A potentially
      * existing session is terminated first to prevent session fixation attacks.
      *
      * This method is <em>not</em> thread-safe in the sense that a session actually exists when this method returns,
@@ -93,18 +94,18 @@ public class SessionManager {
      * before this call returns, but as described above, may have already been overwritten by a racing thread at the
      * point this call has returned.
      *
-     * @param identity The {@link Identity} for which to create a session.
+     * @param principal The {@link Principal} for which to create a session.
      * @return The session ID of the created session.
      */
     @Nonnull
-    public String startWebSession(@Nonnull final Identity identity) {
-        assert identity != null;
+    public String startWebSession(@Nonnull final Principal principal) {
+        assert principal != null;
 
-        return startSession(identity, AuthenticationScheme.USERNAME);
+        return startSession(principal, AuthenticationScheme.USERNAME);
     }
 
     /**
-     * Starts a new app session for the given {@code identity} in the current {@code httpServletRequest}. A potentially
+     * Starts a new app session for the given {@code Principal} in the current {@code httpServletRequest}. A potentially
      * existing session is terminated first to prevent session fixation attacks.
      *
      * This method is <em>not</em> thread-safe in the sense that a session actually exists when this method returns,
@@ -118,14 +119,14 @@ public class SessionManager {
      * before this call returns, but as described above, may have already been overwritten by a racing thread at the
      * point this call has returned.
      *
-     * @param identity The {@link Identity} for which to create a session.
+     * @param principal The {@link Principal} for which to create a session.
      * @return The session ID of the created session.
      */
     @Nonnull
-    public String startAppSession(@Nonnull final Identity identity) {
-        assert identity != null;
+    public String startAppSession(@Nonnull final Principal principal) {
+        assert principal != null;
 
-        return startSession(identity, AuthenticationScheme.APPTOKEN);
+        return startSession(principal, AuthenticationScheme.APPTOKEN);
     }
 
     /**
@@ -217,7 +218,7 @@ public class SessionManager {
     }
 
     /**
-     * Starts a new session of the given {@code authenticationScheme} for the given {@code identity} in the current
+     * Starts a new session of the given {@code authenticationScheme} for the given {@code principal} in the current
      * servlet request. A potentially existing session is terminated first to prevent session fixation attacks.
      *
      * This method is <em>not</em> thread-safe in the sense that a session actually exists when this method returns,
@@ -231,22 +232,22 @@ public class SessionManager {
      * before this call returns, but as described above, may have already been overwritten by a racing thread at the
      * point this call has returned.
      *
-     * @param identity             The {@link Identity} for which to create a session.
+     * @param principal            The {@link Principal} for which to create a session.
      * @param authenticationScheme The {@link AuthenticationScheme} of the session to create.
      * @return The session ID of the created session.
      */
     @Nonnull
     private String startSession(
-            @Nonnull final Identity identity,
+            @Nonnull final Principal principal,
             @Nonnull final AuthenticationScheme authenticationScheme) {
-        assert identity != null;
+        assert principal != null;
         assert authenticationScheme != null;
 
         @Nonnull final HttpSession httpSession = createNewSession();
         try {
             // Set authenticated user ID and authentication scheme on session. Throws an {@link IllegalStateException}
             // in case the session has been concurrently invalidated before the session data could be set.
-            @Nonnull final String userId = setSessionData(httpSession, identity, authenticationScheme);
+            @Nonnull final String userId = setSessionData(httpSession, principal, authenticationScheme);
             @Nonnull final String sessionId = getSessionId(httpSession);
             LOG.debug("startSession: created new session for user with ID {}. Session ID is {}", userId, sessionId);
 
@@ -332,7 +333,7 @@ public class SessionManager {
      * contain mixed data from different racing threads, one thread will always win.
      *
      * @param httpSession          The session to set the session data on.
-     * @param identity             The {@link Identity} from which to take the user ID.
+     * @param principal            The {@link Principal} from which to take the user ID.
      * @param authenticationScheme The {@link AuthenticationScheme} to set on the session.
      * @return The user ID that was set in the session.
      * @throws IllegalStateException Throws an {@link IllegalStateException} in case the session has been invalidated
@@ -341,13 +342,13 @@ public class SessionManager {
     @Nonnull
     private static String setSessionData(
             @Nonnull final HttpSession httpSession,
-            @Nonnull final Identity identity,
+            @Nonnull final Principal principal,
             @Nonnull final AuthenticationScheme authenticationScheme) throws IllegalStateException {
         assert httpSession != null;
-        assert identity != null;
+        assert principal != null;
         assert authenticationScheme != null;
 
-        @Nonnull final String userId = identity.getId().toString();
+        @Nonnull final String userId = principal.getName();
         final SessionData sessionData = new SessionData(userId, authenticationScheme);
 
         /**
