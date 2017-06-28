@@ -58,7 +58,7 @@ public class SessionManagerTest {
 
     private HttpSession httpSession;
 
-    private Identity identity;
+    private Principal principal;
     private SessionManager impl;
 
 
@@ -72,7 +72,7 @@ public class SessionManagerTest {
         Mockito.doReturn(REFERENCE_SESSION_ID).when(httpSession).getId();
 
         // Create an empty identity with the  Account ID set.
-        identity = new Identity(new Uid<>(REFERENCE_PERSON_ID));
+        principal = new PrincipalImpl(new Uid<>(REFERENCE_PERSON_ID).toString());
 
         // Create the class under test.
         impl = new SessionManager(httpServletRequest);
@@ -94,7 +94,7 @@ public class SessionManagerTest {
         Mockito.doNothing().when(httpSession).invalidate();
 
         // A successfully created session must carry the reference session ID.
-        assertThat(impl.startWebSession(identity), is(REFERENCE_SESSION_ID));
+        assertThat(impl.startWebSession(principal), is(REFERENCE_SESSION_ID));
 
         // Check that the session carries the session data.
         verify(httpSession).setAttribute(eq(SESSION_DATA_KEY), anyObject());
@@ -130,7 +130,7 @@ public class SessionManagerTest {
         Mockito.doNothing().when(httpSession).invalidate();
 
         // A successfully created session must carry the reference session ID.
-        assertThat(impl.startAppSession(identity), is(REFERENCE_SESSION_ID));
+        assertThat(impl.startAppSession(principal), is(REFERENCE_SESSION_ID));
 
         // Check that the session carries the session data.
         verify(httpSession).setAttribute(eq(SESSION_DATA_KEY), anyObject());
@@ -202,7 +202,7 @@ public class SessionManagerTest {
         Mockito.doNothing().when(httpSession).invalidate();
 
         // Establish an authenticated web session.
-        final String sessionId = impl.startWebSession(identity);
+        final String sessionId = impl.startWebSession(principal);
         assertThat(sessionId, is(REFERENCE_SESSION_ID));
 
         // Check that the returned session ID is the same as when the authenticated session was established.
@@ -228,7 +228,7 @@ public class SessionManagerTest {
         Mockito.doNothing().when(httpSession).invalidate();
 
         // Establish an authenticated app session.
-        final String sessionId = impl.startAppSession(identity);
+        final String sessionId = impl.startAppSession(principal);
         assertThat(sessionId, is(REFERENCE_SESSION_ID));
 
         // Check that the returned session ID is the same as when the authenticated session was established.
