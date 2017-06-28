@@ -107,7 +107,7 @@ public class SessionManagerTest {
 
         // Check that the authentication scheme matches the type of session that was intended to be created.
         assert securityContext != null;
-        assertThat(securityContext.getAuthenticationScheme(), is(AuthenticationScheme.USERNAME.toString()));
+        assertThat(securityContext.getAuthenticationScheme(), is(SessionManager.AUTHENTICATION_SCHEME_USERNAME));
 
         // Check that the session carries the Identity ID of the authenticated user for which the session was established.
         @Nullable final Principal principal = securityContext.getUserPrincipal();
@@ -143,7 +143,7 @@ public class SessionManagerTest {
 
         // Check that the authentication scheme matches the type of session that was intended to be created.
         assert securityContext != null;
-        assertThat(securityContext.getAuthenticationScheme(), is(AuthenticationScheme.APPTOKEN.toString()));
+        assertThat(securityContext.getAuthenticationScheme(), is(SessionManager.AUTHENTICATION_SCHEME_APPTOKEN));
 
         // Check that the session carries the Identity ID of the authenticated user for which the session was established.
         @Nullable final Principal principal = securityContext.getUserPrincipal();
@@ -282,7 +282,7 @@ public class SessionManagerTest {
 
         @Nonnull final SessionManager.SessionData sessionData = Mockito.mock(SessionManager.SessionData.class);
         Mockito.doReturn(REFERENCE_PERSON_ID).when(sessionData).getUserId();
-        Mockito.doReturn(AuthenticationScheme.USERNAME).when(sessionData).getAuthenticationScheme();
+        Mockito.doReturn(SessionManager.AUTHENTICATION_SCHEME_USERNAME).when(sessionData).getAuthenticationScheme();
 
         Mockito.when(httpSession.getAttribute(SESSION_DATA_KEY)).thenReturn(sessionData);
 
@@ -297,7 +297,7 @@ public class SessionManagerTest {
         final String authenticationScheme = securityContext.getAuthenticationScheme();
 
         assertThat(authenticationScheme, is(notNullValue()));
-        assertThat(securityContext.getAuthenticationScheme(), is(AuthenticationScheme.USERNAME.toString()));
+        assertThat(securityContext.getAuthenticationScheme(), is(SessionManager.AUTHENTICATION_SCHEME_USERNAME));
 
         // Get the principal for the authenticated user and ensure that it matches the Identity for which the session
         // was established.
@@ -354,7 +354,7 @@ public class SessionManagerTest {
     public void testWebSessionDataSerialization() throws IOException, ClassNotFoundException {
         LOG.info("testWebSessionDataSerialization");
 
-        serializeSessionData(AuthenticationScheme.USERNAME);
+        serializeSessionData(SessionManager.AUTHENTICATION_SCHEME_USERNAME);
     }
 
     /**
@@ -369,11 +369,11 @@ public class SessionManagerTest {
     public void testAppSessionDataSerialization() throws IOException, ClassNotFoundException {
         LOG.info("testAppSessionDataSerialization");
 
-        serializeSessionData(AuthenticationScheme.APPTOKEN);
+        serializeSessionData(SessionManager.AUTHENTICATION_SCHEME_APPTOKEN);
     }
 
     private static void serializeSessionData(
-            @Nonnull final AuthenticationScheme authenticationScheme) throws IOException, ClassNotFoundException {
+            @Nonnull final String authenticationScheme) throws IOException, ClassNotFoundException {
         assert authenticationScheme != null;
 
         // Create reference session data to serialize.
