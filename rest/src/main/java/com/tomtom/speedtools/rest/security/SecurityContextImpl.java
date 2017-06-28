@@ -23,11 +23,11 @@ public final class SecurityContextImpl implements SecurityContext {
     @Nonnull
     private final Principal principal;
     @Nonnull
-    private final AuthenticationScheme authenticationScheme;
+    private final String authenticationScheme;
 
     public SecurityContextImpl(
             @Nonnull final Principal principal,
-            @Nonnull final AuthenticationScheme authenticationScheme) {
+            @Nonnull final String authenticationScheme) {
         assert principal != null;
         assert authenticationScheme != null;
 
@@ -55,6 +55,6 @@ public final class SecurityContextImpl implements SecurityContext {
     @Nonnull
     @Override
     public String getAuthenticationScheme() {
-        return authenticationScheme.toString();
+        return authenticationScheme;
     }
 }
