@@ -43,6 +43,13 @@ public class SessionManager {
     private static final Logger LOG = LoggerFactory.getLogger(SessionManager.class);
 
     /**
+     * Authentication schemes used by this class in {@code startWebSession} and {@code startAppSession}.
+     * Any other strings may be used as well, for example, by derived classes of {@code SessionManager}.
+     */
+    public static final String AUTHENTICATION_SCHEME_USERNAME = "USERNAME";
+    public static final String AUTHENTICATION_SCHEME_APPTOKEN = "APPTOKEN";
+
+    /**
      * The name of the key that is used to store our session data in the {@link HttpSession}. The name must be
      * name-spaced to prevent collisions with e.g. container attributes or attributes set by other frameworks.
      */
@@ -101,7 +108,7 @@ public class SessionManager {
     public String startWebSession(@Nonnull final Principal principal) {
         assert principal != null;
 
-        return startSession(principal, AuthenticationScheme.USERNAME);
+        return startSession(principal, AUTHENTICATION_SCHEME_USERNAME);
     }
 
     /**
@@ -126,7 +133,7 @@ public class SessionManager {
     public String startAppSession(@Nonnull final Principal principal) {
         assert principal != null;
 
-        return startSession(principal, AuthenticationScheme.APPTOKEN);
+        return startSession(principal, AUTHENTICATION_SCHEME_APPTOKEN);
     }
 
     /**
@@ -233,13 +240,13 @@ public class SessionManager {
      * point this call has returned.
      *
      * @param principal            The {@link Principal} for which to create a session.
-     * @param authenticationScheme The {@link AuthenticationScheme} of the session to create.
+     * @param authenticationScheme The authentication scheme of the session to create.
      * @return The session ID of the created session.
      */
     @Nonnull
     private String startSession(
             @Nonnull final Principal principal,
-            @Nonnull final AuthenticationScheme authenticationScheme) {
+            @Nonnull final String authenticationScheme) {
         assert principal != null;
         assert authenticationScheme != null;
 
@@ -334,7 +341,7 @@ public class SessionManager {
      *
      * @param httpSession          The session to set the session data on.
      * @param principal            The {@link Principal} from which to take the user ID.
-     * @param authenticationScheme The {@link AuthenticationScheme} to set on the session.
+     * @param authenticationScheme The authentication scheme to set on the session.
      * @return The user ID that was set in the session.
      * @throws IllegalStateException Throws an {@link IllegalStateException} in case the session has been invalidated
      *                               before this method could set the session data.
@@ -343,7 +350,7 @@ public class SessionManager {
     private static String setSessionData(
             @Nonnull final HttpSession httpSession,
             @Nonnull final Principal principal,
-            @Nonnull final AuthenticationScheme authenticationScheme) throws IllegalStateException {
+            @Nonnull final String authenticationScheme) throws IllegalStateException {
         assert httpSession != null;
         assert principal != null;
         assert authenticationScheme != null;
@@ -439,7 +446,7 @@ public class SessionManager {
          * @serial
          */
         @Nonnull
-        private final AuthenticationScheme authenticationScheme;
+        private final String authenticationScheme;
 
         /**
          * Constructs a session data object.
@@ -451,7 +458,7 @@ public class SessionManager {
          */
         SessionData(
                 @Nonnull final String userId,
-                @Nonnull final AuthenticationScheme authenticationScheme) {
+                @Nonnull final String authenticationScheme) {
             assert userId != null;
             assert authenticationScheme != null;
 
@@ -479,7 +486,7 @@ public class SessionManager {
          * @return The authentication scheme.
          */
         @Nonnull
-        AuthenticationScheme getAuthenticationScheme() {
+        String getAuthenticationScheme() {
             return authenticationScheme;
         }
     }
