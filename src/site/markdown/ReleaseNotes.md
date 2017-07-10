@@ -1,7 +1,18 @@
 Release Notes
 ----
 
-### 3.2.2.
+### 3.2.2
+
+* Added three properties to control the behavior fo the `MongoDBTraceFetcher` better:
+
+    * `MongoDBTrace.fetcherThreadSleepMsecs = 250`: Specifies how fast the trace fetcher schedules retrieving
+    additional traces to fill its buffer.
+     
+    * `MongoDBTrace.fetcherThreadSleepAfterExceptionMsecs = 5000`: Specifies how long the trace fetcher will
+    wait and sit and do nothing when a (database) exception occurs.
+    
+    * `MongoDBTrace.fetcherQueueMaxSize = 500`: Specifies hoe many trace events the trace fetcher will buffer
+    at most, before stopping collectin more events.
 
 * Added `SecurityHelper` methods to get `Principal` name for authenticated sessions, for convenience.
  

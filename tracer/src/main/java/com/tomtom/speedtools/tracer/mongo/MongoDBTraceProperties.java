@@ -40,21 +40,27 @@ public class MongoDBTraceProperties implements HasProperties {
     private final int connectionTimeoutMsecs;
     private final boolean readEnabled;
     private final boolean writeEnabled;
+    private final int fetcherThreadSleepMsecs;
+    private final int fetcherThreadSleepAfterExceptionMsecs;
+    private final int fetcherQueueMaxSize;
 
     /**
      * MongoDB traces properties.
      *
-     * @param servers                Host names and port numbers of MongoDB engine for traces, formatted as
-     *                               "&lt;hostname&gt;:&lt;port&gt;[,&lt;hostname&gt;:&lt;port&gt;]*".
-     *                               This can be DNS name or IP number.
-     *                               The port number must be in range: [1, 65535]. Cannot be empty.
-     * @param database               Database name for traces. Cannot be empty.
-     * @param userName               Database userName for traces. Can be empty.
-     * @param password               Database password for traces. Can be empty.
-     * @param maxDatabaseSizeMB      Maximum size of capped collection, in megabytes. Must be &gt; 0.
-     * @param connectionTimeoutMsecs Connection timeout in msecs. Must be &gt;= 0.
-     * @param readEnabled            Specifies whether the MongoDB trace is read enabled or not.
-     * @param writeEnabled           Specifies whether the MongoDB trace is write enabled or not.
+     * @param servers                               Host names and port numbers of MongoDB engine for traces, formatted as
+     *                                              "&lt;hostname&gt;:&lt;port&gt;[,&lt;hostname&gt;:&lt;port&gt;]*".
+     *                                              This can be DNS name or IP number.
+     *                                              The port number must be in range: [1, 65535]. Cannot be empty.
+     * @param database                              Database name for traces. Cannot be empty.
+     * @param userName                              Database userName for traces. Can be empty.
+     * @param password                              Database password for traces. Can be empty.
+     * @param maxDatabaseSizeMB                     Maximum size of capped collection, in megabytes. Must be &gt; 0.
+     * @param connectionTimeoutMsecs                Connection timeout in msecs. Must be &gt;= 0.
+     * @param readEnabled                           Specifies whether the MongoDB trace is read enabled or not.
+     * @param writeEnabled                          Specifies whether the MongoDB trace is write enabled or not.
+     * @param fetcherThreadSleepMsecs               Time (in msecs) the trace fetcher should pause between getting 2 sets of events.
+     * @param fetcherThreadSleepAfterExceptionMsecs Time (in msecs) the trace fetcher should pause after getting a database exception.
+     * @param fetcherQueueMaxSize                   Max number trace events the fetcher can hold at one time.
      */
     @Inject
     public MongoDBTraceProperties(
@@ -65,7 +71,10 @@ public class MongoDBTraceProperties implements HasProperties {
             @Named("MongoDBTrace.maxDatabaseSizeMB") final int maxDatabaseSizeMB,
             @Named("MongoDBTrace.connectionTimeoutMsecs") final int connectionTimeoutMsecs,
             @Named("MongoDBTrace.readEnabled") final boolean readEnabled,
-            @Named("MongoDBTrace.writeEnabled") final boolean writeEnabled)
+            @Named("MongoDBTrace.writeEnabled") final boolean writeEnabled,
+            @Named("MongoDBTrace.fetcherThreadSleepMsecs") final int fetcherThreadSleepMsecs,
+            @Named("MongoDBTrace.fetcherThreadSleepAfterExceptionMsecs") final int fetcherThreadSleepAfterExceptionMsecs,
+            @Named("MongoDBTrace.fetcherQueueMaxSize") final int fetcherQueueMaxSize)
             throws InvalidPropertyValueException {
         assert servers != null;
         assert database != null;
@@ -93,6 +102,15 @@ public class MongoDBTraceProperties implements HasProperties {
         if (connectionTimeoutMsecs < 0) {
             throw new InvalidPropertyValueException("MongoDBTrace.connectionTimeoutMsecs must be >= 0.");
         }
+        if (fetcherThreadSleepMsecs < 0) {
+            throw new InvalidPropertyValueException("MongoDBTrace.fetcherThreadSleepMsecs must be >= 0.");
+        }
+        if (fetcherThreadSleepAfterExceptionMsecs < 0) {
+            throw new InvalidPropertyValueException("MongoDBTrace.fetcherThreadSleepAfterExceptionMsecs must be >= 0.");
+        }
+        if (fetcherQueueMaxSize < 0) {
+            throw new InvalidPropertyValueException("MongoDBTrace.fetcherQueueMaxSize must be >= 0.");
+        }
         this.servers = servers;
         this.database = database;
         this.userName = userName;
@@ -101,6 +119,9 @@ public class MongoDBTraceProperties implements HasProperties {
         this.connectionTimeoutMsecs = connectionTimeoutMsecs;
         this.readEnabled = readEnabled;
         this.writeEnabled = writeEnabled;
+        this.fetcherThreadSleepMsecs = fetcherThreadSleepMsecs;
+        this.fetcherThreadSleepAfterExceptionMsecs = fetcherThreadSleepAfterExceptionMsecs;
+        this.fetcherQueueMaxSize = fetcherQueueMaxSize;
     }
 
     @Nonnull
@@ -137,6 +158,18 @@ public class MongoDBTraceProperties implements HasProperties {
 
     public boolean getWriteEnabled() {
         return writeEnabled;
+    }
+
+    public int getFetcherThreadSleepMsecs() {
+        return fetcherThreadSleepMsecs;
+    }
+
+    public int getFetcherThreadSleepAfterExceptionMsecs() {
+        return fetcherThreadSleepAfterExceptionMsecs;
+    }
+
+    public int getFetcherQueueMaxSize() {
+        return fetcherQueueMaxSize;
     }
 
     @Nonnull
