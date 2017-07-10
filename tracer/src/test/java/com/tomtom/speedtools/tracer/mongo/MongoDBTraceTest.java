@@ -44,7 +44,7 @@ public class MongoDBTraceTest {
     private static final int MAX_DATABASE_SIZE_MB = 10;
     private static final int CONNECTION_TIMEOUT_MSECS = 10000;
     private static final MongoDBTraceProperties mongoDBTraceProperties = new MongoDBTraceProperties(
-            SERVER, DATABASE, USERNAME, PASSWORD, MAX_DATABASE_SIZE_MB, CONNECTION_TIMEOUT_MSECS, true, true);
+            SERVER, DATABASE, USERNAME, PASSWORD, MAX_DATABASE_SIZE_MB, CONNECTION_TIMEOUT_MSECS, true, true, 250, 5000, 500);
 
     private static DateTime startOfTest;
 
@@ -76,7 +76,7 @@ public class MongoDBTraceTest {
             collection.drop();
             LOG.info("before: start tracer");
             final MongoDBTraceProperties mongoDBTraceProperties = new MongoDBTraceProperties(
-                    SERVER, DATABASE, USERNAME, PASSWORD, MAX_DATABASE_SIZE_MB, CONNECTION_TIMEOUT_MSECS, true, true);
+                    SERVER, DATABASE, USERNAME, PASSWORD, MAX_DATABASE_SIZE_MB, CONNECTION_TIMEOUT_MSECS, true, true, 250, 5000, 500);
 
             final MongoDBTraceHandler handler = new MongoDBTraceHandler(mongoDBTraceProperties);
             assert handler != null;

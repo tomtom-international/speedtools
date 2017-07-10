@@ -117,7 +117,7 @@ public class SessionManagerTest {
 
     /**
      * Starting a web session must set the user identifier and the authentication scheme (as {@link
-     * AuthenticationScheme#APPTOKEN}) as {@link SessionManager.SessionData} in the {@link HttpSession}.
+    * SessionManager#AUTHENTICATION_SCHEME_APPTOKEN}) as {@link SessionManager.SessionData} in the {@link HttpSession}.
      */
     @Test
     public void testStartAppSession() {

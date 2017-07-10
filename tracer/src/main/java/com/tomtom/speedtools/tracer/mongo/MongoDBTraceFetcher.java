@@ -42,9 +42,10 @@ class MongoDBTraceFetcher implements Runnable {
     private static final Logger LOG = LoggerFactory.getLogger(MongoDBTraceFetcher.class);
 
     private static final String TAILABLE_QUERY_DUMMY_EVENT = "@skip";
-    private static final int THREAD_SLEEP_MSECS = 250;
-    private static final int THREAD_SLEEP_AFTER_EXCEPTION_MSECS = 5000;
-    private static final int FETCH_QUEUE_MAX_SIZE = 500;
+
+    private final int fetcherThreadSleepMsecs;
+    private final int fetcherThreadSleepAfterExceptionMsecs;
+    private final int fetchQueueMaxSize;
 
     @Nonnull
     private final Thread thread = new Thread(this);
@@ -59,9 +60,15 @@ class MongoDBTraceFetcher implements Runnable {
     MongoDBTraceFetcher(@Nonnull final MongoDBTraceProperties properties) throws UnknownHostException {
         assert properties != null;
 
+        this.fetcherThreadSleepMsecs = properties.getFetcherThreadSleepMsecs();
+        this.fetcherThreadSleepAfterExceptionMsecs = properties.getFetcherThreadSleepAfterExceptionMsecs();
+        this.fetchQueueMaxSize = properties.getFetcherQueueMaxSize();
+
         DBCollection collectionToUse;
         if (properties.getReadEnabled()) {
             LOG.debug("MongoDBTraceFetcher: reading traces enabled, getting traces collection and starting fetcher");
+            LOG.debug("MongoDBTraceFetcher: fetcher configured with sleep={}, queue size={}, sleep after exception={}",
+                    fetcherThreadSleepMsecs, fetchQueueMaxSize, fetcherThreadSleepAfterExceptionMsecs);
 
             try {
                 collectionToUse = MongoDBTraceHandler.getDBCollection(
@@ -218,7 +225,7 @@ class MongoDBTraceFetcher implements Runnable {
 
                 // Add events to the queue if the queue is not filled up yet.
                 try {
-                    if ((fetch.queue.size() < FETCH_QUEUE_MAX_SIZE) && fetch.cursor.hasNext()) {
+                    if ((fetch.queue.size() < fetchQueueMaxSize) && fetch.cursor.hasNext()) {
 
                         // Fetch next event.
                         final DBObject fetched = fetch.cursor.next();
@@ -250,7 +257,7 @@ class MongoDBTraceFetcher implements Runnable {
                     // Wait some time before trying again.
                     try {
                         //noinspection BusyWait
-                        Thread.sleep(THREAD_SLEEP_AFTER_EXCEPTION_MSECS);
+                        Thread.sleep(fetcherThreadSleepAfterExceptionMsecs);
                     } catch (final InterruptedException ignored) {
                         // Ignore.
                     }
@@ -264,7 +271,7 @@ class MongoDBTraceFetcher implements Runnable {
                 // No current fetch, wait some time.
                 try {
                     //noinspection BusyWait
-                    Thread.sleep(THREAD_SLEEP_MSECS);
+                    Thread.sleep(fetcherThreadSleepMsecs);
                 } catch (final InterruptedException ignored) {
                     // Ignore.
                 }
