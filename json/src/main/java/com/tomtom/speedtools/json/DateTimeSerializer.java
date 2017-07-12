@@ -33,6 +33,15 @@ import org.joda.time.format.DateTimeFormatter;
 import javax.annotation.Nonnull;
 import java.io.IOException;
 
+/**
+ * To use the DateTimeSerializer, use the following annotations:
+ * <pre>
+ *    (at)XmlElement(name = "time")
+ *    (at)JsonSerialize(using = ToStringSerializer.class)
+ *    (at)JsonDeserialize(using = FromStringDeserializer.class)
+ *    private DateTime time;
+  * </pre>
+ */
 public final class DateTimeSerializer {
 
     // A DateTimeFormatter is thread-safe, so it can safely be declared static here.
