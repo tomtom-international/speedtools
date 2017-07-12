@@ -51,8 +51,13 @@ public class Shutdown implements ServletContextListener {
 
             // Stop Akka.
             LOG.info("contextDestroyed: shutting down Akka");
-            final ActorSystem actorSystem = injector.getInstance(ActorSystem.class);
-            actorSystem.terminate();
+            try {
+                final ActorSystem actorSystem = injector.getInstance(ActorSystem.class);
+                actorSystem.terminate();
+            } catch (final RuntimeException e) {
+                LOG.warn("contextDestroyed: shut down of Akka failed: ", e);
+                throw e;
+            }
 
             // Clear injector.
             InjectorRegistry.clear();

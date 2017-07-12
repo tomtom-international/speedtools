@@ -1,6 +1,10 @@
 Release Notes
 ----
 
+### 3.2.3
+
+* Minor fixes.
+
 ### 3.2.2
 
 * Added three properties to control the behavior fo the `MongoDBTraceFetcher` better:
