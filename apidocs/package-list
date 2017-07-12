@@ -1,5 +1,3 @@
-com.tomtom.speedtools.akka
-com.tomtom.speedtools.akka.tokenbucket
 com.tomtom.speedtools.apivalidation
 com.tomtom.speedtools.apivalidation.errors
 com.tomtom.speedtools.apivalidation.exceptions
@@ -23,6 +21,7 @@ com.tomtom.speedtools.mongodb.migratedb
 com.tomtom.speedtools.objects
 com.tomtom.speedtools.ratelimiter
 com.tomtom.speedtools.rest
+com.tomtom.speedtools.rest.security
 com.tomtom.speedtools.services
 com.tomtom.speedtools.services.lbs
 com.tomtom.speedtools.services.lbs.geocode

@@ -1,5 +1,3 @@
-com.tomtom.speedtools.akka
-com.tomtom.speedtools.akka.tokenbucket
 com.tomtom.speedtools.apivalidation
 com.tomtom.speedtools.buffer
 com.tomtom.speedtools.checksums
@@ -15,6 +13,8 @@ com.tomtom.speedtools.mongodb
 com.tomtom.speedtools.mongodb.mappers
 com.tomtom.speedtools.objects
 com.tomtom.speedtools.ratelimiter
+com.tomtom.speedtools.rest
+com.tomtom.speedtools.rest.security
 com.tomtom.speedtools.services.lbs.geocode
 com.tomtom.speedtools.services.lbs.route
 com.tomtom.speedtools.services.push.implementation.apns
