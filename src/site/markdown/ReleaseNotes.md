@@ -5,6 +5,8 @@ Release Notes
 
 * Updated dependencies to latest from Maven Central.
 
+* Includes moving to Scala 2.12.4 and Akka libraries compiled for Scala 2.12.
+
 ### 3.2.3
 
 * Minor fixes.
