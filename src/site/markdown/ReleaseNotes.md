@@ -1,6 +1,10 @@
 Release Notes
 ----
 
+### 3.2.4
+
+* Updated dependencies to latest from Maven Central.
+
 ### 3.2.3
 
 * Minor fixes.
