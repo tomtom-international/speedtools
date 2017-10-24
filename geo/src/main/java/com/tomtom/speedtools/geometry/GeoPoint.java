@@ -144,7 +144,7 @@ public final class GeoPoint extends GeoObject {
      * @return Elevantion in meters, or NaN if absent.
      */
     @Nonnull
-    public Double getElevationMetersOrNan() {
+    public Double getElevationMetersOrNaN() {
         return (elevationMeters == null) ? Double.NaN : elevationMeters;
     }
 
