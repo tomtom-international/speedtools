@@ -16,6 +16,7 @@
 
 package com.tomtom.speedtools.geometry;
 
+import com.tomtom.speedtools.json.Json;
 import com.tomtom.speedtools.testutils.ValidationFailException;
 import com.tomtom.speedtools.testutils.constructorchecker.ConstructorChecker;
 import nl.jqno.equalsverifier.EqualsVerifier;
@@ -31,24 +32,27 @@ public class GeoPointTest {
 
     private final double x1 = 0;
     private final double x2 = 0;
-    private final GeoPoint x = new GeoPoint(x1, x2);
+    private final double x3 = 0;
+    private final GeoPoint x = new GeoPoint(x1, x2, x3);
 
     private double y1 = 0;
     private double y2 = 0;
+    private double y3 = 0;
     private GeoPoint y = null;
 
     @Before
     public void setUp() {
         y1 = 1;
         y2 = 2;
-        y = new GeoPoint(y1, y2);
+        y3 = 3;
+        y = new GeoPoint(y1, y2, y3);
     }
 
     @SuppressWarnings("JUnitTestMethodWithNoAssertions")
     @Test
     public void testNew() throws ValidationFailException {
         LOG.info("testNew");
-        ConstructorChecker.validateConstructor(GeoPoint.class, new int[]{}, y1, y2);
+        ConstructorChecker.validateConstructor(GeoPoint.class, new int[]{2}, y1, y2, y3);
     }
 
     @Test
@@ -71,5 +75,19 @@ public class GeoPointTest {
         LOG.info("testWithLon");
         Assert.assertEquals(0, Double.compare(y2, x.withLon(y2).getLon()));
         Assert.assertEquals(0, Double.compare(x2, y.withLon(x2).getLon()));
+    }
+
+    @Test
+    public void testWithElevation() {
+        LOG.info("testWithElevationMeters");
+        Assert.assertEquals(0, Double.compare(y2, x.withElevationMeters(y2).getElevationMeters()));
+        Assert.assertEquals(0, Double.compare(x2, y.withElevationMeters(x2).getElevationMeters()));
+    }
+
+    @Test
+    public void testJSON() {
+        LOG.info("testJSON");
+        Assert.assertEquals("{\"lat\":1.0,\"lon\":2.0,\"elevationMeters\":3.0}", Json.toJson(y));
+        Assert.assertEquals("{\"lat\":1.0,\"lon\":2.0}", Json.toJson(y.withElevationMeters(null)));
     }
 }

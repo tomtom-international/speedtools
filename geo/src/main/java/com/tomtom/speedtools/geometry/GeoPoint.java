@@ -23,7 +23,10 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
 /**
- * Geometric point. A geometric point is specified in latitude, longitude.
+ * Geometric point, 2D or 3D. A geometric point is specified in latitude, longitude and
+ * an optional elevation. If the elevation is not supplied, it is not assumed to be 0,
+ * but it is assumed to be really absent (and will, for example, not be output in
+ * string conversions either).
  *
  * Constructor: {@link #GeoPoint}
  */
@@ -34,9 +37,31 @@ public final class GeoPoint extends GeoObject {
     private final Double lat;
     @Nonnull
     private final Double lon;
+    @Nullable
+    private final Double elevationMeters;   // Null if absent.
 
     /**
      * Create a point.
+     *
+     * @param lat Latitude (North/South), any range, will be wrapped to [-180, 180).
+     * @param lon Longitude (West/East), must be [-90, 90].
+     * @param elevationMeters Elevation in meters. If null or NaN, no elevation is supplied.
+     */
+    public GeoPoint(
+            @Nonnull final Double lat,
+            @Nonnull final Double lon,
+            @Nullable final Double elevationMeters) {
+        super();
+        assert lat != null;
+        assert lon != null;
+        assert MathUtils.isBetween(lat, -90.0, 90.0) : "Latitude not in [-90, 90]: " + lat;
+        this.lat = lat;
+        this.lon = Geo.mapToLon(lon);
+        this.elevationMeters = (elevationMeters == null) ? null : ((elevationMeters.equals(Double.NaN)) ? null : elevationMeters);
+    }
+
+    /**
+     * Create a point. Elevation is assumed to be absent.
      *
      * @param lat Latitude (North/South), any range, will be wrapped to [-180, 180).
      * @param lon Longitude (West/East), must be [-90, 90].
@@ -44,12 +69,7 @@ public final class GeoPoint extends GeoObject {
     public GeoPoint(
             @Nonnull final Double lat,
             @Nonnull final Double lon) {
-        super();
-        assert lat != null;
-        assert lon != null;
-        assert MathUtils.isBetween(lat, -90.0, 90.0) : "Latitude not in [-90, 90]: " + lat;
-        this.lat = lat;
-        this.lon = Geo.mapToLon(lon);
+        this(lat, lon, null);
     }
 
     /**
@@ -61,6 +81,7 @@ public final class GeoPoint extends GeoObject {
         super();
         lat = null;
         lon = null;
+        elevationMeters = null;
     }
 
     /**
@@ -106,6 +127,28 @@ public final class GeoPoint extends GeoObject {
     }
 
     /**
+     * Get elevation (in meters).
+     *
+     * @return Elevantion in meters.
+     */
+    @Nullable
+    public Double getElevationMeters() {
+        return elevationMeters;
+    }
+
+    /**
+     * Get elevation (in meters), or NaN if the elevation is absent.
+     * This is a convenience method if you wish to avoid checking
+     * for null everywhere, or getting warnings for nullability.
+     *
+     * @return Elevantion in meters, or NaN if absent.
+     */
+    @Nonnull
+    public Double getElevationMetersOrNan() {
+        return (elevationMeters == null) ? Double.NaN : elevationMeters;
+    }
+
+    /**
      * Setter for {@link #getLat()}.
      *
      * @param lat Latitude.
@@ -113,7 +156,7 @@ public final class GeoPoint extends GeoObject {
      */
     @Nonnull
     public GeoPoint withLat(@Nonnull final Double lat) {
-        return new GeoPoint(lat, lon);
+        return new GeoPoint(lat, lon, elevationMeters);
     }
 
     /**
@@ -124,7 +167,18 @@ public final class GeoPoint extends GeoObject {
      */
     @Nonnull
     public GeoPoint withLon(@Nonnull final Double lon) {
-        return new GeoPoint(lat, lon);
+        return new GeoPoint(lat, lon, elevationMeters);
+    }
+
+    /**
+     * Setter for {@link #getElevationMeters()} ()}.
+     *
+     * @param elevationMeters Elevation in meters. If null, the elevation is omitted.
+     * @return New point.
+     */
+    @Nonnull
+    public GeoPoint withElevationMeters(@Nullable final Double elevationMeters) {
+        return new GeoPoint(lat, lon, elevationMeters);
     }
 
     @Override
@@ -173,6 +227,11 @@ public final class GeoPoint extends GeoObject {
             // Top-level entity, so don't: super.equals(that)
             eq = eq && lat.equals(that.lat);
             eq = eq && lon.equals(that.lon);
+            if (elevationMeters == null) {
+                eq = eq && (that.elevationMeters == null);
+            } else {
+                eq = eq && elevationMeters.equals(that.elevationMeters);
+            }
         } else {
             eq = false;
         }
@@ -182,6 +241,6 @@ public final class GeoPoint extends GeoObject {
 
     @Override
     public int hashCode() {
-        return hashCodeSuper((Object[]) new Double[]{lat, lon});
+        return hashCodeSuper((Object[]) new Double[]{lat, lon, elevationMeters});
     }
 }

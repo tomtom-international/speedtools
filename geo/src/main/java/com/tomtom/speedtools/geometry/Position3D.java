@@ -24,6 +24,11 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
+/**
+ * This class is deprecated. Thew class GeoPoint has been enhanced to
+ * allow an elevation as well.
+ */
+@Deprecated
 @Immutable
 public class Position3D implements JsonRenderable {
     @Nonnull
