@@ -84,7 +84,7 @@ public final class GeoPolyLine extends GeoObject {
         GeoPoint southWest = points.get(0);
         GeoPoint northEast = points.get(0);
         for (final GeoPoint point : points) {
-            elevationMeters = elevationMeters + point.getElevationMeters();
+            elevationMeters = elevationMeters + point.getElevationMetersOrNaN();
             final GeoLine sw = new GeoLine(southWest, point);
             if (sw.isWrappedOnLongSide()) {
                 southWest = southWest.withLon(point.getLon());

@@ -68,7 +68,7 @@ public class GeoPointMapperTest {
         Assert.assertNotNull(entity);
         Assert.assertEquals(1.5d, entity.getLat(), 0.001);
         Assert.assertEquals(2.0d, entity.getLon(), 0.001);
-        Assert.assertEquals(3.0d, entity.getElevationMeters(), 0.001);
+        Assert.assertEquals(3.0d, entity.getElevationMetersOrNaN(), 0.001);
     }
 
     @Test
@@ -119,7 +119,7 @@ public class GeoPointMapperTest {
         final DBObject dbObject = mapper.toDb(point);
 
         Assert.assertNotNull(dbObject);
-        Assert.assertEquals(4, dbObject.keySet().size());
+        Assert.assertEquals(3, dbObject.keySet().size());
         final Iterator<String> iterator = dbObject.keySet().iterator();
         Assert.assertEquals("lat", iterator.next());
         Assert.assertEquals("lon", iterator.next());
