@@ -206,8 +206,8 @@ public final class GeoRectangle extends Primitive {
         final double latDelta = Geo.metersToDegreesLat(meters);
         final double southLonDelta = Geo.metersToDegreesLonAtLat(meters, southWest.getLat());
         final double northLonDelta = Geo.metersToDegreesLonAtLat(meters, northEast.getLat());
-        return withSouthWest(new GeoPoint(southWest.getLat() - latDelta, southWest.getLon() - southLonDelta, southWest.getElevationMeters())).
-                withNorthEast(new GeoPoint(northEast.getLat() + latDelta, northEast.getLon() + northLonDelta, northEast.getElevationMeters()));
+        return withSouthWest(new GeoPoint(southWest.getLat() - latDelta, southWest.getLon() - southLonDelta, southWest.getElevationMetersOrNaN())).
+                withNorthEast(new GeoPoint(northEast.getLat() + latDelta, northEast.getLon() + northLonDelta, northEast.getElevationMetersOrNaN()));
     }
 
     @Override
@@ -283,9 +283,9 @@ public final class GeoRectangle extends Primitive {
         final Collection<GeoRectangle> rects = new ArrayList<>();
         if (isWrapped()) {
             final GeoRectangle west = new GeoRectangle(
-                    new GeoPoint(southWest.getLat(), -180.0, southWest.getElevationMeters()), northEast);
+                    new GeoPoint(southWest.getLat(), -180.0, southWest.getElevationMetersOrNaN()), northEast);
             final GeoRectangle east = new GeoRectangle(
-                    southWest, new GeoPoint(northEast.getLat(), Geo.LON180, northEast.getElevationMeters()));
+                    southWest, new GeoPoint(northEast.getLat(), Geo.LON180, northEast.getElevationMetersOrNaN()));
             rects.add(west);
             rects.add(east);
         } else {
@@ -311,18 +311,18 @@ public final class GeoRectangle extends Primitive {
 
         if (southWest.getLat() < point.getLat()) {
             newSouthWestLat = southWest.getLat();
-            newSouthWestElevationMeters = southWest.getElevationMeters();
+            newSouthWestElevationMeters = southWest.getElevationMetersOrNaN();
         } else {
             newSouthWestLat = point.getLat();
-            newSouthWestElevationMeters = point.getElevationMeters();
+            newSouthWestElevationMeters = point.getElevationMetersOrNaN();
         }
 
         if (northEast.getLat() > point.getLat()) {
             newNorthEastLat = northEast.getLat();
-            newNorthEastElevationMeters = northEast.getElevationMeters();
+            newNorthEastElevationMeters = northEast.getElevationMetersOrNaN();
         } else {
             newNorthEastLat = point.getLat();
-            newNorthEastElevationMeters = point.getElevationMeters();
+            newNorthEastElevationMeters = point.getElevationMetersOrNaN();
         }
 
         final double newSouthWestLon1;

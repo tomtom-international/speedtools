@@ -191,7 +191,7 @@ public final class GeoCircle extends Primitive {
 
     @Nonnull
     private GeoRectangle calcBoundingBox(final double c) {
-        final double elevationMeters = center.getElevationMeters();
+        final double elevationMeters = center.getElevationMetersOrNaN();
         final double lowerLeftLat = center.getLat() - (Geo.metersToDegreesLat(radiusMeters) * c);
         final double lowerLeftLon = center.getLon() - (Geo.metersToDegreesLonAtLat(radiusMeters, center.getLat()) * c);
         final double upperRightLat = center.getLat() + (Geo.metersToDegreesLat(radiusMeters) * c);

@@ -135,18 +135,18 @@ public final class GeoPoint extends GeoObject {
      * for all points, because once NaN is used in an expression, the result will be NaN as well.
      */
     @Nonnull
-    public Double getElevationMeters() {
+    public Double getElevationMetersOrNaN() {
         return (elevationMeters == null) ? Double.NaN : elevationMeters;
     }
 
     /**
      * Get elevation (in meters).
-     * Normally, you should probably use {@link #getElevationMeters()}.
+     * Normally, you should probably use {@link #getElevationMetersOrNaN()}.
      *
      * @return Elevation in meters, or null, if no elevation is present.
      */
     @Nullable
-    public Double getElevationMetersOrNull() {
+    public Double getElevationMeters() {
         return elevationMeters;
     }
 
@@ -173,7 +173,7 @@ public final class GeoPoint extends GeoObject {
     }
 
     /**
-     * Setter for {@link #getElevationMeters()}.
+     * Setter for {@link #getElevationMetersOrNaN()}.
      *
      * @param elevationMeters Elevation in meters. If null or NaN, the elevation is omitted.
      * @return New point.
