@@ -29,9 +29,9 @@ import javax.annotation.Nullable;
  */
 public final class Geo {
 
-    // Radius of Earth.
+    // Radius of Earth, as used by WGS84.
     public static final double EARTH_RADIUS_X_METERS = 6378137.0;
-    public static final double EARTH_RADIUS_Y_METERS = 6356752.3;
+    public static final double EARTH_RADIUS_Y_METERS = 6356752.3142;
 
     // Circumference of Earth.
     public static final double EARTH_CIRCUMFERENCE_X = EARTH_RADIUS_X_METERS * 2.0 * Math.PI;
