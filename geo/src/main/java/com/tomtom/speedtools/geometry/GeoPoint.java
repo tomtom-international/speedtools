@@ -127,25 +127,25 @@ public final class GeoPoint extends GeoObject {
     }
 
     /**
-     * Get elevation (in meters).
+     * Get elevation (in meters), or NaN if the elevation is absent.
+     * Note that the return cannot be null!
      *
-     * @return Elevantion in meters.
+     * @return Elevation in meters, or NaN if absent. It is never null!
      */
-    @Nullable
+    @Nonnull
     public Double getElevationMeters() {
-        return elevationMeters;
+        return (elevationMeters == null) ? Double.NaN : elevationMeters;
     }
 
     /**
-     * Get elevation (in meters), or NaN if the elevation is absent.
-     * This is a convenience method if you wish to avoid checking
-     * for null everywhere, or getting warnings for nullability.
+     * Get elevation (in meters).
+     * Normally, you should probably use {@link #getElevationMeters()}.
      *
-     * @return Elevantion in meters, or NaN if absent.
+     * @return Elevation in meters, or null, if no elevation is present.
      */
-    @Nonnull
-    public Double getElevationMetersOrNaN() {
-        return (elevationMeters == null) ? Double.NaN : elevationMeters;
+    @Nullable
+    public Double getElevationMetersOrNull() {
+        return elevationMeters;
     }
 
     /**

@@ -71,15 +71,20 @@ public final class GeoPolyLine extends GeoObject {
 
     /**
      * Return center == Mid point of bounding box of polyline.
+     * The elevation of the center point is defined as the average of all elevations of its points.
+     * if any of the elevations is undefined, this one will be too.
      *
      * @return Center.
      */
     @Nonnull
     @Override
     public GeoPoint getCenter() {
+        assert !points.isEmpty();
+        double elevationMeters = 0.0;
         GeoPoint southWest = points.get(0);
         GeoPoint northEast = points.get(0);
         for (final GeoPoint point : points) {
+            elevationMeters = elevationMeters + point.getElevationMeters();
             final GeoLine sw = new GeoLine(southWest, point);
             if (sw.isWrappedOnLongSide()) {
                 southWest = southWest.withLon(point.getLon());
@@ -99,7 +104,8 @@ public final class GeoPolyLine extends GeoObject {
         }
         final GeoPoint center = new GeoPoint(
                 (southWest.getLat() + northEast.getLat()) / 2.0,
-                (southWest.getLon() + northEast.getLon()) / 2.0);
+                (southWest.getLon() + northEast.getLon()) / 2.0,
+                elevationMeters / points.size());
         return center;
     }
 

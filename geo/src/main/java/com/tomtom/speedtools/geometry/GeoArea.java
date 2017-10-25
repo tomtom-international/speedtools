@@ -69,17 +69,20 @@ public abstract class GeoArea extends GeoObject {
     @Override
     @Nonnull
     public GeoPoint getCenter() {
+        final GeoPoint southWest = boundingBox().getSouthWest();
+        final GeoPoint northEast = boundingBox().getNorthEast();
+        final double elevationMeters = (southWest.getElevationMeters() + northEast.getElevationMeters()) / 2.0;
         final GeoLine southNorth = new GeoLine(
-                new GeoPoint(boundingBox().getSouthWest().getLat(), 0.0),
-                new GeoPoint(boundingBox().getNorthEast().getLat(), 0.0));
+                new GeoPoint(southWest.getLat(), 0.0),
+                new GeoPoint(northEast.getLat(), 0.0));
 
         final GeoLine westEast = new GeoLine(
-                new GeoPoint(0.0, boundingBox().getSouthWest().getLon()),
-                new GeoPoint(0.0, boundingBox().getNorthEast().getLon()));
+                new GeoPoint(0.0, southWest.getLon()),
+                new GeoPoint(0.0, northEast.getLon()));
 
         final double centerLat = southNorth.getCenter().getLat();
         final double centerLon = westEast.getCenter().getLon();
-        return new GeoPoint(centerLat, centerLon);
+        return new GeoPoint(centerLat, centerLon, elevationMeters);
     }
 
     /**

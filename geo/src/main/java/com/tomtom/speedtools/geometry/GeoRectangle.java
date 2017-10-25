@@ -206,8 +206,8 @@ public final class GeoRectangle extends Primitive {
         final double latDelta = Geo.metersToDegreesLat(meters);
         final double southLonDelta = Geo.metersToDegreesLonAtLat(meters, southWest.getLat());
         final double northLonDelta = Geo.metersToDegreesLonAtLat(meters, northEast.getLat());
-        return withSouthWest(new GeoPoint(southWest.getLat() - latDelta, southWest.getLon() - southLonDelta)).
-                withNorthEast(new GeoPoint(northEast.getLat() + latDelta, northEast.getLon() + northLonDelta));
+        return withSouthWest(new GeoPoint(southWest.getLat() - latDelta, southWest.getLon() - southLonDelta, southWest.getElevationMeters())).
+                withNorthEast(new GeoPoint(northEast.getLat() + latDelta, northEast.getLon() + northLonDelta, northEast.getElevationMeters()));
     }
 
     @Override
@@ -283,9 +283,9 @@ public final class GeoRectangle extends Primitive {
         final Collection<GeoRectangle> rects = new ArrayList<>();
         if (isWrapped()) {
             final GeoRectangle west = new GeoRectangle(
-                    new GeoPoint(southWest.getLat(), -180.0), northEast);
+                    new GeoPoint(southWest.getLat(), -180.0, southWest.getElevationMeters()), northEast);
             final GeoRectangle east = new GeoRectangle(
-                    southWest, new GeoPoint(northEast.getLat(), Geo.LON180));
+                    southWest, new GeoPoint(northEast.getLat(), Geo.LON180, northEast.getElevationMeters()));
             rects.add(west);
             rects.add(east);
         } else {
@@ -304,8 +304,26 @@ public final class GeoRectangle extends Primitive {
      */
     @Nonnull
     public GeoRectangle grow(@Nonnull final GeoPoint point) {
-        final double newSouthWestLat = Math.min(southWest.getLat(), point.getLat());
-        final double newNorthEastLat = Math.max(northEast.getLat(), point.getLat());
+        final double newSouthWestLat;
+        final double newNorthEastLat;
+        final double newSouthWestElevationMeters;
+        final double newNorthEastElevationMeters;
+
+        if (southWest.getLat() < point.getLat()) {
+            newSouthWestLat = southWest.getLat();
+            newSouthWestElevationMeters = southWest.getElevationMeters();
+        } else {
+            newSouthWestLat = point.getLat();
+            newSouthWestElevationMeters = point.getElevationMeters();
+        }
+
+        if (northEast.getLat() > point.getLat()) {
+            newNorthEastLat = northEast.getLat();
+            newNorthEastElevationMeters = northEast.getElevationMeters();
+        } else {
+            newNorthEastLat = point.getLat();
+            newNorthEastElevationMeters = point.getElevationMeters();
+        }
 
         final double newSouthWestLon1;
         final double newNorthEastLon1;
@@ -330,11 +348,11 @@ public final class GeoRectangle extends Primitive {
 
         // Simply try both rectangles.
         final GeoRectangle rect1 = new GeoRectangle(
-                new GeoPoint(newSouthWestLat, newSouthWestLon1),
-                new GeoPoint(newNorthEastLat, newNorthEastLon1));
+                new GeoPoint(newSouthWestLat, newSouthWestLon1, newSouthWestElevationMeters),
+                new GeoPoint(newNorthEastLat, newNorthEastLon1, newNorthEastElevationMeters));
         final GeoRectangle rect2 = new GeoRectangle(
-                new GeoPoint(newSouthWestLat, newSouthWestLon2),
-                new GeoPoint(newNorthEastLat, newNorthEastLon2));
+                new GeoPoint(newSouthWestLat, newSouthWestLon2, newSouthWestElevationMeters),
+                new GeoPoint(newNorthEastLat, newNorthEastLon2, newNorthEastElevationMeters));
         final GeoRectangle rect3 = new GeoRectangle(
                 southWest.withLat(newSouthWestLat),
                 northEast.withLat(newNorthEastLat));
