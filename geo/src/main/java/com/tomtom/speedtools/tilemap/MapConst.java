@@ -94,27 +94,27 @@ public final class MapConst {
     public final static int ZOOM_LEVELS = 18;
 
     /**
-     * How many tiles across (or down) is the world at this zoom.
+     * How many tiles is the world at this zoom in total.
      */
     public final static long[] TILES_PER_ZOOM = {
-            1,
-            4,
-            16,
-            64,
-            256,
-            1024,
-            4096,
-            16384,
-            65536,
-            262144,
-            1048576,
-            4194304,
-            16777216,
-            67108864,
-            268435456,
-            1073741824,
-            4294967296L,
-            17179869184L
+            1,              // Level 0
+            4,              // Level 1
+            16,             // Level 2
+            64,             // Level 3
+            256,            // Level 4
+            1024,           // Level 5
+            4096,           // Level 6
+            16384,          // Level 7
+            65536,          // Level 8
+            262144,         // Level 9
+            1048576,        // Level 10
+            4194304,        // Level 11
+            16777216,       // Level 12
+            67108864,       // Level 13
+            268435456,      // Level 14
+            1073741824,     // Level 15
+            4294967296L,    // Level 16
+            17179869184L    // Level 17
     };
 
     // Mercator projection does not work outside this latitude range.
