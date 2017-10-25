@@ -997,6 +997,7 @@ abstract public class CheckDBBase {
                     DB_LAT_MIN, DB_LAT_MAX, true);
             x = field(m.lon) && checkBetween(recordId, point.getLat(),
                     DB_LON_MIN, DB_LON_MAX, true);
+            x = field(m.elevationMeters);
             endsub(m);
             nrTotalChecks.incrementAndGet();
             return true;

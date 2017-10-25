@@ -91,6 +91,28 @@ public class GeoLineTest {
     }
 
     @Test
+    public void testGetCenterWithElevation() {
+        LOG.info("testGetCenterWithElevation");
+        GeoPoint x = new GeoPoint(0.0, 2.0);
+        GeoPoint y = new GeoPoint(10.0, 4.0, 100.0);
+        GeoPoint m = new GeoPoint(5.0, 3.0);
+        GeoLine line = new GeoLine(x, y);
+        Assert.assertEquals(m, line.getCenter());
+
+        x = new GeoPoint(0.0, 2.0, 50.0);
+        y = new GeoPoint(10.0, 4.0, 100.0);
+        m = new GeoPoint(5.0, 3.0, 75.0);
+        line = new GeoLine(x, y);
+        Assert.assertEquals(m, line.getCenter());
+
+        x = new GeoPoint(0.0, 2.0, -50.0);
+        y = new GeoPoint(10.0, 4.0, 50.0);
+        m = new GeoPoint(5.0, 3.0, 0.0);
+        line = new GeoLine(x, y);
+        Assert.assertEquals(m, line.getCenter());
+    }
+
+    @Test
     public void testGetCenter() {
         LOG.info("testGetCenter");
         final GeoPoint x1 = new GeoPoint(0.0, 2.0);

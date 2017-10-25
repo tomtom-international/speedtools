@@ -56,6 +56,22 @@ public class GeoPointMapperTest {
     }
 
     @Test
+    public void testFromDbWithElevation() throws MapperException {
+        LOG.info("testFromDbWithElevation");
+
+        final DBObject dbObject = new BasicDBObject();
+        dbObject.put("lat", 1.5);
+        dbObject.put("lon", 2.0);
+        dbObject.put("elevationMeters", 3.0);
+
+        final GeoPoint entity = mapper.fromDb(dbObject);
+        Assert.assertNotNull(entity);
+        Assert.assertEquals(1.5d, entity.getLat(), 0.001);
+        Assert.assertEquals(2.0d, entity.getLon(), 0.001);
+        Assert.assertEquals(3.0d, entity.getElevationMeters(), 0.001);
+    }
+
+    @Test
     public void testToDb() throws MapperException {
         LOG.info("testToDb");
 
@@ -74,6 +90,28 @@ public class GeoPointMapperTest {
     }
 
     @Test
+    public void testToDbWithElevation() throws MapperException {
+        LOG.info("testToDbWithElevation");
+
+        final GeoPoint point = new GeoPoint(1.5, 2.0, 3.0);
+        final DBObject dbObject = mapper.toDb(point);
+
+        Assert.assertNotNull(dbObject);
+        final Object lat = dbObject.get("lat");
+        Assert.assertNotNull(lat);
+        Assert.assertTrue(lat instanceof Double);
+        Assert.assertEquals(1.5, (Double) lat, 0.001);
+        final Object lon = dbObject.get("lon");
+        Assert.assertNotNull(lon);
+        Assert.assertTrue(lon instanceof Double);
+        Assert.assertEquals(2.0, (Double) lon, 0.001);
+        final Object elevationMeters = dbObject.get("elevationMeters");
+        Assert.assertNotNull(elevationMeters );
+        Assert.assertTrue(elevationMeters  instanceof Double);
+        Assert.assertEquals(3.0, (Double) elevationMeters, 0.001);
+    }
+
+    @Test
     public void testGeoIndexCompatibility() throws MapperException {
         LOG.info("testGeoIndexCompatibility");
 
@@ -81,7 +119,7 @@ public class GeoPointMapperTest {
         final DBObject dbObject = mapper.toDb(point);
 
         Assert.assertNotNull(dbObject);
-        Assert.assertEquals(3, dbObject.keySet().size());
+        Assert.assertEquals(4, dbObject.keySet().size());
         final Iterator<String> iterator = dbObject.keySet().iterator();
         Assert.assertEquals("lat", iterator.next());
         Assert.assertEquals("lon", iterator.next());

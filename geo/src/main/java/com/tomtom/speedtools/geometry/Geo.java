@@ -114,6 +114,8 @@ public final class Geo {
      * Calculate the shortest distance between GeoPoints. This is an approximation, that works fine for relative small
      * distances, say up to 200km.
      *
+     * Note that the elevation of points is NOT taken into account. It is the 2D distance only.
+     *
      * @param p1 Point 1.
      * @param p2 Point 2.
      * @return Distance, always &gt;= 0.

@@ -78,10 +78,17 @@ public class GeoPointTest {
     }
 
     @Test
-    public void testWithElevation() {
+    public void testWithElevationMeters() {
         LOG.info("testWithElevationMeters");
         Assert.assertEquals(0, Double.compare(y2, x.withElevationMeters(y2).getElevationMeters()));
         Assert.assertEquals(0, Double.compare(x2, y.withElevationMeters(x2).getElevationMeters()));
+    }
+
+    @Test
+    public void testWithElevationMetersOrNull() {
+        LOG.info("testWithElevationMeters");
+        Assert.assertEquals(0, Double.compare(y2, x.withElevationMeters(y2).getElevationMetersOrNull()));
+        Assert.assertEquals(0, Double.compare(x2, y.withElevationMeters(x2).getElevationMetersOrNull()));
     }
 
     @Test

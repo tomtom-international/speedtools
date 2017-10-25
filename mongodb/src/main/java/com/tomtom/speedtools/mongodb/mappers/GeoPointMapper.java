@@ -23,4 +23,5 @@ public class GeoPointMapper extends EntityMapper<GeoPoint> {
 
     public final Field<Double> lat = doubleField("lat", "getLat", CONSTRUCTOR);
     public final Field<Double> lon = doubleField("lon", "getLon", CONSTRUCTOR);
+    public final Field<Double> elevationMeters = doubleField("elevationMeters", "getElevationMeters", CONSTRUCTOR);
 }

@@ -92,7 +92,10 @@ public final class GeoLine extends GeoObject {
         final double lon = (((northEast.getLon() >= southWest.getLon()) ?
                 (northEast.getLon()) : ((northEast.getLon() + 360.0))) +
                 southWest.getLon()) / 2.0;
-        return new GeoPoint(lat, lon);
+        final double elevationMeters = (southWest.getElevationMeters() + northEast.getElevationMeters()) / 2.0;
+
+        // The elevationMeters may be NaN, which is fine.
+        return new GeoPoint(lat, lon, elevationMeters);
     }
 
     /**
