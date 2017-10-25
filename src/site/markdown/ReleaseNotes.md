@@ -3,7 +3,8 @@ Release Notes
 
 ### 3.2.5
 
-* Included `elevationMeters` in `GeoPoint`, so points can be 3D.
+* Included `elevationMeters` in `Geo`-classes, so `GeoPoint`s can be 3D. If the elevation is omitted, the
+point is considered 2D.
 
 * Includes moving to Scala 2.12.4 and Akka libraries compiled for Scala 2.12.
 

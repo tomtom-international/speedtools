@@ -130,7 +130,9 @@ public final class GeoPoint extends GeoObject {
      * Get elevation (in meters), or NaN if the elevation is absent.
      * Note that the return cannot be null!
      *
-     * @return Elevation in meters, or NaN if absent. It is never null!
+     * @return Elevation in meters, or NaN if absent. The return value is never null! This allows
+     * the caller to "do the math", like adding or averaging elevations, even if they don't exist
+     * for all points, because once NaN is used in an expression, the result will be NaN as well.
      */
     @Nonnull
     public Double getElevationMeters() {
@@ -171,9 +173,9 @@ public final class GeoPoint extends GeoObject {
     }
 
     /**
-     * Setter for {@link #getElevationMeters()} ()}.
+     * Setter for {@link #getElevationMeters()}.
      *
-     * @param elevationMeters Elevation in meters. If null, the elevation is omitted.
+     * @param elevationMeters Elevation in meters. If null or NaN, the elevation is omitted.
      * @return New point.
      */
     @Nonnull
