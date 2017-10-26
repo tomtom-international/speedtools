@@ -91,6 +91,30 @@ public class GeoLineTest {
     }
 
     @Test
+    public void testGetLengthMetersWithElevation() {
+        LOG.info("testGetLengthMetersWithElevation");
+        double ref = Geo.METERS_PER_DEGREE_LAT;
+        GeoPoint x1 = new GeoPoint(-0.5, 10.0, 10.0);
+        GeoPoint x2 = new GeoPoint(0.5, 10.0, 10.0);
+        GeoLine y = new GeoLine(x1, x2);
+        double len = y.getLengthMeters();
+        Assert.assertEquals(0, Double.compare(len, ref));
+
+        x1 = new GeoPoint(-0.5, 10.0);
+        x2 = new GeoPoint(0.5, 10.0, 10.0);
+        y = new GeoLine(x1, x2);
+        len = y.getLengthMeters();
+        Assert.assertEquals(0, Double.compare(len, ref));
+
+        x1 = new GeoPoint(-0.5, 10.0, 0.0);
+        x2 = new GeoPoint(0.5, 10.0, Geo.METERS_PER_DEGREE_LAT);
+        y = new GeoLine(x1, x2);
+        len = y.getLengthMeters();
+        ref = 156901.70221587716;
+        Assert.assertEquals(0, Double.compare(len, ref));
+    }
+
+    @Test
     public void testGetCenterWithElevation() {
         LOG.info("testGetCenterWithElevation");
         GeoPoint x = new GeoPoint(0.0, 2.0);
