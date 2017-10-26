@@ -145,9 +145,14 @@ public final class Geo {
         // Meters per longitude is fixed; per latitude requires * cos(avg(lat)).
         final double deltaXMeters = degreesLonToMetersAtLat(deltaLonDegrees, avgLat);
         final double deltaYMeters = degreesLatToMeters(deltaLatDegrees);
+        Double deltaElevationMeters = p1.getElevationMetersOrNaN() - p2.getElevationMetersOrNaN();
+        if (deltaElevationMeters.isNaN()) {
+            deltaElevationMeters = 0.0;
+        }
 
         // Calculate length through Earth. This is an approximation, but works fine for short distances.
-        final double len = Math.sqrt((deltaXMeters * deltaXMeters) + (deltaYMeters * deltaYMeters));
+        final double len = Math.sqrt((deltaXMeters * deltaXMeters) + (deltaYMeters * deltaYMeters) +
+                (deltaElevationMeters * deltaElevationMeters));
         assert len >= 0.0;
         return len;
     }
