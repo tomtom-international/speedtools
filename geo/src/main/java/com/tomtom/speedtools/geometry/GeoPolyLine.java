@@ -38,6 +38,10 @@ public final class GeoPolyLine extends GeoObject {
     /**
      * Create a polyline. A polyline is defined as a series of (shortest) lines between consecutive points.
      *
+     * Either all points in the polyline have an elevation, or none have. If at least one point has an
+     * elevation, points with missing elevations will have an elevation added to them, which is the same
+     * elevation as one of their neighbors.
+     *
      * @param points Points, to be connected by polyline, via shortest line (so not across the long side of the
      *               Earth). Must contain at least 2 points.
      */
@@ -45,7 +49,29 @@ public final class GeoPolyLine extends GeoObject {
         super();
         assert points != null;
         assert points.size() >= 2;
-        this.points = Immutables.listOf(points);
+
+        // Find the first elevation.
+        double elevationMeters = Double.NaN;
+        for (final GeoPoint point : points) {
+            if (point.getElevationMeters() != null) {
+                elevationMeters = point.getElevationMetersOrNaN();
+                break;
+            }
+        }
+
+        // Create a new list of points, append first elevation if needed.
+        final List<GeoPoint> elevatedPoints = new ArrayList<>(points.size());
+        for (final GeoPoint point : points) {
+
+            // Use new elevation if available.
+            if (point.getElevationMeters() != null) {
+                elevationMeters = point.getElevationMeters();
+            }
+
+            // Add point, with elevation added (might be its own elevation.
+            elevatedPoints.add(point.withElevationMeters(elevationMeters));
+        }
+        this.points = Immutables.listOf(elevatedPoints);
     }
 
     /**

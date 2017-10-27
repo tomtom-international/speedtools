@@ -55,9 +55,11 @@ public final class Geo {
     /**
      * Grow a rectangle to contain a(n additional) point.
      *
-     * @param rectangle Rectangle, or null.
+     * @param rectangle Rectangle, or null. If null, the resulting rectangle contains only the specified point.
+     *                  This makes it easy to create a rectangle containing a number of points, starting with
+     *                  an initial rectangle of 'null' and adding all points consecutively.
      * @param point     Point to add.
-     * @return Rectangle containing point.
+     * @return Minimal rectangle containing specified rectangle and point.
      */
     @Nonnull
     public static GeoRectangle grow(@Nullable final GeoRectangle rectangle, @Nonnull final GeoPoint point) {
@@ -68,7 +70,7 @@ public final class Geo {
     }
 
     /**
-     * Convert a number of degrees latitude to meters.
+     * Convert a number of degrees latitude to meters. (This is independent of a longitude.)
      *
      * @param latDegrees Degrees in latitude to convert.
      * @return Meters.
@@ -90,7 +92,7 @@ public final class Geo {
 
     /**
      * Convert a number of meters pointing North to degrees latitude. This approximation works only for relatively small
-     * distances (say, up to 500km).
+     * distances (say, up to 200km).
      *
      * @param northMeters Distance to North in meters.
      * @return Degrees latitude.
@@ -112,9 +114,7 @@ public final class Geo {
 
     /**
      * Calculate the shortest distance between GeoPoints. This is an approximation, that works fine for relative small
-     * distances, say up to 200km.
-     *
-     * Note that the elevation of points is NOT taken into account. It is the 2D distance only.
+     * distances, say up to 200km. (The difference in elevation between the two points is also taken into account.)
      *
      * @param p1 Point 1.
      * @param p2 Point 2.

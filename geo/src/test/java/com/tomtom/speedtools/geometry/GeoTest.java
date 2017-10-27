@@ -24,6 +24,13 @@ import org.slf4j.LoggerFactory;
 
 import javax.annotation.Nonnull;
 
+import static com.tomtom.speedtools.geometry.Geo.*;
+import static java.lang.Double.compare;
+import static java.lang.Math.abs;
+import static java.lang.Math.sqrt;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 @SuppressWarnings("ConstantMathCall")
 public class GeoTest {
     @Nonnull
@@ -46,19 +53,13 @@ public class GeoTest {
     public void testDegreesLonToMeters() {
         LOG.info("testDegreesLonToMeters");
 
-        Assert.assertEquals(0, Double.compare(0, Geo.degreesLonToMetersAtLat(0, 0)));
-        Assert.assertEquals(0, Double.compare(Geo.METERS_PER_DEGREE_LON_EQUATOR / 2.0, Geo.degreesLonToMetersAtLat(0.5,
-                0)));
-        Assert.assertEquals(0, Double.compare(Geo.METERS_PER_DEGREE_LON_EQUATOR, Geo.degreesLonToMetersAtLat(1, 0)));
-        Assert.assertEquals(0, Double.compare(Geo.METERS_PER_DEGREE_LON_EQUATOR * 180, Geo.degreesLonToMetersAtLat(180,
-                0)));
-        Assert.assertEquals(0, Double.compare(-Geo.METERS_PER_DEGREE_LON_EQUATOR * 180, Geo.degreesLonToMetersAtLat(
-                -180,
-                0)));
-        Assert.assertTrue((Math.abs(Geo.METERS_PER_DEGREE_LON_EQUATOR / 2.0) - Geo.degreesLonToMetersAtLat(1,
-                60)) < DELTA);
-        Assert.assertTrue((Math.abs(Geo.METERS_PER_DEGREE_LON_EQUATOR / 2.0) - Geo.degreesLonToMetersAtLat(1,
-                -60)) < DELTA);
+        assertEquals(0, compare(0, degreesLonToMetersAtLat(0, 0)));
+        assertEquals(0, compare(METERS_PER_DEGREE_LON_EQUATOR / 2.0, degreesLonToMetersAtLat(0.5, 0)));
+        assertEquals(0, compare(METERS_PER_DEGREE_LON_EQUATOR, degreesLonToMetersAtLat(1, 0)));
+        assertEquals(0, compare(METERS_PER_DEGREE_LON_EQUATOR * 180, degreesLonToMetersAtLat(180, 0)));
+        assertEquals(0, compare(-METERS_PER_DEGREE_LON_EQUATOR * 180, degreesLonToMetersAtLat(-180, 0)));
+        assertEquals(METERS_PER_DEGREE_LON_EQUATOR / 2.0, degreesLonToMetersAtLat(1, 60), DELTA);
+        assertEquals(METERS_PER_DEGREE_LON_EQUATOR / 2.0, degreesLonToMetersAtLat(1, -60), DELTA);
     }
 
     @Test
@@ -76,52 +77,55 @@ public class GeoTest {
     public void testMetersToDegreesLon() {
         LOG.info("testMetersToDegreesLon()");
 
-        Assert.assertEquals(0, Double.compare(0, Geo.metersToDegreesLonAtLat(0, 0)));
-        Assert.assertEquals(0,
-                Double.compare(0.5, Geo.metersToDegreesLonAtLat(Geo.METERS_PER_DEGREE_LON_EQUATOR / 2, 0)));
-        Assert.assertEquals(0, Double.compare(1, Geo.metersToDegreesLonAtLat(Geo.METERS_PER_DEGREE_LON_EQUATOR, 0)));
-        Assert.assertEquals(0, Double.compare(180, Geo.metersToDegreesLonAtLat(Geo.METERS_PER_DEGREE_LON_EQUATOR * 180,
-                0)));
-        Assert.assertEquals(0, Double.compare(-180, Geo.metersToDegreesLonAtLat(
-                Geo.METERS_PER_DEGREE_LON_EQUATOR * -180,
-                0)));
-        Assert.assertTrue(Math.abs(2.0 - Geo.metersToDegreesLonAtLat(Geo.METERS_PER_DEGREE_LON_EQUATOR, 60)) < DELTA);
-        Assert.assertTrue(Math.abs(2.0 - Geo.metersToDegreesLonAtLat(Geo.METERS_PER_DEGREE_LON_EQUATOR, -60)) < DELTA);
+        assertEquals(0, compare(0, metersToDegreesLonAtLat(0, 0)));
+        assertEquals(0, compare(0.5, metersToDegreesLonAtLat(METERS_PER_DEGREE_LON_EQUATOR / 2, 0)));
+        assertEquals(0, compare(1, metersToDegreesLonAtLat(METERS_PER_DEGREE_LON_EQUATOR, 0)));
+        assertEquals(0, compare(180, metersToDegreesLonAtLat(METERS_PER_DEGREE_LON_EQUATOR * 180, 0)));
+        assertEquals(0, compare(-180, metersToDegreesLonAtLat(METERS_PER_DEGREE_LON_EQUATOR * -180, 0)));
+        assertEquals(2.0, metersToDegreesLonAtLat(METERS_PER_DEGREE_LON_EQUATOR, 60), DELTA);
+        assertEquals(2.0, metersToDegreesLonAtLat(METERS_PER_DEGREE_LON_EQUATOR, -60), DELTA);
     }
 
     @Test
     public void testDistanceInMeters() {
         LOG.info("testDistanceInMeters");
 
-        Assert.assertTrue(Math.abs(Geo.METERS_PER_DEGREE_LAT - Geo.distanceInMeters(
-                new GeoPoint(-0.5, 0.0), new GeoPoint(0.5, -0.0))) < DELTA);
-        Assert.assertTrue(Math.abs(Geo.METERS_PER_DEGREE_LAT - Geo.distanceInMeters(
-                new GeoPoint(80.0, 0.0), new GeoPoint(81.0, 0.0))) < DELTA);
-        Assert.assertTrue((Math.abs(Geo.METERS_PER_DEGREE_LAT * 2) - Geo.distanceInMeters(
+        assertEquals(METERS_PER_DEGREE_LAT, distanceInMeters(
+                new GeoPoint(-0.5, 0.0), new GeoPoint(0.5, -0.0)), DELTA);
+        assertEquals(METERS_PER_DEGREE_LAT, distanceInMeters(
+                new GeoPoint(80.0, 0.0), new GeoPoint(81.0, 0.0)), DELTA);
+        assertTrue((abs(METERS_PER_DEGREE_LAT * 2) - distanceInMeters(
                 new GeoPoint(0.0, 59.0), new GeoPoint(0.0, 61.0))) < DELTA);
-        Assert.assertTrue((Math.abs(Geo.METERS_PER_DEGREE_LAT * 1.4142135623731) - Geo.distanceInMeters(
+        assertTrue((abs(METERS_PER_DEGREE_LAT * 1.4142135623731) - distanceInMeters(
                 new GeoPoint(-1.0, -1.0), new GeoPoint(1.0, 1.0))) < DELTA);
 
-        Assert.assertTrue(Math.abs(Geo.METERS_PER_DEGREE_LON_EQUATOR - Geo.distanceInMeters(
-                new GeoPoint(0.0, -0.5), new GeoPoint(0.0, 0.5))) < DELTA);
-        Assert.assertTrue(Math.abs(Geo.METERS_PER_DEGREE_LON_EQUATOR - Geo.distanceInMeters(
-                new GeoPoint(0.0, 80.0), new GeoPoint(0.0, 81.0))) < DELTA);
-        Assert.assertTrue(Math.abs((Geo.METERS_PER_DEGREE_LON_EQUATOR / 2.0) - Geo.distanceInMeters(
-                new GeoPoint(60.0, 80.0), new GeoPoint(60.0, 81.0))) < DELTA);
+        assertEquals(METERS_PER_DEGREE_LON_EQUATOR, distanceInMeters(
+                new GeoPoint(0.0, -0.5), new GeoPoint(0.0, 0.5)), DELTA);
+        assertEquals(METERS_PER_DEGREE_LON_EQUATOR, distanceInMeters(
+                new GeoPoint(0.0, 80.0), new GeoPoint(0.0, 81.0)), DELTA);
+        assertEquals(METERS_PER_DEGREE_LON_EQUATOR / 2.0, distanceInMeters(
+                new GeoPoint(60.0, 80.0), new GeoPoint(60.0, 81.0)), DELTA);
 
-        Assert.assertTrue(Math.abs((Geo.METERS_PER_DEGREE_LON_EQUATOR * 2) - Geo.distanceInMeters(
-                new GeoPoint(0.0, -1.0), new GeoPoint(0.0, 1.0))) < DELTA);
+        assertEquals(METERS_PER_DEGREE_LON_EQUATOR * 2, distanceInMeters(
+                new GeoPoint(0.0, -1.0), new GeoPoint(0.0, 1.0)), DELTA);
+
+        // Test latitude, longitude and elevation length.
+        assertEquals(METERS_PER_DEGREE_LAT, distanceInMeters(new GeoPoint(-0.5, 0.0), new GeoPoint(0.5, 0.0)), DELTA);
+        assertEquals(METERS_PER_DEGREE_LON_EQUATOR, distanceInMeters(new GeoPoint(0.0, -0.5), new GeoPoint(0.0, 0.5)), DELTA);
+        assertEquals(2.0, distanceInMeters(new GeoPoint(0.0, 0.0, 0.0), new GeoPoint(0.0, 0.0, 2.0)), DELTA);
+
+        assertEquals(sqrt((METERS_PER_DEGREE_LAT * METERS_PER_DEGREE_LAT) + (METERS_PER_DEGREE_LON_EQUATOR * METERS_PER_DEGREE_LON_EQUATOR)),
+                distanceInMeters(new GeoPoint(-0.5, -0.5), new GeoPoint(0.5, 0.5)), DELTA);
+        assertEquals(sqrt((METERS_PER_DEGREE_LAT * METERS_PER_DEGREE_LAT) + (METERS_PER_DEGREE_LON_EQUATOR * METERS_PER_DEGREE_LON_EQUATOR) + (2.0 * 2.0)),
+                distanceInMeters(new GeoPoint(-0.5, -0.5, 0.0), new GeoPoint(0.5, 0.5, 2.0)), DELTA);
 
         // Test wrapping.
-        Assert.assertTrue(
-                (Geo.distanceInMeters(new GeoPoint(0.0, -1.0), new GeoPoint(0.0, 1.0)) -
-                        Geo.distanceInMeters(new GeoPoint(0.0, 1.0), new GeoPoint(0.0, -1.0))) < DELTA);
-        Assert.assertTrue(
-                (Geo.distanceInMeters(new GeoPoint(0.0, -180.0), new GeoPoint(0.0, Geo.LON180)) -
-                        Geo.distanceInMeters(new GeoPoint(0.0, Geo.LON180), new GeoPoint(0.0, -180.0))) < DELTA);
-        Assert.assertTrue(
-                (Geo.distanceInMeters(new GeoPoint(0.0, -180.0), new GeoPoint(0.0, 0.0)) -
-                        Geo.distanceInMeters(new GeoPoint(0.0, -180.0), new GeoPoint(0.0, 0.0))) < DELTA);
+        assertTrue((distanceInMeters(new GeoPoint(0.0, -1.0), new GeoPoint(0.0, 1.0)) -
+                distanceInMeters(new GeoPoint(0.0, 1.0), new GeoPoint(0.0, -1.0))) < DELTA);
+        assertTrue((distanceInMeters(new GeoPoint(0.0, -180.0), new GeoPoint(0.0, LON180)) -
+                distanceInMeters(new GeoPoint(0.0, LON180), new GeoPoint(0.0, -180.0))) < DELTA);
+        assertTrue((distanceInMeters(new GeoPoint(0.0, -180.0), new GeoPoint(0.0, 0.0)) -
+                distanceInMeters(new GeoPoint(0.0, -180.0), new GeoPoint(0.0, 0.0))) < DELTA);
     }
 
     @Test
@@ -138,16 +142,16 @@ public class GeoTest {
     @Test
     public void testMapToLon() {
         LOG.info("testMapToLon");
-        Assert.assertTrue(Math.abs(0 - Geo.mapToLon(0)) < DELTA);
-        Assert.assertTrue(Math.abs(-1 - Geo.mapToLon(-1)) < DELTA);
-        Assert.assertTrue(Math.abs(-180 - Geo.mapToLon(-180)) < DELTA);
-        Assert.assertTrue(Math.abs(Geo.LON180 - Geo.mapToLon(Geo.LON180)) < DELTA);
-        Assert.assertTrue(Math.abs(-180 - Geo.mapToLon(180)) < DELTA);
-        Assert.assertTrue(Math.abs(-180 - Geo.mapToLon(-180)) < DELTA);
-        Assert.assertTrue(Math.abs(-160 - Geo.mapToLon(200)) < DELTA);
-        Assert.assertTrue(Math.abs(160 - Geo.mapToLon(-200)) < DELTA);
-        Assert.assertTrue(Math.abs(Geo.mapToLon(-360)) < DELTA);
-        Assert.assertTrue(Math.abs(Geo.mapToLon(360)) < DELTA);
+        assertEquals(0, mapToLon(0), DELTA);
+        assertEquals(-1, mapToLon(-1), DELTA);
+        assertEquals(-180, mapToLon(-180), DELTA);
+        assertEquals(LON180, mapToLon(LON180), DELTA);
+        assertEquals(-180, mapToLon(180), DELTA);
+        assertEquals(-180, mapToLon(-180), DELTA);
+        assertEquals(-160, mapToLon(200), DELTA);
+        assertEquals(160, mapToLon(-200), DELTA);
+        assertTrue(abs(mapToLon(-360)) < DELTA);
+        assertTrue(abs(mapToLon(360)) < DELTA);
     }
 
     @Test

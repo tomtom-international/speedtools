@@ -41,8 +41,11 @@ public final class GeoRectangle extends Primitive {
      * Create a rectangular geo area. A rectangle is always defined by two points, east and west. Note that if
      * west.longitude &gt; east.longitude that the rectangle is wrapped along the long side of the Earth.
      *
-     * @param southWest West point.
-     * @param northEast East point.
+     * Either both corners may have an elevation, or neither has. If, at construction, the elevation is only specified
+     * for one corner, then the elevation will be used for the other corner as well.
+     *
+     * @param southWest South-West corner.
+     * @param northEast North-East corner.
      */
     public GeoRectangle(
             @Nonnull final GeoPoint southWest,
@@ -50,10 +53,17 @@ public final class GeoRectangle extends Primitive {
         super();
         assert southWest != null;
         assert northEast != null;
-        final GeoPoint lowerLeft = (southWest.getLat() <= northEast.getLat()) ?
+        GeoPoint lowerLeft = (southWest.getLat() <= northEast.getLat()) ?
                 southWest : southWest.withLat(northEast.getLat());
-        final GeoPoint upperRight = (southWest.getLat() <= northEast.getLat()) ?
+        GeoPoint upperRight = (southWest.getLat() <= northEast.getLat()) ?
                 northEast : northEast.withLat(southWest.getLat());
+
+        // Make sure either both or neither of the end points have an elevation.
+        if ((lowerLeft.getElevationMeters() == null) || (upperRight.getElevationMeters() == null)) {
+            final double elevationMeters = (lowerLeft.getElevationMeters() != null) ? lowerLeft.getElevationMetersOrNaN() : upperRight.getElevationMetersOrNaN();
+            lowerLeft = lowerLeft.withElevationMeters(elevationMeters);
+            upperRight = upperRight.withElevationMeters(elevationMeters);
+        }
         this.southWest = lowerLeft;
         this.northEast = upperRight;
         assert this.southWest.getLat() <= this.northEast.getLat() : "SW above NE: " + this;
