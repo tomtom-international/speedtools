@@ -50,26 +50,38 @@ public final class GeoPolyLine extends GeoObject {
         assert points != null;
         assert points.size() >= 2;
 
-        // Find the first elevation.
-        double elevationMeters = Double.NaN;
-        for (final GeoPoint point : points) {
-            if (point.getElevationMeters() != null) {
-                elevationMeters = point.getElevationMetersOrNaN();
-                break;
+        // Check the need to correct the elevation in a list of points.
+        final List<GeoPoint> elevatedPoints;
+        final boolean noneElevated = points.stream().allMatch(x -> (x.getElevationMeters() != null));
+        final boolean allElevated = points.stream().allMatch(x -> (x.getElevationMeters() == null));
+
+        if (allElevated || noneElevated) {
+
+            // Don't need to create a new list.
+            elevatedPoints = points;
+        } else {
+
+            // Find the first elevation.
+            double elevationMeters = Double.NaN;
+            for (final GeoPoint point : points) {
+                if (point.getElevationMeters() != null) {
+                    elevationMeters = point.getElevationMetersOrNaN();
+                    break;
+                }
             }
-        }
 
-        // Create a new list of points, append first elevation if needed.
-        final List<GeoPoint> elevatedPoints = new ArrayList<>(points.size());
-        for (final GeoPoint point : points) {
+            // Create a new list of points, append first elevation if needed.
+            elevatedPoints = new ArrayList<>(points.size());
+            for (final GeoPoint point : points) {
 
-            // Use new elevation if available.
-            if (point.getElevationMeters() != null) {
-                elevationMeters = point.getElevationMeters();
+                // Use new elevation if available.
+                if (point.getElevationMeters() != null) {
+                    elevationMeters = point.getElevationMeters();
+                }
+
+                // Add point, with elevation added (might be its own elevation.
+                elevatedPoints.add(point.withElevationMeters(elevationMeters));
             }
-
-            // Add point, with elevation added (might be its own elevation.
-            elevatedPoints.add(point.withElevationMeters(elevationMeters));
         }
         this.points = Immutables.listOf(elevatedPoints);
     }

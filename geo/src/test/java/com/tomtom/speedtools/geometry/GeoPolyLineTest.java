@@ -29,6 +29,7 @@ import java.util.List;
 
 public class GeoPolyLineTest {
     private static final Logger LOG = LoggerFactory.getLogger(GeoPolyLineTest.class);
+    private static final double DELTA = 0.0000001;
 
     @Test
     public void testEqualsVerifier() {
@@ -84,12 +85,12 @@ public class GeoPolyLineTest {
         final GeoPoint x6 = new GeoPoint(5.0, 0.0);
         final List<GeoPoint> p1 = Lists.asList(x1, new GeoPoint[]{x2, x3, x4, x5, x6});
         final GeoPolyLine poly1 = new GeoPolyLine(p1);
-        Assert.assertEquals(100.0, poly1.get(0).getElevationMetersOrNaN(), 0.0000001);
-        Assert.assertEquals(100.0, poly1.get(1).getElevationMetersOrNaN(), 0.0000001);
-        Assert.assertEquals(100.0, poly1.get(2).getElevationMetersOrNaN(), 0.0000001);
-        Assert.assertEquals(200.0, poly1.get(3).getElevationMetersOrNaN(), 0.0000001);
-        Assert.assertEquals(300.0, poly1.get(4).getElevationMetersOrNaN(), 0.0000001);
-        Assert.assertEquals(300.0, poly1.get(5).getElevationMetersOrNaN(), 0.0000001);
+        Assert.assertEquals(100.0, poly1.get(0).getElevationMetersOrNaN(), DELTA);
+        Assert.assertEquals(100.0, poly1.get(1).getElevationMetersOrNaN(), DELTA);
+        Assert.assertEquals(100.0, poly1.get(2).getElevationMetersOrNaN(), DELTA);
+        Assert.assertEquals(200.0, poly1.get(3).getElevationMetersOrNaN(), DELTA);
+        Assert.assertEquals(300.0, poly1.get(4).getElevationMetersOrNaN(), DELTA);
+        Assert.assertEquals(300.0, poly1.get(5).getElevationMetersOrNaN(), DELTA);
         Assert.assertEquals(((100.0 * 3) + 200.0 + (300.0 * 2)) / 6.0, poly1.getCenter().getElevationMetersOrNaN(), 0.00001);
     }
 
