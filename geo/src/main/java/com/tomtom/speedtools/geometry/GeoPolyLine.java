@@ -52,8 +52,8 @@ public final class GeoPolyLine extends GeoObject {
 
         // Check the need to correct the elevation in a list of points.
         final List<GeoPoint> elevatedPoints;
-        final boolean noneElevated = points.stream().allMatch(x -> (x.getElevationMeters() != null));
-        final boolean allElevated = points.stream().allMatch(x -> (x.getElevationMeters() == null));
+        final boolean noneElevated = points.stream().noneMatch(x -> (x.getElevationMeters() != null));
+        final boolean allElevated = points.stream().noneMatch(x -> (x.getElevationMeters() == null));
 
         if (allElevated || noneElevated) {
 
@@ -61,14 +61,10 @@ public final class GeoPolyLine extends GeoObject {
             elevatedPoints = points;
         } else {
 
-            // Find the first elevation.
-            double elevationMeters = Double.NaN;
-            for (final GeoPoint point : points) {
-                if (point.getElevationMeters() != null) {
-                    elevationMeters = point.getElevationMetersOrNaN();
-                    break;
-                }
-            }
+            // Find the first elevation, or use NaN.
+            double elevationMeters = points.stream().filter(point -> point.getElevationMeters() != null).findFirst().
+                    orElse(new GeoPoint(0.0, 0.0, Double.NaN)).
+                    getElevationMetersOrNaN();
 
             // Create a new list of points, append first elevation if needed.
             elevatedPoints = new ArrayList<>(points.size());
