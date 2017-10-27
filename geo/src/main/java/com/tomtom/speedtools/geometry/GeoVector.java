@@ -35,16 +35,20 @@ public final class GeoVector {
     private final Double northing;
     @Nonnull
     private final Double easting;
+    @Nonnull
+    private final Double elevationMeters;
 
     /**
      * Create a vector.
      *
      * @param northing Northing, must be in range [-180, 180].
      * @param easting  Easting, in range [-360, 360].
+     * @param elevationMeters Elevation difference. No elevation change can be specified as 0.0, null or NaN, but is always returned as 0.0.
      */
     public GeoVector(
             @Nonnull final Double northing,
-            @Nonnull final Double easting) {
+            @Nonnull final Double easting,
+            @Nullable final Double elevationMeters) {
         super();
         assert northing != null;
         assert easting != null;
@@ -52,6 +56,19 @@ public final class GeoVector {
         assert MathUtils.isBetween(easting, -360.0, 360.0) : "Easting not in [-360, 360]: " + easting;
         this.northing = northing;
         this.easting = easting;
+        this.elevationMeters = (elevationMeters == null) ? 0.0 : (elevationMeters.isNaN() ? 0.0 : elevationMeters);
+    }
+
+    /**
+     * Create a vector. No elevation change is supplied (which is assumed 0.0).
+     *
+     * @param northing Northing, must be in range [-180, 180].
+     * @param easting  Easting, in range [-360, 360].
+     */
+    public GeoVector(
+            @Nonnull final Double northing,
+            @Nonnull final Double easting) {
+        this(northing, easting, 0.0);
     }
 
     /**
@@ -63,6 +80,7 @@ public final class GeoVector {
         super();
         northing = null;
         easting = null;
+        elevationMeters = null;
     }
 
     @Nonnull
@@ -73,6 +91,11 @@ public final class GeoVector {
     @Nonnull
     public Double getEasting() {
         return easting;
+    }
+
+    @Nonnull
+    public Double getElevationMeters() {
+        return elevationMeters;
     }
 
     public boolean canEqual(@Nonnull final Object obj) {

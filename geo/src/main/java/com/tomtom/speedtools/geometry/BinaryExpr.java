@@ -22,7 +22,7 @@ import javax.annotation.concurrent.Immutable;
 import java.util.Collection;
 
 /**
- * Binary expression.
+ * Binary expression for geometry operations.
  *
  * Note: This class is package private.
  *

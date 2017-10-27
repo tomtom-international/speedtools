@@ -40,6 +40,9 @@ public final class GeoLine extends GeoObject {
      * Create a line. A line is always defined from west to east. Note that if the west.longitude &gt; east.longitude
      * that the line is wrapped along the long side of the Earth.
      *
+     * Either both end points may have an elevation, or neither has. If, at construction, the elevation is only specified
+     * for one end point, then the elevation will be used for the other end point as well.
+     *
      * @param southWest Start point, west side.
      * @param northEast End point, east side, although east and west may be same longitude.
      */
@@ -49,10 +52,17 @@ public final class GeoLine extends GeoObject {
         super();
         assert southWest != null;
         assert northEast != null;
-        final GeoPoint lowerLeft = (southWest.getLat() <= northEast.getLat()) ?
+         GeoPoint lowerLeft = (southWest.getLat() <= northEast.getLat()) ?
                 southWest : southWest.withLat(northEast.getLat());
-        final GeoPoint upperRight = (southWest.getLat() <= northEast.getLat()) ?
+        GeoPoint upperRight = (southWest.getLat() <= northEast.getLat()) ?
                 northEast : northEast.withLat(southWest.getLat());
+
+        // Make sure either both or neither of the end points have an elevation.
+        if ((lowerLeft.getElevationMeters() == null) || (upperRight.getElevationMeters() == null)) {
+            final double elevationMeters = (lowerLeft.getElevationMeters() != null) ? lowerLeft.getElevationMetersOrNaN() : upperRight.getElevationMetersOrNaN();
+            lowerLeft = lowerLeft.withElevationMeters(elevationMeters);
+            upperRight = upperRight.withElevationMeters(elevationMeters);
+        }
         this.southWest = lowerLeft;
         this.northEast = upperRight;
         assert this.southWest.getLat() <= this.northEast.getLat() : "SW above NE: " + this;

@@ -41,10 +41,10 @@ public final class GeoPoint extends GeoObject {
     private final Double elevationMeters;   // Null if absent.
 
     /**
-     * Create a point.
+     * Create a 2D or 3D point.
      *
-     * @param lat Latitude (North/South), any range, will be wrapped to [-180, 180).
-     * @param lon Longitude (West/East), must be [-90, 90].
+     * @param lat             Latitude (North/South), any range, will be wrapped to [-180, 180).
+     * @param lon             Longitude (West/East), must be [-90, 90].
      * @param elevationMeters Elevation in meters. If null or NaN, no elevation is supplied.
      */
     public GeoPoint(
@@ -61,7 +61,7 @@ public final class GeoPoint extends GeoObject {
     }
 
     /**
-     * Create a point. Elevation is assumed to be absent.
+     * Create a 2D point. Elevation is assumed to be absent.
      *
      * @param lat Latitude (North/South), any range, will be wrapped to [-180, 180).
      * @param lon Longitude (West/East), must be [-90, 90].
@@ -128,9 +128,20 @@ public final class GeoPoint extends GeoObject {
 
     /**
      * Get elevation (in meters), or NaN if the elevation is absent.
-     * Note that the return cannot be null!
+     * Note that the return cannot be null (but it can be NaN)!
+     * This means you can use this getter in expressions like this:
      *
-     * @return Elevation in meters, or NaN if absent. The return value is never null! This allows
+     * {code}
+     * GeoPoint p = p1.getElevationMetersOrNaN() + p2.getElevationMetersOrNan()
+     * {code}
+     *
+     * Using the 'orNan'-getter means 'p' is a valid double, even if 'p1' or 'p2' has no
+     * elevation and returns NaN (in which case 'p' will also become NaN).
+     *
+     * Using the regular getter, you would be forced to checked for 'null' for every
+     * elevation.
+     *
+     * @return Elevation in meters, or NaN if absent. This return value is never null! This allows
      * the caller to "do the math", like adding or averaging elevations, even if they don't exist
      * for all points, because once NaN is used in an expression, the result will be NaN as well.
      */
@@ -195,7 +206,17 @@ public final class GeoPoint extends GeoObject {
                 newLon -= 360.0;
             }
         }
-        return new GeoPoint(newLat, newLon);
+        final double newElevationMeters = getElevationMetersOrNaN() + vector.getElevationMeters();
+        return new GeoPoint(newLat, newLon, newElevationMeters);
+    }
+
+    /**
+     * Translates a geo object in meters. The object's origin's latitude is used to transform meters to a GeoVector.
+     */
+    @Override
+    @Nonnull
+    public GeoPoint translate(final double northingMeters, final double eastingMeters, @Nullable final Double elevationMeters) {
+        return (GeoPoint) super.translate(northingMeters, eastingMeters, elevationMeters);
     }
 
     /**

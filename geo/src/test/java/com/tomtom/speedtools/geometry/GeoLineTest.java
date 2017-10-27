@@ -119,7 +119,7 @@ public class GeoLineTest {
         LOG.info("testGetCenterWithElevation");
         GeoPoint x = new GeoPoint(0.0, 2.0);
         GeoPoint y = new GeoPoint(10.0, 4.0, 100.0);
-        GeoPoint m = new GeoPoint(5.0, 3.0);
+        GeoPoint m = new GeoPoint(5.0, 3.0, 100.0);
         GeoLine line = new GeoLine(x, y);
         Assert.assertEquals(m, line.getCenter());
 

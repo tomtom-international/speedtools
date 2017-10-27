@@ -188,6 +188,25 @@ public class GeoRectangleTest {
     }
 
     @Test
+    public void testTranslateWithElevation() {
+        LOG.info("testTranslateWithElevation");
+        final GeoRectangle a1 = new GeoRectangle(new GeoPoint(0.0, 0.0, 5.0), new GeoPoint(2.0, 2.0));
+        final GeoVector p = new GeoVector(1.0, 1.0, 10.0);
+        final GeoRectangle a2 = a1.translate(p);
+        final GeoPoint p1 = new GeoPoint(1.0, 1.0, 15.0);
+        final GeoPoint p2 = new GeoPoint(3.0, 3.0, 15.0);
+        Assert.assertEquals(p1, a2.getSouthWest());
+        Assert.assertEquals(p2, a2.getNorthEast());
+
+        final GeoVector q = new GeoVector(1.0, 1.0, -10.0);
+        final GeoRectangle a3 = a1.translate(q);
+        final GeoPoint q1 = new GeoPoint(1.0, 1.0, -5.0);
+        final GeoPoint q2 = new GeoPoint(3.0, 3.0, -5.0);
+        Assert.assertEquals(q1, a3.getSouthWest());
+        Assert.assertEquals(q2, a3.getNorthEast());
+    }
+
+    @Test
     public void testMoveTo() {
         LOG.info("testMoveTo");
         final GeoRectangle a1 = new GeoRectangle(new GeoPoint(0.0, 0.0), new GeoPoint(2.0, 2.0));

@@ -1,6 +1,16 @@
 Release Notes
 ----
 
+### 3.2.6
+
+* Included `elevationMeters` in remaining `Geo`-classes. All operations now support elevations, including
+translation and length calculations. 
+
+* Geo-objects like lines, polylines, rectangles etc. now always have either no elevation at all, or all
+their points or corners do have an elevation.  
+
+* Added unit tests to test elevation behavior.
+
 ### 3.2.5
 
 * Included `elevationMeters` in `Geo`-classes, so `GeoPoint`s can be 3D. If the elevation is omitted, the

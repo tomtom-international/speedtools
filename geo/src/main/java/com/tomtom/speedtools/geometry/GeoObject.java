@@ -41,7 +41,7 @@ public abstract class GeoObject implements JsonRenderable {
 
     /**
      * Reference point of the geo object. The origin is the base point for operations like {@link #translate(GeoVector)}
-     * and {@link #moveTo(GeoPoint)} ).
+     * and {@link #moveTo(GeoPoint)}. The origin is always one of the used GeoPoints in the object.
      *
      * @return Origin of the geo object.
      */
@@ -50,6 +50,12 @@ public abstract class GeoObject implements JsonRenderable {
 
     /**
      * Center point of the geo object. The center is not always the origin of the object.
+     * It may also not be a GeoPoint used in the object itself (such as the center point of
+     * a GeoLine which is defined by its end points only).
+     *
+     * The elevation of the center point is an average value of other GeoPoints
+     * in the object. It is always defined as being between the minimum and maximum
+     * elevations of other points.
      *
      * @return Center of the geo object.
      */
@@ -59,14 +65,35 @@ public abstract class GeoObject implements JsonRenderable {
     /**
      * Translate a geo object with an Easting and Northing value.
      *
-     * @param vector Translation vector.
+     * @param vector Translation vector (along latitude and longitude).
      * @return Translated object.
      */
     @Nonnull
     public abstract GeoObject translate(@Nonnull final GeoVector vector);
 
     /**
-     * Translates a geo object in meters. The object's origin's latitude is used to transform meters to a GeoVector.
+     * Translates a geo object in meters. In fact, the object's origin's latitude is translated
+     * by the specified number of meters. The resulting change in latitude and longitude for the
+     * origin is then applied to other points as well.
+     *
+     * @param northingMeters  Meters to North.
+     * @param eastingMeters   Meters to East.
+     * @param elevationMeters Elevation difference. No elevation change may be specified as 0.0, null or NaN.
+     * @return Translated object.
+     */
+    @Nonnull
+    public GeoObject translate(final double northingMeters, final double eastingMeters, @Nullable final Double elevationMeters) {
+        final Double lat = getOrigin().getLat();
+        return translate(new GeoVector(
+                Geo.metersToDegreesLat(northingMeters),
+                Geo.metersToDegreesLonAtLat(eastingMeters, lat),
+                elevationMeters));
+    }
+
+    /**
+     * Translates a geo object in meters. In fact, the object's origin's latitude is translated
+     * by the specified number of meters. The resulting change in latitude and longitude for the
+     * origin is then applied to other points as well.
      *
      * @param northingMeters Meters to North.
      * @param eastingMeters  Meters to East.
@@ -74,10 +101,7 @@ public abstract class GeoObject implements JsonRenderable {
      */
     @Nonnull
     public GeoObject translate(final double northingMeters, final double eastingMeters) {
-        final Double lat = getOrigin().getLat();
-        return translate(new GeoVector(
-                Geo.metersToDegreesLat(northingMeters),
-                Geo.metersToDegreesLonAtLat(eastingMeters, lat)));
+        return translate(northingMeters, eastingMeters, 0.0);
     }
 
     /**
