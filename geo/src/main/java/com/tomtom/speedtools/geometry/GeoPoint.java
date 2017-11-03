@@ -43,8 +43,8 @@ public final class GeoPoint extends GeoObject {
     /**
      * Create a 2D or 3D point.
      *
-     * @param lat             Latitude (North/South), any range, will be wrapped to [-180, 180).
-     * @param lon             Longitude (West/East), must be [-90, 90].
+     * @param lat             Latitude (North/South), any range, will be wrapped to [-90, 90].
+     * @param lon             Longitude (West/East), must be [-180, 180).
      * @param elevationMeters Elevation in meters. If null or NaN, no elevation is supplied.
      */
     public GeoPoint(
@@ -63,8 +63,8 @@ public final class GeoPoint extends GeoObject {
     /**
      * Create a 2D point. Elevation is assumed to be absent.
      *
-     * @param lat Latitude (North/South), any range, will be wrapped to [-180, 180).
-     * @param lon Longitude (West/East), must be [-90, 90].
+     * @param lat Latitude (North/South), any range, will be wrapped to [-90, 90].
+     * @param lon Longitude (West/East), must be [-180, 180).
      */
     public GeoPoint(
             @Nonnull final Double lat,
