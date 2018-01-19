@@ -111,7 +111,7 @@
         <commons-logging.version>1.2</commons-logging.version>
         <equalsverifier.version>2.3.3</equalsverifier.version>
         <gcm-server.version>1.1.0</gcm-server.version>
-        <guava.version>23.0</guava.version>
+        <guava.version>23.6-jre</guava.version>
         <guice.version>4.1.0</guice.version>
         <httpcomponents.version>4.4.8</httpcomponents.version>
         <jackson.version>2.9.2</jackson.version>
