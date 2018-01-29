@@ -265,51 +265,82 @@ public final class GuiceUtils {
         return new URL(url).openStream();
     }
 
+     // This regular expression matches a full env.var substitution pattern, like "${VAR}" and "${VAR:=123}".
     static final Pattern REGEX_FULL_ENVVAR = Pattern.compile("\\$\\{.*?\\}");
+
+    // This regular expression matches the env.var name and its value in separate groups.
     static final Pattern REGEX_ONLY_NAME = Pattern.compile("\\$\\{(.*?)(:=.*)?\\}");
 
     static void expandProperties(
             @Nonnull final Binder binder,
             @Nonnull final Properties properties) {
+
+        // Process all properties.
         for (final String name : properties.stringPropertyNames()) {
             boolean appliedSubstitution;
             do {
+
+                // If a substitution is applied, we need to execute this loop once more, for the next env.var.
                 appliedSubstitution = false;
                 final String value = properties.getProperty(name);
+
+                // The property value must not be null or empty for the regex checking.
                 if ((value != null) && !value.trim().isEmpty()) {
+
+                    // Check if a substitution pattern is found.
                     final Matcher matchFullSpec = REGEX_FULL_ENVVAR.matcher(value);
                     if (matchFullSpec.find()) {
+
+                        // If a substitution pattern is found, use that to fetch the variable name and default value.
                         final String matchedAssignment = value.substring(matchFullSpec.start(), matchFullSpec.end());
+
+                        // Check if we can find the env.var name and its default value (optional).
                         final Matcher matchedName = REGEX_ONLY_NAME.matcher(matchedAssignment);
+
+                        // The regex has two groups. Group 1 is the name, group 2 is the default value (prefix with ':=').
                         if (matchedName.find() && (matchedName.groupCount() == 2)) {
                             final String envVarName = matchedName.group(1);
                             final String suppliedDefaultValue = (matchedName.group(2) == null) ? null : matchedName.group(2).substring(2);
+
+                            // Safety check to see if the name does not contain a $, { or }. Nested env.vars are not allowed.
                             if (envVarName.matches(".*?[${}].*")) {
                                 final String msg = "Property " + name + " uses incorrect syntax: " + envVarName;
                                 LOG.error("{}", msg);
                                 binder.addError(msg);
                                 properties.remove(name);
                             } else {
+
+                                // Get the actual env.var value.
                                 @SuppressWarnings("CallToSystemGetenv") final String valueFromEnv = System.getenv(envVarName);
                                 final String valueToBeUsed;
                                 if (valueFromEnv == null) {
                                     if (suppliedDefaultValue == null) {
+
+                                        // The env.var does not exist and there's no default. Remove the property.
                                         valueToBeUsed = null;
                                     } else {
+
+                                        // The env.var does not exist but there's a default. Use the default.
                                         valueToBeUsed = suppliedDefaultValue;
                                     }
                                 } else {
+
+                                    // The env.var exists. Use it.
                                     valueToBeUsed = valueFromEnv;
                                 }
 
-                                // Replace value with final value. If it was null, make it the empty string (which means undefined).
+                                // If the value to be used was not found, the entire property gets undefined.
                                 if (valueToBeUsed == null) {
                                     properties.remove(name);
                                 } else {
+
+                                    // Otherwise, substitute the env.var with its value.
                                     final String substitutedString = matchFullSpec.replaceFirst(valueToBeUsed);
                                     properties.setProperty(name, substitutedString);
+
+                                    // Execute the loop again, to resolve other env.vars.
+                                    appliedSubstitution = true;
                                 }
-                                appliedSubstitution = true;
                             }
                         }
                     }
