@@ -59,17 +59,7 @@ public final class GuiceUtils {
      * Property file urls are typically file:// or classpath: urls. Secondary property files may only contain properties
      * found in the primary property file.
      *
-     * Properties can use values from environment variables, with the following syntax:
-     * <pre>
-     *     property=${VAR:=default}
-     * </pre>
-     * This uses the environment variable 'VAR' in a property value, with a
-     * default value of 'default', if the environment variables wasn't set.
-     *
-     * You can also combine this with other text and other environment variables, like:
-     * <pre>
-     *     myPath=${HOME}/${SOURCE_BASEDIR:=sources}
-     * </pre>
+     * For more information on the format of properties, {@link HasProperties}.
      *
      * @param binder                      Guice binder.
      * @param primaryPropertySourceUrl    Primary property URL.

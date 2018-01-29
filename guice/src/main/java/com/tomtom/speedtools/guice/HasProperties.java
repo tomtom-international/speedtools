@@ -19,6 +19,21 @@ package com.tomtom.speedtools.guice;
 /**
  * Tagging interface that classes with configuration parameters can inherit from. Doing so consistently will aid finding
  * all configurable classes in a system.
+ *
+ * Properties can use values from environment variables, with the following syntax:
+ * <pre>
+ *     property=${VAR:=default}
+ * </pre>
+ *
+ * This uses the environment variable 'VAR' in a property value, with a
+ * default value of 'default', if the environment variables wasn't set.
+ *
+ * You can also combine this with other text and other environment variables, like:
+ * <pre>
+ *     myPath=${HOME}/${SOURCE_BASEDIR:=sources}
+ * </pre>
+ *
+ * Default values are literal strings. Environment variables cannot be used for default values.
  */
 public interface HasProperties {
 

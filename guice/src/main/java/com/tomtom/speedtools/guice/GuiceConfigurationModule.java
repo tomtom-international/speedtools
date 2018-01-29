@@ -34,6 +34,8 @@ public class GuiceConfigurationModule implements Module {
      * Create a Guice configuration module with property URLs for property files. Secondary property files may only
      * contain properties found in the primary property file.
      *
+     * For more information on the format of properties, {@link HasProperties}.
+     *
      * @param primaryPropertySourceUrl    Primary property URL.
      * @param secondaryPropertySourceUrls Zero or more secondary property URLs.
      */
