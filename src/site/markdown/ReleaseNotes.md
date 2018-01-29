@@ -1,6 +1,12 @@
 Release Notes
 ----
 
+### 3.2.7
+
+* Added the ability to use environment variables in property values. You can now use the sytax
+`property=${VAR:=default}` to use the environment variable `VAR` in a property value, with a 
+default value of `default`, if the environment variables wasn't set.
+
 ### 3.2.6
 
 * Included `elevationMeters` in remaining `Geo`-classes. All operations now support elevations, including

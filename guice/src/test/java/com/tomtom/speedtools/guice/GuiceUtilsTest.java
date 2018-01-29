@@ -41,8 +41,10 @@ import java.util.Properties;
 public class GuiceUtilsTest {
     private static final Logger LOG = LoggerFactory.getLogger(GuiceUtilsTest.class);
 
-    private static final String PROPERTY_FILE = GuiceUtilsTest.class.getPackage().getName().replaceAll("\\.",
-            "/") + "/guiceutilstest.properties";
+    private static final String PROPERTY_FILE_SIMPLE = GuiceUtilsTest.class.getPackage().getName().replaceAll("\\.",
+            "/") + "/simple.properties";
+    private static final String PROPERTY_FILE_ENVVAR = GuiceUtilsTest.class.getPackage().getName().replaceAll("\\.",
+            "/") + "/envvars.properties";
 
     @BeforeClass
     public static void setUp() throws NamingException {
@@ -80,7 +82,7 @@ public class GuiceUtilsTest {
             // Expected exception.
         }
 
-        GuiceUtils.loadUrl(props, "classpath:" + PROPERTY_FILE);
+        GuiceUtils.loadUrl(props, "classpath:" + PROPERTY_FILE_SIMPLE);
         Assert.assertEquals(3, props.size());
     }
 
@@ -123,7 +125,7 @@ public class GuiceUtilsTest {
         }
 
         // Find file path to classpath resource.
-        final URL url = this.getClass().getClassLoader().getResource(PROPERTY_FILE);
+        final URL url = this.getClass().getClassLoader().getResource(PROPERTY_FILE_SIMPLE);
         assert url != null;
         final String fileLocation = url.getFile();
 
@@ -154,23 +156,52 @@ public class GuiceUtilsTest {
 
         // Bind mock methods. Only the ones that are called in the process are required.
         Mockito.when(binder.skipSources(Names.class)).thenReturn(binder);
-
         Mockito.when(binder.bind(Mockito.any(Key.class))).thenReturn(Mockito.mock(LinkedBindingBuilder.class));
 
-        final Module module = new GuiceConfigurationModule("classpath:" + PROPERTY_FILE);
+        final Module module = new GuiceConfigurationModule("classpath:" + PROPERTY_FILE_SIMPLE);
+        LOG.info("testPropertiesModule: Property file={}", PROPERTY_FILE_SIMPLE);
         Assert.assertNotNull(module);
 
         module.configure(binder);
         Mockito.verify(binder, Mockito.times(0)).addError(Mockito.any(Throwable.class));
 
-
         // This will cause a NamingException that will be caught and added to the binder.
-        final Module badModule = new GuiceConfigurationModule("jndi:" + PROPERTY_FILE);
+        final Module badModule = new GuiceConfigurationModule("jndi:" + PROPERTY_FILE_SIMPLE);
         Assert.assertNotNull(badModule);
 
         badModule.configure(binder);
         Mockito.verify(binder, Mockito.times(1)).addError(Mockito.any(Throwable.class));
 
         // Difficult to test IOException flow in GuiceUtils.bindProperties.
+    }
+
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    @Test
+    public void testPropertyExpansion() throws IOException, NamingException {
+        final Binder binder = Mockito.mock(Binder.class);
+        Mockito.when(binder.skipSources(Names.class)).thenReturn(binder);
+        Mockito.when(binder.bind(Mockito.any(Key.class))).thenReturn(Mockito.mock(LinkedBindingBuilder.class));
+
+        final Properties props = new Properties();
+
+        GuiceUtils.loadUrl(props, "classpath:" + PROPERTY_FILE_ENVVAR);
+        GuiceUtils.expandProperties(binder, props);
+        Mockito.verify(binder, Mockito.times(3)).addError(Mockito.any(String.class));
+
+        Assert.assertEquals(10, props.size());
+        final String homeValue = System.getenv("HOME");
+        Assert.assertEquals(homeValue, props.getProperty("envVarExists"));
+        Assert.assertEquals(homeValue + 'y', props.getProperty("envVarExistsFront"));
+        Assert.assertEquals("x" + homeValue + 'y', props.getProperty("envVarExistsMid"));
+        Assert.assertEquals("x" + homeValue, props.getProperty("envVarExistsEnd"));
+        Assert.assertEquals(null, props.getProperty("envVarDoesNotExist"));
+        Assert.assertEquals("", props.getProperty("envVarDefaultValueEmpty"));
+        Assert.assertEquals("x", props.getProperty("envVarDefaultValueNonEmpty"));
+        Assert.assertEquals("${X", props.getProperty("envVarSyntaxError1"));
+        Assert.assertEquals(null, props.getProperty("envVarSyntaxError2"));
+        Assert.assertEquals(null, props.getProperty("envVarSyntaxError3"));
+        Assert.assertEquals(null, props.getProperty("envVarSyntaxError4"));
+        Assert.assertEquals("12", props.getProperty("envVarTwo1"));
+        Assert.assertEquals("1-2", props.getProperty("envVarTwo2"));
     }
 }

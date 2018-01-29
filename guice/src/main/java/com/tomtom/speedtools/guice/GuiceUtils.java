@@ -30,6 +30,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Utility for Guice dependency injection.
@@ -56,6 +58,18 @@ public final class GuiceUtils {
     /**
      * Property file urls are typically file:// or classpath: urls. Secondary property files may only contain properties
      * found in the primary property file.
+     *
+     * Properties can use values from environment variables, with the following syntax:
+     * <pre>
+     *     property=${VAR:=default}
+     * </pre>
+     * This uses the environment variable 'VAR' in a property value, with a
+     * default value of 'default', if the environment variables wasn't set.
+     *
+     * You can also combine this with other text and other environment variables, like:
+     * <pre>
+     *     myPath=${HOME}/${SOURCE_BASEDIR:=sources}
+     * </pre>
      *
      * @param binder                      Guice binder.
      * @param primaryPropertySourceUrl    Primary property URL.
@@ -106,6 +120,9 @@ public final class GuiceUtils {
         }
         LOG.info("  (In the property files, empty strings were specified as '{}' by {}.)",
                 emptyString, HasProperties.PROPERTIES_EMPTY_STRING);
+
+        // Expand environment variables (and collect errors).
+        expandProperties(binder, properties);
 
         // Check that all properties have been set.
         for (final String name : properties.stringPropertyNames()) {
@@ -246,5 +263,58 @@ public final class GuiceUtils {
             return new ByteArrayInputStream(out.toByteArray());
         }
         return new URL(url).openStream();
+    }
+
+    static final Pattern REGEX_FULL_ENVVAR = Pattern.compile("\\$\\{.*?\\}");
+    static final Pattern REGEX_ONLY_NAME = Pattern.compile("\\$\\{(.*?)(:=.*)?\\}");
+
+    static void expandProperties(
+            @Nonnull final Binder binder,
+            @Nonnull final Properties properties) {
+        for (final String name : properties.stringPropertyNames()) {
+            boolean appliedSubstitution;
+            do {
+                appliedSubstitution = false;
+                final String value = properties.getProperty(name);
+                if ((value != null) && !value.trim().isEmpty()) {
+                    final Matcher matchFullSpec = REGEX_FULL_ENVVAR.matcher(value);
+                    if (matchFullSpec.find()) {
+                        final String matchedAssignment = value.substring(matchFullSpec.start(), matchFullSpec.end());
+                        final Matcher matchedName = REGEX_ONLY_NAME.matcher(matchedAssignment);
+                        if (matchedName.find() && (matchedName.groupCount() == 2)) {
+                            final String envVarName = matchedName.group(1);
+                            final String suppliedDefaultValue = (matchedName.group(2) == null) ? null : matchedName.group(2).substring(2);
+                            if (envVarName.matches(".*?[${}].*")) {
+                                final String msg = "Property " + name + " uses incorrect syntax: " + envVarName;
+                                LOG.error("{}", msg);
+                                binder.addError(msg);
+                                properties.remove(name);
+                            } else {
+                                @SuppressWarnings("CallToSystemGetenv") final String valueFromEnv = System.getenv(envVarName);
+                                final String valueToBeUsed;
+                                if (valueFromEnv == null) {
+                                    if (suppliedDefaultValue == null) {
+                                        valueToBeUsed = null;
+                                    } else {
+                                        valueToBeUsed = suppliedDefaultValue;
+                                    }
+                                } else {
+                                    valueToBeUsed = valueFromEnv;
+                                }
+
+                                // Replace value with final value. If it was null, make it the empty string (which means undefined).
+                                if (valueToBeUsed == null) {
+                                    properties.remove(name);
+                                } else {
+                                    final String substitutedString = matchFullSpec.replaceFirst(valueToBeUsed);
+                                    properties.setProperty(name, substitutedString);
+                                }
+                                appliedSubstitution = true;
+                            }
+                        }
+                    }
+                }
+            } while (appliedSubstitution);
+        }
     }
 }

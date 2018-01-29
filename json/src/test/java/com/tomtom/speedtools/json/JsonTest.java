@@ -42,10 +42,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.awt.image.BufferedImage;
-import java.util.Date;
-import java.util.EnumMap;
-import java.util.Map;
-import java.util.TimeZone;
+import java.util.*;
 
 @SuppressWarnings({"deprecation", "OverlyBroadThrowsClause", "ProhibitedExceptionDeclared"})
 public class JsonTest {
@@ -60,7 +57,9 @@ public class JsonTest {
 
         private int a;
         private int b;
-    };
+    }
+
+    ;
 
     @Test
     public void testJsonEnumMap() throws Exception {
@@ -77,6 +76,39 @@ public class JsonTest {
         Assert.assertEquals(
                 "{\"A\":100,\"B\":200,\"C\":300,\"D\":400}",
                 s);
+    }
+
+    @Test
+    public void testJsonArray() throws Exception {
+        LOG.info("testJsonArray");
+
+        final int[] x = {1, 2, 3};
+        final String s1 = Json.toJson(x);
+        LOG.info("x.toJson = {}", s1);
+        Assert.assertEquals("[1,2,3]", s1);
+
+        final ArrayList<Integer> y = new ArrayList<>();
+        y.add(10);
+        y.add(20);
+        y.add(30);
+        final String s2 = Json.toJson(y);
+        LOG.info("y.toJson = {}", s2);
+        Assert.assertEquals("[10,20,30]", s2);
+
+        final List<List<Integer>> z = new ArrayList<>();
+        final List<Integer> a = new ArrayList<>();
+        a.add(10);
+        a.add(20);
+        a.add(30);
+        final List<Integer> b = new ArrayList<>();
+        b.add(100);
+        final List<Integer> c = Collections. EMPTY_LIST;
+        z.add(a);
+        z.add(b);
+        z.add(c);
+        final String s3 = Json.toJson(z);
+        LOG.info("z.toJson = {}", s3);
+        Assert.assertEquals("[[10,20,30],[100],[]]", s3);
     }
 
     @Test
@@ -302,8 +334,7 @@ public class JsonTest {
     public void testImageMixIn() throws Exception {
         LOG.info("testImageMixIn");
 
-        @SuppressWarnings("IOResourceOpenedButNotSafelyClosed")
-        final BufferedImage image1 = ImageIO.read(this.getClass().getResourceAsStream("jsontest.png"));
+        @SuppressWarnings("IOResourceOpenedButNotSafelyClosed") final BufferedImage image1 = ImageIO.read(this.getClass().getResourceAsStream("jsontest.png"));
         LOG.info("image = {}", image1);
         final String json2 = Json.toJson(image1);
         LOG.info("image.toJson = {}", json2);
