@@ -256,7 +256,7 @@ public final class GuiceUtils {
     }
 
      // This regular expression matches a full env.var substitution pattern, like "${VAR}" and "${VAR:=123}".
-    static final Pattern REGEX_FULL_ENVVAR = Pattern.compile("\\$\\{.*?\\}");
+    static final Pattern REGEX_FULL_ENVVAR = Pattern.compile("\\$\\{([^{}]|(\\{.+\\}))+\\}");
 
     // This regular expression matches the env.var name and its value in separate groups.
     static final Pattern REGEX_ONLY_NAME = Pattern.compile("\\$\\{(.*?)(:=.*)?\\}");
@@ -294,7 +294,7 @@ public final class GuiceUtils {
 
                             // Safety check to see if the name does not contain a $, { or }. Nested env.vars are not allowed.
                             if (envVarName.matches(".*?[${}].*")) {
-                                final String msg = "Property " + name + " uses incorrect syntax: " + envVarName;
+                                final String msg = "Property " + name + " uses incorrect environment variables name syntax: " + envVarName;
                                 LOG.error("{}", msg);
                                 binder.addError(msg);
                                 properties.remove(name);
@@ -332,6 +332,16 @@ public final class GuiceUtils {
                                     appliedSubstitution = true;
                                 }
                             }
+                        }
+                    } else {
+
+                        // If the property contains "${" but not regex was matched, the nesting must be wrong.
+                        if (value.contains("${")) {
+                            final String msg = "Property " + name + " uses incorrect nesting: " + name;
+                            LOG.error("{}", msg);
+                            binder.addError(msg);
+                            properties.remove(name);
+
                         }
                     }
                 }
