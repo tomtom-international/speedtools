@@ -33,7 +33,14 @@ package com.tomtom.speedtools.guice;
  *     myPath=${HOME}/${SOURCE_BASEDIR:=sources}
  * </pre>
  *
- * Default values are literal strings. Environment variables cannot be used for default values.
+ * Default values are literal strings. Environment variables cannot be used nested for default values,
+ * but you can assign either the null string (no characters), or the value of the `Properties.emptyString`,
+ * which is normally `{empty}`.
+ *
+ * Assigning the null string leaves the property undefined, resulting in a start-up error which
+ * notifies you you have forgotten to set abn environment variable.
+ *
+ * Assigning the value of `Properties.emptyString` sets the property to an empty string "".
  */
 public interface HasProperties {
 

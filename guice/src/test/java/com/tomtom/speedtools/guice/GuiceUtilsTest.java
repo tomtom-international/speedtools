@@ -151,6 +151,8 @@ public class GuiceUtilsTest {
     @SuppressWarnings({"rawtypes", "unchecked"})
     @Test
     public void testPropertiesModule() {
+        LOG.info("testPropertiesModule");
+
         // Create Mock Binder.
         final Binder binder = Mockito.mock(Binder.class);
 
@@ -177,7 +179,9 @@ public class GuiceUtilsTest {
 
     @SuppressWarnings({"rawtypes", "unchecked"})
     @Test
-    public void testPropertyExpansion() throws IOException, NamingException {
+    public void testExpandProperties() throws IOException, NamingException {
+        LOG.info("testExpandProperties");
+
         final Binder binder = Mockito.mock(Binder.class);
         Mockito.when(binder.skipSources(Names.class)).thenReturn(binder);
         Mockito.when(binder.bind(Mockito.any(Key.class))).thenReturn(Mockito.mock(LinkedBindingBuilder.class));
@@ -186,7 +190,7 @@ public class GuiceUtilsTest {
 
         GuiceUtils.loadUrl(props, "classpath:" + PROPERTY_FILE_ENVVAR);
         GuiceUtils.expandProperties(binder, props);
-        Mockito.verify(binder, Mockito.times(3)).addError(Mockito.any(String.class));
+        Mockito.verify(binder, Mockito.times(4)).addError(Mockito.any(String.class));
 
         Assert.assertEquals(10, props.size());
         final String homeValue = System.getenv("HOME");
@@ -195,13 +199,28 @@ public class GuiceUtilsTest {
         Assert.assertEquals("x" + homeValue + 'y', props.getProperty("envVarExistsMid"));
         Assert.assertEquals("x" + homeValue, props.getProperty("envVarExistsEnd"));
         Assert.assertEquals(null, props.getProperty("envVarDoesNotExist"));
-        Assert.assertEquals("", props.getProperty("envVarDefaultValueEmpty"));
+        Assert.assertEquals("", props.getProperty("envVarDefaultValueUndefined"));
+        Assert.assertEquals("{empty}", props.getProperty("envVarDefaultValueEmpty"));
         Assert.assertEquals("x", props.getProperty("envVarDefaultValueNonEmpty"));
-        Assert.assertEquals("${X", props.getProperty("envVarSyntaxError1"));
+        Assert.assertEquals(null, props.getProperty("envVarSyntaxError1"));
         Assert.assertEquals(null, props.getProperty("envVarSyntaxError2"));
         Assert.assertEquals(null, props.getProperty("envVarSyntaxError3"));
         Assert.assertEquals(null, props.getProperty("envVarSyntaxError4"));
         Assert.assertEquals("12", props.getProperty("envVarTwo1"));
         Assert.assertEquals("1-2", props.getProperty("envVarTwo2"));
+    }
+
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    @Test
+    public void testBindProperties() throws IOException, NamingException {
+        LOG.info("testBindProperties");
+
+        final Binder binder = Mockito.mock(Binder.class);
+        Mockito.when(binder.skipSources(Names.class)).thenReturn(binder);
+        Mockito.when(binder.bind(Mockito.any(Key.class))).thenReturn(Mockito.mock(LinkedBindingBuilder.class));
+
+        final String propertyFile = "classpath:" + PROPERTY_FILE_ENVVAR;
+        GuiceUtils.bindProperties(binder, propertyFile);
+        Mockito.verify(binder, Mockito.times(5)).addError(Mockito.any(String.class));
     }
 }

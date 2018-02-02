@@ -1,6 +1,12 @@
 Release Notes
 ----
 
+### 3.2.8
+
+* Allowed default value to be `{empty}` (or any other string). The `{...}` are matched properly now.
+Assigning the null string means the environment varibale is left undefined, so `${X:=}` would leave `X` 
+undefined if the environment variable was not set, leading to a start-up error (which is a good thing),
+
 ### 3.2.7
 
 * Added the ability to use environment variables in property values. You can now use the sytax
