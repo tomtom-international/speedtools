@@ -44,7 +44,8 @@ public final class GuiceUtils {
     static final String JNDI_PROPETY_PREFIX_PARAM = "?prefix=";
 
     // These properties should not be printed.
-    private static final Set<String> PROPERTY_VALUES_TO_HIDE = Immutables.setOf("password", "secret");
+    private static final Set<String> PROPERTY_VALUES_TO_HIDE = Immutables.setOf(
+            "password", "passwd", "pwd", "secret", "apikey", "credential", "credentials", "token");
     private static final String PROPERTY_VALUES_HIDDEN = "******** (hidden)";
 
     /**
@@ -139,7 +140,11 @@ public final class GuiceUtils {
         for (final String propertyName : sortedPropertyNames) {
             boolean found = false;
             for (final String hide : PROPERTY_VALUES_TO_HIDE) {
-                if (propertyName.endsWith(hide)) {
+                final String propertyNameLowerCase = propertyName.toLowerCase();
+                if (propertyNameLowerCase.startsWith(hide) ||
+                        propertyNameLowerCase.endsWith(hide) ||
+                        propertyNameLowerCase.contains('.' + hide) ||
+                        propertyNameLowerCase.contains(hide + '.')) {
                     found = true;
                     break;
                 }
@@ -255,7 +260,7 @@ public final class GuiceUtils {
         return new URL(url).openStream();
     }
 
-     // This regular expression matches a full env.var substitution pattern, like "${VAR}" and "${VAR:=123}".
+    // This regular expression matches a full env.var substitution pattern, like "${VAR}" and "${VAR:=123}".
     static final Pattern REGEX_FULL_ENVVAR = Pattern.compile("\\$\\{([^{}]|(\\{.+\\}))+\\}");
 
     // This regular expression matches the env.var name and its value in separate groups.

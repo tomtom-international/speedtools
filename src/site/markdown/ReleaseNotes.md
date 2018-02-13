@@ -1,6 +1,11 @@
 Release Notes
 ----
 
+### 3.2.9
+
+* Properties starting or ending with 'secret' or 'password' are now never shown at startup 
+(case-insenstive). 
+
 ### 3.2.8
 
 * Allowed default value to be `{empty}` (or any other string). The `{...}` are matched properly now.

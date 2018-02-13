@@ -43,6 +43,8 @@ public class GuiceUtilsTest {
 
     private static final String PROPERTY_FILE_SIMPLE = GuiceUtilsTest.class.getPackage().getName().replaceAll("\\.",
             "/") + "/simple.properties";
+    private static final String PROPERTY_FILE_SECRET = GuiceUtilsTest.class.getPackage().getName().replaceAll("\\.",
+            "/") + "/secret.properties";
     private static final String PROPERTY_FILE_ENVVAR = GuiceUtilsTest.class.getPackage().getName().replaceAll("\\.",
             "/") + "/envvars.properties";
 
@@ -222,5 +224,19 @@ public class GuiceUtilsTest {
         final String propertyFile = "classpath:" + PROPERTY_FILE_ENVVAR;
         GuiceUtils.bindProperties(binder, propertyFile);
         Mockito.verify(binder, Mockito.times(5)).addError(Mockito.any(String.class));
+    }
+
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    @Test
+    public void testSecretProperties() throws IOException, NamingException {
+        LOG.info("testSecretProperties");
+
+        final Binder binder = Mockito.mock(Binder.class);
+        Mockito.when(binder.skipSources(Names.class)).thenReturn(binder);
+        Mockito.when(binder.bind(Mockito.any(Key.class))).thenReturn(Mockito.mock(LinkedBindingBuilder.class));
+
+        final String propertyFile = "classpath:" + PROPERTY_FILE_SECRET;
+        GuiceUtils.bindProperties(binder, propertyFile);
+        Mockito.verify(binder, Mockito.times(0)).addError(Mockito.any(String.class));
     }
 }
