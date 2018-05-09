@@ -79,7 +79,7 @@ public class GeneralExceptionMapper implements ExceptionMapper<Throwable> {
      *
      * @param verboseMode If true, user verbose mode and add a unique reference to error messages.
      */
-    public static void setVerbodeMode(final boolean verboseMode) {
+    public static void setVerboseMode(final boolean verboseMode) {
         GeneralExceptionMapper.verboseMode = verboseMode;
     }
 
