@@ -92,4 +92,16 @@ public class MathUtilsTest {
         Assert.assertFalse(MathUtils.isAlmostZero(MathUtils.EPSILON * 2));
         Assert.assertFalse(MathUtils.isAlmostZero(-MathUtils.EPSILON * 2));
     }
+
+    @Test
+    public void testWrapValueToWithinLimits() {
+        LOG.info("testWrapValueToWithinLimits");
+        Assert.assertEquals(-1, MathUtils.wrapValueToWithinLimits(1, 1), 1.0e-8);
+        Assert.assertEquals(0, MathUtils.wrapValueToWithinLimits(0, 180), 1.0e-8);
+        Assert.assertEquals(0, MathUtils.wrapValueToWithinLimits(360.0, 180), 1.0e-8);
+        Assert.assertEquals(1, MathUtils.wrapValueToWithinLimits(361.0, 180), 1.0e-8);
+        Assert.assertEquals(-1, MathUtils.wrapValueToWithinLimits(359.0, 180), 1.0e-8);
+        Assert.assertEquals(179, MathUtils.wrapValueToWithinLimits(179.0, 180), 1.0e-8);
+        Assert.assertEquals(-179, MathUtils.wrapValueToWithinLimits(181.0, 180), 1.0e-8);
+    }
 }

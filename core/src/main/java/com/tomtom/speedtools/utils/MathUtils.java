@@ -161,4 +161,23 @@ public final class MathUtils {
     public static void setRandomSeed(final long seed) {
         RANDOM.setSeed(seed);
     }
+
+    /**
+     * Map a value to [-limit, limit). Values outside this range are wrapped to this range.
+     *
+     * @param value Any value.
+     * @return Wrapped to [-limit, limit).
+     */
+    public static double wrapValueToWithinLimits(
+            final double value,
+            final int limit) {
+        double wrapped = (((((value >= 0) ?
+                value :
+                -value) + limit) % (limit * 2)) - limit) * ((value >= 0) ? 1.0 : -1.0);
+        if (Double.compare(wrapped, limit) == 0) {
+            wrapped = -wrapped;
+        }
+        assert (-limit <= wrapped) && (wrapped < limit);
+        return wrapped;
+    }
 }
