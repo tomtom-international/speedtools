@@ -1,6 +1,12 @@
 Release Notes
 ----
 
+### 3.2.10
+
+* Changed type of parameter for `GeoRectangle.expand()` to double to allow sub-meter values.
+
+* Added `MathUtils.wrapValueToWithinLimits()` to limit values between `[]-limit, limit)`. 
+ 
 ### 3.2.9
 
 * Properties starting or ending with 'secret' or 'password' are now never shown at startup 
