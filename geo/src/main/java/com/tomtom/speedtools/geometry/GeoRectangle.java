@@ -32,6 +32,9 @@ import java.util.Collection;
 @Immutable
 public final class GeoRectangle extends Primitive {
 
+    public static final GeoRectangle WORLD =
+            new GeoRectangle(new GeoPoint(-90.0, -180.0), new GeoPoint(90.0, Geo.LON180));
+
     @Nonnull
     private final GeoPoint southWest;
     @Nonnull
@@ -82,12 +85,14 @@ public final class GeoRectangle extends Primitive {
 
     /**
      * Return a rectangle, the size of the world (in Mercator). Meaning: lat=-90..90, and lon=-180..180.
+     * Deprecated. Better to use {@link GeoRectangle#WORLD} now.
      *
      * @return World-size rectangle.
      */
+    @Deprecated()
     @Nonnull
     public static GeoRectangle getWorld() {
-        return new GeoRectangle(new GeoPoint(-90.0, -180.0), new GeoPoint(90.0, Geo.LON180));
+        return WORLD;
     }
 
     @Nonnull
