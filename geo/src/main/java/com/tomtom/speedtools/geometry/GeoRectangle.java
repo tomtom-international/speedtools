@@ -212,7 +212,7 @@ public final class GeoRectangle extends Primitive {
      * @return Expanded rectangle.
      */
     @Nonnull
-    public GeoRectangle expand(final int meters) {
+    public GeoRectangle expand(final double meters) {
         final double latDelta = Geo.metersToDegreesLat(meters);
         final double southLonDelta = Geo.metersToDegreesLonAtLat(meters, southWest.getLat());
         final double northLonDelta = Geo.metersToDegreesLonAtLat(meters, northEast.getLat());
