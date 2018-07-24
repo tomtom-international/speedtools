@@ -140,5 +140,13 @@ public class GeoCircleTest {
         Assert.assertTrue((b1.getNorthing() - a1.boundingBox().getNorthing()) < 0.001);
         Assert.assertTrue((b1.getEasting() - a1.boundingBox().getEasting()) < 0.001);
     }
+
+    @Test
+    public void testConstructor() {
+        LOG.info("testConstructor");
+        final GeoCircle c1 = new GeoCircle(new GeoPoint(0.0, 0.0), Geo.METERS_PER_DEGREE_LON_EQUATOR);
+        final GeoCircle c2 = new GeoCircle(new GeoPoint(0.0, 0.0), new GeoPoint(0.0, 1.0));
+        Assert.assertEquals(c1, c2);
+    }
 }
 

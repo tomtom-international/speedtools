@@ -65,11 +65,7 @@ public final class GeoCircle extends Primitive {
         super();
         assert center != null;
         assert point != null;
-        final double lat = Math.abs(center.getLat() - point.getLat());
-        final double lon = Math.abs(center.getLon() - point.getLon());
-        final double w = Geo.degreesLatToMeters(lat);
-        final double h = Geo.degreesLonToMetersAtLat(lon, (center.getLat() + point.getLat()) / 2.0);
-        final double radius = Math.sqrt((w * w) + (h * h));
+        final double radius = Geo.distanceInMeters(center, point);
         this.center = center;
         this.radiusMeters = radius;
     }
