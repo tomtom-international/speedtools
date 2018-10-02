@@ -154,4 +154,35 @@ public class GeoPolyLineTest {
         Assert.assertEquals(new GeoPoint(-2.0, -180.0), poly2.get(1));
         Assert.assertEquals(new GeoPoint(-2.0, -1.0), poly2.get(2));
     }
+
+    @Test
+    public void testGetPointAtOffset() {
+        LOG.info("testGetPointAtOffset");
+        final GeoPoint x1 = new GeoPoint(-1.0, 0.0);
+        final GeoPoint x2 = new GeoPoint(0.0, 0.0);
+        final GeoPoint x2half = new GeoPoint(-0.5, 0.0);
+        final GeoPoint x3 = new GeoPoint(0.0, 1.0);
+        final GeoPoint x3half = new GeoPoint(0.0, 0.5);
+        final GeoPoint x4 = new GeoPoint(1.0, 3.0);
+        final GeoPoint x4half = new GeoPoint(0.5, 2.0);
+        final List<GeoPoint> list = Lists.asList(x1, new GeoPoint[]{x2, x3, x4});
+        final GeoPolyLine poly = new GeoPolyLine(list);
+
+        Assert.assertEquals(x1, poly.getPointAtOffset(0.0));
+        Assert.assertEquals(x1, poly.getPointAtOffset(-1.0));
+        Assert.assertEquals(x4, poly.getPointAtOffset(100.0 * Geo.METERS_PER_DEGREE_LON_EQUATOR));
+
+        Assert.assertEquals(x2half, poly.getPointAtOffset(Geo.METERS_PER_DEGREE_LAT / 2.0));
+        Assert.assertEquals(x2, poly.getPointAtOffset(Geo.METERS_PER_DEGREE_LAT));
+        Assert.assertEquals(x3half, poly.getPointAtOffset(Geo.METERS_PER_DEGREE_LAT + (Geo.METERS_PER_DEGREE_LON_EQUATOR / 2.0)));
+        Assert.assertEquals(x3, poly.getPointAtOffset(Geo.METERS_PER_DEGREE_LAT + Geo.METERS_PER_DEGREE_LON_EQUATOR));
+        final GeoPoint p1 = poly.getPointAtOffset(Geo.METERS_PER_DEGREE_LAT + Geo.METERS_PER_DEGREE_LON_EQUATOR +
+                (Math.sqrt((Geo.METERS_PER_DEGREE_LAT * Geo.METERS_PER_DEGREE_LAT) +
+                        (4 * Geo.METERS_PER_DEGREE_LON_EQUATOR * Geo.METERS_PER_DEGREE_LON_EQUATOR)) / 2.0));
+        Assert.assertEquals(x4half.getLat(), p1.getLat(), 0.0001);
+        Assert.assertEquals(x4half.getLon(), p1.getLon(), 0.0001);
+        Assert.assertEquals(x4, poly.getPointAtOffset(Geo.METERS_PER_DEGREE_LAT + Geo.METERS_PER_DEGREE_LON_EQUATOR +
+                Math.sqrt((Geo.METERS_PER_DEGREE_LAT * Geo.METERS_PER_DEGREE_LAT) +
+                        (4 * Geo.METERS_PER_DEGREE_LON_EQUATOR * Geo.METERS_PER_DEGREE_LON_EQUATOR))));
+    }
 }

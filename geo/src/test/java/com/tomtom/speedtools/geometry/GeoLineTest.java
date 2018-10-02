@@ -251,4 +251,16 @@ public class GeoLineTest {
         Assert.assertFalse(shortLine.isWrappedOnLongSide());
         Assert.assertTrue(longLine.isWrappedOnLongSide());
     }
+
+    @Test
+    public void testGetheading() {
+        LOG.info("testgetHeading");
+
+        Assert.assertEquals(0.0, new GeoLine(new GeoPoint(0.0, 0.0), new GeoPoint(0.0, 0.0)).getHeading(), 1.0);
+        Assert.assertEquals(0.0, new GeoLine(new GeoPoint(0.0, 0.0), new GeoPoint(1.0, 0.0)).getHeading(), 1.0);
+        Assert.assertEquals(90.0, new GeoLine(new GeoPoint(0.0, 0.0), new GeoPoint(0.0, 1.0)).getHeading(), 1.0);
+        Assert.assertEquals(90.0, new GeoLine(new GeoPoint(1.0, 1.0), new GeoPoint(1.0, 2.0)).getHeading(), 1.0);
+        Assert.assertEquals(90.0, new GeoLine(new GeoPoint(10.0, 10.0), new GeoPoint(10.0, 11.0)).getHeading(), 1.0);
+        Assert.assertEquals(-90.0, new GeoLine(new GeoPoint(10.0, 10.0), new GeoPoint(10.0, 9.0)).getHeading(), 1.0);
+    }
 }

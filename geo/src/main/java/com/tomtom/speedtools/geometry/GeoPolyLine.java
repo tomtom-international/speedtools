@@ -144,6 +144,37 @@ public final class GeoPolyLine extends GeoObject {
     }
 
     /**
+     * Return an (interpolated) point on a polyline, given an offset in meters.
+     * The interpolated point is always capped to the polyline bounds (so a negative
+     * offset results in the origin and an offset beyond the end of the line results
+     * in the end point).
+     *
+     * @param offsetInMeters Offset in meters, from the start of the polyline.
+     * @return Interpolated point on polyline, capped to start or end of polyline.
+     */
+    @Nonnull
+    public GeoPoint getPointAtOffset(final double offsetInMeters) {
+        final List<GeoLine> lines = asLines();
+        assert !lines.isEmpty();
+        int index = 0;
+        GeoLine line;
+        double nextOffset = Math.max(0.0, offsetInMeters);
+        double offset;
+        do {
+            offset = nextOffset;
+            line = lines.get(index);
+            nextOffset = offset - line.getLengthMeters();
+            ++index;
+        } while ((nextOffset >= 0.0) && (index < lines.size()));
+        offset = Math.min(line.getLengthMeters(), offset);
+        final double ratio = offset / line.getLengthMeters();
+        final double northing = line.getNorthing() * ratio;
+        final double easting = line.getEasting() * ratio;
+        final GeoPoint point = line.getOrigin().translate(new GeoVector(northing, easting));
+        return point;
+    }
+
+    /**
      * Get number of points in polyline.
      *
      * @return Number of points, always &gt; 2.

@@ -1,6 +1,10 @@
 Release Notes
 ----
 
+### 3.2.11
+
+* Added `getHeading` for `GeoLine`.
+
 ### 3.2.10
 
 * Changed type of parameter for `GeoRectangle.expand()` to double to allow sub-meter values.

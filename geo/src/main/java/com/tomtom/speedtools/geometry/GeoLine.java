@@ -52,7 +52,7 @@ public final class GeoLine extends GeoObject {
         super();
         assert southWest != null;
         assert northEast != null;
-         GeoPoint lowerLeft = (southWest.getLat() <= northEast.getLat()) ?
+        GeoPoint lowerLeft = (southWest.getLat() <= northEast.getLat()) ?
                 southWest : southWest.withLat(northEast.getLat());
         GeoPoint upperRight = (southWest.getLat() <= northEast.getLat()) ?
                 northEast : northEast.withLat(southWest.getLat());
@@ -229,6 +229,28 @@ public final class GeoLine extends GeoObject {
             shortest = new GeoLine(to, from);
         }
         return shortest;
+    }
+
+    /**
+     * Returns the heading angle with respect to North, counted clockwise.
+     *
+     * @return Clock-wise angle to North, range [-180, 180). This method is only accurate for small
+     * distances (sub-degree). It does not take the curvature of the surface into account
+     */
+    public double getHeading() {
+        double lat1 = Math.toRadians(southWest.getLat());
+        double lon1 = Math.toRadians(southWest.getLon());
+        double lat2 = Math.toRadians(northEast.getLat());
+        double lon2 = Math.toRadians(northEast.getLon());
+
+        double dLon = lon2 - lon1;
+        double y = Math.sin(dLon) * Math.cos(lat2);
+        double x = (Math.cos(lat1) * Math.sin(lat2)) - (Math.sin(lat1) * Math.cos(lat2) * Math.cos(dLon));
+        double bearing = Math.atan2(y, x);
+
+        bearing = Math.toDegrees(bearing);
+        bearing = Geo.mapToLon((bearing + 360.0) % 360);
+        return bearing;
     }
 
     @Override
