@@ -149,8 +149,8 @@ public final class GeoPolyLine extends GeoObject {
      * A negative offset interpolates the point from the end rather than the start
      * of the polyline.
      *
-     * @param offsetInMeters Offset in meters, if >- 0.0 from the start of the polyline,
-     *                       if < 0.0 from the end of the polyline.
+     * @param offsetInMeters Offset in meters, if positive (or 0.0) from the start of the polyline,
+     *                       if negative, from the end of the polyline.
      * @return Interpolated point on polyline, capped to the end points of the polyline.
      */
     @Nonnull
