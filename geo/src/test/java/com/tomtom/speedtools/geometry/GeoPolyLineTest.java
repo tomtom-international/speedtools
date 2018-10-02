@@ -205,7 +205,7 @@ public class GeoPolyLineTest {
 
         final GeoPoint p5 = poly.getPointAtOffset(-Math.sqrt((Geo.METERS_PER_DEGREE_LAT * Geo.METERS_PER_DEGREE_LAT) +
                 (4 * Geo.METERS_PER_DEGREE_LON_EQUATOR * Geo.METERS_PER_DEGREE_LON_EQUATOR)) - Geo.METERS_PER_DEGREE_LON_EQUATOR
-                - Geo.METERS_PER_DEGREE_LAT / 2.0);
+                - (Geo.METERS_PER_DEGREE_LAT / 2.0));
         Assert.assertEquals(x2half.getLat(), p5.getLat(), delta);
         Assert.assertEquals(x2half.getLon(), p5.getLon(), delta);
     }
