@@ -145,12 +145,13 @@ public final class GeoPolyLine extends GeoObject {
 
     /**
      * Return an (interpolated) point on a polyline, given an offset in meters.
-     * The interpolated point is always capped to the polyline bounds (so a negative
-     * offset results in the origin and an offset beyond the end of the line results
-     * in the end point).
+     * The interpolated point is capped to the polyline bounds.
+     * A negative offset interpolates the point from the end rather than the start
+     * of the polyline.
      *
-     * @param offsetInMeters Offset in meters, from the start of the polyline.
-     * @return Interpolated point on polyline, capped to start or end of polyline.
+     * @param offsetInMeters Offset in meters, if >- 0.0 from the start of the polyline,
+     *                       if < 0.0 from the end of the polyline.
+     * @return Interpolated point on polyline, capped to the end points of the polyline.
      */
     @Nonnull
     public GeoPoint getPointAtOffset(final double offsetInMeters) {
@@ -158,15 +159,20 @@ public final class GeoPolyLine extends GeoObject {
         assert !lines.isEmpty();
         int index = 0;
         GeoLine line;
-        double nextOffset = Math.max(0.0, offsetInMeters);
+        double nextOffset;
+        if (offsetInMeters < 0.0) {
+            nextOffset = Math.max(0.0, getLengthMeters() + offsetInMeters);
+        } else {
+            nextOffset = Math.min(getLengthMeters(), offsetInMeters);
+        }
         double offset;
         do {
             offset = nextOffset;
             line = lines.get(index);
             nextOffset = offset - line.getLengthMeters();
             ++index;
-        } while ((nextOffset >= 0.0) && (index < lines.size()));
-        offset = Math.min(line.getLengthMeters(), offset);
+        } while ((nextOffset > 0.0) && (index < lines.size()));
+        assert (0.0 <= offset) && (offset <= line.getLengthMeters());
         final double ratio = offset / line.getLengthMeters();
         final double northing = line.getNorthing() * ratio;
         final double easting = line.getEasting() * ratio;

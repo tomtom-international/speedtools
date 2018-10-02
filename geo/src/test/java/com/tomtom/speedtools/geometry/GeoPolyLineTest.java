@@ -169,20 +169,32 @@ public class GeoPolyLineTest {
         final GeoPolyLine poly = new GeoPolyLine(list);
 
         Assert.assertEquals(x1, poly.getPointAtOffset(0.0));
-        Assert.assertEquals(x1, poly.getPointAtOffset(-1.0));
         Assert.assertEquals(x4, poly.getPointAtOffset(100.0 * Geo.METERS_PER_DEGREE_LON_EQUATOR));
 
         Assert.assertEquals(x2half, poly.getPointAtOffset(Geo.METERS_PER_DEGREE_LAT / 2.0));
         Assert.assertEquals(x2, poly.getPointAtOffset(Geo.METERS_PER_DEGREE_LAT));
         Assert.assertEquals(x3half, poly.getPointAtOffset(Geo.METERS_PER_DEGREE_LAT + (Geo.METERS_PER_DEGREE_LON_EQUATOR / 2.0)));
         Assert.assertEquals(x3, poly.getPointAtOffset(Geo.METERS_PER_DEGREE_LAT + Geo.METERS_PER_DEGREE_LON_EQUATOR));
+
         final GeoPoint p1 = poly.getPointAtOffset(Geo.METERS_PER_DEGREE_LAT + Geo.METERS_PER_DEGREE_LON_EQUATOR +
                 (Math.sqrt((Geo.METERS_PER_DEGREE_LAT * Geo.METERS_PER_DEGREE_LAT) +
                         (4 * Geo.METERS_PER_DEGREE_LON_EQUATOR * Geo.METERS_PER_DEGREE_LON_EQUATOR)) / 2.0));
         Assert.assertEquals(x4half.getLat(), p1.getLat(), 0.0001);
         Assert.assertEquals(x4half.getLon(), p1.getLon(), 0.0001);
+
         Assert.assertEquals(x4, poly.getPointAtOffset(Geo.METERS_PER_DEGREE_LAT + Geo.METERS_PER_DEGREE_LON_EQUATOR +
                 Math.sqrt((Geo.METERS_PER_DEGREE_LAT * Geo.METERS_PER_DEGREE_LAT) +
                         (4 * Geo.METERS_PER_DEGREE_LON_EQUATOR * Geo.METERS_PER_DEGREE_LON_EQUATOR))));
+
+        Assert.assertEquals(x1, poly.getPointAtOffset(-100.0 * Geo.METERS_PER_DEGREE_LON_EQUATOR));
+
+        final GeoPoint p2 = poly.getPointAtOffset(-1.0e-8);
+        Assert.assertEquals(x4.getLat(), p2.getLat(), 0.0001);
+        Assert.assertEquals(x4.getLon(), p2.getLon(), 0.0001);
+
+        final GeoPoint p3 = poly.getPointAtOffset(-Math.sqrt((Geo.METERS_PER_DEGREE_LAT * Geo.METERS_PER_DEGREE_LAT) +
+                (4 * Geo.METERS_PER_DEGREE_LON_EQUATOR * Geo.METERS_PER_DEGREE_LON_EQUATOR)));
+        Assert.assertEquals(x3.getLat(), p3.getLat(), 0.0001);
+        Assert.assertEquals(x3.getLon(), p3.getLon(), 0.0001);
     }
 }
