@@ -1,6 +1,11 @@
 Release Notes
 ----
 
+### 3.2.12
+
+* Updated dependencies in `pom.xml`. This includes an update of the MongoDB driver, which
+now serializes `DBObject` with a different `$date` format.
+
 ### 3.2.11
 
 * Added `getHeading` for `GeoLine`.

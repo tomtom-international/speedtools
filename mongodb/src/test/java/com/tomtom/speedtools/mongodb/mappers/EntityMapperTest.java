@@ -34,7 +34,7 @@ public class EntityMapperTest {
     private static final Logger LOG = LoggerFactory.getLogger(EntityMapperTest.class);
 
     private static final String JSON_VALUE =
-            "{ \"color\" : \"blue\" , \"created\" : { \"$date\" : \"2000-10-09T08:07:06.005Z\"} , \"name\" : \"x\" , \"price\" : 5.6 , \"boxes\" : [ { \"color\" : \"red\" , \"created\" : { \"$date\" : \"2001-02-03T04:05:06.007Z\"} , \"name\" : \"a\" , \"price\" : 1.2 , \"_type\" : \"box\"} , { \"color\" : \"green\" , \"created\" : { \"$date\" : \"2011-12-13T14:15:16.017Z\"} , \"name\" : \"b\" , \"price\" : 3.4 , \"_type\" : \"box\"}] , \"shade\" : \"yellow\" , \"shipped\" : { \"$date\" : \"1990-03-04T05:20:21.022Z\"} , \"line\" : \"y\" , \"weight\" : 7.8 , \"_type\" : \"container\"}";
+            "{ \"color\" : \"blue\", \"created\" : { \"$date\" : 971078826005 }, \"name\" : \"x\", \"price\" : 5.6, \"boxes\" : [{ \"color\" : \"red\", \"created\" : { \"$date\" : 981173106007 }, \"name\" : \"a\", \"price\" : 1.2, \"_type\" : \"box\" }, { \"color\" : \"green\", \"created\" : { \"$date\" : 1323785716017 }, \"name\" : \"b\", \"price\" : 3.4, \"_type\" : \"box\" }], \"shade\" : \"yellow\", \"shipped\" : { \"$date\" : 636528021022 }, \"line\" : \"y\", \"weight\" : 7.8, \"_type\" : \"container\" }";
 
     private static ContainerMapper mapper = null;
     private static Container container1 = null;
