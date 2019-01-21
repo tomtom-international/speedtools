@@ -1,6 +1,14 @@
 Release Notes
 ----
 
+### 3.2.13
+
+* Fixed Jackson vulnerability/
+
+* Updated POM dependencies.
+
+* Updated copyright to TomTom NV.
+
 ### 3.2.12
 
 * Updated dependencies in `pom.xml`. This includes an update of the MongoDB driver, which

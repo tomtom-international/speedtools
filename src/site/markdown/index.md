@@ -18,11 +18,11 @@ Happy coding!
 
 **Rijn Buve**
 
-TomTom International BV
+TomTom NV
 
 # License
 
-Copyright (C) 2012-2017. TomTom International BV (http://tomtom.com).
+Copyright (C) 2012-2017. TomTom NV (http://tomtom.com).
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

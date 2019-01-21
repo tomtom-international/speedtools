@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  ~ Copyright (C) 2012-2017. TomTom International BV (http://tomtom.com).
+  ~ Copyright (C) 2012-2017. TomTom NV (http://tomtom.com).
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
   ~ you may not use this file except in compliance with the License.
@@ -25,7 +25,7 @@
     <artifactId>speedtools</artifactId>
 
     <packaging>pom</packaging>
-    <version>3.2.12</version>
+    <version>3.2.13</version>
 
     <name>SpeedTools</name>
 
@@ -35,7 +35,7 @@
     </description>
 
     <organization>
-        <name>TomTom International BV</name>
+        <name>TomTom NV</name>
         <url>http://tomtom.com</url>
     </organization>
 
@@ -103,18 +103,18 @@
 
         <!-- Library versions. -->
         <activemq-core.version>5.7.0</activemq-core.version>
-        <akka-actor_2.12>2.5.18</akka-actor_2.12>
+        <akka-actor_2.12>2.5.19</akka-actor_2.12>
         <commons-codec.version>1.11</commons-codec.version>
         <commons-collections.version>3.2.2</commons-collections.version>
         <commons-httpclient.version>3.1</commons-httpclient.version>
         <commons-io.version>2.6</commons-io.version>
         <commons-logging.version>1.2</commons-logging.version>
-        <equalsverifier.version>3.0.3</equalsverifier.version>
+        <equalsverifier.version>3.1.4</equalsverifier.version>
         <gcm-server.version>1.1.0</gcm-server.version>
         <guava.version>27.0.1-jre</guava.version>
         <guice.version>4.2.2</guice.version>
-        <httpcore.version>4.4.10</httpcore.version>
-        <jackson.version>2.9.7</jackson.version>
+        <httpcore.version>4.4.11</httpcore.version>
+        <jackson.version>2.9.8</jackson.version>
         <javax.inject.version>1</javax.inject.version>
         <javax.mail.version>1.4.7</javax.mail.version>
         <javax.servlet-api.version>4.0.1</javax.servlet-api.version>
@@ -124,8 +124,8 @@
         <jolokia.version>1.6.0</jolokia.version>
         <jsr305.version>3.0.2</jsr305.version>
         <junit.version>4.12</junit.version>
-        <libphonenumber.geocoder.version>2.107</libphonenumber.geocoder.version>
-        <libphonenumber.version>8.10.1</libphonenumber.version>
+        <libphonenumber.geocoder.version>2.109</libphonenumber.geocoder.version>
+        <libphonenumber.version>8.10.3</libphonenumber.version>
         <log4j.version>1.2.17</log4j.version>
         <loremipsum.version>1.0</loremipsum.version>
         <mockito-core.version>2.23.4</mockito-core.version>
@@ -133,7 +133,7 @@
         <org.objenesis.version>3.0.1</org.objenesis.version>
         <paranamer.version>2.8</paranamer.version>
         <resteasy.version>3.6.2.Final</resteasy.version>
-        <scala.version>2.12.7</scala.version>
+        <scala.version>2.12.8</scala.version>
         <slf4j.version>1.7.25</slf4j.version>
         <snakeyaml.version>1.23</snakeyaml.version>
         <testng.version>6.14.3</testng.version>
