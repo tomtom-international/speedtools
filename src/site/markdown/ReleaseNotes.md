@@ -1,7 +1,7 @@
 Release Notes
 ----
 
-### 3.2.13
+### 3.2.13-3.2.15
 
 * Fixed Jackson vulnerability/
 

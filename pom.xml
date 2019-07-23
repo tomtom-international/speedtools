@@ -25,7 +25,7 @@
     <artifactId>speedtools</artifactId>
 
     <packaging>pom</packaging>
-    <version>3.2.14</version>
+    <version>3.2.15</version>
 
     <name>SpeedTools</name>
 
@@ -115,6 +115,7 @@
         <guice.version>4.2.2</guice.version>
         <httpcore.version>4.4.11</httpcore.version>
         <jackson.version>2.9.9</jackson.version>
+        <jackson-databind.version>2.9.9.1</jackson-databind.version>
         <javax.inject.version>1</javax.inject.version>
         <javax.mail.version>1.4.7</javax.mail.version>
         <javax.servlet-api.version>4.0.1</javax.servlet-api.version>
@@ -401,7 +402,7 @@
             <dependency>
                 <groupId>com.fasterxml.jackson.core</groupId>
                 <artifactId>jackson-databind</artifactId>
-                <version>${jackson.version}</version>
+                <version>${jackson-databind.version}</version>
             </dependency>
 
             <dependency>
