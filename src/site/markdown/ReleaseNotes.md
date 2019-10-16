@@ -1,9 +1,9 @@
 Release Notes
 ----
 
-### 3.2.13-3.2.17
+### 3.2.13-3.2.18
 
-* Fixed Jackson vulnerability/
+* Fixed Jackson vulnerability.
 
 * Updated POM dependencies.
 
