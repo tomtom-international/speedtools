@@ -1,11 +1,11 @@
 Release Notes
 ----
 
-### 3.2.13-3.2.18
-
-* Fixed Jackson vulnerability.
+### 3.2.13-3.2.19
 
 * Updated POM dependencies.
+
+* Fixed Jackson (and Jetty) vulnerability.
 
 * Updated copyright to TomTom NV.
 
