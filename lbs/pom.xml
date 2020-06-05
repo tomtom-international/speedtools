@@ -24,7 +24,7 @@
     <parent>
         <groupId>com.tomtom.speedtools</groupId>
         <artifactId>speedtools</artifactId>
-        <version>3.2.19</version>
+        <version>3.2.20</version>
     </parent>
 
     <artifactId>lbs</artifactId>
@@ -82,7 +82,7 @@
 
         <dependency>
             <groupId>com.typesafe.akka</groupId>
-            <artifactId>akka-actor_2.12</artifactId>
+            <artifactId>akka-actor_2.13</artifactId>
         </dependency>
 
         <dependency>
