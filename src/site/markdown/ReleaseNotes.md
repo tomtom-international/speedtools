@@ -1,6 +1,10 @@
 Release Notes
 ----
 
+### 3.2.20
+
+* Updated dependencies.
+
 ### 3.2.13-3.2.19
 
 * Updated POM dependencies.
