@@ -32,18 +32,14 @@ import scala.concurrent.Await;
 import scala.concurrent.Future;
 import scala.concurrent.duration.FiniteDuration;
 
-import javax.naming.ServiceUnavailableException;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
-
 /**
  * Preliminary unit test for LBS Router implementation.
  */
-@SuppressWarnings("ProhibitedExceptionDeclared")
 public final class RouteEngineTest {
     private static final Logger LOG = LoggerFactory.getLogger(RouteEngineTest.class);
 
@@ -94,29 +90,29 @@ public final class RouteEngineTest {
 
     @Ignore
     @Test
-    public void testRouteOK() throws Exception {
+    public void testRouteOK() {
         LOG.info("testRouteOK");
         final RouteEngine geoCoder = new TomTomLbsRouteEngine(system, LBS_PROPS_1);
         try {
             final Future<RouteEngineResponse> future = geoCoder.route(MapConst.POS_AMSTERDAM, MapConst.POS_PARIS);
             final RouteEngineResponse resp = Await.result(future, TIMEOUT_LONG);
-            LOG.info("resp = {}", resp.toString());
+            LOG.info("resp = {}", resp);
             Assert.assertTrue(resp.getTotalTimeSeconds() > 15000);
             Assert.assertTrue(resp.getTotalDistanceMeters() > 450000);
-        } catch (final AuthorizationException e) {
-            Assert.fail("Test failed... Is this API key still valid? " + LBS_PROPS_1.getApiKey());
-        } catch (final ServiceUnavailableException ignored) {
-            LOG.info("Test cannot be executed... service unavailable");
-        } catch (final IOException ignored) {
-            LOG.info("Test cannot be executed... Is test running stand-alone?");
         } catch (final TimeoutException ignored) {
             LOG.info("Result takes too long... Might be a slow connection?");
+        } catch (final Exception e) {
+            if (e instanceof IllegalArgumentException) {
+                Assert.fail("Test failed... Is this API key still valid? " + LBS_PROPS_1.getApiKey());
+            } else {
+                LOG.info("Test cannot be executed... service unavailable");
+            }
         }
     }
 
     @Ignore
     @Test
-    public void testRouteManyOK() throws Exception {
+    public void testRouteManyOK() {
         LOG.info("testRouteManyOK");
         final RouteEngine geoCoder = new TomTomLbsRouteEngine(system, LBS_PROPS_5);
         try {
@@ -128,24 +124,24 @@ public final class RouteEngineTest {
             }
             for (int i = 0; i < total; ++i) {
                 final RouteEngineResponse resp = Await.result(futures.get(i), TIMEOUT_LONG);
-                LOG.info("resp = {}", resp.toString());
+                LOG.info("resp = {}", resp);
                 Assert.assertTrue(resp.getTotalTimeSeconds() > 15000);
                 Assert.assertTrue(resp.getTotalDistanceMeters() > 450000);
             }
-        } catch (final AuthorizationException e) {
-            Assert.fail("Test failed... Is this API key still valid? " + LBS_PROPS_1.getApiKey());
-        } catch (final ServiceUnavailableException ignored) {
-            LOG.info("Test cannot be executed... service unavailable");
-        } catch (final IOException ignored) {
-            LOG.info("Test cannot be executed... Is test running stand-alone?");
         } catch (final TimeoutException ignored) {
             LOG.info("Result takes too long... Might be a slow connection?");
+        } catch (final Exception e) {
+            if (e instanceof IllegalArgumentException) {
+                Assert.fail("Test failed... Is this API key still valid? " + LBS_PROPS_1.getApiKey());
+            } else {
+                LOG.info("Test cannot be executed... service unavailable");
+            }
         }
     }
 
     @Ignore
     @Test
-    public void testRouteTimeout() throws Exception {
+    public void testRouteTimeout() {
         LOG.info("testRouteTimeout");
         final RouteEngine geoCoder = new TomTomLbsRouteEngine(system, LBS_PROPS_1);
         try {
@@ -153,20 +149,20 @@ public final class RouteEngineTest {
             final Future<RouteEngineResponse> future = geoCoder.route(MapConst.POS_AMSTERDAM, MapConst.POS_PARIS);
             Await.result(future, TIMEOUT_SHORT);
             Assert.fail("Expected timeout exception in LBS call");
-        } catch (final AuthorizationException e) {
-            Assert.fail("Test failed... Is this API key still valid? " + LBS_PROPS_1.getApiKey());
-        } catch (final ServiceUnavailableException ignored) {
-            LOG.info("Test cannot be executed... service unavailable");
-        } catch (final IOException ignored) {
-            LOG.info("Test cannot be executed... Is test running stand-alone?");
         } catch (final TimeoutException ignored) {
-            LOG.debug("Timeout - as expected");
+            LOG.info("Timeout... expected");
+        } catch (final Exception e) {
+            if (e instanceof IllegalArgumentException) {
+                Assert.fail("Test failed... Is this API key still valid? " + LBS_PROPS_1.getApiKey());
+            } else {
+                LOG.info("Test cannot be executed... service unavailable");
+            }
         }
     }
 
     @Ignore
     @Test
-    public void testQueryNoApiKey() throws Exception {
+    public void testQueryNoApiKey() {
         LOG.info("testQueryNoApiKey");
         final LbsProperties lbsNoApiKey = LBS_PROPS_NO_API_KEY;
         final RouteEngine geoCoder = new TomTomLbsRouteEngine(system, lbsNoApiKey);
@@ -174,20 +170,20 @@ public final class RouteEngineTest {
             final Future<RouteEngineResponse> future = geoCoder.route(MapConst.POS_AMSTERDAM, MapConst.POS_PARIS);
             Await.result(future, TIMEOUT_LONG);
             Assert.fail();
-        } catch (final InvalidPropertyValueException | AuthorizationException ignored) {
-            // Ok.
-        } catch (final ServiceUnavailableException ignored) {
-            LOG.info("Test cannot be executed... service unavailable");
-        } catch (final IOException ignored) {
-            LOG.info("Test cannot be executed... Is test running stand-alone?");
         } catch (final TimeoutException ignored) {
             LOG.info("Result takes too long... Might be a slow connection?");
+        } catch (final Exception e) {
+            if ((e instanceof InvalidPropertyValueException) || (e instanceof AuthorizationException)) {
+                // OK.
+            } else {
+                LOG.info("Test cannot be executed... service unavailable");
+            }
         }
     }
 
     @Ignore
     @Test
-    public void testRouteAndCrowFlight() throws Exception {
+    public void testRouteAndCrowFlight() {
         LOG.info("testRouteAndCrowFlight");
         final RouteEngine geoCoder = new TomTomLbsRouteEngine(system, LBS_PROPS_1);
         final Duration lowerNearSlow =
@@ -212,18 +208,18 @@ public final class RouteEngineTest {
             LOG.debug("lowerFarFast    = distance={}m, time={}s, speed={}km/h",
                     distanceFarFast, lowerFarFast.getStandardSeconds(),
                     (distanceFarFast / lowerFarFast.getStandardSeconds()) * 3.6);
-            LOG.debug("accurateNearSlow = {}, speed={}km/h", accurateNearSlow.toString(),
+            LOG.debug("accurateNearSlow = {}, speed={}km/h", accurateNearSlow,
                     (accurateNearSlow.getTotalDistanceMeters() / accurateNearSlow.getTotalTimeSeconds()) * 3.6);
-            LOG.debug("accurateFarFast  = {}, speed={}km/h", accurateFarFast.toString(),
+            LOG.debug("accurateFarFast  = {}, speed={}km/h", accurateFarFast,
                     (accurateFarFast.getTotalDistanceMeters() / accurateFarFast.getTotalTimeSeconds()) * 3.6);
-        } catch (final AuthorizationException e) {
-            Assert.fail("Test failed... Is this API key still valid? " + LBS_PROPS_1.getApiKey());
-        } catch (final ServiceUnavailableException ignored) {
-            LOG.info("Test cannot be executed... service unavailable");
-        } catch (final IOException ignored) {
-            LOG.info("Test cannot be executed... Is test running stand-alone?");
         } catch (final TimeoutException ignored) {
             LOG.info("Result takes too long... Might be a slow connection?");
+        } catch (final Exception e) {
+            if (e instanceof IllegalArgumentException) {
+                Assert.fail("Test failed... Is this API key still valid? " + LBS_PROPS_1.getApiKey());
+            } else {
+                LOG.info("Test cannot be executed... service unavailable");
+            }
         }
     }
 }
