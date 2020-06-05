@@ -34,7 +34,7 @@ public class EntityMapperTest {
     private static final Logger LOG = LoggerFactory.getLogger(EntityMapperTest.class);
 
     private static final String JSON_VALUE =
-            "{ \"color\" : \"blue\", \"created\" : { \"$date\" : 971078826005 }, \"name\" : \"x\", \"price\" : 5.6, \"boxes\" : [{ \"color\" : \"red\", \"created\" : { \"$date\" : 981173106007 }, \"name\" : \"a\", \"price\" : 1.2, \"_type\" : \"box\" }, { \"color\" : \"green\", \"created\" : { \"$date\" : 1323785716017 }, \"name\" : \"b\", \"price\" : 3.4, \"_type\" : \"box\" }], \"shade\" : \"yellow\", \"shipped\" : { \"$date\" : 636528021022 }, \"line\" : \"y\", \"weight\" : 7.8, \"_type\" : \"container\" }";
+            "{\"color\": \"blue\", \"created\": {\"$date\": 971078826005}, \"name\": \"x\", \"price\": 5.6, \"boxes\": [{\"color\": \"red\", \"created\": {\"$date\": 981173106007}, \"name\": \"a\", \"price\": 1.2, \"_type\": \"box\"}, {\"color\": \"green\", \"created\": {\"$date\": 1323785716017}, \"name\": \"b\", \"price\": 3.4, \"_type\": \"box\"}], \"shade\": \"yellow\", \"shipped\": {\"$date\": 636528021022}, \"line\": \"y\", \"weight\": 7.8, \"_type\": \"container\"}";
 
     private static ContainerMapper mapper = null;
     private static Container container1 = null;
@@ -63,14 +63,14 @@ public class EntityMapperTest {
     }
 
     @Test
-    public void testGetVersion() throws SchemaException, MapperException {
+    public void testGetVersion() {
         LOG.info("testGetVersion");
         final int version = mapper.getCurrentVersion();
         Assert.assertTrue(version >= 0);
     }
 
     @Test
-    public void testToDb() throws SchemaException, MapperException {
+    public void testToDb() throws MapperException {
         LOG.info("testToDb");
         final DBObject db1 = mapper.toDb(container1);
         Assert.assertTrue(db1 != null);
@@ -78,7 +78,7 @@ public class EntityMapperTest {
     }
 
     @Test
-    public void testFromDb() throws SchemaException, MapperException {
+    public void testFromDb() throws MapperException {
         LOG.info("testFromDb");
         final DBObject db2 = (DBObject) JSON.parse(JSON_VALUE);
         final Container container2 = mapper.fromDb(db2);
