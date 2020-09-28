@@ -218,7 +218,7 @@ public class JsonTest {
         final String x3 = Json.toJson(d);
         LOG.info("Json Date: " + x3);
         Assert.assertEquals(
-                "\"2012-05-27T11:29:10.000+0000\"",
+                "\"2012-05-27T11:29:10.000+00:00\"",
                 x3);
 
         // TODO: UTCTime parsing errors
