@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2012-2019, TomTom (http://tomtom.com).
+ * Copyright (C) 2012-2021, TomTom (http://tomtom.com).
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -339,8 +339,8 @@ public class JsonTest {
         final String json2 = Json.toJson(image1);
         LOG.info("image.toJson = {}", json2);
 
-        Assert.assertTrue(json2.startsWith("\"iVBORw0KGgoAAAANSUhEUgAAALwAAAAbCAYAAADGUOX9AAAOZ0lEQVR42u2c"));
-        Assert.assertTrue(json2.endsWith("IIug/T0xKHk+QOxoDXaf/AeOQWjzHxhS4AAAAAElFTkSuQmCC\""));
+        Assert.assertTrue(json2.startsWith("\"iVBORw0KGgoAAAA"));   // The JSON representation is
+        Assert.assertTrue(json2.endsWith("\""));                    // actually ambiguous.
 
         final BufferedImage image2 = Json.fromJson(json2, BufferedImage.class);
         Assert.assertNotNull(image2);
