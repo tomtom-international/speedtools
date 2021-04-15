@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  ~ Copyright (C) 2012-2019, TomTom (http://tomtom.com).
+  ~ Copyright (C) 2012-2021, TomTom (http://tomtom.com).
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
   ~ you may not use this file except in compliance with the License.
@@ -25,7 +25,7 @@
     <artifactId>speedtools</artifactId>
 
     <packaging>pom</packaging>
-    <version>3.2.22</version>
+    <version>3.2.23</version>
 
     <name>SpeedTools</name>
 
@@ -112,33 +112,33 @@
         <commons-logging.version>1.2</commons-logging.version>
         <equalsverifier.version>3.4.3</equalsverifier.version>
         <gcm-server.version>1.1.0</gcm-server.version>
-        <guava.version>29.0-jre</guava.version>
+        <guava.version>30.1.1-jre</guava.version>
         <guice.version>4.2.3</guice.version>
-        <httpcore.version>4.4.13</httpcore.version>
-        <jackson.version>2.11.2</jackson.version>
+        <httpcore.version>4.4.14</httpcore.version>
+        <jackson.version>2.12.3</jackson.version>
         <javax.inject.version>1</javax.inject.version>
         <javax.mail.version>1.4.7</javax.mail.version>
         <javax.servlet-api.version>4.0.1</javax.servlet-api.version>
         <jaxb-api.version>2.3.1</jaxb-api.version>
         <jms.version>1.1</jms.version>
-        <joda-time.version>2.10.6</joda-time.version>
+        <joda-time.version>2.10.10</joda-time.version>
         <jolokia.version>1.6.2</jolokia.version>
         <jsr305.version>3.0.2</jsr305.version>
-        <junit.version>4.13</junit.version>
-        <libphonenumber.geocoder.version>2.146</libphonenumber.geocoder.version>
-        <libphonenumber.version>8.12.10</libphonenumber.version>
+        <junit.version>4.13.2</junit.version>
+        <libphonenumber.geocoder.version>2.157</libphonenumber.geocoder.version>
+        <libphonenumber.version>8.12.21</libphonenumber.version>
         <log4j.version>1.2.17</log4j.version>
         <loremipsum.version>1.0</loremipsum.version>
-        <mockito-core.version>3.5.13</mockito-core.version>
-        <mongo-java-driver.version>3.12.7</mongo-java-driver.version>
-        <org.objenesis.version>3.1</org.objenesis.version>
+        <mockito-core.version>3.9.0</mockito-core.version>
+        <mongo-java-driver.version>3.12.8</mongo-java-driver.version>
+        <org.objenesis.version>3.2</org.objenesis.version>
         <paranamer.version>2.8</paranamer.version>
         <resteasy.version>3.11.2.Final</resteasy.version>
-        <scala.version>2.13.3</scala.version>
+        <scala.version>2.13.5</scala.version>
         <slf4j.version>1.7.30</slf4j.version>
         <snakeyaml.version>1.23</snakeyaml.version>
         <testng.version>6.14.3</testng.version>
-        <typesafe-config.version>1.4.0</typesafe-config.version>
+        <typesafe-config.version>1.4.1</typesafe-config.version>
     </properties>
 
     <distributionManagement>

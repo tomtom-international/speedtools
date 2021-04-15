@@ -1,6 +1,12 @@
 Release Notes
 ----
 
+### 3.2.23
+
+* Updated dependencies.
+
+* Updated failing test `JsonTest`.
+
 ### 3.2.22
 
 * Removed `log4j.xml` from JARs.
