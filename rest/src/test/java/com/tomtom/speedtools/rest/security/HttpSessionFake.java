@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2012-2019, TomTom (http://tomtom.com).
+ * Copyright (C) 2012-2021, TomTom (http://tomtom.com).
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -133,4 +133,3 @@ public class HttpSessionFake implements HttpSession {
         return false;
     }
 }
-
