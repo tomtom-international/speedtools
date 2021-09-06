@@ -24,7 +24,7 @@
     <parent>
         <groupId>com.tomtom.speedtools</groupId>
         <artifactId>speedtools</artifactId>
-        <version>3.2.23</version>
+        <version>3.3.0</version>
     </parent>
 
     <artifactId>metrics</artifactId>

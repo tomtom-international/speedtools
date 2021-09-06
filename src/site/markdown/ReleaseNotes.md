@@ -1,6 +1,12 @@
 Release Notes
 ----
 
+### 3.3.0
+
+* Updated POM dependencies.
+
+* Removed `testutils.akka` Akka test utilities.
+
 ### 3.2.23
 
 * Updated dependencies.
