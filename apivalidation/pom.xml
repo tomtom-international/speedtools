@@ -24,7 +24,7 @@
     <parent>
         <groupId>com.tomtom.speedtools</groupId>
         <artifactId>speedtools</artifactId>
-        <version>3.3.0</version>
+        <version>3.3.1</version>
     </parent>
 
     <artifactId>apivalidation</artifactId>
@@ -64,6 +64,11 @@
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-annotations</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-joda</artifactId>
         </dependency>
 
         <dependency>
