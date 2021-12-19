@@ -16,6 +16,7 @@
 
 package com.tomtom.speedtools.json;
 
+import com.fasterxml.jackson.datatype.joda.JodaModule;
 import com.fasterxml.jackson.core.Version;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -89,8 +90,8 @@ public final class Json {
                 .addSerializer(BufferedImage.class, new ToBytesSerializer())
                 .addDeserializer(BufferedImage.class, new FromBytesDeserializerForBufferedImage());
 
-        OBJECT_MAPPER.registerModule(module);
-        STRING_MAPPER.registerModule(module);
+        OBJECT_MAPPER.registerModules(new JodaModule(), module);
+        STRING_MAPPER.registerModules(new JodaModule(), module);
     }
 
     /**

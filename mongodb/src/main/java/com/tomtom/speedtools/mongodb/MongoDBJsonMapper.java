@@ -22,6 +22,7 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.module.SimpleModule;
+import com.fasterxml.jackson.datatype.joda.JodaModule;
 import com.tomtom.speedtools.json.DateTimeSerializer.FromLongDeserializer;
 import com.tomtom.speedtools.json.DateTimeSerializer.ToLongSerializer;
 import com.tomtom.speedtools.json.ImageSerializer.FromBytesDeserializer;
@@ -87,7 +88,7 @@ public final class MongoDBJsonMapper extends ObjectMapper {
 
         module.addSerializer(BufferedImage.class, new ToBytesSerializer());
         module.addDeserializer(BufferedImage.class, new FromBytesDeserializerForBufferedImage());
-        MONGO_JSON_MAPPER.registerModule(module);
+        MONGO_JSON_MAPPER.registerModules(new JodaModule(), module);
 
         // Add some deserialization properties (to skip the added "_id" field).
         MONGO_JSON_MAPPER.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
