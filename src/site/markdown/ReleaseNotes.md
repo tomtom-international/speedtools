@@ -1,6 +1,12 @@
 Release Notes
 ----
 
+### 3.3.1
+
+* Updated POM dependencies, specifically `log4j`.
+
+* Reintroduced `SimpleExecutionContext`, now in package `testutils`.
+
 ### 3.3.0
 
 * Updated POM dependencies.
