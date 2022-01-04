@@ -128,7 +128,7 @@
         <junit.version>4.13.2</junit.version>
         <libphonenumber.geocoder.version>2.175</libphonenumber.geocoder.version>
         <libphonenumber.version>8.12.39</libphonenumber.version>
-        <log4j.version>2.17.0</log4j.version>
+        <log4j.version>2.17.1</log4j.version>
         <loremipsum.version>1.0</loremipsum.version>
         <mockito-core.version>3.12.4</mockito-core.version>
         <mongo-java-driver.version>3.12.10</mongo-java-driver.version>
