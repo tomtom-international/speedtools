@@ -1,7 +1,11 @@
 Release Notes
 ----
 
-### 3.3.1-3.4.0
+### 3.4.0-3.4.3
+
+* Updated POM dependencies, specifically `log4j`.
+
+### 3.3.1
 
 * Updated POM dependencies, specifically `log4j`.
 
