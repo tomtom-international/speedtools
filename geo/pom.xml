@@ -24,7 +24,7 @@
     <parent>
         <groupId>com.tomtom.speedtools</groupId>
         <artifactId>speedtools</artifactId>
-        <version>3.4.3</version>
+        <version>3.4.4</version>
     </parent>
 
     <artifactId>geo</artifactId>
