@@ -1,6 +1,10 @@
 Release Notes
 ----
 
+### 3.5.0
+
+* Fixed security vulnerabilities in `salt` and `hash`.
+
 ### 3.4.0-3.4.4
 
 * Updated POM dependencies, specifically `log4j`.

@@ -31,6 +31,13 @@ public final class Crypto {
     private static final Logger LOG = LoggerFactory.getLogger(Crypto.class);
 
     /**
+     * Internal default salt, used when {@link #hash(String, String)} is called with an empty salt
+     * (or via the single-argument {@link #hash(String)} overload). This is a randomly generated,
+     * fixed constant so that default-salted hashes remain reproducible.
+     */
+    private static final String DEFAULT_SALT = "b4348a61e15855ba15da56604396b7d1";
+
+    /**
      * Initialization code to see if we can get a hasher.
      */
     static {
@@ -46,19 +53,39 @@ public final class Crypto {
     }
 
     /**
-     * Convert a string into a password hash. A password hash is defined as a SHA-256 hash.
+     * Convert a string into a salted password hash, using the internal default salt. A password hash
+     * is defined as a SHA-256 hash.
      *
      * @param value Non-empty string.
-     * @return Hash of string.
+     * @return Salted hash of string.
+     * @deprecated Use {@link #hash(String, String)} with an explicit salt instead. This overload
+     * hashes with the internal {@code DEFAULT_SALT}, which is shared and therefore weaker than a
+     * caller-supplied salt.
      */
+    @Deprecated
     @Nonnull
     public static String hash(@Nonnull final String value) {
+        return hash(value, DEFAULT_SALT);
+    }
+
+    /**
+     * Convert a string into a salted password hash. A password hash is defined as a SHA-256 hash of the
+     * salt prepended to the value.
+     *
+     * @param value Non-empty string.
+     * @param salt  Salt to prepend to the value before hashing.
+     * @return Salted hash of string.
+     */
+    @Nonnull
+    public static String hash(@Nonnull final String value, @Nonnull final String salt) {
         assert value != null;
         assert !value.isEmpty();
+        assert salt != null;
 
         final MessageDigest messageDigest;
         try {
             messageDigest = MessageDigest.getInstance("SHA-256");
+            messageDigest.update(salt.getBytes());
             messageDigest.update(value.getBytes());
             final byte[] bytes = messageDigest.digest();
 
