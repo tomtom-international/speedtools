@@ -172,7 +172,8 @@ public final class SHA1Hash {
                 digest.update(saltBytes);
                 salt = HexString.getHexString(saltBytes);
             }
-            digest.update(value.getBytes(UTF8_ENCODING), 0, value.length());
+            byte[] bytes = value.getBytes(UTF8_ENCODING);
+            digest.update(bytes, 0, bytes.length);
             hash = HexString.getHexString(digest.digest());
         } catch (final UnsupportedEncodingException e) {
             LOG.error("doHash: Serious failure: Unsupported encoding for {}. Resulting hash will be the empty " +

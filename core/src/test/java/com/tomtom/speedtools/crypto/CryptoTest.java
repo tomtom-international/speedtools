@@ -28,8 +28,24 @@ public class CryptoTest {
     public void testCrypto() {
         LOG.info("testCrypto");
         final String code = "123456";
-        final String hash = Crypto.hash(code);
-        LOG.info("hash(" + code + ") = {}", Crypto.hash(code));
-        Assert.assertEquals("8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92", hash);
+        final String hash = Crypto.hash(code, "somesalt");
+        LOG.info("hash(" + code + ", \"somesalt\") = {}", hash);
+        Assert.assertEquals("2d7768d6bb9743b400b5525686f66c08c54fc982eb75f9b75e694c9f6d7ba7e2", hash);
+
+        // A different salt produces a different hash.
+        Assert.assertNotEquals(hash, Crypto.hash(code, "othersalt"));
+    }
+
+    @SuppressWarnings("deprecation")
+    @Test
+    public void testDeprecatedUsesDefaultSalt() {
+        LOG.info("testDeprecatedUsesDefaultSalt");
+        final String code = "123456";
+
+        // The deprecated single-argument overload hashes with the internal default salt.
+        Assert.assertEquals("7bc95f678ab5d3301a20aea08305fd7895e82556b3d332715fe9a24464375a95", Crypto.hash(code));
+
+        // An explicit empty salt is no longer substituted with the default salt.
+        Assert.assertNotEquals(Crypto.hash(code), Crypto.hash(code, ""));
     }
 }
